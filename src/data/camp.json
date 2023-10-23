@@ -1,0 +1,83 @@
+[
+    {
+        "id": 1,
+        "name": "Adventure Training camp 2017 ( 7 days)",
+        "venue": "Royal Academy, panchghani maharastra",
+        "status": "active",
+        "fees": "24990"
+    },
+    {
+        "id": 2,
+        "name": "Commando Training camp (15 days)",
+        "venue": "billmora school, Mahabaleshwar",
+        "status": "active",
+        "fees": "12499"
+    },
+    {
+        "id": 3,
+        "name": "Adventure Training camp 2017 ( 7 days)",
+        "venue": "School of Scholars ,Wardha",
+        "status": "Inactive",
+        "fees": "7999"
+    },
+    {
+        "id": 4,
+        "name": "Commando Training camp (15 days)",
+        "venue": "Royal Academy, panchghani maharastra",
+        "status": "active",
+        "fees": "12499"
+    },{
+        "id": 5,
+        "name": "Adventure Training camp 2017 ( 7 days)",
+        "venue": "Royal Academy, panchghani maharastra",
+        "status": "active",
+        "fees": "24990"
+    },{
+        "id": 6,
+        "name": "Adventure Training camp 2017 ( 7 days)",
+        "venue": "billmora school, Mahabaleshwar",
+        "status": "active",
+        "fees": "12499"
+    },{
+        "id": 7,
+        "name": "Adventure Training camp 2017 ( 7 days)",
+        "venue": "Royal Academy, panchghani maharastra",
+        "status": "active",
+        "fees": "24990"
+    },
+    {
+        "id": 8,
+        "name": "Commando Training camp (15 days)",
+        "venue": "Royal Academy, panchghani maharastra",
+        "status": "active",
+        "fees": "7999"
+    },
+    {
+        "id": 9,
+        "name": "Commando Training camp (15 days)",
+        "venue": "billmora school, Mahabaleshwar",
+        "status": "active",
+        "fees": "12499"
+    },
+    {
+        "id": 10,
+        "name": "Adventure Training camp 2017 ( 7 days)",
+        "venue": "Royal Academy, panchghani maharastra",
+        "status": "Inactive",
+        "fees": "24990"
+    },
+    {
+        "id": 11,
+        "name": "Adventure Training camp 2017 ( 7 days)",
+        "venue": "Royal Academy, panchghani maharastra",
+        "status": "active",
+        "fees": "12499"
+    },
+    {
+        "id": 12,
+        "name": "Adventure Training camp 2017 ( 7 days)",
+        "venue": "School of Scholars ,Wardha",
+        "status": "Inactive",
+        "fees": "24990"
+    }
+]

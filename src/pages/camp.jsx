@@ -1,0 +1,102 @@
+import React, { useState } from 'react';
+import data from '../data/camp.json';
+import Sidebar from '../partials/Sidebar';
+import Header from '../partials/Header';
+
+function Dashboard() {
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  return (
+    <div className="flex h-screen overflow-hidden">
+
+      {/* Sidebar */}
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+
+      {/* Content area */}
+      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+
+        {/*  Site header */}
+        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+
+        <main>
+        <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
+        <div className="grid grid-cols-12 gap-6">
+        <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
+      <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
+        <h2 className="font-semibold text-slate-800 dark:text-slate-100">Active Camps</h2>
+      </header>
+      <div className="p-4">
+        {/* Table */}
+        <div className="overflow-x-auto">
+        <table className="dark:text-slate-300" style={{ width: '100%' }}>
+            {/* Table header */}
+            <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
+              <tr>
+              <th className="p-2">
+                  <div className="font-semibold text-left">Sr.</div>
+                </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">Name</div>
+                </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">venue</div>
+                </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">status</div>
+                </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">fees</div>
+                </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">Action</div>
+                </th>
+              </tr>
+            </thead>
+            {/* Table body */}
+            <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
+              {/* Row */}
+              {data.map((item) => (
+              <tr style={{padding:'2px'}}>
+                <td>
+                <div className="text-left" style={{ fontWeight: 'bold' }}>
+                  {item.id}
+                </div>
+                </td>
+                <td className="p-2">
+                  <div className="flex items-right">
+                    <div className="text-slate-800 dark:text-slate-100">{item.name}</div>
+                  </div>
+                </td>
+                <td className="p-2">
+                  <div className="text-left">{item.venue}</div>
+                </td>
+                <td className="p-2">
+                  <div className="text-center text-emerald-500">{item.status}</div>
+                </td>
+                <td className="p-2">
+                  <div className="text-right">{item.fees}</div>
+                </td>
+                <td className="p-3">
+                  <div className="text-center">
+                    <button className="text-sm text-white px-2 bg-yellow-500 " style={{padding:'3px', fontSize:'13px', marginLeft: '1px', marginRight: '2px'}}>fee details</button>
+                    <button className="text-sm text-white px-2 bg-blue-500 " style={{padding:'3px',fontSize:'13px', marginLeft: '2px', marginRight: '2px' }}>fee discount</button>
+                    <button className="text-sm text-white px-2 bg-indigo-500 " style={{padding:'3px', fontSize:'13px', marginLeft: '2px', marginRight: '1px' }}>Batch details</button>
+                  </div>
+                </td>
+              </tr>
+              ))} 
+            </tbody>
+          </table>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}
+
+export default Dashboard;
