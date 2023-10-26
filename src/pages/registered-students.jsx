@@ -5,6 +5,20 @@ import data from '../data/RegStudents.json';
 
 function RegStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // Number of items to display per page
+
+  const totalItems = data.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  // Calculate the range of items to display on the current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const itemsToDisplay = data.slice(startIndex, endIndex);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -49,7 +63,7 @@ function RegStudent() {
                             <div className="font-semibold text-center">Status</div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">misc</div>
+                            <div className="font-semibold text-center">Misc</div>
                           </th>
                           <th className="p-2">
                             <div className="font-semibold text-center">Action</div>
@@ -58,7 +72,7 @@ function RegStudent() {
                       </thead>
                       {/* Table body */}
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
-                        {data.map((item, index) => (
+                        {itemsToDisplay.map((item, index) => (
                           <tr key={index}>
                             <td>
                               <div className="text-left" style={{ fontWeight: 'bold' }}>
@@ -82,7 +96,7 @@ function RegStudent() {
                               <div className="text-center">{item.Batch}</div>
                             </td>
                             <td className="p-2">
-                            <div className={`text-center ${item.status === 'Inactive' ? 'text-red-500' : 'text-emerald-500'}`}>{item.status}</div>
+                              <div className={`text-center ${item.status === 'Inactive' ? 'text-red-500' : 'text-emerald-500'}`}>{item.status}</div>
                             </td>
                             <td className="p-2">
                               <div className="text-center">{item.misc}</div>
@@ -91,23 +105,23 @@ function RegStudent() {
                               <div className="text-center grid grid-cols-3 grid-rows-2 gap-2 h-full">
                                 <button
                                   className="text-sm text-white px-2 bg-yellow-500"
-                                  style={{ padding: '1px', fontSize: '13px'}}
+                                  style={{ padding: '1px', fontSize: '13px' }}
                                 >
-                                  Veiw Form
+                                  View Form
                                 </button>
                                 <button
                                   className="text-sm text-white px-2 bg-blue-500"
-                                  style={{ padding: '1px', fontSize: '13px'}}
+                                  style={{ padding: '1px', fontSize: '13px' }}
                                 >
-                                  Veiw & edit
+                                  View & Edit
                                 </button>
-                                <button className="text-sm text-white px-1 py-2 bg-gray-500 "
-                                  style={{ padding: '1px', fontSize: '13px'}}>
-                                    Edit
+                                <button className="text-sm text-white px-1 py-2 bg-gray-500"
+                                  style={{ padding: '1px', fontSize: '13px' }}>
+                                  Edit
                                 </button>
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{ padding: '1px', fontSize: '13px'}}
+                                  style={{ padding: '1px', fontSize: '13px' }}
                                 >
                                   Entrance Card
                                 </button>
@@ -119,7 +133,7 @@ function RegStudent() {
                                 </button>
                                 <button className="text-sm text-white px-2 bg-red-500 rounded-full"
                                   style={{ padding: '1px', fontSize: '13px' }}>
-                                    Delete
+                                  Delete
                                 </button>
                               </div>
                             </td>
@@ -131,6 +145,50 @@ function RegStudent() {
                 </div>
               </div>
             </div>
+                    {/* Previous and Next Buttons */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "20px",
+          }}
+        >
+          <button
+            style={{
+              padding: "5px 10px",
+              background: "#007BFF",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              marginRight: "10px",
+              cursor: currentPage > 1 ? "pointer" : "not-allowed",
+            }}
+            onClick={() => {
+              if (currentPage > 1) {
+                handlePageChange(currentPage - 1);
+              }
+            }}
+          >
+            &lt;
+          </button>
+          <button
+            style={{
+              padding: "5px 10px",
+              background: "#007BFF",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: currentPage < totalPages ? "pointer" : "not-allowed",
+            }}
+            onClick={() => {
+              if (currentPage < totalPages) {
+                handlePageChange(currentPage + 1);
+              }
+            }}
+          >
+            &gt;
+          </button>
+        </div>
           </div>
         </main>
       </div>

@@ -70,10 +70,10 @@ function Filter() {
                   placeholder="CQY"
                 />
               </div>
-              <div className="text-center">
-                <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
-                Filter
-                </button>
+              <div style={{display: "flex", flexDirection:"column-reverse"}}>
+                <div className="text-center bg-blue-500 text-white py-2 px-2 rounded-md hover:bg-blue-600">
+                  <button type="submit">Filter</button>
+                </div>
               </div>
             </div>
           </div>
@@ -171,14 +171,10 @@ function Filter() {
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center`}>
-                                {item.city}
-                              </div>
+                              <div className={`text-center`}>{item.city}</div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center`}>
-                                {item.CQY}
-                              </div>
+                              <div className={`text-center`}>{item.CQY}</div>
                             </td>
                           </tr>
                         ))}
