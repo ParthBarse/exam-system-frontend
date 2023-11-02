@@ -1,11 +1,28 @@
-import React, { useState } from 'react';
-import data from '../data/camp.json';
+import React, { useState , useEffect } from 'react';
+import axios from 'axios';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
+import { Link } from 'react-router-dom';
 
-function Dashboard() {
+function Table() {
+
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    // Fetch data from the API endpoint
+    axios
+      .get('https://mcf-backend.vercel.app/api/getAllCamps')
+      .then((response) => {
+        // Update the state with the fetched data
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -23,8 +40,9 @@ function Dashboard() {
         <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
         <div className="grid grid-cols-12 gap-6">
         <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-      <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
+      <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700" style={{display:'flex', justifyContent:'space-between'}}>
         <h2 className="font-semibold text-slate-800 dark:text-slate-100">Active Camps</h2>
+        <Link end to="/add-camp" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">Add Camp</Link>
       </header>
       <div className="p-4">
         {/* Table */}
@@ -60,22 +78,22 @@ function Dashboard() {
               <tr style={{padding:'2px'}}>
                 <td>
                 <div className="text-left" style={{ fontWeight: 'bold' }}>
-                  {item.id}
+                  {item._id}
                 </div>
                 </td>
                 <td className="p-2">
                   <div className="flex items-right">
-                    <div className="text-slate-800 dark:text-slate-100">{item.name}</div>
+                    <div className="text-slate-800 dark:text-slate-100">{item.Name}</div>
                   </div>
                 </td>
                 <td className="p-2">
-                  <div className="text-left">{item.venue}</div>
+                  <div className="text-left">{item.Venue}</div>
                 </td>
                 <td className="p-2">
-                  <div className="text-center text-emerald-500">{item.status}</div>
+                  <div className="text-center text-emerald-500">{item.Status}</div>
                 </td>
                 <td className="p-2">
-                  <div className="text-right">{item.fees}</div>
+                  <div className="text-right">{item.Fees}</div>
                 </td>
                 <td className="p-3">
                   <div className="text-center">
@@ -99,4 +117,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Table;

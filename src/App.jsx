@@ -18,6 +18,7 @@ import Settings from './pages/settings';
 import ReportCard from './pages/ReportCard';
 import Filter from './pages/Filter';
 
+
 function App() {
 
   const location = useLocation();
@@ -38,6 +39,7 @@ function App() {
         <Route exact path="/settings" element={<Settings />} />
         <Route exact path="/Reportcard" element={<ReportCard />} />
         <Route exact path="/Filter" element={<Filter />} />
+
       </Routes>
     </>
   );
