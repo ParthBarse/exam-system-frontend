@@ -114,24 +114,18 @@ function CanStudent() {
                               <div className="text-center">{item.misc}</div>
                             </td>
                             <td className="p-4">
-                              <div className="text-center grid grid-cols-3 grid-rows-2 gap-2 h-full">
+                              <div className="text-center grid grid-cols-2 grid-rows-2 gap-2 h-full">
                                 <button
                                   className="text-sm text-white px-2 bg-yellow-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
-                                  Veiw Form
+                                  Veiw
                                 </button>
                                 <button
-                                  className="text-sm text-white px-2 bg-blue-500"
+                                  className="text-sm text-white px-2 bg-emerald-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
-                                  Veiw & edit
-                                </button>
-                                <button
-                                  className="text-sm text-white px-1 py-2 bg-gray-500"
-                                  style={{ padding: "1px", fontSize: "13px" }}
-                                >
-                                  Edit
+                                  Active
                                 </button>
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
@@ -140,16 +134,10 @@ function CanStudent() {
                                   Entrance Card
                                 </button>
                                 <button
-                                  className="text-sm text-white px-2 bg-indigo-500"
+                                  className="text-sm text-white px-2 bg-red-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
-                                  Receipt
-                                </button>
-                                <button
-                                  className="text-sm text-white px-2 bg-red-500 rounded-full"
-                                  style={{ padding: "1px", fontSize: "13px" }}
-                                >
-                                  Delete
+                                  Edit
                                 </button>
                               </div>
                             </td>
