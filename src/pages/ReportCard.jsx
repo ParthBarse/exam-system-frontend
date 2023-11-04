@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
-import data from "../data/RegStudents.json";
 import { Link } from "react-router-dom";
 
-// Simple Pagination component
 function Pagination({ currentPage, totalPages, onPageChange }) {
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
@@ -26,11 +25,28 @@ function ReportCard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10; // Number of items to display per page
+  const [data, setData] = useState([]); // Store fetched data
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchData(); // Fetch data when the component mounts
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        "https://mcf-backend.vercel.app/api/getAllReportCards"
+      );
+      setData(response.data); // Update the state with the fetched data
+      setLoading(false); // Set loading to false
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const totalItems = data.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  // Calculate the range of items to display on the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const itemsToDisplay = data.slice(startIndex, endIndex);
@@ -48,11 +64,19 @@ function ReportCard() {
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-                <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700" style={{display:'flex', justifyContent:'space-between'}}>
-                <h2 className="font-semibold text-slate-800 dark:text-slate-100" >
-                  Report Cards
-                </h2>
-                <Link end to="/generate-report" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">Generate Report Card</Link>
+                <header
+                  className="px-5 py-4 border-b border-slate-100 dark:border-slate-700"
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <h2 className="font-semibold text-slate-800 dark:text-slate-100">
+                    Report Cards
+                  </h2>
+                  <Link
+                    to="/generate-report"
+                    className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
+                  >
+                    Generate Report Card
+                  </Link>
                 </header>
                 <div className="p-4">
                   <div className="overflow-x-auto">
@@ -60,45 +84,31 @@ function ReportCard() {
                       className="dark:text-slate-300"
                       style={{ width: "100%" }}
                     >
-                      {/* Table header */}
                       <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
                         <tr>
                           <th className="p-2">
                             <div className="font-semibold text-left">Sr.</div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">
-                              Reg. Id
-                            </div>
+                            <div className="font-semibold text-center">Reg. Id</div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">
-                              Name
-                            </div>
+                            <div className="font-semibold text-center">Name</div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">
-                              Camp
-                            </div>
+                            <div className="font-semibold text-center">Camp</div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">
-                              Venue
-                            </div>
+                            <div className="font-semibold text-center">Venue</div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">
-                              Status
-                            </div>
+                            <div className="font-semibold text-center">Status</div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">
-                              Action
-                            </div>
+                            <div className="font-semibold text-center">Action</div>
                           </th>
                         </tr>
                       </thead>
-                      {/* Table body */}
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
                         {itemsToDisplay.map((item, index) => (
                           <tr key={index}>
@@ -107,28 +117,28 @@ function ReportCard() {
                                 className="text-left"
                                 style={{ fontWeight: "bold" }}
                               >
-                                {item.id}
+                                12
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item["reg-id"]}
+                                  {item.Reg_ID}
                                 </div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.name}
+                                  {item.Name}
                                 </div>
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{item.camp}</div>
+                              <div className="text-center">{item.Camp_Name}</div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{item.city}</div>
+                              <div className="text-center">{item.City}</div>
                             </td>
                             <td className="p-2">
                               <div
@@ -159,8 +169,8 @@ function ReportCard() {
                 </div>
               </div>
             </div>
-                        {/* Previous and Next Buttons */}
-                        <div
+            {/* Previous and Next Buttons */}
+            <div
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -192,7 +202,6 @@ function ReportCard() {
                   color: "white",
                   border: "none",
                   borderRadius: "5px",
-                  marginRight: "10px",
                   cursor: currentPage < totalPages ? "pointer" : "not-allowed",
                 }}
                 onClick={() => {
@@ -201,7 +210,6 @@ function ReportCard() {
                   }
                 }}
               >
-                {" "}
                 &gt;
               </button>
             </div>

@@ -43,7 +43,7 @@ function Dashboard() {
               <DashboardCard02 />
               {/* Cancelled students */}
               <DashboardCard03 />
-              {/* TActive Camps) */}
+              {/* Active Camps) */}
               <DashboardCard07 />
               {/* Payments */}
               <DashboardCard06 />

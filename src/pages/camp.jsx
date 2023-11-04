@@ -78,7 +78,7 @@ function Table() {
               <tr style={{padding:'2px'}}>
                 <td>
                 <div className="text-left" style={{ fontWeight: 'bold' }}>
-                  {item._id}
+                  12
                 </div>
                 </td>
                 <td className="p-2">

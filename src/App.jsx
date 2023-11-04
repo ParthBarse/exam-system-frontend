@@ -17,6 +17,7 @@ import CanStudent from './pages/cancelled-students';
 import Settings from './pages/settings';
 import ReportCard from './pages/ReportCard';
 import Filter from './pages/Filter';
+import AddStudent from './forms/add_students_form/add_students';
 
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
         <Route exact path="/settings" element={<Settings />} />
         <Route exact path="/Reportcard" element={<ReportCard />} />
         <Route exact path="/Filter" element={<Filter />} />
-
+        <Route exact path="/add-student" element={<AddStudent />} />
       </Routes>
     </>
   );

@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';  // Import Axios
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
-import data from '../data/RegStudents.json';
 import { Link } from 'react-router-dom';
 
 function RegStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10; // Number of items to display per page
+  const [data, setData] = useState([]); // Store fetched data
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    fetchData();  // Fetch data when the component mounts
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://mcf-backend.vercel.app/api/getAllStudents');
+      setData(response.data);  // Update the state with the fetched data
+      setLoading(false);  // Set loading to false
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
   const totalItems = data.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -78,30 +93,30 @@ function RegStudent() {
                           <tr key={index}>
                             <td>
                               <div className="text-left" style={{ fontWeight: 'bold' }}>
-                                {item.id}
+                                12
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">{item['reg-id']}</div>
+                                <div className="text-slate-800 dark:text-slate-100">{item.Reg_ID}</div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">{item.name}</div>
+                                <div className="text-slate-800 dark:text-slate-100">{item.Name}</div>
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{item.camp}</div>
+                              <div className="text-center">{item.Camp}</div>
                             </td>
                             <td className="p-2">
                               <div className="text-center">{item.Batch}</div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center ${item.status === 'Inactive' ? 'text-red-500' : 'text-emerald-500'}`}>{item.status}</div>
+                              <div className={`text-center ${item.Status === 'Inactive' ? 'text-red-500' : 'text-emerald-500'}`}>{item.status}</div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{item.misc}</div>
+                              <div className="text-center">{item.MISC}</div>
                             </td>
                             <td className="p-4">
                               <div className="text-center grid grid-cols-3 grid-rows-2 gap-2 h-full">
