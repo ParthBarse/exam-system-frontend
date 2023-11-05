@@ -16,17 +16,38 @@ const Entrance_card = ({ nextStep, prevStep }) => {
               </h2>
             </header>
             <div className="p-4">
-              <div className="overflow-x-auto"></div>
+              <div className="overflow-x-auto">
+              <div className="max-w-md mx-auto p-4 border border-gray-300 rounded-lg shadow-md">
+              <h2 className="text-2xl font-semibold mb-4">Thank You for Registering</h2>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-600">First Name:</label>
+                <p className="text-lg font-semibold">Mayank</p>
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-600">Last Name:</label>
+                <p className="text-lg font-semibold">Deshmukh</p>
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-600">Camp Name:</label>
+                <p className="text-lg font-semibold">Camp name</p>
+              </div>
+              <p className="text-gray-500 text-sm">You have successfully registered for the camp. We look forward to seeing you there!</p>
+              </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <div className='flex justify-around '>
       <button onClick={prevStep} className="btn-secondary mr-2" style={{padding: "5px 10px", background: "#007BFF", color: "white", border: "none", borderRadius: "5px", marginRight: "10px"}}>
         Previous
       </button>
-      <button className="btn-primary" style={{padding: "5px 10px", background: "#007BFF", color: "white", border: "none", borderRadius: "5px", marginRight: "10px"}}>
-        Done
+      <button onClick={nextStep} className="btn-primary" style={{padding: "5px 10px", background: "#007BFF", color: "white", border: "none", borderRadius: "5px", marginRight: "10px"}}>
+        Next
       </button>
+      </div>
     </div>
   );
 };
