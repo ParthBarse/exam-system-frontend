@@ -16,7 +16,72 @@ const FirstDetails = ({ nextStep, prevStep }) => {
               </h2>
             </header>
             <div className="p-4">
-              <div className="overflow-x-auto"></div>
+              <div className="overflow-x-auto"> 
+              {/* change */}
+              <div >
+      
+      
+      <form >
+      
+      <h1>Admission form</h1>
+      <div >
+        {/* Name table */}
+      <table>
+          <tr><th><label>First name</label></th>
+          <th><label>middle name</label></th>
+          <th><label>last name</label></th>
+          </tr>
+        <td><input type="text"/></td>
+        <td><input type="text"/></td>
+          <td><input type="text"/></td>
+        </table>
+         {/* parents/guardian and address */}
+         <table>
+         <tr><th><label>Parents/Guardians</label></th>
+          <th><label>Address</label></th>
+          </tr>
+        <td><input type="text"/></td>
+        <td><input type="text"/></td>
+        </table>
+          
+        {/* Occupation */}
+        <table>
+         <tr><th><label>Father's Occupation</label></th>
+          <th><label>Mother's Occupation</label></th>
+          </tr>
+        <td><input type="text"/></td>
+        <td><input type="text"/></td>
+        </table>
+        {/* employee and how did you know */}
+        <table>
+         <tr><th><label>How You got to know about MCF Camp</label></th>
+          <th><label>Name of the MCF employee who reached out to you</label></th>
+          </tr>
+          {/* create drop down */}
+        <td><input type=""/></td>
+        <td><input type="Dropdown"/></td>
+        </table>
+        {/* LandMark*/}
+        <label>Land Mark</label>
+        <input type="text"/>
+        {/* pick dis state pincode */}
+        <table className='address'>
+          <tr><th><label>Pick up Point</label></th>
+          <th><label>Dist</label></th>
+          <th><label>State</label></th>
+          <th><label>Pincode</label></th>
+          </tr>
+          <tr>
+        <td><input type="text"/></td>
+        <td><input type="text"/></td>
+          <td><input type="text"/></td>
+          <td><input type="text"/></td>
+          </tr>
+        </table>
+        </div>    
+      </form>
+    </div>
+              </div>
             </div>
           </div>
         </div>
