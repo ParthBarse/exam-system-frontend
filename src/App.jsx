@@ -18,6 +18,7 @@ import Settings from './pages/settings';
 import ReportCard from './pages/ReportCard';
 import Filter from './pages/Filter';
 import AddStudent from './forms/add_students_form/add_students';
+import AddCamp from './forms/add_camp';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         <Route exact path="/Reportcard" element={<ReportCard />} />
         <Route exact path="/Filter" element={<Filter />} />
         <Route exact path="/add-student" element={<AddStudent />} />
+        <Route exact path="/add-camp" element={<AddCamp />} />
       </Routes>
     </>
   );

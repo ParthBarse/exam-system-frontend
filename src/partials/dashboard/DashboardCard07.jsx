@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function DashboardCard07() {
-  const itemsPerPage = 5;
+  const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const [campData, setCampData] = useState([]);
 
@@ -32,8 +32,23 @@ function DashboardCard07() {
 
   return (
     <div className="col-span-full xl:col-span-8 bg-white dark-bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-      <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
-        <h2 className="font-semibold text-slate-800 dark-text-slate-100">Active Camps</h2>
+      <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700"  style={{display:'flex', justifyContent:'space-between'}}>
+                {/* Pagination */}
+          <button
+            className="px-3 py-1 mr-2 bg-blue-500 text-white rounded"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            {'<'}
+          </button>
+          <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100">Active Camps</h2>
+          <button
+            className="px-3 py-1 ml-2 bg-blue-500 text-white rounded"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            {'>'}
+          </button>
       </header>
       <div className="p-3">
         {/* Table */}
@@ -72,23 +87,6 @@ function DashboardCard07() {
               ))}
             </tbody>
           </table>
-        </div>
-        {/* Pagination */}
-        <div className="flex justify-center mt-4">
-          <button
-            className="px-6 py-1 mr-4 bg-blue-500 text-white rounded"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            {'<'}
-          </button>
-          <button
-            className="px-6 py-1 ml-4 bg-blue-500 text-white rounded"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            {'>'}
-          </button>
         </div>
       </div>
     </div>
