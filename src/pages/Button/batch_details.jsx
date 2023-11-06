@@ -1,10 +1,10 @@
 import React, { useState , useEffect } from 'react';
 import axios from 'axios';
-import Sidebar from '../partials/Sidebar';
-import Header from '../partials/Header';
+import Sidebar from '../../partials/Sidebar';
+import Header from '../../partials/Header';
 import { Link } from 'react-router-dom';
 
-function Table() {
+function Batchdetails() {
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -41,8 +41,10 @@ function Table() {
         <div className="grid grid-cols-12 gap-6">
         <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700" style={{display:'flex', justifyContent:'space-between'}}>
-        <h2 className="font-semibold text-slate-800 dark:text-slate-100">Active Camps</h2>
-        <Link end to="/add-camp" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">Add Camp</Link>
+        <h2 className="font-semibold text-slate-800 dark:text-slate-100">Camp Batch details</h2>
+        <div>
+        <Link end to="/add-batch" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded mr-2">Add Batch</Link>
+        <Link end to="/camp" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">Back to Camp List</Link></div>
       </header>
       <div className="p-4">
         {/* Table */}
@@ -51,20 +53,29 @@ function Table() {
             {/* Table header */}
             <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
               <tr>
-              <th className="p-2">
+              <th className="p-4">
                   <div className="font-semibold text-left">Sr.</div>
                 </th>
                 <th className="p-2">
-                  <div className="font-semibold text-center">Name</div>
+                  <div className="font-semibold text-left">Batch</div>
                 </th>
                 <th className="p-2">
-                  <div className="font-semibold text-center">venue</div>
+                  <div className="font-semibold text-center">Batch start</div>
                 </th>
                 <th className="p-2">
-                  <div className="font-semibold text-center">status</div>
+                  <div className="font-semibold text-center">batch end</div>
                 </th>
                 <th className="p-2">
-                  <div className="font-semibold text-center">fees</div>
+                  <div className="font-semibold text-center">Company</div>
+                </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">Duration</div>
+                </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">Intake</div>
+                </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">Status</div>
                 </th>
                 <th className="p-2">
                   <div className="font-semibold text-center">Action</div>
@@ -82,24 +93,39 @@ function Table() {
                 </div>
                 </td>
                 <td className="p-2">
-                  <div className="flex items-right">
+                  <div className="text-left">
                     <div className="text-slate-800 dark:text-slate-100">{item.Name}</div>
                   </div>
                 </td>
                 <td className="p-2">
-                  <div className="text-left">{item.Venue}</div>
+                  <div className="text-left">
+                    <div className="text-slate-800 dark:text-slate-100">Start date</div>
+                  </div>
+                </td>
+                <td className="p-2">
+                  <div className="text-left">
+                    <div className="text-slate-800 dark:text-slate-100">End date</div>
+                  </div>
+                </td>
+                <td className="p-2">
+                  <div className="text-left">
+                    <div className="text-slate-800 dark:text-slate-100">Company</div>
+                  </div>
+                </td>
+                <td className="p-2">
+                  <div className="text-left">
+                    <div className="text-slate-800 dark:text-slate-100">7 Days</div>
+                  </div>
+                </td>
+                <td className="p-2">
+                  <div className="text-center">60</div>
                 </td>
                 <td className="p-2">
                   <div className="text-center text-emerald-500">{item.Status}</div>
                 </td>
                 <td className="p-2">
-                  <div className="text-right">{item.Fees}</div>
-                </td>
-                <td className="p-3">
                   <div className="text-center">
-                    <Link to="/fee-details" className="text-sm text-white px-2 bg-yellow-500" style={{ padding: '3px', fontSize: '13px', marginLeft: '1px', marginRight: '2px' }}>fee details </Link>
-                    <Link to="/fee-discount" className="text-sm text-white px-2 bg-blue-500 " style={{padding:'3px',fontSize:'13px', marginLeft: '2px', marginRight: '2px' }}>fee discount</Link>
-                    <Link to="/batch-details" className="text-sm text-white px-2 bg-indigo-500 " style={{padding:'3px', fontSize:'13px', marginLeft: '2px', marginRight: '1px' }}>Batch details</Link>
+                    <button className="text-sm text-white px-2 bg-red-500 rounded " style={{marginLeft: '10px', padding: '3px 10px 3px 10px'}}>Delete</button>
                   </div>
                 </td>
               </tr>
@@ -117,4 +143,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default Batchdetails;

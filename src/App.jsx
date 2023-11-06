@@ -19,6 +19,10 @@ import ReportCard from './pages/ReportCard';
 import Filter from './pages/Filter';
 import AddStudent from './forms/add_students_form/add_students';
 import AddCamp from './forms/add_camp';
+import FeeDetails from './pages/Button/fee_details';
+import FeeDiscount from './pages/Button/fee_discount';
+import Batchdetails from './pages/Button/batch_details';
+import AddBatch from './forms/add_batch';
 
 
 function App() {
@@ -34,15 +38,19 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Dashboard />} />
-        <Route exact path="/camp" element={<Table />} />
-        <Route exact path="/regStudent" element={<RegStudent />} />
-        <Route exact path='/CanStudent' element={<CanStudent />} />
-        <Route exact path="/settings" element={<Settings />} />
-        <Route exact path="/Reportcard" element={<ReportCard />} />
-        <Route exact path="/Filter" element={<Filter />} />
-        <Route exact path="/add-student" element={<AddStudent />} />
-        <Route exact path="/add-camp" element={<AddCamp />} />
+        <Route exact path="/" element={<Dashboard/>}/>
+        <Route exact path="/camp" element={<Table/>}/>
+        <Route exact path="/regStudent" element={<RegStudent/>}/>
+        <Route exact path='/CanStudent' element={<CanStudent/>}/>
+        <Route exact path="/settings" element={<Settings/>}/>
+        <Route exact path="/Reportcard" element={<ReportCard/>}/>
+        <Route exact path="/Filter" element={<Filter/>}/>
+        <Route exact path="/add-student" element={<AddStudent/>}/>
+        <Route exact path="/add-camp" element={<AddCamp/>}/>
+        <Route exact path="/fee-details" element={<FeeDetails/>}/>
+        <Route exact path="/fee-discount" element={<FeeDiscount/>}/>
+        <Route exact path="/batch-details" element={<Batchdetails />} />
+        <Route exact path="/add-batch" element={<AddBatch/>} />
       </Routes>
     </>
   );

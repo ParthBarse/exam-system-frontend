@@ -3,7 +3,7 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import { Link } from 'react-router-dom';
 
-function Table() {
+function AddCamp() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
 
@@ -86,4 +86,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default AddCamp;

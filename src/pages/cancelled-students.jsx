@@ -83,12 +83,12 @@ function CanStudent() {
                         </tr>
                       </thead>
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
-                        {itemsToDisplay.map((item) => (
+                        {itemsToDisplay.map((item , index) => (
                           <tr key={item.id}>
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  12
+                                {index + 1}
                                 </div>
                               </div>
                             </td>

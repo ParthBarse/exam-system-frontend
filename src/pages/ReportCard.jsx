@@ -117,7 +117,7 @@ function ReportCard() {
                                 className="text-left"
                                 style={{ fontWeight: "bold" }}
                               >
-                                12
+                                {index + 1}
                               </div>
                             </td>
                             <td className="p-2">
