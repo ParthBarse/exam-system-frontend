@@ -6,13 +6,13 @@ import Icon from '../../images/icon-03.svg';
 import EditMenu from '../../components/DropdownEditMenu';
 
 function DashboardCard03() {
-  const [cancelledStudentsCount, setCancelledStudentsCount] = useState(0);
+  const [CancelledStudentCount, setCancelledStudentCount] = useState(0);
 
   useEffect(() => {
     // Fetch data from the API
     axios.get('https://mcf-backend.vercel.app/api/CancelledStudentCount')
       .then(response => {
-        setCancelledStudentsCount(response.data.cancelledStudentsCount);
+        setCancelledStudentCount(response.data.CancelledStudentCount);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -37,12 +37,8 @@ function DashboardCard03() {
         <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Cancelled Students</h2>
         <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">till date</div>
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">{cancelledStudentsCount}</div>
+          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">{CancelledStudentCount}</div>
         </div>
-      </div>
-      {/* Chart built with Chart.js 3 */}
-      <div className="grow max-sm:max-h-[128px] xl:max-h-[128px]">
-        {/* Change the height attribute to adjust the chart height */}
       </div>
     </div>
   );

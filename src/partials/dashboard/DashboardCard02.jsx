@@ -5,8 +5,6 @@ import LineChart from '../../charts/LineChart01';
 import Icon from '../../images/icon-02.svg';
 import EditMenu from '../../components/DropdownEditMenu';
 
-// Import utilities
-import { tailwindConfig, hexToRGB } from '../../utils/Utils';
 
 function DashboardCard02() {
   const [activeStudentsCount, setActiveStudentsCount] = useState(0); // Corrected variable name
@@ -15,7 +13,7 @@ function DashboardCard02() {
     // Fetch data from the API
     axios.get('https://mcf-backend.vercel.app/api/activeStudentsCount')
       .then(response => {
-        setActiveStudentsCount(response.data.totalStudentsCount);
+        setActiveStudentsCount(response.data.activeStudentsCount);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
