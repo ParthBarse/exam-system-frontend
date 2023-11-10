@@ -39,7 +39,7 @@ function App() {
     <>
       <Routes>
         <Route exact path="/" element={<Dashboard/>}/>
-        <Route exact path="/Camp" element={<Table/>}/>
+        <Route exact path="/camp" element={<Table/>}/>
         <Route exact path="/regStudent" element={<RegStudent/>}/>
         <Route exact path='/CanStudent' element={<CanStudent/>}/>
         <Route exact path="/settings" element={<Settings/>}/>
