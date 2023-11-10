@@ -4,7 +4,7 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import { Link } from 'react-router-dom';
 
-function Table() {
+function Camp() {
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -117,4 +117,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default Camp;
