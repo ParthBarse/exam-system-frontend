@@ -4,7 +4,7 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import { Link } from 'react-router-dom';
 
-function Table() {
+function Camp() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const entriesPerPage = 15;
@@ -39,7 +39,7 @@ function Table() {
 
       {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-        {/*  Site header */}
+        {/* Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         <main>
@@ -103,9 +103,9 @@ function Table() {
                             </td>
                             <td className="p-3">
                               <div className="text-center">
-                                <Link to="/fee-details" className="text-sm text-white px-2 bg-yellow-500" style={{ padding: '3px', fontSize: '13px', marginLeft: '1px', marginRight: '2px' }}>fee details </Link>
-                                <Link to="/fee-discount" className="text-sm text-white px-2 bg-blue-500 " style={{ padding: '3px', fontSize: '13px', marginLeft: '2px', marginRight: '2px' }}>fee discount</Link>
-                                <Link to="/batch-details" className="text-sm text-white px-2 bg-indigo-500 " style={{ padding: '3px', fontSize: '13px', marginLeft: '2px', marginRight: '1px' }}>Batch details</Link>
+                                <Link to={`/fee-details?campname=${item.Name}`} className="text-sm text-white px-2 bg-yellow-500" style={{ padding: '3px', fontSize: '13px', marginLeft: '1px', marginRight: '2px' }}>fee details </Link>
+                                <Link to="/fee-discount" className="text-sm text-white px-2 bg-blue-500 " style={{padding:'3px',fontSize:'13px', marginLeft: '2px', marginRight: '2px' }}>fee discount</Link>
+                                <Link to="/batch-details" className="text-sm text-white px-2 bg-indigo-500 " style={{padding:'3px', fontSize:'13px', marginLeft: '2px', marginRight: '1px' }}>Batch details</Link>
                               </div>
                             </td>
                           </tr>
@@ -135,4 +135,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default Camp;

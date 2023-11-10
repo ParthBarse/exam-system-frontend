@@ -157,6 +157,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   );
                 }}
               </SidebarLinkGroup>
+
               {/* Camp */}
               <SidebarLinkGroup activecondition={pathname.includes('ecommerce')}>
                 {(handleClick, open) => {

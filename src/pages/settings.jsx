@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Settings = () => {
+function Settings (){
     const [formData, setFormData] = useState({
         name: '',
         email: '',

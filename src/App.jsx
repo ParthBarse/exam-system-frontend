@@ -57,7 +57,7 @@ function App() {
         <Route exact path="/generate-report" element={<GenerateReport/>}/>
       </Routes>
     </>
-  );
+  );  
 }
 
 export default App;
