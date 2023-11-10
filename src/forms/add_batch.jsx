@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios"; // Import Axios
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link } from "react-router-dom";
@@ -21,10 +22,27 @@ function AddBatch() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can handle form submission here.
-    console.log("Submitted Data:", batchData);
+
+    try {
+      // Make a POST request to the API endpoint
+      const response = await axios.post(
+        "https://mcf-backend.vercel.app/api/addBatchDetails",
+        batchData
+      );
+
+      if (response.status === 200) {
+        console.log("Batch added successfully!");
+        alert('Camp added successfully!');
+        window.location.href = '/batch-details';
+        // Optionally, you can redirect the user to another page or perform other actions
+      } else {
+        console.error("Failed to add batch");
+      }
+    } catch (error) {
+      console.error("Error adding batch:", error);
+    }
   };
 
   return (
@@ -34,7 +52,7 @@ function AddBatch() {
 
       {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-        {/*  Site header */}
+        {/* Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         <main>
