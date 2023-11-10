@@ -19,7 +19,7 @@ function FeeDetails() {
     const queryParams = new URLSearchParams(location.search);
     setCampName(queryParams.get('campname'))
 
-    axios.get(`https://mcf-backend.vercel.app/api/getFeeDetails/${campName}`).then(x=>setCampFeeDetail(x))
+    axios.get(`https://mcf-backend.vercel.app/api/getFeeDetails/${campName}`).then(x=>setCampFeeDetail(x.data))
 
     axios
       .get('https://mcf-backend.vercel.app/api/getAllCamps')
