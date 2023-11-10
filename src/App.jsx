@@ -53,7 +53,7 @@ function App() {
         <Route exact path="/add-batch" element={<AddBatch/>} />
       </Routes>
     </>
-  );
+  );  
 }
 
 export default App;

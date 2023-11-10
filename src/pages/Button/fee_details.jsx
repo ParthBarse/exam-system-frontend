@@ -3,12 +3,24 @@ import axios from 'axios';
 import Sidebar from '../../partials/Sidebar';
 import Header from '../../partials/Header';
 import { Link } from 'react-router-dom';
-
+import { useLocation } from 'react-router-dom';
 function FeeDetails() {
-
+  
+  const location = useLocation();
   const [data, setData] = useState([]);
+  const [campFeeDetail,setCampFeeDetail] = useState();
+  const [campName , setCampName] = useState('');
+
+  console.log(campFeeDetail)
+  
   useEffect(() => {
     // Fetch data from the API endpoint
+    
+    const queryParams = new URLSearchParams(location.search);
+    setCampName(queryParams.get('campname'))
+
+    axios.get(`https://mcf-backend.vercel.app/api/getFeeDetails/${campName}`).then(x=>setCampFeeDetail(x))
+
     axios
       .get('https://mcf-backend.vercel.app/api/getAllCamps')
       .then((response) => {
@@ -18,7 +30,9 @@ function FeeDetails() {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+
+
+  }, [campName]);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
