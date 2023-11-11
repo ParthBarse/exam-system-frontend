@@ -1,6 +1,65 @@
-import React from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const FirstDetails = ({ nextStep, prevStep }) => {
+
+  const [formData, setFormData] = useState({
+    First: '',
+    middle: '',
+    last: '',
+    parents: '',
+    Address: '',
+    Fathers_Occupation: '',
+    Mothers_Occupation: '',
+    How_You_Got_to_Know: '',
+    Employee_Who_Reached_Out_to_You: '',
+    Landmark: '',
+    Pick_Up_Point: '',
+    District: '',
+    State: '',
+    Pincode: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+    }));
+    console.log(name, value)
+};
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Make a POST request using axios
+      const response = await axios.post('https://mcf-backend.vercel.app/api/addStudent', formData);
+
+      console.log(response.data); // Log the response from the server
+
+      // After successfully adding a student, you might want to reset the form
+      setFormData({
+        First: '',
+        middle: '',
+        last: '',
+        parents: '',
+        Address: '',
+        Fathers_Occupation: '',
+        Mothers_Occupation: '',
+        How_You_Got_to_Know: '',
+        Employee_Who_Reached_Out_to_You: '',
+        Landmark: '',
+        Pick_Up_Point: '',
+        District: '',
+        State: '',
+        Pincode: '',
+      });
+      nextStep()
+    } catch (error) {
+      console.error('Error adding student:', error);
+    }
+  };
+
   return (
     <div>
       {/* Payment Form */}
@@ -12,95 +71,95 @@ const FirstDetails = ({ nextStep, prevStep }) => {
               style={{ display: "flex", justifyContent: "space-between" }}
             >
               <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-                Enter Your Details 
+                Enter Your Details
               </h2>
             </header>
-              <div className="overflow-x-auto"> 
+            <div className="overflow-x-auto">
               <form className="  rounded px-8 pt-6 pb-8 mb-4">
-              <div className="grid grid-cols-3 gap-4">
-                {/* Name fields */}
-                <div className="mb-4">
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-600">First Name</label>
-                  <input id="firstName" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="First Name" />
+                <div className="grid grid-cols-3 gap-4">
+                  {/* Name fields */}
+                  <div className="mb-4">
+                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-600">First Name</label>
+                    <input id="firstName" name='First' value={formData.First} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="First Name" onChange={handleChange}/>
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="middleName" className="block text-sm font-medium text-gray-600">Middle Name</label>
+                    <input id="middleName" name='middle' value={formData.middle} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Middle Name" onChange={handleChange}/>
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-600">Last Name</label>
+                    <input id="lastName" name='last' value={formData.last} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Last Name" onChange={handleChange}/>
+                  </div>
                 </div>
-                <div className="mb-4">
-                  <label htmlFor="middleName" className="block text-sm font-medium text-gray-600">Middle Name</label>
-                  <input id="middleName" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Middle Name" />
+                {/* Parents/Guardians and Address */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="mb-4">
+                    <label htmlFor="parentsGuardians" className="block text-sm font-medium text-gray-600">Parents/Guardians</label>
+                    <input id="parentsGuardians" name='parents' value={formData.parents} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parents/Guardians" onChange={handleChange}/>
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="address" className="block text-sm font-medium text-gray-600">Address</label>
+                    <input id="address" name='Address' value={formData.Address} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Address" onChange={handleChange}/>
+                  </div>
                 </div>
-                <div className="mb-4">
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-600">Last Name</label>
-                  <input id="lastName" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Last Name" />
+                {/* Father's and Mother's Occupation */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="mb-4">
+                    <label htmlFor="fatherOccupation" className="block text-sm font-medium text-gray-600">Father's Occupation</label>
+                    <input id="fatherOccupation" name='Fathers_Occupation' value={formData.Fathers_Occupation} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Father's Occupation" onChange={handleChange}/>
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="motherOccupation" className="block text-sm font-medium text-gray-600">Mother's Occupation</label>
+                    <input id="motherOccupation" name='Mothers_Occupation' value={formData.Mothers_Occupation} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Mother's Occupation" onChange={handleChange}/>
+                  </div>
                 </div>
-              </div>
-              {/* Parents/Guardians and Address */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="mb-4">
-                  <label htmlFor="parentsGuardians" className="block text-sm font-medium text-gray-600">Parents/Guardians</label>
-                  <input id="parentsGuardians" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parents/Guardians" />
+                {/* How You Got to Know and MCF Employee */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="mb-4">
+                    <label htmlFor="howYouKnow" className="block text-sm font-medium text-gray-600">How You Got to Know about MCF Camp</label>
+                    <input id="howYouKnow" name='How_You_Got_to_Know' value={formData.How_You_Got_to_Know} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="How You Got to Know" onChange={handleChange}/>
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="mcfEmployee" className="block text-sm font-medium text-gray-600">Name of the MCF Employee Who Reached Out to You</label>
+                    <input id="mcfEmployee" name='Employee_Who_Reached_Out_to_You' value={formData.Employee_Who_Reached_Out_to_You} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="MCF Employee's Name" onChange={handleChange}/>
+                  </div>
                 </div>
+                {/* Landmark */}
                 <div className="mb-4">
-                  <label htmlFor="address" className="block text-sm font-medium text-gray-600">Address</label>
-                  <input id="address" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Address" />
+                  <label htmlFor="landmark" className="block text-sm font-medium text-gray-600">Landmark</label>
+                  <input id="landmark" name='Landmark' value={formData.Landmark} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Landmark" onChange={handleChange}/>
                 </div>
-              </div>
-              {/* Father's and Mother's Occupation */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="mb-4">
-                  <label htmlFor="fatherOccupation" className="block text-sm font-medium text-gray-600">Father's Occupation</label>
-                  <input id="fatherOccupation" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Father's Occupation" />
+                {/* Pick Up Point, District, State, and Pincode */}
+                <div className="grid grid-cols-4 gap-4">
+                  <div className="mb-4">
+                    <label htmlFor="pickupPoint" className="block text-sm font-medium text-gray-600">Pick Up Point</label>
+                    <input id="pickupPoint" name='Pick_Up_Point' value={formData.Pick_Up_Point} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Pick Up Point" onChange={handleChange}/>
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="district" className="block text-sm font-medium text-gray-600">District</label>
+                    <input id="district" name='District' value={formData.District} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="District" onChange={handleChange}/>
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="state" className="block text-sm font-medium text-gray-600">State</label>
+                    <input id="state" name='State' value={formData.State} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="State" onChange={handleChange}/>
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="pincode" className="block text-sm font-medium text-gray-600">Pincode</label>
+                    <input id="pincode" name='Pincode' value={formData.Pincode} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Pincode" onChange={handleChange}/>
+                  </div>
                 </div>
-                <div className="mb-4">
-                  <label htmlFor="motherOccupation" className="block text-sm font-medium text-gray-600">Mother's Occupation</label>
-                  <input id="motherOccupation" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Mother's Occupation" />
-                </div>
-              </div>
-              {/* How You Got to Know and MCF Employee */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="mb-4">
-                  <label htmlFor="howYouKnow" className="block text-sm font-medium text-gray-600">How You Got to Know about MCF Camp</label>
-                  <input id="howYouKnow" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="How You Got to Know" />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="mcfEmployee" className="block text-sm font-medium text-gray-600">Name of the MCF Employee Who Reached Out to You</label>
-                  <input id="mcfEmployee" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="MCF Employee's Name" />
-                </div>
-              </div>
-              {/* Landmark */}
-              <div className="mb-4">
-                <label htmlFor="landmark" className="block text-sm font-medium text-gray-600">Landmark</label>
-                <input id="landmark" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Landmark" />
-              </div>
-              {/* Pick Up Point, District, State, and Pincode */}
-              <div className="grid grid-cols-4 gap-4">
-                <div className="mb-4">
-                  <label htmlFor="pickupPoint" className="block text-sm font-medium text-gray-600">Pick Up Point</label>
-                  <input id="pickupPoint" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Pick Up Point" />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="district" className="block text-sm font-medium text-gray-600">District</label>
-                  <input id="district" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="District" />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="state" className="block text-sm font-medium text-gray-600">State</label>
-                  <input id="state" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="State" />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="pincode" className="block text-sm font-medium text-gray-600">Pincode</label>
-                  <input id="pincode" type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Pincode" />
-                </div>
-              </div>
               </form>
-              </div>
+            </div>
           </div>
         </div>
       </div>
       <div className='flex justify-around '>
-      <button onClick={prevStep} className="btn-secondary mr-2" style={{padding: "5px 10px", background: "#007BFF", color: "white", border: "none", borderRadius: "5px", marginRight: "10px"}}>
-        Previous
-      </button>
-      <button onClick={nextStep} className="btn-primary" style={{padding: "5px 10px", background: "#007BFF", color: "white", border: "none", borderRadius: "5px", marginRight: "10px"}}>
-        Next
-      </button>
+        <button onClick={prevStep} className="btn-secondary mr-2" style={{ padding: "5px 10px", background: "#007BFF", color: "white", border: "none", borderRadius: "5px", marginRight: "10px" }}>
+          Previous
+        </button>
+        <button onClick={handleSubmit} className="btn-primary" style={{ padding: "5px 10px", background: "#007BFF", color: "white", border: "none", borderRadius: "5px", marginRight: "10px" }}>
+          Next
+        </button>
       </div>
     </div>
   );

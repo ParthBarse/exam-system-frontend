@@ -97,9 +97,9 @@ function FeeDetails() {
                           </td>
                           <td className="p-2">
                             <div className="text-center">
-                              <button className="text-sm text-white px-2 bg-indigo-500 rounded" style={{ marginRight: '10px', padding: '3px 10px 3px 10px' }}>
+                              <Link to={`/edit-fee-details?name=${campName}`} className="text-sm text-white px-2 bg-indigo-500 rounded" style={{ marginRight: '10px', padding: '3px 10px 3px 10px' }}>
                                 Edit
-                              </button>
+                              </Link>
                             </div>
                           </td>
                         </tr>

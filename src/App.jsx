@@ -25,6 +25,7 @@ import Batchdetails from './pages/Button/batch_details';
 import AddBatch from './forms/add_batch';
 import GenerateReport from './forms/generate_report';
 import VeiwReportCard from './pages/Button/veiw_reportcard';
+import EditFeeDetails from './forms/edit_fee_details';
 
 
 function App() {
@@ -55,6 +56,8 @@ function App() {
         <Route exact path="/add-batch" element={<AddBatch/>} />
         <Route exact path="/generate-report" element={<GenerateReport/>}/>
         <Route exact path="/veiw-report" element={<VeiwReportCard />} />
+        <Route exact path="/edit-fee-details" element={<EditFeeDetails />} />
+
       </Routes>
     </>
   );  
