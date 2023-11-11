@@ -104,8 +104,8 @@ function Camp() {
                             <td className="p-3">
                               <div className="text-center">
                                 <Link to={`/fee-details?campname=${item.Name}`} className="text-sm text-white px-2 bg-yellow-500" style={{ padding: '3px', fontSize: '13px', marginLeft: '1px', marginRight: '2px' }}>fee details </Link>
-                                <Link to="/fee-discount" className="text-sm text-white px-2 bg-blue-500 " style={{padding:'3px',fontSize:'13px', marginLeft: '2px', marginRight: '2px' }}>fee discount</Link>
-                                <Link to="/batch-details" className="text-sm text-white px-2 bg-indigo-500 " style={{padding:'3px', fontSize:'13px', marginLeft: '2px', marginRight: '1px' }}>Batch details</Link>
+                                <Link to={`/fee-discounts?campname=${item.Name}`} className="text-sm text-white px-2 bg-blue-500 " style={{padding:'3px',fontSize:'13px', marginLeft: '2px', marginRight: '2px' }}>fee discount</Link>
+                                <Link to={`/batch-details`} className="text-sm text-white px-2 bg-indigo-500 " style={{padding:'3px', fontSize:'13px', marginLeft: '2px', marginRight: '1px' }}>Batch details</Link>
                               </div>
                             </td>
                           </tr>

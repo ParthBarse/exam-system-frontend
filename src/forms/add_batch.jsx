@@ -7,10 +7,12 @@ import { Link } from "react-router-dom";
 function AddBatch() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [batchData, setBatchData] = useState({
-    batchName: "",
-    startDate: "",
-    endDate: "",
-    batchIntake: "",
+    Batch_Name: "",
+    Batch_Start_Date: "", // Corrected name
+    Batch_End_Date: "",   // Corrected name
+    Intake: "",
+    Company: "",          // Added Company field
+    Duration: "",         // Added Duration field
     isActive: false,
   });
 
@@ -34,7 +36,7 @@ function AddBatch() {
 
       if (response.status === 200) {
         console.log("Batch added successfully!");
-        alert('Camp added successfully!');
+        alert('Batch added successfully!');
         window.location.href = '/batch-details';
         // Optionally, you can redirect the user to another page or perform other actions
       } else {
@@ -82,50 +84,77 @@ function AddBatch() {
                     <input
                       type="text"
                       id="batchName"
-                      name="batchName"
-                      value={batchData.batchName}
+                      name="Batch_Name"
+                      value={batchData.Batch_Name}
                       onChange={handleChange}
                       className="w-full p-2 border rounded-lg"
                     />
                   </div>
-                  <div className="mb-4">
-                    <label htmlFor="startDate" className="block text-gray-700">
-                      Start Date
-                    </label>
-                    <input
-                      type="date"
-                      id="startDate"
-                      name="startDate"
-                      value={batchData.startDate}
-                      onChange={handleChange}
-                      className="w-full p-2 border rounded-lg"
-                    />
+                  <div className="flex flex-row mb-4">
+                    <div className="flex flex-col p-4 w-1/2">
+                      <label htmlFor="startDate" className="block text-gray-700">
+                        Start Date
+                      </label>
+                      <input
+                        type="date"
+                        id="startDate"
+                        name="Batch_Start_Date"
+                        value={batchData.Batch_Start_Date}
+                        onChange={handleChange}
+                        className="w-full border rounded-lg p-2"
+                      />
+                    </div>
+                    <div className="flex flex-col p-4 w-1/2">
+                      <label htmlFor="endDate" className="block text-gray-700">
+                        End Date
+                      </label>
+                      <input
+                        type="date"
+                        id="endDate"
+                        name="Batch_End_Date"
+                        value={batchData.Batch_End_Date}
+                        onChange={handleChange}
+                        className="w-full border rounded-lg p-2"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-row mb-4">
+                    <div className="flex flex-col p-4 w-1/2">
+                      <label htmlFor="Company" className="block text-gray-700">
+                        Company
+                      </label>
+                      <input
+                        type="text"
+                        id="Company"
+                        name="Company"
+                        value={batchData.Company}
+                        onChange={handleChange}
+                        className="w-full p-2 border rounded-lg"
+                      />
+                    </div>
+                    <div className="flex flex-col p-4 w-1/2">
+                      <label htmlFor="Duration" className="block text-gray-700">
+                        Duration
+                      </label>
+                      <input
+                        type="text"
+                        id="Duration"
+                        name="Duration"
+                        value={batchData.Duration}
+                        onChange={handleChange}
+                        className="w-full p-2 border rounded-lg"
+                      />
+                    </div>
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="endDate" className="block text-gray-700">
-                      End Date
-                    </label>
-                    <input
-                      type="date"
-                      id="endDate"
-                      name="endDate"
-                      value={batchData.endDate}
-                      onChange={handleChange}
-                      className="w-full p-2 border rounded-lg"
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label
-                      htmlFor="batchIntake"
-                      className="block text-gray-700"
-                    >
+                    <label htmlFor="batchIntake" className="block text-gray-700">
                       Batch Intake
                     </label>
                     <input
                       type="text"
                       id="batchIntake"
-                      name="batchIntake"
-                      value={batchData.batchIntake}
+                      name="Intake"
+                      value={batchData.Intake}
                       onChange={handleChange}
                       className="w-full p-2 border rounded-lg"
                     />
