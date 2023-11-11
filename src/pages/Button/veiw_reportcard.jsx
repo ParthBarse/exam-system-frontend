@@ -1,94 +1,136 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import pic from './favicon.png';
 
-const ReportCard = ({ match }) => {
-  const [reportCardData, setReportCardData] = useState(null);
-
-  useEffect(() => {
-    // Fetch data from the API endpoint
-    axios
-      .get(`https://mcf-backend.vercel.app/api/getReportCard/ABCD-123`)
-      .then((response) => {
-        // Update the state with the fetched data
-        setReportCardData(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching report card data:', error);
-      });
-  });
-
+function ViewReportCard() {
   return (
-    <div className="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-md ">
-      <h1 className="text-3xl font-bold mt-2 mb-4 text-center">Report Card</h1>
-      {reportCardData ? (
-        <div>
-          <div className="mb-4 flex justify-between">
-            <strong>Registration ID:</strong> {reportCardData.Reg_ID}
-          </div>
-          <div className="mb-4 flex justify-between">
-            <strong>Chess No:</strong> {reportCardData.Chess_No}
-          </div>
-          <div className="mb-4 flex justify-between">
-            <strong>Rank:</strong> {reportCardData.Rank}
-          </div>
-          <div className="mb-4 flex justify-between">
-            <strong>Date:</strong> {reportCardData.Date}
-          </div>
-          <div className="mb-4 flex justify-between">
-            <strong>Name:</strong> {reportCardData.Name}
-          </div>
-          <div className="mb-4 flex justify-between">
-            <strong>Address:</strong> {reportCardData.Address}
-          </div>
-          <div className="mb-4 flex justify-between">
-            <strong>Mobile Number:</strong> {reportCardData.Mobile_Number}
-          </div>
-          <div className="mb-4 flex justify-between">
-            <strong>Camp Name:</strong> {reportCardData.Camp_Name}
-          </div>
-          <div className="mb-4 flex justify-between">
-            <strong>Camp Date:</strong> {reportCardData.Camp_Date}
-          </div>
-          <div className="mb-4 flex justify-between">
-              <strong>CQY:</strong> {reportCardData.CQY}
-            </div>
-          <div className="mb-4 flex justify-between">
-            <strong>Incharge Name:</strong> {reportCardData.Incharge_Name}
-          </div>
-          <hr></hr>
-          <h2 className="text-xl font-bold mt-4 mb-4 text-center">Report Card Fields</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <strong>Discipline:</strong> {reportCardData.DISCIPLINE}
-            </div>
-            <div>
-              <strong>Physical Fitness:</strong> {reportCardData.PHYSICAL_FITNESS}
-            </div>
-            <div>
-              <strong>Courage:</strong> {reportCardData.COURAGE}
-            </div>
-            <div>
-              <strong>Leadership:</strong> {reportCardData.LEADERSHIP}
-            </div>
-            <div>
-              <strong>Initiative:</strong> {reportCardData.INITIATIVE}
-            </div>
-            <div>
-              <strong>Interpersonal Relation:</strong> {reportCardData.INTER_PERSONAL_RELATION}
-            </div>
-            <div>
-              <strong>Team Building:</strong> {reportCardData.TEAM_BUILDING}
-            </div>
-            <div>
-              <strong>Training:</strong> good
-            </div>
+    <div className="w-full max-w-screen-xl mx-auto bg-white rounded-md overflow-hidden shadow-md">
+      <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700 text-center">
+  <h2 className="font-bold text-3xl text-slate-800 dark:text-slate-100">MCF Report Card</h2>
+</header>
+
+      <div className="mx-auto my-8 p-4 bg-white">
+        <div className=" gap-6">
+          <div className="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3">
+            {/* Left side - Photo and Sign */}
+          <div className='grid grid-cols-3 flex flex-col  mb-8'>
+  <div className="col-span-1 flex ">
+    <div className="bg-blue-200 p-2 flex-2 mr-4">
+      <h3 className="mb-2">Photo</h3>
+      <div className="bg-white"><img src={pic} alt="A descriptive text" /></div>
+      <div className="mt-2">
+        <h3 className="mb-2">Sign</h3>
+        <div className="bg-white  p-4">Content for Sign</div>
+      </div>
+    </div>
+  </div>
+  <div className="flex flex-col h-full col-span-2">
+    <table className="w-full table-auto mt-4 mx-auto border mb-4">
+      <thead>
+        <tr>
+          <th colSpan="2" className="p-4 bg-gray-200">Student Details</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td colSpan="1" className="border p-2 col-span-1">Name</td>
+            <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+          </tr>
+          <tr>
+            <td className="border p-2 col-span-1">Reg id</td>
+            <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+          </tr>
+          <tr>
+            <td className="border p-2 col-span-1">adress</td>
+            <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+          </tr>
+          <tr>
+            <td className="border p-2 col-span-1">mobile number</td>
+            <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+          </tr>
+          <tr>
+            <td className="border p-2 col-span-1">Camp name</td>
+            <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+          </tr>
+          <tr>
+            <td className="border p-2 col-span-1">Camp place</td>
+            <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+          </tr>
+          <tr>
+            <td className="border p-2 col-span-1">Camp Date</td>
+            <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+          </tr>
+          <tr>
+            <td className="border p-2 col-span-1">Incharge</td>
+            <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+          </tr>
+          <tr>
+            <td className="border p-2 col-span-1">CQY</td>
+            <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+          </tr>
+          <tr>
+            <td className="border p-2 col-span-1">Parameter 2</td>
+            <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+          </tr>
+          {/* Repeat for other parameters and values */}
+        </tbody>
+
+          </table>
+              </div>
           </div>
         </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+          <hr style={{ fontWeight: '800' }} />
+          <div className=" flex justify-center mt-8">
+          {/* Lower part - Table full width for another set of 8 fields and their values */}
+          <table className="w-2/3 table-auto mb-4 border text-center">
+          <thead>
+              <tr>
+                <th colSpan="2" className="p-4 bg-blue-200">Grading parameters</th>
+              </tr>
+            </thead>
+          <thead>
+            <tr>
+              <th className="p-4 border-b border-r bg-gray-200">Parameter</th>
+              <th className="p-4 border-b bg-gray-200">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="p-4 border-r border-b">Parameter : data</td>
+              <td className="p-4 border-b">Parameter : data</td>
+            </tr>
+            <tr>
+              <td className="p-4 border-r border-b">Parameter : data</td>
+              <td className="p-4 border-b">Parameter : data</td>
+            </tr>
+            <tr>
+              <td className="p-4 border-r border-b">Parameter : data</td>
+              <td className="p-4 border-b">Parameter : data</td>
+            </tr>
+            <tr>
+              <td className="p-4 border-r border-b">Parameter : data</td>
+              <td className="p-4 border-b">Parameter : data</td>
+            </tr>
+            <tr>
+              <td className="p-4 border-r border-b">Parameter : data</td>
+              <td className="p-4 border-b">Parameter : data</td>
+            </tr>
+            <tr>
+              <td className="p-4 border-r border-b">Parameter : data</td>
+              <td className="p-4 border-b">Parameter : data</td>
+            </tr>
+            <tr>
+              <td className="p-4 border-r border-b">Parameter : data</td>
+              <td className="p-4 border-b">Parameter : data</td>
+            </tr>
+            {/* Repeat for other parameters and ratings */}
+          </tbody>
+          </table>
+
+          </div>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
-export default ReportCard;
+export default ViewReportCard;
