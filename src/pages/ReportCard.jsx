@@ -90,22 +90,34 @@ function ReportCard() {
                             <div className="font-semibold text-left">Sr.</div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Reg. Id</div>
+                            <div className="font-semibold text-center">
+                              Reg. Id
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Name</div>
+                            <div className="font-semibold text-center">
+                              Name
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Camp</div>
+                            <div className="font-semibold text-center">
+                              Camp
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Venue</div>
+                            <div className="font-semibold text-center">
+                              Venue
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Status</div>
+                            <div className="font-semibold text-center">
+                              Status
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Action</div>
+                            <div className="font-semibold text-center">
+                              Action
+                            </div>
                           </th>
                         </tr>
                       </thead>
@@ -135,7 +147,9 @@ function ReportCard() {
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{item.Camp_Name}</div>
+                              <div className="text-center">
+                                {item.Camp_Name}
+                              </div>
                             </td>
                             <td className="p-2">
                               <div className="text-center">{item.City}</div>
@@ -157,7 +171,12 @@ function ReportCard() {
                                   className="text-sm text-white px-2 bg-blue-400"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
-                                  Download
+                                  <Link
+                                    to="/veiw-report"
+                                    className="block w-full h-full"
+                                  >
+                                    Download
+                                  </Link>
                                 </button>
                               </div>
                             </td>
