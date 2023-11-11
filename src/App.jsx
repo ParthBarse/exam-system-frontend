@@ -23,7 +23,6 @@ import FeeDetails from './pages/Button/fee_details';
 import FeeDiscount from './pages/Button/fee_discount';
 import Batchdetails from './pages/Button/batch_details';
 import AddBatch from './forms/add_batch';
-import VeiwForm from './pages/Button/veiw_form';
 import GenerateReport from './forms/generate_report';
 import VeiwReportCard from './pages/Button/veiw_reportcard';
 
@@ -54,7 +53,6 @@ function App() {
         <Route exact path="/fee-discounts" element={<FeeDiscount/>}/>
         <Route exact path="/batch-details" element={<Batchdetails />} />
         <Route exact path="/add-batch" element={<AddBatch/>} />
-        <Route exact path="/veiw-form" element={<VeiwForm/>}/>
         <Route exact path="/generate-report" element={<GenerateReport/>}/>
         <Route exact path="/veiw-report" element={<VeiwReportCard />} />
       </Routes>
