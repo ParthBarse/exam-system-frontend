@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Payment = ({ nextStep, prevStep }) => {
   return (
@@ -85,9 +86,9 @@ const Payment = ({ nextStep, prevStep }) => {
                       placeholder="Enter the payment amount"
                     />
                   </div>
-                  <button className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600">
+                  <Link to={'https://rzp.io/i/seZOp9F'} className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600">
                     Make Payment
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
