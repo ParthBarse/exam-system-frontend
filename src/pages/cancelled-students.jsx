@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
+import { Link } from "react-router-dom";
 
 function CanStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -11,10 +12,12 @@ function CanStudent() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://mcf-backend.vercel.app/api/CancelledStudents');
+      const response = await axios.get(
+        "https://mcf-backend.vercel.app/api/CancelledStudents"
+      );
       setCancelledStudents(response.data);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -51,7 +54,10 @@ function CanStudent() {
                 </header>
                 <div className="p-4">
                   <div className="overflow-x-auto">
-                    <table className="dark:text-slate-300" style={{ width: "100%" }}>
+                    <table
+                      className="dark:text-slate-300"
+                      style={{ width: "100%" }}
+                    >
                       <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark-bg-opacity-50 rounded-sm">
                         <tr>
                           <th className="p-2">
@@ -63,38 +69,55 @@ function CanStudent() {
                             </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Name</div>
+                            <div className="font-semibold text-center">
+                              Name
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Camp</div>
+                            <div className="font-semibold text-center">
+                              Camp
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Batch</div>
+                            <div className="font-semibold text-center">
+                              Batch
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Status</div>
+                            <div className="font-semibold text-center">
+                              Status
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Action</div>
+                            <div className="font-semibold text-center">
+                              Action
+                            </div>
                           </th>
                         </tr>
                       </thead>
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
-                        {itemsToDisplay.map((item , index) => (
+                        {itemsToDisplay.map((item, index) => (
                           <tr key={item.id}>
                             <td>
-                              <div className="text-left" style={{ fontWeight: 'bold' }}>
+                              <div
+                                className="text-left"
+                                style={{ fontWeight: "bold" }}
+                              >
                                 {index + 1}
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">{item._id}</div>
+                                <div className="text-slate-800 dark:text-slate-100">
+                                  {item._id}
+                                </div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">{item.First} {item.last}</div>
+                                <div className="text-slate-800 dark:text-slate-100">
+                                  {item.First} {item.last}
+                                </div>
                               </div>
                             </td>
                             <td className="p-2">
@@ -104,25 +127,38 @@ function CanStudent() {
                               <div className="text-center">Batch-1</div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center ${item.status === 'Inactive' ? 'text-red-500' : 'text-emerald-500'}`}>{item.status}</div>
+                              <div
+                                className={`text-center ${
+                                  item.status === "Inactive"
+                                    ? "text-red-500"
+                                    : "text-emerald-500"
+                                }`}
+                              >
+                                {item.status}
+                              </div>
                             </td>
                             <td className="p-4">
                               <div className="text-center grid grid-cols-2 grid-rows-2 gap-2 h-full">
-                                <button className="text-sm text-white px-2 bg-yellow-500"
+                                <button
+                                  className="text-sm text-white px-2 bg-yellow-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   Veiw Form
                                 </button>
-                                <button className="text-sm text-white px-2 bg-emerald-500"
+                                <button
+                                  className="text-sm text-white px-2 bg-emerald-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   Active
                                 </button>
-                                <button className="text-sm text-white px-2 bg-indigo-500"
+                                <Link to="/veiw-entrance" className="text-sm text-white px-2 bg-indigo-500" >
+                                <button
+                                  className="text-sm text-white px-2 bg-indigo-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   Entrance Card
                                 </button>
+                                </Link>
                               </div>
                             </td>
                           </tr>
@@ -134,7 +170,13 @@ function CanStudent() {
               </div>
             </div>
             {/* Previous and Next Buttons */}
-            <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "20px",
+              }}
+            >
               <button
                 style={{
                   padding: "5px 10px",

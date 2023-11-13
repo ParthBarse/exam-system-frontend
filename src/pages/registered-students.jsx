@@ -132,12 +132,13 @@ function RegStudent() {
                                   style={{ padding: '1px', fontSize: '13px' }}>
                                   Delete
                                 </button>
-                                <button
-                                  className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{ padding: '1px', fontSize: '13px' }}
-                                >
-                                  Entrance Card
-                                </button>
+                                <button className="text-sm text-white px-2 bg-indigo-500"
+  style={{ padding: "1px", fontSize: "13px" }}
+>
+  <Link to="/view-entrance" style={{ textDecoration: 'none', color: 'inherit' }}>
+    Entrance Card
+  </Link>
+</button>
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
                                   style={{ padding: '1px', fontSize: '13px' }}
