@@ -3,6 +3,11 @@ import pic from './favicon.png';
 
 const AdmitCard = () => {
   return (
+
+    <div className='flex flex-col'>
+      <button onClick={e=>window.print()} className="no-print bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">Print</button>
+
+
     <section className="bg-gray-100 flex items-center justify-center max-w-4xl mx-auto p-4">
       <div className="w-full bg-white shadow-md p-8 rounded-md">
         <div className="admit-card border-2 p-4 mb-4">
@@ -106,6 +111,7 @@ const AdmitCard = () => {
         </div>
       </div>
     </section>
+    </div>
   );
 };
 
