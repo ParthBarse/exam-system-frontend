@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Entrance_card = ({ nextStep, prevStep }) => {
+const ConfirmRegistration = ({ nextStep, prevStep }) => {
   return (
     <div>
       {/* Payment Form */}
@@ -52,4 +52,4 @@ const Entrance_card = ({ nextStep, prevStep }) => {
   );
 };
 
-export default Entrance_card;
+export default ConfirmRegistration;

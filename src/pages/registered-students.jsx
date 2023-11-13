@@ -128,9 +128,9 @@ function RegStudent() {
                                     View & Edit
                                 </button>
                                   </Link>
-                                <button className="text-sm text-white px-1 py-2 bg-gray-500"
+                                  <button onClick={e => { axios.delete(`https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`).then(x => location.reload()) }} className="text-sm text-white px-2 bg-red-500"
                                   style={{ padding: '1px', fontSize: '13px' }}>
-                                  Edit
+                                  Delete
                                 </button>
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
@@ -143,10 +143,6 @@ function RegStudent() {
                                   style={{ padding: '1px', fontSize: '13px' }}
                                 >
                                   Receipt
-                                </button>
-                                <button onClick={e => { axios.delete(`https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`).then(x => location.reload()) }} className="text-sm text-white px-2 bg-red-500"
-                                  style={{ padding: '1px', fontSize: '13px' }}>
-                                  Delete
                                 </button>
                               </div>
                             </td>

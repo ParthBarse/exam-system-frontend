@@ -123,11 +123,6 @@ function CanStudent() {
                                 >
                                   Entrance Card
                                 </button>
-                                <button className="text-sm text-white px-1 py-2 bg-gray-500"
-                                  style={{ padding: "1px", fontSize: "13px" }}
-                                >
-                                  Edit
-                                </button>
                               </div>
                             </td>
                           </tr>

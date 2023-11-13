@@ -27,6 +27,7 @@ import GenerateReport from './forms/generate_report';
 import VeiwReportCard from './pages/Button/veiw_reportcard';
 import EditFeeDetails from './forms/edit_fee_details';
 import UpdateStudentDetails from './pages/update_student_form';
+import AdmitCard from './pages/Button/veiw_entrance_card';
 
 
 function App() {
@@ -59,7 +60,7 @@ function App() {
         <Route exact path="/veiw-report" element={<VeiwReportCard />} />
         <Route exact path="/edit-fee-details" element={<EditFeeDetails />} />
         <Route exact path="/update-student-details" element={<UpdateStudentDetails />} />
-        
+        <Route exact path="/veiw-entrance" element={<AdmitCard />} />
 
       </Routes>
     </>

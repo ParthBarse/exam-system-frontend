@@ -4,10 +4,10 @@ import Header from '../../partials/Header';
 import FirstDetails from './First_details';
 import Agreement from './Terms_conditons';
 import Payment from './Payment';
-import Entrance_card from './Entrance_card';
+import ConfirmRegistration from './ConfirmRegistration';
 
 function Progressbar({ step }) {
-  const stepNames = ['Enter Details  >>>', '>>>  Accept terms  >>>', '>>>   payment >>>', '>>>  Entrance Card '];
+  const stepNames = ['Enter Details  >>>', '>>>  Accept terms  >>>', '>>>   payment >>>', '>>>  Confirmed '];
 
   return (
     <div className="w-full py-2">
@@ -51,7 +51,7 @@ function AddStudent() {
             {step === 1 && <FirstDetails nextStep={nextStep} />}
             {step === 2 && <Agreement nextStep={nextStep} prevStep={prevStep} />}
             {step === 3 && <Payment nextStep={nextStep} prevStep={prevStep} />}
-            {step === 4 && <Entrance_card prevStep={prevStep} />}
+            {step === 4 && <ConfirmRegistration prevStep={prevStep} />}
           </div>
         </main>
       </div>
