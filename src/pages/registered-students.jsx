@@ -10,10 +10,11 @@ function RegStudent() {
   const itemsPerPage = 10; // Number of items to display per page
   const [data, setData] = useState([]); // Store fetched data
   const [loading, setLoading] = useState(true);
+  const [isDeleted,setIsDeleted] = useState(false)
 
   useEffect(() => {
     fetchData(); // Fetch data when the component mounts
-  }, []);
+  }, [isDeleted]);
 
   const fetchData = async () => {
     try {
@@ -176,7 +177,7 @@ function RegStudent() {
                                       .delete(
                                         `https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`
                                       )
-                                      .then((x) => location.reload());
+                                      .then(x=>fetchData());
                                   }}
                                   className="text-sm text-white px-2 bg-red-500"
                                   style={{ padding: "1px", fontSize: "13px" }}

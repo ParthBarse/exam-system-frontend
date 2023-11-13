@@ -160,7 +160,7 @@ function ReportCard() {
                                   item.status === "Inactive"
                                     ? "text-red-500"
                                     : "text-emerald-500"
-                                }`}
+                                  }`}
                               >
                                 {item.status}
                               </div>
@@ -174,7 +174,7 @@ function ReportCard() {
                                   <Link
                                     to="/veiw-report"
                                     className="block w-full h-full"
-                                  >
+                                    >
                                     Download
                                   </Link>
                                 </button>
@@ -195,7 +195,7 @@ function ReportCard() {
                 justifyContent: "center",
                 marginTop: "20px",
               }}
-            >
+              >
               <button
                 style={{
                   padding: "5px 10px",
@@ -228,7 +228,7 @@ function ReportCard() {
                     handlePageChange(currentPage + 1);
                   }
                 }}
-              >
+                >
                 &gt;
               </button>
             </div>
