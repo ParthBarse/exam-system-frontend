@@ -115,7 +115,7 @@ function CanStudent() {
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item._id}
+                                  {item.uuid}
                                 </div>
                               </div>
                             </td>
@@ -151,7 +151,7 @@ function CanStudent() {
                                 >
                                   Veiw Form
                                 </button>
-                                <button onClick={e=>axios.put(`https://mcf-backend.vercel.app/api/updateStudentStatus/${item.uuid}`).then(x=>alert("status updated successfully"))} className="text-sm text-white px-2 bg-emerald-500"
+                                <button onClick={e=>axios.put(`https://mcf-backend.vercel.app/api/updateStudentStatus/${item.uuid}`).then(x=>alert("status updated successfully")).then(x=>fetchData())} className="text-sm text-white px-2 bg-emerald-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   Activate
