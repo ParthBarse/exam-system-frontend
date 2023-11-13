@@ -1,19 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
-import data from "../data/RegStudents.json";
 
 function Filter() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [data, setData] = useState([]);
+  const [nameFilter, setNameFilter] = useState('');
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `https://mcf-backend.vercel.app/api/filterbyfirstName/${nameFilter}`
+      );
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [nameFilter]);
+
+  const handleFilterSubmit = () => {
+    fetchData();
+  };
 
   return (
     <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-      {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-        {/* Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         <main>
@@ -28,6 +46,8 @@ function Filter() {
                   type="text"
                   className="w-full p-2 border rounded-md"
                   placeholder="name"
+                  value={nameFilter}
+                  onChange={(e) => setNameFilter(e.target.value)}
                 />
               </div>
               <div>
@@ -70,9 +90,11 @@ function Filter() {
                   placeholder="CQY"
                 />
               </div>
-              <div style={{display: "flex", flexDirection:"column-reverse"}}>
+              <div style={{ display: "flex", flexDirection: "column-reverse" }}>
                 <div className="text-center bg-blue-500 text-white py-2 px-2 rounded-md hover:bg-blue-600">
-                  <button type="submit">Filter</button>
+                  <button type="button" onClick={handleFilterSubmit}>
+                    Filter
+                  </button>
                 </div>
               </div>
             </div>
@@ -82,17 +104,15 @@ function Filter() {
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
                 <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
                   <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-                    Filterd Students
+                    Filtered Students
                   </h2>
                 </header>
                 <div className="p-4">
-                  {/* Table */}
                   <div className="overflow-x-auto">
                     <table
                       className="dark:text-slate-300"
                       style={{ width: "100%" }}
                     >
-                      {/* Table header */}
                       <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
                         <tr>
                           <th className="p-2">
@@ -133,7 +153,6 @@ function Filter() {
                           </th>
                         </tr>
                       </thead>
-                      {/* Table body */}
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
                         {data.map((item, index) => (
                           <tr key={index}>
@@ -142,28 +161,28 @@ function Filter() {
                                 className="text-left"
                                 style={{ fontWeight: "bold" }}
                               >
-                                {item.id}
+                                {index + 1}
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item["reg-id"]}
+                                  {item.uuid}
                                 </div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.name}
+                                  {item.First} {item.last}
                                 </div>
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{item.camp}</div>
+                              <div className="text-center">{item.Camp}</div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{item.email}</div>
+                              {/* <div className="text-center">{item.email}</div> */}
                             </td>
                             <td className="p-2">
                               <div className={`text-center`}>
@@ -171,10 +190,10 @@ function Filter() {
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center`}>{item.city}</div>
+                              <div className={`text-center`}>{item.State}</div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center`}>{item.CQY}</div>
+                              {/* <div className={`text-center`}>{item.CQY}</div> */}
                             </td>
                           </tr>
                         ))}
