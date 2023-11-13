@@ -172,7 +172,7 @@ function ReportCard() {
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   <Link
-                                    to="/veiw-report"
+                                    to={`/view-report`}
                                     className="block w-full h-full"
                                     >
                                     Download

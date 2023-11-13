@@ -158,12 +158,13 @@ function RegStudent() {
                             </td>
                             <td className="p-4">
                               <div className="text-center grid grid-cols-3 grid-rows-2 gap-2 h-full">
-                                <button
+                                <Link
+                                  to="/view-report"
                                   className="text-sm text-white px-2 bg-yellow-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   View Form
-                                </button>
+                                </Link>
                                 <Link
                                   to={`/update-student-details?id=${item.uuid}`}
                                   className="text-sm text-white px-2 bg-blue-500"
@@ -177,6 +178,7 @@ function RegStudent() {
                                       .delete(
                                         `https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`
                                       )
+                                      .then(x=>alert("Deleted successfully"))
                                       .then(x=>fetchData());
                                   }}
                                   className="text-sm text-white px-2 bg-red-500"
