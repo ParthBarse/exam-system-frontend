@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';  // Import Axios
-import Sidebar from '../partials/Sidebar';
-import Header from '../partials/Header';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios"; // Import Axios
+import Sidebar from "../partials/Sidebar";
+import Header from "../partials/Header";
+import { Link } from "react-router-dom";
 
 function RegStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -12,16 +12,18 @@ function RegStudent() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchData();  // Fetch data when the component mounts
+    fetchData(); // Fetch data when the component mounts
   }, []);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://mcf-backend.vercel.app/api/getAllStudents');
-      setData(response.data);  // Update the state with the fetched data
-      setLoading(false);  // Set loading to false
+      const response = await axios.get(
+        "https://mcf-backend.vercel.app/api/getAllStudents"
+      );
+      setData(response.data); // Update the state with the fetched data
+      setLoading(false); // Set loading to false
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
   const totalItems = data.length;
@@ -50,14 +52,28 @@ function RegStudent() {
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-                <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700" style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <h2 className="font-semibold text-slate-800 dark:text-slate-100">Registered Students List</h2>
-                  <Link end to="/add-student" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">Add Student</Link>
+                <header
+                  className="px-5 py-4 border-b border-slate-100 dark:border-slate-700"
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <h2 className="font-semibold text-slate-800 dark:text-slate-100">
+                    Registered Students List
+                  </h2>
+                  <Link
+                    end
+                    to="/add-student"
+                    className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
+                  >
+                    Add Student
+                  </Link>
                 </header>
                 <div className="p-4">
                   {/* Table */}
                   <div className="overflow-x-auto">
-                    <table className="dark:text-slate-300" style={{ width: '100%' }}>
+                    <table
+                      className="dark:text-slate-300"
+                      style={{ width: "100%" }}
+                    >
                       {/* Table header */}
                       <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
                         <tr>
@@ -65,22 +81,34 @@ function RegStudent() {
                             <div className="font-semibold text-left">Sr.</div>
                           </th>
                           <th className="p-2 max-w-xs">
-                            <div className="font-semibold text-center">Reg. Id</div>
+                            <div className="font-semibold text-center">
+                              Reg. Id
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Name</div>
+                            <div className="font-semibold text-center">
+                              Name
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Camp</div>
+                            <div className="font-semibold text-center">
+                              Camp
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Batch</div>
+                            <div className="font-semibold text-center">
+                              Batch
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Status</div>
+                            <div className="font-semibold text-center">
+                              Status
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Action</div>
+                            <div className="font-semibold text-center">
+                              Action
+                            </div>
                           </th>
                         </tr>
                       </thead>
@@ -89,18 +117,25 @@ function RegStudent() {
                         {itemsToDisplay.map((item, index) => (
                           <tr key={index}>
                             <td>
-                              <div className="text-left" style={{ fontWeight: 'bold' }}>
+                              <div
+                                className="text-left"
+                                style={{ fontWeight: "bold" }}
+                              >
                                 {index + 1}
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">{item.uuid}</div>
+                                <div className="text-slate-800 dark:text-slate-100">
+                                  {item.uuid}
+                                </div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">{item.First + " " + item.last}</div>
+                                <div className="text-slate-800 dark:text-slate-100">
+                                  {item.First + " " + item.last}
+                                </div>
                               </div>
                             </td>
                             <td className="p-2">
@@ -110,38 +145,61 @@ function RegStudent() {
                               <div className="text-center">Batch-1</div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center ${item.status === 'inactive' ? 'text-red-500' : 'text-emerald-500'}`}>{item.status}</div>
+                              <div
+                                className={`text-center ${
+                                  item.status === "inactive"
+                                    ? "text-red-500"
+                                    : "text-emerald-500"
+                                }`}
+                              >
+                                {item.status}
+                              </div>
                             </td>
                             <td className="p-4">
                               <div className="text-center grid grid-cols-3 grid-rows-2 gap-2 h-full">
                                 <button
                                   className="text-sm text-white px-2 bg-yellow-500"
-                                  style={{ padding: '1px', fontSize: '13px' }}
+                                  style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   View Form
                                 </button>
-                                <Link to={`/update-student-details?id=${item.uuid}`}
-                                className="text-sm text-white px-2 bg-blue-500"
-                                style={{ padding: '1px', fontSize: '13px' }}
+                                <Link
+                                  to={`/update-student-details?id=${item.uuid}`}
+                                  className="text-sm text-white px-2 bg-blue-500"
+                                  style={{ padding: "1px", fontSize: "13px" }}
                                 >
-                                <button>
-                                    View & Edit
-                                </button>
-                                  </Link>
-                                  <button onClick={e => { axios.delete(`https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`).then(x => location.reload()) }} className="text-sm text-white px-2 bg-red-500"
-                                  style={{ padding: '1px', fontSize: '13px' }}>
+                                  <button>View & Edit</button>
+                                </Link>
+                                <button
+                                  onClick={(e) => {
+                                    axios
+                                      .delete(
+                                        `https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`
+                                      )
+                                      .then((x) => location.reload());
+                                  }}
+                                  className="text-sm text-white px-2 bg-red-500"
+                                  style={{ padding: "1px", fontSize: "13px" }}
+                                >
                                   Delete
                                 </button>
-                                <button className="text-sm text-white px-2 bg-indigo-500"
-  style={{ padding: "1px", fontSize: "13px" }}
->
-  <Link to="/view-entrance" style={{ textDecoration: 'none', color: 'inherit' }}>
-    Entrance Card
-  </Link>
-</button>
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{ padding: '1px', fontSize: '13px' }}
+                                  style={{ padding: "1px", fontSize: "13px" }}
+                                >
+                                  <Link
+                                    to="/veiw-entrance"
+                                    style={{
+                                      textDecoration: "none",
+                                      color: "inherit",
+                                    }}
+                                  >
+                                    Entrance Card
+                                  </Link>
+                                </button>
+                                <button
+                                  className="text-sm text-white px-2 bg-indigo-500"
+                                  style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   Receipt
                                 </button>
