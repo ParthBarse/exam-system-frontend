@@ -103,7 +103,7 @@ function RegStudent() {
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">{item.First +" " +  item.last}</div>
+                                <div className="text-slate-800 dark:text-slate-100">{item.First + " " + item.last}</div>
                               </div>
                             </td>
                             <td className="p-2">
@@ -126,14 +126,14 @@ function RegStudent() {
                                 >
                                   View Form
                                 </button>
-                                <Link to={`/update-student-details?id=${item.uuid}`}>
-                                  <button
-                                    className="text-sm text-white px-2 bg-blue-500"
-                                    style={{ padding: '1px', fontSize: '13px' }}
-                                  >
+                                <Link to={`/update-student-details?id=${item.uuid}`}
+                                className="text-sm text-white px-2 bg-blue-500"
+                                style={{ padding: '1px', fontSize: '13px' }}
+                                >
+                                <button>
                                     View & Edit
-                                  </button>
-                                </Link>
+                                </button>
+                                  </Link>
                                 <button className="text-sm text-white px-1 py-2 bg-gray-500"
                                   style={{ padding: '1px', fontSize: '13px' }}>
                                   Edit
@@ -150,7 +150,7 @@ function RegStudent() {
                                 >
                                   Receipt
                                 </button>
-                                <button onClick={e=>{axios.delete(`https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`).then(x=>location.reload())}} className="text-sm text-white px-2 bg-red-500 rounded-full"
+                                <button onClick={e => { axios.delete(`https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`).then(x => location.reload()) }} className="text-sm text-white px-2 bg-red-500 rounded-full"
                                   style={{ padding: '1px', fontSize: '13px' }}>
                                   Delete
                                 </button>
