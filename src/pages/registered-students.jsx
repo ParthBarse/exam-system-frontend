@@ -50,7 +50,7 @@ function RegStudent() {
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-                <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700" style={{display:'flex', justifyContent:'space-between'}}>
+                <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700" style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <h2 className="font-semibold text-slate-800 dark:text-slate-100">Registered Students List</h2>
                   <Link end to="/add-student" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">Add Student</Link>
                 </header>
@@ -64,7 +64,7 @@ function RegStudent() {
                           <th className="p-2">
                             <div className="font-semibold text-left">Sr.</div>
                           </th>
-                          <th className="p-2">
+                          <th className="p-2 max-w-xs">
                             <div className="font-semibold text-center">Reg. Id</div>
                           </th>
                           <th className="p-2">
@@ -95,12 +95,12 @@ function RegStudent() {
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">{item._id}</div>
+                                <div className="text-slate-800 dark:text-slate-100">{item.uuid}</div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">{item.First} {item.last}</div>
+                                <div className="text-slate-800 dark:text-slate-100">{item.First + " " + item.last}</div>
                               </div>
                             </td>
                             <td className="p-2">
@@ -120,12 +120,14 @@ function RegStudent() {
                                 >
                                   View Form
                                 </button>
-                                <button
-                                  className="text-sm text-white px-2 bg-blue-500"
-                                  style={{ padding: '1px', fontSize: '13px' }}
+                                <Link to={`/update-student-details?id=${item.uuid}`}
+                                className="text-sm text-white px-2 bg-blue-500"
+                                style={{ padding: '1px', fontSize: '13px' }}
                                 >
-                                  View & Edit
+                                <button>
+                                    View & Edit
                                 </button>
+                                  </Link>
                                 <button className="text-sm text-white px-1 py-2 bg-gray-500"
                                   style={{ padding: '1px', fontSize: '13px' }}>
                                   Edit
@@ -142,7 +144,7 @@ function RegStudent() {
                                 >
                                   Receipt
                                 </button>
-                                <button className="text-sm text-white px-2 bg-red-500 rounded-full"
+                                <button onClick={e => { axios.delete(`https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`).then(x => location.reload()) }} className="text-sm text-white px-2 bg-red-500"
                                   style={{ padding: '1px', fontSize: '13px' }}>
                                   Delete
                                 </button>
@@ -156,50 +158,50 @@ function RegStudent() {
                 </div>
               </div>
             </div>
-                    {/* Previous and Next Buttons */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "20px",
-          }}
-        >
-          <button
-            style={{
-              padding: "5px 10px",
-              background: "#007BFF",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              marginRight: "10px",
-              cursor: currentPage > 1 ? "pointer" : "not-allowed",
-            }}
-            onClick={() => {
-              if (currentPage > 1) {
-                handlePageChange(currentPage - 1);
-              }
-            }}
-          >
-            &lt;
-          </button>
-          <button
-            style={{
-              padding: "5px 10px",
-              background: "#007BFF",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: currentPage < totalPages ? "pointer" : "not-allowed",
-            }}
-            onClick={() => {
-              if (currentPage < totalPages) {
-                handlePageChange(currentPage + 1);
-              }
-            }}
-          >
-            &gt;
-          </button>
-        </div>
+            {/* Previous and Next Buttons */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "20px",
+              }}
+            >
+              <button
+                style={{
+                  padding: "5px 10px",
+                  background: "#007BFF",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  marginRight: "10px",
+                  cursor: currentPage > 1 ? "pointer" : "not-allowed",
+                }}
+                onClick={() => {
+                  if (currentPage > 1) {
+                    handlePageChange(currentPage - 1);
+                  }
+                }}
+              >
+                &lt;
+              </button>
+              <button
+                style={{
+                  padding: "5px 10px",
+                  background: "#007BFF",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: currentPage < totalPages ? "pointer" : "not-allowed",
+                }}
+                onClick={() => {
+                  if (currentPage < totalPages) {
+                    handlePageChange(currentPage + 1);
+                  }
+                }}
+              >
+                &gt;
+              </button>
+            </div>
           </div>
         </main>
       </div>
