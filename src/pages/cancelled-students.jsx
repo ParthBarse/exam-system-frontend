@@ -75,9 +75,6 @@ function CanStudent() {
                             <div className="font-semibold text-center">Status</div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">misc</div>
-                          </th>
-                          <th className="p-2">
                             <div className="font-semibold text-center">Action</div>
                           </th>
                         </tr>
@@ -85,40 +82,29 @@ function CanStudent() {
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
                         {itemsToDisplay.map((item , index) => (
                           <tr key={item.id}>
-                            <td className="p-2">
-                              <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">
+                            <td>
+                              <div className="text-left" style={{ fontWeight: 'bold' }}>
                                 {index + 1}
-                                </div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">
-                                  {item.Reg_ID}
-                                </div>
+                                <div className="text-slate-800 dark:text-slate-100">{item._id}</div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">
-                                  {item.Name}
-                                </div>
+                                <div className="text-slate-800 dark:text-slate-100">{item.First} {item.last}</div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="text-center">{item.Camp}</div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{item.Batch}</div>
+                              <div className="text-center">Batch-1</div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center text-red-500">
-                                {item.Status}
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="text-center">{item.MISC}</div>
+                              <div className={`text-center ${item.status === 'Inactive' ? 'text-red-500' : 'text-emerald-500'}`}>{item.status}</div>
                             </td>
                             <td className="p-4">
                               <div className="text-center grid grid-cols-2 grid-rows-2 gap-2 h-full">

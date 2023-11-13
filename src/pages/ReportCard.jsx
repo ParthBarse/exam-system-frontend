@@ -234,7 +234,7 @@ function ReportCard() {
             </div>
           </div>
         </main>
-      </div>
+      </div> 
     </div>
   );
 }

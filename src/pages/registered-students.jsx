@@ -80,9 +80,6 @@ function RegStudent() {
                             <div className="font-semibold text-center">Status</div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Misc</div>
-                          </th>
-                          <th className="p-2">
                             <div className="font-semibold text-center">Action</div>
                           </th>
                         </tr>
@@ -98,25 +95,22 @@ function RegStudent() {
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">{item.Reg_ID}</div>
+                                <div className="text-slate-800 dark:text-slate-100">{item._id}</div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">{item.Name}</div>
+                                <div className="text-slate-800 dark:text-slate-100">{item.First} {item.last}</div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="text-center">{item.Camp}</div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{item.Batch}</div>
+                              <div className="text-center">Batch-1</div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center ${item.Status === 'Inactive' ? 'text-red-500' : 'text-emerald-500'}`}>{item.status}</div>
-                            </td>
-                            <td className="p-2">
-                              <div className="text-center">{item.MISC}</div>
+                              <div className={`text-center ${item.status === 'inactive' ? 'text-red-500' : 'text-emerald-500'}`}>{item.status}</div>
                             </td>
                             <td className="p-4">
                               <div className="text-center grid grid-cols-3 grid-rows-2 gap-2 h-full">
