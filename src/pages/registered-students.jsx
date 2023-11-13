@@ -150,7 +150,7 @@ function RegStudent() {
                                 >
                                   Receipt
                                 </button>
-                                <button onClick={e => { axios.delete(`https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`).then(x => location.reload()) }} className="text-sm text-white px-2 bg-red-500 rounded-full"
+                                <button onClick={e => { axios.delete(`https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`).then(x => location.reload()) }} className="text-sm text-white px-2 bg-red-500"
                                   style={{ padding: '1px', fontSize: '13px' }}>
                                   Delete
                                 </button>
