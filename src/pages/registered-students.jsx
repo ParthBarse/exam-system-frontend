@@ -64,7 +64,7 @@ function RegStudent() {
                           <th className="p-2">
                             <div className="font-semibold text-left">Sr.</div>
                           </th>
-                          <th className="p-2">
+                          <th className="p-2 max-w-xs">
                             <div className="font-semibold text-center">Reg. Id</div>
                           </th>
                           <th className="p-2">
@@ -98,12 +98,12 @@ function RegStudent() {
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">{item.Reg_ID}</div>
+                                <div className="text-slate-800 dark:text-slate-100">{item.uuid}</div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">{item.Name}</div>
+                                <div className="text-slate-800 dark:text-slate-100">{item.First +" " +  item.last}</div>
                               </div>
                             </td>
                             <td className="p-2">
@@ -126,7 +126,7 @@ function RegStudent() {
                                 >
                                   View Form
                                 </button>
-                                <Link to={`/update-student-details?id=${item.Reg_ID}`}>
+                                <Link to={`/update-student-details?id=${item.uuid}`}>
                                   <button
                                     className="text-sm text-white px-2 bg-blue-500"
                                     style={{ padding: '1px', fontSize: '13px' }}
@@ -150,7 +150,7 @@ function RegStudent() {
                                 >
                                   Receipt
                                 </button>
-                                <button className="text-sm text-white px-2 bg-red-500 rounded-full"
+                                <button onClick={e=>{axios.delete(`https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`).then(x=>location.reload())}} className="text-sm text-white px-2 bg-red-500 rounded-full"
                                   style={{ padding: '1px', fontSize: '13px' }}>
                                   Delete
                                 </button>
