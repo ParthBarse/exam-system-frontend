@@ -80,9 +80,6 @@ function RegStudent() {
                             <div className="font-semibold text-center">Status</div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Misc</div>
-                          </th>
-                          <th className="p-2">
                             <div className="font-semibold text-center">Action</div>
                           </th>
                         </tr>
@@ -110,13 +107,10 @@ function RegStudent() {
                               <div className="text-center">{item.Camp}</div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{item.Batch}</div>
+                              <div className="text-center">Batch-1</div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center ${item.Status === 'Inactive' ? 'text-red-500' : 'text-emerald-500'}`}>{item.status}</div>
-                            </td>
-                            <td className="p-2">
-                              <div className="text-center">{item.MISC}</div>
+                              <div className={`text-center ${item.status === 'inactive' ? 'text-red-500' : 'text-emerald-500'}`}>{item.status}</div>
                             </td>
                             <td className="p-4">
                               <div className="text-center grid grid-cols-3 grid-rows-2 gap-2 h-full">

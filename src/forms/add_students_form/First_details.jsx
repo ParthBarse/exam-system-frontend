@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const FirstDetails = ({ nextStep, prevStep }) => {
-
   const [formData, setFormData] = useState({
     First: '',
     middle: '',
@@ -18,16 +17,16 @@ const FirstDetails = ({ nextStep, prevStep }) => {
     District: '',
     State: '',
     Pincode: '',
+    Camp: '', // New camp field
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
+      ...prevData,
+      [name]: value,
     }));
-    console.log(name, value)
-};
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,8 +52,9 @@ const FirstDetails = ({ nextStep, prevStep }) => {
         District: '',
         State: '',
         Pincode: '',
+        Camp: '', // Reset camp field
       });
-      nextStep()
+      nextStep();
     } catch (error) {
       console.error('Error adding student:', error);
     }
@@ -147,6 +147,19 @@ const FirstDetails = ({ nextStep, prevStep }) => {
                     <label htmlFor="pincode" className="block text-sm font-medium text-gray-600">Pincode</label>
                     <input id="pincode" name='Pincode' value={formData.Pincode} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Pincode" onChange={handleChange}/>
                   </div>
+                </div>
+                {/* Camp field */}
+                <div className="mb-4">
+                  <label htmlFor="camp" className="block text-sm font-medium text-gray-600">Camp</label>
+                  <input
+                    id="camp"
+                    name="Camp"
+                    value={formData.Camp}
+                    type="text"
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                    placeholder="Camp"
+                    onChange={handleChange}
+                  />
                 </div>
               </form>
             </div>
