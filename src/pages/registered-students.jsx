@@ -159,7 +159,7 @@ function RegStudent() {
                             <td className="p-4">
                               <div className="text-center grid grid-cols-3 grid-rows-2 gap-2 h-full">
                                 <Link
-                                  to="/view-report"
+                                  to={`/view-report?id=${item.uuid}`}
                                   className="text-sm text-white px-2 bg-yellow-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >

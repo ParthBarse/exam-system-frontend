@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import pic from './favicon.png';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+
 
 function ViewReportCard() {
+
+  const [data,setData] = useState({})
+  const [id,setId] = useState('')
+  const location = useLocation();
+
+  useEffect(()=>{
+    const queryParams = new URLSearchParams(location.search);
+    const uid = queryParams.get('id');
+    setId(uid)
+    axios.get(`https://mcf-backend.vercel.app/api/getStudent/${id}`).then(x=>setData(x.data))
+  },[location.search,id])
+
   return (
     <div className='flex flex-col'>
       <button onClick={e => window.print()} className="no-print bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">Print</button>
@@ -35,15 +50,15 @@ function ViewReportCard() {
                     <tbody>
                       <tr>
                         <td colSpan="1" className="border p-2 col-span-1">Name</td>
-                        <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+                        <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{data.First + " " + data.last}</td>
                       </tr>
                       <tr>
                       <td className="border p-2 col-span-1">Reg id</td>
-                      <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+                      <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{data.uuid}</td>
                     </tr>
                     <tr>
-                      <td className="border p-2 col-span-1">adress</td>
-                      <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+                      <td className="border p-2 col-span-1">address</td>
+                      <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{data.Address}</td>
                     </tr>
                     <tr>
                       <td className="border p-2 col-span-1">mobile number</td>
@@ -51,7 +66,7 @@ function ViewReportCard() {
                     </tr>
                     <tr>
                       <td className="border p-2 col-span-1">Camp name</td>
-                      <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+                      <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{data.Camp}</td>
                     </tr>
                     <tr>
                       <td className="border p-2 col-span-1">Camp place</td>
