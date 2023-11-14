@@ -20,6 +20,10 @@ function Filter() {
     }
   };
 
+  useEffect(()=>{
+    axios.get('https://mcf-backend.vercel.app/api/getAllStudents').then(x=>setData(x.data))
+  },[])
+
   useEffect(() => {
     fetchData();
   }, [nameFilter]);
