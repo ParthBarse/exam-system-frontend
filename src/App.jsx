@@ -60,7 +60,7 @@ function App() {
         <Route exact path="/view-report" element={<VeiwReportCard />} />
         <Route exact path="/edit-fee-details" element={<EditFeeDetails />} />
         <Route exact path="/update-student-details" element={<UpdateStudentDetails />} />
-        <Route exact path="/view-entrance" element={<AdmitCard />} />
+        <Route exact path="/veiw-entrance" element={<AdmitCard />} />
 
       </Routes>
     </>
