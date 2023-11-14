@@ -191,7 +191,7 @@ function RegStudent() {
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   <Link
-                                    to="/veiw-entrance"
+                                    to={`/veiw-entrance?id=${item.uuid}`}
                                     style={{
                                       textDecoration: "none",
                                       color: "inherit",

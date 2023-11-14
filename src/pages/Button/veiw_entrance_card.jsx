@@ -1,8 +1,26 @@
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import pic from "./favicon.png";
 import sign from "./user-avatar-32.png";
+import axios from "axios";
+import { useLocation } from 'react-router-dom';
+
 
 function AdmitCard() {
+
+
+  const [data,setData] = useState({})
+  const [id,setId] = useState('')
+  const location = useLocation();
+
+  useEffect(()=>{
+    const queryParams = new URLSearchParams(location.search);
+    const uid = queryParams.get('id');
+    setId(uid)
+    axios.get(`https://mcf-backend.vercel.app/api/getStudent/${id}`).then(x=>setData(x.data))
+  },[location.search,id])
+
   return (
     <div className="flex flex-col">
       <button
@@ -42,30 +60,30 @@ function AdmitCard() {
                       <tr>
                         <td className="font-bold border p-2">
                           Student Name :{" "}
-                          <span className="font-normal">Vinod Sharma</span>{" "}
+                          <span className="font-normal">{data.First + " " + data.last}</span>{" "}
                         </td>
                       </tr>
                       <tr>
                         <td className="font-bold border p-2">
-                          Sex : <span className="font-normal">Male</span>
+                          Sex : <span className="font-normal">Female</span>
                         </td>
                       </tr>
                       <tr>
                         <td className="font-bold border p-2">
                           Father Name :{" "}
-                          <span className="font-normal">S S Sharma</span>
+                          <span className="font-normal">{data.parents}</span>
                         </td>
                       </tr>
                       <tr>
                         <td className="font-bold border p-2">
                           ENROLLMENT NO :{" "}
-                          <span className="font-normal">99887766</span>{" "}
+                          <span className="font-normal">{data.uuid}</span>{" "}
                         </td>
                       </tr>
                       <tr>
                         <td colSpan="2" className="font-bold border p-2">
                           Address :{" "}
-                          <span className="font-normal">Viman Nagar</span>
+                          <span className="font-normal">{data.Address}</span>
                         </td>
                       </tr>
                       <tr>
