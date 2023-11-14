@@ -145,18 +145,19 @@ function CanStudent() {
                             </td>
                             <td className="p-4">
                               <div className="text-center grid grid-cols-2 grid-rows-2 gap-2 h-full">
-                                <button
+                                <Link
+                                  to={`/view-report?id=${item.uuid}`}
                                   className="text-sm text-white px-2 bg-yellow-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   Veiw Form
-                                </button>
+                                </Link>
                                 <button onClick={e=>axios.put(`https://mcf-backend.vercel.app/api/updateStudentStatus/${item.uuid}`).then(x=>alert("status updated successfully")).then(x=>fetchData())} className="text-sm text-white px-2 bg-emerald-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   Activate
                                 </button>
-                                <Link to="/veiw-entrance" className="text-sm text-white px-2 bg-indigo-500" >
+                                <Link to={`/veiw-entrance?id=${item.uuid}`} className="text-sm text-white px-2 bg-indigo-500" >
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
