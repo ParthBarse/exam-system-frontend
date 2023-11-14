@@ -57,10 +57,10 @@ function App() {
         <Route exact path="/batch-details" element={<Batchdetails />} />
         <Route exact path="/add-batch" element={<AddBatch/>} />
         <Route exact path="/generate-report" element={<GenerateReport/>}/>
-        <Route exact path="/veiw-report" element={<VeiwReportCard />} />
+        <Route exact path="/view-report" element={<VeiwReportCard />} />
         <Route exact path="/edit-fee-details" element={<EditFeeDetails />} />
         <Route exact path="/update-student-details" element={<UpdateStudentDetails />} />
-        <Route exact path="/veiw-entrance" element={<AdmitCard />} />
+        <Route exact path="/view-entrance" element={<AdmitCard />} />
 
       </Routes>
     </>
