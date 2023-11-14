@@ -7,6 +7,7 @@ function Filter() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [data, setData] = useState([]);
   const [nameFilter, setNameFilter] = useState('');
+  const [regId,setRegId] = useState('')
 
   const fetchData = async () => {
     try {
@@ -22,6 +23,10 @@ function Filter() {
   useEffect(() => {
     fetchData();
   }, [nameFilter]);
+
+  useEffect(()=>{
+    axios.get(`https://mcf-backend.vercel.app/api/filterbyRegID/${regId}`).then(x=>setData(x.data))
+  },[regId])
 
   const handleFilterSubmit = () => {
     fetchData();
@@ -56,6 +61,8 @@ function Filter() {
                   type="text"
                   className="w-full p-2 border rounded-md"
                   placeholder="Reg Id"
+                  value={regId}
+                  onChange={e=>setRegId(e.target.value)}
                 />
               </div>
               <div>
