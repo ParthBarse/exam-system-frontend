@@ -28,6 +28,7 @@ import VeiwReportCard from './pages/Button/veiw_reportcard';
 import EditFeeDetails from './forms/edit_fee_details';
 import UpdateStudentDetails from './pages/update_student_form';
 import AdmitCard from './pages/Button/veiw_entrance_card';
+import AuthPage from './pages/auth';
 
 
 function App() {
@@ -43,7 +44,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Dashboard/>}/>
+        <Route exact path="/" element={<AuthPage />} />
+        <Route exact path="/dash" element={<Dashboard/>}/>
         <Route exact path="/camp" element={<Table/>}/>
         <Route exact path="/regStudent" element={<RegStudent/>}/>
         <Route exact path='/CanStudent' element={<CanStudent/>}/>
