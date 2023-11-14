@@ -9,22 +9,27 @@ function Filter() {
   const [nameFilter, setNameFilter] = useState('');
   const [regId,setRegId] = useState('')
 
+  console.log(nameFilter)
+
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `https://mcf-backend.vercel.app/api/filterbyfirstName/${nameFilter}`
-      );
-      setData(response.data);
+      if(nameFilter){
+        const response = await axios.get(
+          `https://mcf-backend.vercel.app/api/filterbyfirstName/${nameFilter}`
+        );
+        setData(response.data);
+
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   useEffect(()=>{
-    if(!nameFilter){
+    if(nameFilter == '' && regId == ''){
       axios.get('https://mcf-backend.vercel.app/api/getAllStudents').then(x=>setData(x.data))
     }
-  },[])
+  },[nameFilter,regId])
 
   useEffect(() => {
     fetchData();
