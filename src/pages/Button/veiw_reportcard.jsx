@@ -50,7 +50,7 @@ function ViewReportCard() {
                     <tbody>
                       <tr>
                         <td colSpan="1" className="border p-2 col-span-1">Name</td>
-                        <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{data.First + " " + data.last}</td>
+                        <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{(!data.First?'':data.First) + " " + (!data.last?'':data.last)}</td>
                       </tr>
                       <tr>
                       <td className="border p-2 col-span-1">Reg id</td>
