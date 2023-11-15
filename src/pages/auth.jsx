@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import bg from './authbg.png';
+import authbg from './authbg.png';
 
 const LoginForm = ({ onLogin, onSwitchToRegister }) => {
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -37,7 +38,12 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8" style={{background : {bg}}}>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"  style={{
+        backgroundImage: `url(${authbg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "left",
+        height: "100vh",
+      }}>
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -148,7 +154,7 @@ const RegisterForm = ({ onRegister, onSwitchToLogin }) => {
     }
 
     if (Object.keys(newErrors).length === 0) {
-      // Submit the form (you can send the data to the server or perform any other actions)
+      
       onRegister(formData);
     } else {
       setErrors(newErrors);
@@ -156,7 +162,12 @@ const RegisterForm = ({ onRegister, onSwitchToLogin }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8" style={{
+        backgroundImage: `url(${authbg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "left",
+        height: "100vh",
+      }}>
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
