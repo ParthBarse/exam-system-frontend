@@ -35,7 +35,7 @@ function ReportCard() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://mcf-backend.vercel.app/api/getAllReportCards"
+        "https://mcf-backend.vercel.app/api/getAllStudents"
       );
       setData(response.data); // Update the state with the fetched data
       setLoading(false); // Set loading to false
@@ -135,24 +135,24 @@ function ReportCard() {
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.Reg_ID}
+                                  {item.uuid}
                                 </div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.Name}
+                                  {item.First + " " + item.last}
                                 </div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="text-center">
-                                {item.Camp_Name}
+                                {item.Camp}
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{item.City}</div>
+                              <div className="text-center">{}</div>
                             </td>
                             <td className="p-2">
                               <div
@@ -172,7 +172,7 @@ function ReportCard() {
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   <Link
-                                    to={`/view-report`}
+                                    to={`/view-report?id=${item.uuid}`}
                                     className="block w-full h-full"
                                     >
                                     Download
