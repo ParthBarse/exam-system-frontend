@@ -19,20 +19,7 @@ const ConfirmRegistration = ({ nextStep, prevStep }) => {
               <div className="overflow-x-auto">
               <div className="max-w-md mx-auto p-4 border border-gray-300 rounded-lg shadow-md">
               <h2 className="text-2xl font-semibold mb-4">Thank You for Registering</h2>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-600">First Name:</label>
-                <p className="text-lg font-semibold">Mayank</p>
-              </div>
 
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-600">Last Name:</label>
-                <p className="text-lg font-semibold">Deshmukh</p>
-              </div>
-
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-600">Camp Name:</label>
-                <p className="text-lg font-semibold">Camp name</p>
-              </div>
               <p className="text-gray-500 text-sm">You have successfully registered for the camp. We look forward to seeing you there!</p>
               </div>
               </div>
