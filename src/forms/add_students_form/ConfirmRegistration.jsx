@@ -12,14 +12,13 @@ const ConfirmRegistration = ({ nextStep, prevStep }) => {
               style={{ display: "flex", justifyContent: "space-between" }}
             >
               <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-                Entrance Card
+                Confirmed Registration
               </h2>
             </header>
             <div className="p-4">
               <div className="overflow-x-auto">
               <div className="max-w-md mx-auto p-4 border border-gray-300 rounded-lg shadow-md">
               <h2 className="text-2xl font-semibold mb-4">Thank You for Registering</h2>
-
               <p className="text-gray-500 text-sm">You have successfully registered for the camp. We look forward to seeing you there!</p>
               </div>
               </div>
