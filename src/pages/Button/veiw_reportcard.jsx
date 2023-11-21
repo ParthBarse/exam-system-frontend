@@ -61,8 +61,8 @@ function ViewReportCard() {
                       <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{data.Address}</td>
                     </tr>
                     <tr>
-                      <td className="border p-2 col-span-1">mobile number</td>
-                      <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
+                      <td className="border p-2 col-span-1">Parent/Guardian</td>
+                      <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{data.parents}</td>
                     </tr>
                     <tr>
                       <td className="border p-2 col-span-1">Camp name</td>
@@ -72,7 +72,7 @@ function ViewReportCard() {
                       <td className="border p-2 col-span-1">Camp place</td>
                       <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <td className="border p-2 col-span-1">Camp Date</td>
                       <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
                     </tr>
@@ -87,7 +87,7 @@ function ViewReportCard() {
                     <tr>
                       <td className="border p-2 col-span-1">Parameter 2</td>
                       <td colSpan="2" className="border p-2 col-span-2 text-left">Value 1</td>
-                    </tr>
+                    </tr> */}
                     </tbody>
                   </table>
                 </div>
