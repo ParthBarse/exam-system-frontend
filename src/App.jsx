@@ -44,8 +44,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/auth" element={<AuthPage />} />
-        <Route exact path="/" element={<Dashboard/>}/>
+        <Route exact path="/" element={<AuthPage />} />
+        <Route exact path="/dash" element={<Dashboard/>}/>
         <Route exact path="/camp" element={<Table/>}/>
         <Route exact path="/regStudent" element={<RegStudent/>}/>
         <Route exact path='/CanStudent' element={<CanStudent/>}/>

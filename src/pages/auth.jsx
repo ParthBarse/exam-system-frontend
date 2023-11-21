@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import authbg from './authbg.png';
+import { Link } from 'react-router-dom';
 
 const LoginForm = ({ onLogin, onSwitchToRegister }) => {
 
@@ -93,12 +94,14 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
           </div>
 
           <div>
+            <Link end to="/dash">
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Log In
             </button>
+            </Link>
           </div>
           <div className="text-center">
             <p className="mt-2 text-sm text-gray-600">
@@ -257,12 +260,14 @@ const RegisterForm = ({ onRegister, onSwitchToLogin }) => {
           </div>
 
           <div>
+          <Link end to="/dash">
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Register
             </button>
+            </Link>
           </div>
           <div className="text-center">
             <p className="mt-2 text-sm text-gray-600">

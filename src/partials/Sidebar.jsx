@@ -120,7 +120,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   return (
                     <React.Fragment>
                       <a
-                        href="/"
+                        href="/dash"
                         className={`block text-slate-200 truncate transition duration-150 ${
                           pathname === '/' || pathname.includes('dashboard') ? 'hover:text-slate-200' : 'hover:text-white'
                         }`}
