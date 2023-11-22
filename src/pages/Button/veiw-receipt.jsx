@@ -100,10 +100,10 @@ function Receipt() {
               <td>Total</td>
             </tr>
             <tr>
-              <td>{data.camp}</td>
-              <td>{data.qty}</td>
-              <td>{data.fees}</td>
-              <td>{data.total}</td>
+              <td>{data.camp} camp name</td>
+              <td>{data.qty} number</td>
+              <td>{data.fees} few thousand dollars</td>
+              <td>{data.total} total dollars</td>
             </tr>
             <tr>
               <td colspan="2"></td>
