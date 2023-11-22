@@ -10,7 +10,7 @@ function RegStudent() {
   const itemsPerPage = 10; // Number of items to display per page
   const [data, setData] = useState([]); // Store fetched data
   const [loading, setLoading] = useState(true);
-  const [isDeleted,setIsDeleted] = useState(false)
+  const [isDeleted, setIsDeleted] = useState(false);
 
   useEffect(() => {
     fetchData(); // Fetch data when the component mounts
@@ -178,8 +178,10 @@ function RegStudent() {
                                       .delete(
                                         `https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`
                                       )
-                                      .then(x=>alert("Deleted successfully"))
-                                      .then(x=>fetchData());
+                                      .then((x) =>
+                                        alert("Deleted successfully")
+                                      )
+                                      .then((x) => fetchData());
                                   }}
                                   className="text-sm text-white px-2 bg-red-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
@@ -204,7 +206,15 @@ function RegStudent() {
                                   className="text-sm text-white px-2 bg-indigo-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
-                                  Receipt
+                                  <Link
+                                    to={`/receipt?id=${item.uuid}`}
+                                    style={{
+                                      textDecoration: "none",
+                                      color: "inherit",
+                                    }}
+                                  >
+                                    Receipt
+                                  </Link>
                                 </button>
                               </div>
                             </td>

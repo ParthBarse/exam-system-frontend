@@ -29,6 +29,7 @@ import EditFeeDetails from './forms/edit_fee_details';
 import UpdateStudentDetails from './pages/update_student_form';
 import AdmitCard from './pages/Button/veiw_entrance_card';
 import AuthPage from './pages/auth';
+import Receipt from './pages/Button/veiw-receipt';
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
         <Route exact path="/edit-fee-details" element={<EditFeeDetails />} />
         <Route exact path="/update-student-details" element={<UpdateStudentDetails />} />
         <Route exact path="/veiw-entrance" element={<AdmitCard />} />
+        <Route exact path="/receipt" element={<Receipt />} />
 
       </Routes>
     </>
