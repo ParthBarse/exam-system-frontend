@@ -18,7 +18,7 @@ function DashboardCard02() {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, [activeStudentsCount]);
 
 
   return (
