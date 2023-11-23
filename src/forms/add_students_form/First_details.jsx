@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
+import { Alert } from '@mui/material';
 
 const baseurl = 'https://mcf-backend-main.vercel.app'
 
@@ -15,14 +16,19 @@ const FirstDetails = () => {
     vertical: 'top',
     horizontal: 'center',
   });
+
+  const [errorState , setErrorState] = useState({ open: false, vertical: 'top', horizontal: 'center' });
+
+
   const { vertical, horizontal, open } = state;
 
-  const handleClick = (newState) => () => {
-    setState({ ...newState, open: true });
-  };
 
   const handleClose = () => {
     setState({ ...state, open: false });
+  };
+
+  const handleErrorClose = () => {
+    setErrorState({ ...errorState, open: false });
   };
 
 
@@ -99,7 +105,9 @@ const FirstDetails = () => {
       setState({ vertical: 'bottom', horizontal: 'right' ,open: true });
       
     } catch (error) {
+      setErrorState({ vertical: 'bottom', horizontal: 'right' ,open: true });
       console.error('Error adding student:', error);
+
     }
   };
 
@@ -218,9 +226,25 @@ const FirstDetails = () => {
         anchorOrigin={{ vertical, horizontal }}
         open={open}
         onClose={handleClose}
-        message="Student Added Successfully"
         key={vertical + horizontal}
-      />
+        autoHideDuration={3000}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Student Added Successfully
+        </Alert>
+      </Snackbar>
+      {/* ///////////////////////////////// */}
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={errorState.open}
+        onClose={handleClose}
+        key={vertical + horizontal}
+        autoHideDuration={3000}
+      >
+        <Alert onClose={handleErrorClose} severity="error" sx={{ width: '100%' }}>
+          Enter details first!!
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
