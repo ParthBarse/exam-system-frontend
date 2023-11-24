@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-flatpickr';
@@ -11,7 +9,7 @@ import { Alert } from '@mui/material';
 
 const baseurl = 'https://mcf-backend-main.vercel.app';
 
-const AdmissionForm = () => {
+const admission_form = () => {
   const [state, setState] = React.useState({
     open: false,
     vertical: 'top',
@@ -290,4 +288,4 @@ const AdmissionForm = () => {
   );
 };
 
-export default AdmissionForm;
+export default admission_form;
