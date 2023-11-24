@@ -4,6 +4,8 @@ import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link } from "react-router-dom";
 
+const baseurl = 'https://mcf-backend-main.vercel.app'
+
 function RegStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,9 +21,9 @@ function RegStudent() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://mcf-backend.vercel.app/api/getAllStudents"
+        `${baseurl}/getAllStudents`
       );
-      setData(response.data); // Update the state with the fetched data
+      setData(response.data.students); // Update the state with the fetched data
       setLoading(false); // Set loading to false
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -128,14 +130,14 @@ function RegStudent() {
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.uuid}
+                                  {item.sid}
                                 </div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.First + " " + item.last}
+                                  {item.first_name + " " + item.last_name}
                                 </div>
                               </div>
                             </td>
@@ -159,14 +161,14 @@ function RegStudent() {
                             <td className="p-4">
                               <div className="text-center grid grid-cols-3 grid-rows-2 gap-2 h-full">
                                 <Link
-                                  to={`/view-report?id=${item.uuid}`}
+                                  to={`/view-report?id=${item.sid}`}
                                   className="text-sm text-white px-2 bg-yellow-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   View Form
                                 </Link>
                                 <Link
-                                  to={`/update-student-details?id=${item.uuid}`}
+                                  to={`/update-student-details?id=${item.sid}`}
                                   className="text-sm text-white px-2 bg-blue-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
@@ -176,7 +178,7 @@ function RegStudent() {
                                   onClick={(e) => {
                                     axios
                                       .delete(
-                                        `https://mcf-backend.vercel.app/api/deleteStudent/${item.uuid}`
+                                        `${baseurl}/deleteStudent?sid=${item.sid}`
                                       )
                                       .then((x) =>
                                         alert("Deleted successfully")
@@ -193,7 +195,7 @@ function RegStudent() {
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   <Link
-                                    to={`/veiw-entrance?id=${item.uuid}`}
+                                    to={`/veiw-entrance?id=${item.sid}`}
                                     style={{
                                       textDecoration: "none",
                                       color: "inherit",
@@ -207,7 +209,7 @@ function RegStudent() {
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   <Link
-                                    to={`/receipt?id=${item.uuid}`}
+                                    to={`/receipt?id=${item.sid}`}
                                     style={{
                                       textDecoration: "none",
                                       color: "inherit",

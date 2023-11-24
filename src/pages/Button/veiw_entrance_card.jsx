@@ -16,8 +16,8 @@ function AdmitCard() {
     const uid = queryParams.get("id");
     setId(uid);
     axios
-      .get(`https://mcf-backend.vercel.app/api/getStudent/${id}`)
-      .then((x) => setData(x.data));
+      .get(`https://mcf-backend-main.vercel.app/getStudent?sid=${id}`)
+      .then((x) => setData(x.data.student));
   }, [location.search, id]);
 
   return (
@@ -33,7 +33,7 @@ function AdmitCard() {
 
         <div class="inner-box">
           <p>
-            Dear<strong> &nbsp; {data.First}</strong>
+            Dear<strong> &nbsp; {data.first_name}</strong>
           </p>
           <img
             src="https://source.unsplash.com/random/80x100"
@@ -47,7 +47,7 @@ function AdmitCard() {
             <tr>
               <td>Registration No.</td>
               <td>
-                <strong>{data.uuid}</strong>
+                <strong>{data.sid}</strong>
               </td>
               <td>Chess No.</td>
               <td>
@@ -56,7 +56,7 @@ function AdmitCard() {
             </tr>
             <tr>
               <td>Name :</td>
-              <td colspan="3">{data.First + " " + data.last}</td>
+              <td colspan="3">{data.first_name + " " + data.last_name}</td>
             </tr>
             <tr>
               <td>Camp Name :</td>

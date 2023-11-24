@@ -12,7 +12,6 @@ function AddStudent() {
   const [step, setStep] = useState(1);
 
 
-
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}

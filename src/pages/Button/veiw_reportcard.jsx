@@ -14,7 +14,7 @@ function ViewReportCard() {
     const queryParams = new URLSearchParams(location.search);
     const uid = queryParams.get('id');
     setId(uid)
-    axios.get(`https://mcf-backend.vercel.app/api/getStudent/${id}`).then(x=>setData(x.data))
+    axios.get(`https://mcf-backend-main.vercel.app/getStudent?sid=${id}`).then(x=>setData(x.data.student))
   },[location.search,id])
 
   return (
@@ -29,7 +29,7 @@ function ViewReportCard() {
         <div className="mx-auto my-4 p-2 bg-white">
           <div className=" gap-6">
             <div className="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3">
-              <div className='grid grid-cols-3 flex flex-col mb-8'>
+              <div className='grid grid-cols-3  flex-col mb-8'>
                 <div className="col-span-1 flex ">
                   <div className="bg-blue-200 p-2 flex-2 mr-4">
                     <h3 className="mb-2">Photo</h3>
@@ -50,15 +50,15 @@ function ViewReportCard() {
                     <tbody>
                       <tr>
                         <td colSpan="1" className="border p-2 col-span-1">Name</td>
-                        <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{(!data.First?'':data.First) + " " + (!data.last?'':data.last)}</td>
+                        <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{(data.first_name) + " " + (data.last_name)}</td>
                       </tr>
                       <tr>
                       <td className="border p-2 col-span-1">Reg id</td>
-                      <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{data.uuid}</td>
+                      <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{data.sid}</td>
                     </tr>
                     <tr>
                       <td className="border p-2 col-span-1">address</td>
-                      <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{data.Address}</td>
+                      <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{data.address}</td>
                     </tr>
                     <tr>
                       <td className="border p-2 col-span-1">Parent/Guardian</td>
