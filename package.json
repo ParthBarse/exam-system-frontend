@@ -20,6 +20,7 @@
     "moment": "^2.29.4",
     "pdfkit": "^0.14.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",
     "react-flatpickr": "^3.10.13",
     "react-pdf": "^7.5.1",
