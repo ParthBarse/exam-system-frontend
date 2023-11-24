@@ -4,7 +4,7 @@ import Header from '../partials/Header';
 import axios from 'axios';
 import DatePicker from 'react-flatpickr';
 import Snackbar from '@mui/material/Snackbar';
-import Alert  from '@mui/material/Alert';
+import Alert from '@mui/material/Alert';
 import { useLocation } from 'react-router-dom';
 
 
@@ -81,11 +81,19 @@ const FirstDetails = () => {
     pincode: '', // New camp field
   });
 
+  const [campDetails , setCampDetails] = useState({});
+  const [batchDetails , setBatchDetails] = useState({}); 
+
+  useEffect(() => {
+    console.log(campDetails);
+    console.log(batchDetails);
+  }, [campDetails, batchDetails])
+
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const sid = queryParams.get('id');
     setStudentId(sid);
-    axios.get(`${baseurl}/getStudent?sid=${sid}`).then(x => setFormData(x.data.student)).then(x => console.log(formData))
+    axios.get(`${baseurl}/getStudent?sid=${sid}`).then(x => {setFormData(x.data.student);setCampDetails(x.data.camp_details);setBatchDetails(x.data.batch_details)});
   }, [location.search])
 
   useEffect(() => {
@@ -93,7 +101,7 @@ const FirstDetails = () => {
       let parts = formData['dob'].split('-'); // split the date string on '-'
       let date = new Date(parts[2], parts[1] - 1, parts[0]); // create a new Date object
       console.log(date)
-      setFormData(prevData => ({...prevData, dob: date}));
+      setFormData(prevData => ({ ...prevData, dob: date }));
     }
   }, [formData])
 
@@ -111,21 +119,21 @@ const FirstDetails = () => {
 
 
       const reqData = new FormData();
-      
+
       for (let key in formData) {
         if (key === 'dob') {
           let date = new Date(formData[key]);
           let day = ("0" + date.getDate()).slice(-2); // get the day as a string in the format DD
           let month = ("0" + (date.getMonth() + 1)).slice(-2); // get the month as a string in the format MM
           let year = date.getFullYear(); // get the year as a string in the format YYYY
-  
+
           let formattedDate = `${day}-${month}-${year}`; // combine them all together in the format DD-MM-YYYY
           reqData.append(key, formattedDate);
         } else {
           reqData.append(key, formData[key])
         }
       }
-      
+
 
       for (let key in formData) {
         reqData.append(key, formData[key])
@@ -162,6 +170,112 @@ const FirstDetails = () => {
       console.error('Error adding student:', error);
 
     }
+  };
+  const [camps, setCamps] = useState([]);
+
+  useEffect(() => {
+    const fetchCamps = async () => {
+      try {
+        const response = await axios.get(`${baseurl}/getAllCamps`);
+        setCamps(response.data.camps);
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
+    };
+    fetchCamps();
+  } , [])
+
+  const [camp, setCamp] = useState({})
+  const [campCategory, setCampCategory] = useState('');
+  
+  const [admissionFormData, setAdmissionFormData] = useState({
+    admissionType: '',
+    campName: '',
+    campCategory: '',
+    batch: '',
+    selectedDate: '',
+    foodOption: '',
+    dressCode: '',
+    pickUpPoint: '',
+    height: '',
+    weight: '',
+    blood_group: '',
+
+  });
+
+  useEffect(() => {
+    console.log('campname'+campDetails.camp_name);
+    
+    if (campDetails.camp_name) {
+      admissionFormData.campName = campDetails.camp_name;
+    }
+  }, [campDetails.camp_name]);
+
+  useEffect(() => {
+    console.log(admissionFormData);
+  },[admissionFormData]);
+
+  
+  const [campId, setCampId] = useState('');
+
+  useEffect(() => {
+    if (admissionFormData.campName) {
+      const selectedCamp = camps.find(camp => camp.camp_name === admissionFormData.campName);
+      if (selectedCamp) {
+        setCampId(selectedCamp.camp_id);
+      }
+    }
+  }, [admissionFormData.campName, camps]);
+  
+  const [batches, setBatches] = useState([]);
+
+  useEffect(() => {
+    const fetchBatches = async () => {
+      try {
+        const response = await axios.get(`${baseurl}/getBatches?camp_id=${campId}`);
+        setBatches(response.data.batches);
+      } catch (error) {
+        console.error('Error fetching data', error); 
+      }
+    };
+    fetchBatches();
+
+  }, [campId])
+
+  const [batchId, setBatchId] = useState('');
+  const [batch, setBatch] = useState({});
+
+  useEffect(() => {
+    if (admissionFormData.batch) {
+      const selectedBatch = batches.find(batch => batch.batch_name === admissionFormData.batch);
+      if (selectedBatch) {
+        setBatchId(selectedBatch.batch_id);
+        console.log('batchid: '+ selectedBatch.batch_id)
+      }
+    }
+  }, [admissionFormData.batch, batches]);
+
+  useEffect(() => {
+    const fetchBatch = async () => {
+      try {
+        const response = await axios.get(`${baseurl}/getBatch?batch_id=${batchId}`);
+        setBatch(response.data.batch);
+      } catch (error) {
+        console.error('Error fetching data', error); 
+      }
+    };
+    if (batchId) {
+      fetchBatch();
+    }
+  }, [batchId]);
+
+
+
+  const handleAdmissionChange = (name, value) => {
+    setAdmissionFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
@@ -260,7 +374,143 @@ const FirstDetails = () => {
                     <input id="pincode" name='pincode' value={formData.pincode} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Pincode" onChange={handleChange} />
                   </div>
                 </div>
+                <hr className="my-4 h-1 bg-gray-200" />
+                <div className="mb-4">
+                  <label htmlFor="campCategory" className="block text-lg font-medium text-gray-600">
+                    Camp Name
+                  </label>
+                  <select
+                    id="campName"
+                    name="campName"
+                    value={admissionFormData.campName}
+                    onChange={(e) => handleAdmissionChange('campName', e.target.value)}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Camp Category */}
+                    <option value="">Select Camp Name</option>
+                    {camps.map((camp) => (<option value={camp.camp_name}>{camp.camp_name}</option>))}
+                  </select>
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="campCategory" className="block text-sm font-medium text-gray-600">
+                    Camp Category
+                  </label>
+                  <select
+                    id="campCategory"
+                    name="campCategory"
+                    value={admissionFormData.campCategory}
+                    onChange={(e) => handleAdmissionChange('campCategory', e.target.value)}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Camp Category */}
+                    <option value="">Select Camp Category</option>
+                    <option value="diwali">DIWALI</option>
+                    <option value="chs">CHS</option>
+                    <option value="summer">SUMMER</option>
+                  </select>
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="batch" className="block text-sm font-medium text-gray-600">
+                    Batch
+                  </label>
+                  <select
+                    id="batch"
+                    name="batch"
+                    value={admissionFormData.batch}
+                    onChange={(e) => handleAdmissionChange('batch', e.target.value)}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Batch */}
+                    <option value="">Select Batch Name</option>
+                    {batches.map((batch) => (<option value={batch.batch_name}>{batch.batch_name}</option>))}
 
+                  </select>
+                </div>
+                <div className="grid grid-cols-4 gap-4">
+
+                  <div className="mb-4">
+                    <label htmlFor="startDate" className="block text-sm font-medium text-gray-600">Start Date</label>
+                    <input id="startDate" name='startDate' value={batch.start_date ? convertDate(batch.start_date) : ''} type="date" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Start Date" onChange={handleChange} readOnly />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="endDate" className="block text-sm font-medium text-gray-600">End Date</label>
+                    <input id="endDate" name='endDate' value={batch.end_date ? convertDate(batch.end_date) : ''} type="date" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="End Date" onChange={handleChange} readOnly />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="company" className="block text-sm font-medium text-gray-600">Company</label>
+                    <input id="company" name='company' value={batch.company} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Company" onChange={handleChange} readOnly />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="duration" className="block text-sm font-medium text-gray-600">Duration</label>
+                    <input id="duration" name='duration' value={batch.duration} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Duration" onChange={handleChange} readOnly />
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="foodOption" className="block text-sm font-medium text-gray-600">
+                    Food Option
+                  </label>
+                  <select
+                    id="foodOption"
+                    name="foodOption"
+                    value={admissionFormData.foodOption}
+                    onChange={(e) => handleAdmissionChange('foodOption', e.target.value)}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Food Option */}
+                    <option value="">Select Food Option </option>
+                    <option value="veg">VEG </option>
+                    <option value="jain">JAIN </option>
+                  </select>
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="dressCode" className="block text-sm font-medium text-gray-600">
+                    Dress Code
+                  </label>
+                  <select
+                    id="dressCode"
+                    name="dressCode"
+                    value={admissionFormData.dressCode}
+                    onChange={(e) => handleAdmissionChange('dressCode', e.target.value)}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Dress Code */}
+                    <option value="">Select Dress Code </option>
+                    <option value="trackSuit">TRACK SUIT</option>
+                    <option value="combatDress">COMBAT DRESS </option>
+                    <option value="cheetaDress">CHEETA DRESS</option>
+                    <option value="blackDress">BLACK DRESS </option>
+                  </select>
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="pickUpPoint" className="block text-sm font-medium text-gray-600">
+                    Pick Up Point Location
+                  </label>
+                  <select
+                    id="pickUpPoint"
+                    name="pickUpPoint"
+                    value={admissionFormData.pickUpPoint}
+                    onChange={(e) => handleAdmissionChange('pickUpPoint', e.target.value)}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Dress Code */}
+                    <option value="">Select Pick Up Point Location </option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="pune">Pune </option>
+                  </select>
+                </div>
+                <hr className="my-4 h-1 bg-gray-200" />
+                <div className="mb-4">
+                  <label htmlFor="height" className="block text-sm font-medium text-gray-600">Height</label>
+                  <input id="height" name='height' value={admissionFormData.height} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Height in cm" onChange={e => handleAdmissionChange('height', e.target.value)} />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="weight" className="block text-sm font-medium text-gray-600">Weight</label>
+                  <input id="weight" name='weight' value={admissionFormData.weight} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Weight in Kg" onChange={e => handleAdmissionChange('weight', e.target.value)} />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="blood_group" className="block text-sm font-medium text-gray-600">Blood Group</label>
+                  <input id="blood_group" name='blood_group' value={admissionFormData.blood_group} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Blood Group" onChange={e => handleAdmissionChange('blood_group', e.target.value)} />
+                </div>
 
               </form>
             </div>

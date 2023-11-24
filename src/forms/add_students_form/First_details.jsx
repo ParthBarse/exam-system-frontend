@@ -12,6 +12,7 @@ import { Alert } from '@mui/material';
 const baseurl = 'https://mcf-backend-main.vercel.app'
 
 const FirstDetails = () => {
+  const reqData = new FormData();
 
   const [state, setState] = React.useState({
     open: false,
@@ -66,20 +67,20 @@ const FirstDetails = () => {
   });
 
   const [camp, setCamp] = useState({})
-  const [campCategory, setCampCategory] = useState('');
+  const [camp_category, setCampCategory] = useState('');
   
   const [admissionFormData, setAdmissionFormData] = useState({
     admissionType: '',
-    campName: '',
-    campCategory: '',
-    batch: '',
+    camp_category: '',
+    batch_id: '',
     selectedDate: '',
-    foodOption: '',
-    dressCode: '',
-    pickUpPoint: '',
+    food_option: '',
+    dress_code: '',
+    pick_up_point: '',
     height: '',
     weight: '',
     blood_group: '',
+    payment_option: '',
 
   });
   useEffect(() => {
@@ -90,13 +91,15 @@ const FirstDetails = () => {
   const [campId, setCampId] = useState('');
 
   useEffect(() => {
-    if (admissionFormData.campName) {
-      const selectedCamp = camps.find(camp => camp.camp_name === admissionFormData.campName);
+    if (admissionFormData.camp_category) {
+      const selectedCamp = camps.find(camp => camp.camp_name === admissionFormData.camp_category);
       if (selectedCamp) {
         setCampId(selectedCamp.camp_id);
+        admissionFormData['camp_id'] = selectedCamp.camp_id;
+
       }
     }
-  }, [admissionFormData.campName, camps]);
+  }, [admissionFormData.camp_category, camps]);
   
   const [batches, setBatches] = useState([]);
 
@@ -121,6 +124,8 @@ const FirstDetails = () => {
       const selectedBatch = batches.find(batch => batch.batch_name === admissionFormData.batch);
       if (selectedBatch) {
         setBatchId(selectedBatch.batch_id);
+        admissionFormData['batch_id'] = selectedBatch.batch_id;
+
         console.log('batchid: '+ selectedBatch.batch_id)
       }
     }
@@ -163,7 +168,6 @@ const FirstDetails = () => {
     try {
       
 
-      const reqData = new FormData();
       
       let date = new Date(formData['dob']); // assuming formData[key] is the date you're referring to
       let day = ("0" + date.getDate()).slice(-2); // get the day as a string in the format DD
@@ -320,14 +324,14 @@ const FirstDetails = () => {
                 </div>
                 <hr className="my-4 h-1 bg-gray-200" />
                 <div className="mb-4">
-                  <label htmlFor="campCategory" className="block text-lg font-medium text-gray-600">
+                  <label htmlFor="camp_category" className="block text-lg font-medium text-gray-600">
                     Camp Name
                   </label>
                   <select
-                    id="campName"
-                    name="campName"
-                    value={admissionFormData.campName}
-                    onChange={(e) => handleAdmissionChange('campName', e.target.value)}
+                    id="camp_category"
+                    name="camp_category"
+                    value={admissionFormData.camp_category}
+                    onChange={(e) => handleAdmissionChange('camp_category', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Camp Category */}
@@ -336,14 +340,14 @@ const FirstDetails = () => {
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="campCategory" className="block text-sm font-medium text-gray-600">
+                  <label htmlFor="camp_category" className="block text-sm font-medium text-gray-600">
                     Camp Category
                   </label>
                   <select
-                    id="campCategory"
-                    name="campCategory"
-                    value={admissionFormData.campCategory}
-                    onChange={(e) => handleAdmissionChange('campCategory', e.target.value)}
+                    id="camp_category"
+                    name="camp_category"
+                    value={admissionFormData.camp_category}
+                    onChange={(e) => handleAdmissionChange('camp_category', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Camp Category */}
@@ -390,14 +394,14 @@ const FirstDetails = () => {
                   </div>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="foodOption" className="block text-sm font-medium text-gray-600">
+                  <label htmlFor="food_option" className="block text-sm font-medium text-gray-600">
                     Food Option
                   </label>
                   <select
-                    id="foodOption"
-                    name="foodOption"
-                    value={admissionFormData.foodOption}
-                    onChange={(e) => handleAdmissionChange('foodOption', e.target.value)}
+                    id="food_option"
+                    name="food_option"
+                    value={admissionFormData.food_option}
+                    onChange={(e) => handleAdmissionChange('food_option', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Food Option */}
@@ -407,14 +411,14 @@ const FirstDetails = () => {
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="dressCode" className="block text-sm font-medium text-gray-600">
+                  <label htmlFor="dress_code" className="block text-sm font-medium text-gray-600">
                     Dress Code
                   </label>
                   <select
-                    id="dressCode"
-                    name="dressCode"
-                    value={admissionFormData.dressCode}
-                    onChange={(e) => handleAdmissionChange('dressCode', e.target.value)}
+                    id="dress_code"
+                    name="dress_code"
+                    value={admissionFormData.dress_code}
+                    onChange={(e) => handleAdmissionChange('dress_code', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Dress Code */}
@@ -426,14 +430,14 @@ const FirstDetails = () => {
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="pickUpPoint" className="block text-sm font-medium text-gray-600">
+                  <label htmlFor="pick_up_point" className="block text-sm font-medium text-gray-600">
                     Pick Up Point Location
                   </label>
                   <select
-                    id="pickUpPoint"
-                    name="pickUpPoint"
-                    value={admissionFormData.pickUpPoint}
-                    onChange={(e) => handleAdmissionChange('pickUpPoint', e.target.value)}
+                    id="pick_up_point"
+                    name="pick_up_point"
+                    value={admissionFormData.pick_up_point}
+                    onChange={(e) => handleAdmissionChange('pick_up_point', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Dress Code */}
@@ -520,14 +524,14 @@ const FirstDetails = () => {
 
                 <hr className="my-4 h-1 bg-gray-200" />
                 <div className="mb-4">
-                  <label htmlFor="paymentOptions" className="block text-sm font-medium text-gray-600">
+                  <label htmlFor="payment_option" className="block text-sm font-medium text-gray-600">
                    Payment Options
                   </label>
                   <select
-                    id="paymentOptions"
-                    name="paymentOptions"
-                    value={admissionFormData.paymentOptions}
-                    onChange={(e) => handleAdmissionChange('paymentOptions', e.target.value)}
+                    id="payment_option"
+                    name="payment_option"
+                    value={admissionFormData.payment_option}
+                    onChange={(e) => handleAdmissionChange('payment_option', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Dress Code */}
