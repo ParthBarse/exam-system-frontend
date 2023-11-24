@@ -76,6 +76,11 @@ const FirstDetails = () => {
     selectedDate: '',
     foodOption: '',
     dressCode: '',
+    pickUpPoint: '',
+    height: '',
+    weight: '',
+    blood_group: '',
+
   });
   useEffect(() => {
     console.log(admissionFormData);
@@ -107,6 +112,35 @@ const FirstDetails = () => {
     fetchBatches();
 
   }, [campId])
+
+  const [batchId, setBatchId] = useState('');
+  const [batch, setBatch] = useState({});
+
+  useEffect(() => {
+    if (admissionFormData.batch) {
+      const selectedBatch = batches.find(batch => batch.batch_name === admissionFormData.batch);
+      if (selectedBatch) {
+        setBatchId(selectedBatch.batch_id);
+        console.log('batchid: '+ selectedBatch.batch_id)
+      }
+    }
+  }, [admissionFormData.batch, batches]);
+
+  useEffect(() => {
+    const fetchBatch = async () => {
+      try {
+        const response = await axios.get(`${baseurl}/getBatch?batch_id=${batchId}`);
+        setBatch(response.data.batch);
+      } catch (error) {
+        console.error('Error fetching data', error); 
+      }
+    };
+    if (batchId) {
+      fetchBatch();
+    }
+  }, [batchId]);
+
+
 
   const handleAdmissionChange = (name, value) => {
     setAdmissionFormData((prevData) => ({
@@ -145,6 +179,10 @@ const FirstDetails = () => {
         reqData.append(key, formData[key])
       }
 
+      for (let key in admissionFormData) {
+        reqData.append(key, admissionFormData[key])
+      }
+
       // Make a POST request using axios
 
       const response = await axios.post(`${baseurl}/registerStudent`, reqData);
@@ -176,6 +214,12 @@ const FirstDetails = () => {
       console.error('Error adding student:', error);
 
     }
+  };
+
+  const convertDate = (dateString) => {
+    const [day, month, year] = dateString.split('-');
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
   };
 
   return (
@@ -330,19 +374,19 @@ const FirstDetails = () => {
 
                   <div className="mb-4">
                     <label htmlFor="startDate" className="block text-sm font-medium text-gray-600">Start Date</label>
-                    <input id="startDate" name='startDate' value={formData.startDate} type="date" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Start Date" onChange={handleChange} readOnly />
+                    <input id="startDate" name='startDate' value={batch.start_date?convertDate(batch.start_date):''} type="date" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Start Date" onChange={handleChange} readOnly />
                   </div>
                   <div className="mb-4">
                     <label htmlFor="endDate" className="block text-sm font-medium text-gray-600">End Date</label>
-                    <input id="endDate" name='endDate' value={formData.endDate} type="date" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="End Date" onChange={handleChange} readOnly />
+                    <input id="endDate" name='endDate' value={batch.end_date?convertDate(batch.end_date):''} type="date" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="End Date" onChange={handleChange} readOnly />
                   </div>
                   <div className="mb-4">
                     <label htmlFor="company" className="block text-sm font-medium text-gray-600">Company</label>
-                    <input id="company" name='company' value={formData.company} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Company" onChange={handleChange} readOnly />
+                    <input id="company" name='company' value={batch.company} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Company" onChange={handleChange} readOnly />
                   </div>
                   <div className="mb-4">
                     <label htmlFor="duration" className="block text-sm font-medium text-gray-600">Duration</label>
-                    <input id="duration" name='duration' value={formData.duration} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Duration" onChange={handleChange} readOnly />
+                    <input id="duration" name='duration' value={batch.duration} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Duration" onChange={handleChange} readOnly />
                   </div>
                 </div>
                 <div className="mb-4">
@@ -401,15 +445,15 @@ const FirstDetails = () => {
                 <hr className="my-4 h-1 bg-gray-200" />
                 <div className="mb-4">
                     <label htmlFor="height" className="block text-sm font-medium text-gray-600">Height</label>
-                    <input id="height" name='height' value={formData.height} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Height in cm" onChange={handleChange} />
+                    <input id="height" name='height' value={admissionFormData.height} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Height in cm" onChange={e=>handleAdmissionChange('height',e.target.value)} />
                   </div>
                   <div className="mb-4">
                     <label htmlFor="weight" className="block text-sm font-medium text-gray-600">Weight</label>
-                    <input id="weight" name='weight' value={formData.weight} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Weight in Kg" onChange={handleChange} />
+                    <input id="weight" name='weight' value={admissionFormData.weight} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Weight in Kg" onChange={e=>handleAdmissionChange('weight',e.target.value)} />
                   </div>
                   <div className="mb-4">
                     <label htmlFor="blood_group" className="block text-sm font-medium text-gray-600">Blood Group</label>
-                    <input id="blood_group" name='blood_group' value={formData.weight} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Blood Group" onChange={handleChange} />
+                    <input id="blood_group" name='blood_group' value={admissionFormData.blood_group} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Blood Group" onChange={e=>handleAdmissionChange('blood_group',e.target.value)} />
                   </div>
                   <div className="mb-4">
                   <label htmlFor="medicalCertificate" className="block text-sm font-medium text-gray-600">
