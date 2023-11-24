@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import "./receipt.css";
 import sign from "./sign.png";
 import top from "./top.png"
+import loo from "./loo.png";
 
 function Receipt() {
   const [data, setData] = useState({});
@@ -24,13 +25,13 @@ function Receipt() {
   return (
     <div className="hey">
       <div class="box" >
-        <div class="header" style={{background : 'bisque'}}>
+        <div class="heade" style={{background : 'bisque'}}>
           <h1 className="text-4xl">FEE RECEIPT</h1>
         </div>
 
-        <div class="header">
+        <div class="heade">
           <img
-            src="https://source.unsplash.com/random/180x80"
+            src={loo}
             alt="logo"
             class="logo"
           />
