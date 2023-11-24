@@ -12,10 +12,10 @@ function Camp() {
   useEffect(() => {
     // Fetch data from the API endpoint
     axios
-      .get("https://mcf-backend.vercel.app/api/getAllCamps")
+      .get("https://mcf-backend-main.vercel.app/getAllCamps")
       .then((response) => {
         // Update the state with the fetched data
-        setData(response.data);
+        setData(response.data.camps); // Assuming response.data is an array of camp objects
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -24,24 +24,17 @@ function Camp() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Calculate the index range for the current page
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
   const currentEntries = data.slice(indexOfFirstEntry, indexOfLastEntry);
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-        {/* Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
             <div className="grid grid-cols-12 gap-6">
@@ -62,13 +55,11 @@ function Camp() {
                   </Link>
                 </header>
                 <div className="p-4">
-                  {/* Table */}
                   <div className="overflow-x-auto">
                     <table
                       className="dark:text-slate-300"
                       style={{ width: "100%" }}
                     >
-                      {/* Table header */}
                       <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
                         <tr>
                           <th className="p-2">
@@ -81,17 +72,17 @@ function Camp() {
                           </th>
                           <th className="p-2">
                             <div className="font-semibold text-center">
-                              venue
+                              Venue
                             </div>
                           </th>
                           <th className="p-2">
                             <div className="font-semibold text-center">
-                              status
+                              Status
                             </div>
                           </th>
                           <th className="p-2">
                             <div className="font-semibold text-center">
-                              fees
+                              Fees
                             </div>
                           </th>
                           <th className="p-2">
@@ -101,47 +92,42 @@ function Camp() {
                           </th>
                         </tr>
                       </thead>
-                      {/* Table body */}
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
-                        {/* Row */}
                         {currentEntries.map((item, index) => (
                           <tr style={{ padding: "2px" }} key={item.id}>
                             <td>
-                              <div
-                                className="text-left"
-                                style={{ fontWeight: "bold" }}
-                              >
+                              <div className="text-left" style={{ fontWeight: "bold" }}>
                                 {indexOfFirstEntry + index + 1}
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-right">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.Name}
+                                  {item.camp_name}
                                 </div>
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-left">{item.Venue}</div>
+                              <div className="text-left">{item.camp_place}</div>
                             </td>
                             <td className="p-2">
                               <div
                                 className={`text-center ${
-                                  item.Status === "inactive"
+                                  item.status === "inactive"
                                     ? "text-red-500"
                                     : "text-emerald-500"
                                 }`}
                               >
-                                {item.Status}
+                                {item.camp_status}
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-right">{item.Fees}</div>
+                              <div className="text-right">{item.final_fee}</div>
                             </td>
                             <td className="p-3">
                               <div className="text-center">
                                 <Link
-                                  to={`/fee-details?campname=${item.Name}`}
+                                  to={`/fee-details?campname=${item.name}`}
                                   className="text-sm text-white px-2 bg-yellow-500"
                                   style={{
                                     padding: "3px",
@@ -150,7 +136,7 @@ function Camp() {
                                     marginRight: "2px",
                                   }}
                                 >
-                                  fee details{" "}
+                                  Fee Details
                                 </Link>
                                 <Link
                                   to={`/batch-details`}
@@ -162,10 +148,10 @@ function Camp() {
                                     marginRight: "1px",
                                   }}
                                 >
-                                  Batch details
+                                  Batch Details
                                 </Link>
                                 <Link
-                                  to={`/edit-fee-details?campname=${item.Name}`}
+                                  to={`/edit-fee-details?campname=${item.name}`}
                                   className="text-sm text-white px-2 bg-red-500 rounded"
                                   style={{
                                     padding: "3px",
@@ -183,7 +169,6 @@ function Camp() {
                       </tbody>
                     </table>
                   </div>
-                  {/* Pagination */}
                   <div className="flex justify-center mt-4">
                     {Array.from(
                       { length: Math.ceil(data.length / entriesPerPage) },
