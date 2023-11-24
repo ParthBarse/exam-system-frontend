@@ -13,7 +13,7 @@ function CanStudent() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://mcf-backend.vercel.app/api/CancelledStudents"
+        "https://mcf-backend-main.vercel.app/CancelledStudents"
       );
       setCancelledStudents(response.data);
     } catch (error) {
