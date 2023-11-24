@@ -89,6 +89,8 @@ const FirstDetails = () => {
     console.log(batchDetails);
   }, [campDetails, batchDetails])
 
+  
+
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const sid = queryParams.get('id');
@@ -138,6 +140,7 @@ const FirstDetails = () => {
       for (let key in formData) {
         reqData.append(key, formData[key])
       }
+      
 
       // Make a POST request using axios
 
@@ -173,6 +176,9 @@ const FirstDetails = () => {
   };
   const [camps, setCamps] = useState([]);
 
+
+
+
   useEffect(() => {
     const fetchCamps = async () => {
       try {
@@ -186,46 +192,92 @@ const FirstDetails = () => {
   } , [])
 
   const [camp, setCamp] = useState({})
-  const [campCategory, setCampCategory] = useState('');
+  const [camp_category, setCampCategory] = useState('');
   
   const [admissionFormData, setAdmissionFormData] = useState({
     admissionType: '',
-    campName: '',
-    campCategory: '',
-    batch: '',
+    camp_category: '',
+    batch_id: '',
     selectedDate: '',
-    foodOption: '',
-    dressCode: '',
-    pickUpPoint: '',
+    food_option: '',
+    dress_code: '',
+    pick_up_point: '',
     height: '',
     weight: '',
     blood_group: '',
+    payment_option: '',
 
   });
+
+  useEffect(() => {
+    if (formData.food_option){
+      admissionFormData.food_option = formData.food_option;
+    }
+    if (formData.dress_code){
+      admissionFormData.dress_code = formData.dress_code;
+    }
+    if (formData.pick_up_point){
+      admissionFormData.pick_up_point = formData.pick_up_point;
+    }
+    if (formData.height){
+      admissionFormData.height = formData.height;
+    }
+    if (formData.weight){
+      admissionFormData.weight = formData.weight;
+    }
+    if (formData.blood_group){
+      admissionFormData.blood_group = formData.blood_group;
+    }
+
+  }
+  , [formData.food_option, formData.dress_code , formData.pick_up_point , formData.height , formData.weight , formData.blood_group ])
 
   useEffect(() => {
     console.log('campname'+campDetails.camp_name);
     
     if (campDetails.camp_name) {
-      admissionFormData.campName = campDetails.camp_name;
+      admissionFormData.camp_name = campDetails.camp_name;
     }
   }, [campDetails.camp_name]);
 
   useEffect(() => {
-    console.log(admissionFormData);
-  },[admissionFormData]);
+    if (formData.camp_category) {
+      admissionFormData.camp_category = formData.camp_category;
+    }
+  }, [formData.camp_category]);
 
+  useEffect(() => {
+    if (batchDetails.batch_name) {
+      admissionFormData.batch_name = batchDetails.batch_name;
+    }
+  }, [batchDetails.batch_name]);
+    
+  // //////////////////////////////////////////////
+
+
+  useEffect(() => {
+    console.log(admissionFormData);
+  }, [admissionFormData])
+
+  /////////////////////////////////////////////////
   
   const [campId, setCampId] = useState('');
 
   useEffect(() => {
-    if (admissionFormData.campName) {
-      const selectedCamp = camps.find(camp => camp.camp_name === admissionFormData.campName);
+    if (campDetails.camp_id) {
+      setCampId(campDetails.camp_id);
+    }
+  }, [campDetails.camp_id]);
+
+  useEffect(() => {
+    if (admissionFormData.camp_name) {
+      const selectedCamp = camps.find(camp => camp.camp_name === admissionFormData.camp_name);
       if (selectedCamp) {
         setCampId(selectedCamp.camp_id);
+        console.log('campid'+selectedCamp.camp_id)
       }
     }
-  }, [admissionFormData.campName, camps]);
+  }, [admissionFormData.camp_name, camps]);
   
   const [batches, setBatches] = useState([]);
 
@@ -246,14 +298,20 @@ const FirstDetails = () => {
   const [batch, setBatch] = useState({});
 
   useEffect(() => {
-    if (admissionFormData.batch) {
-      const selectedBatch = batches.find(batch => batch.batch_name === admissionFormData.batch);
+    if (batchDetails.batch_id) {
+      setBatchId(batchDetails.batch_id);
+    }
+  }, [batchDetails.batch_id]);
+
+  useEffect(() => {
+    if (admissionFormData.batch_name) {
+      const selectedBatch = batches.find(batch => batch.batch_name === admissionFormData.batch_name);
       if (selectedBatch) {
         setBatchId(selectedBatch.batch_id);
         console.log('batchid: '+ selectedBatch.batch_id)
       }
     }
-  }, [admissionFormData.batch, batches]);
+  }, [admissionFormData.batch_name, batches]);
 
   useEffect(() => {
     const fetchBatch = async () => {
@@ -276,6 +334,16 @@ const FirstDetails = () => {
       ...prevData,
       [name]: value,
     }));
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const convertDate = (dateString) => {
+    const [day, month, year] = dateString.split('-');
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
   };
 
   return (
@@ -376,14 +444,14 @@ const FirstDetails = () => {
                 </div>
                 <hr className="my-4 h-1 bg-gray-200" />
                 <div className="mb-4">
-                  <label htmlFor="campCategory" className="block text-lg font-medium text-gray-600">
+                  <label htmlFor="camp_category" className="block text-lg font-medium text-gray-600">
                     Camp Name
                   </label>
                   <select
-                    id="campName"
-                    name="campName"
-                    value={admissionFormData.campName}
-                    onChange={(e) => handleAdmissionChange('campName', e.target.value)}
+                    id="camp_name"
+                    name="camp_name"
+                    value={admissionFormData.camp_name}
+                    onChange={(e) => handleAdmissionChange('camp_name', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Camp Category */}
@@ -392,14 +460,14 @@ const FirstDetails = () => {
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="campCategory" className="block text-sm font-medium text-gray-600">
+                  <label htmlFor="camp_category" className="block text-sm font-medium text-gray-600">
                     Camp Category
                   </label>
                   <select
-                    id="campCategory"
-                    name="campCategory"
-                    value={admissionFormData.campCategory}
-                    onChange={(e) => handleAdmissionChange('campCategory', e.target.value)}
+                    id="camp_category"
+                    name="camp_category"
+                    value={admissionFormData.camp_category}
+                    onChange={(e) => handleAdmissionChange('camp_category', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Camp Category */}
@@ -410,14 +478,14 @@ const FirstDetails = () => {
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="batch" className="block text-sm font-medium text-gray-600">
+                  <label htmlFor="batch_name" className="block text-sm font-medium text-gray-600">
                     Batch
                   </label>
                   <select
-                    id="batch"
-                    name="batch"
-                    value={admissionFormData.batch}
-                    onChange={(e) => handleAdmissionChange('batch', e.target.value)}
+                    id="batch_name"
+                    name="batch_name"
+                    value={admissionFormData.batch_name}
+                    onChange={(e) => handleAdmissionChange('batch_name', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Batch */}
@@ -446,14 +514,14 @@ const FirstDetails = () => {
                   </div>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="foodOption" className="block text-sm font-medium text-gray-600">
+                  <label htmlFor="food_option" className="block text-sm font-medium text-gray-600">
                     Food Option
                   </label>
                   <select
-                    id="foodOption"
-                    name="foodOption"
-                    value={admissionFormData.foodOption}
-                    onChange={(e) => handleAdmissionChange('foodOption', e.target.value)}
+                    id="food_option"
+                    name="food_option"
+                    value={admissionFormData.food_option}
+                    onChange={(e) => handleAdmissionChange('food_option', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Food Option */}
@@ -463,14 +531,14 @@ const FirstDetails = () => {
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="dressCode" className="block text-sm font-medium text-gray-600">
+                  <label htmlFor="dress_code" className="block text-sm font-medium text-gray-600">
                     Dress Code
                   </label>
                   <select
-                    id="dressCode"
-                    name="dressCode"
-                    value={admissionFormData.dressCode}
-                    onChange={(e) => handleAdmissionChange('dressCode', e.target.value)}
+                    id="dress_code"
+                    name="dress_code"
+                    value={admissionFormData.dress_code}
+                    onChange={(e) => handleAdmissionChange('dress_code', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Dress Code */}
@@ -482,14 +550,14 @@ const FirstDetails = () => {
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="pickUpPoint" className="block text-sm font-medium text-gray-600">
+                  <label htmlFor="pick_up_point" className="block text-sm font-medium text-gray-600">
                     Pick Up Point Location
                   </label>
                   <select
-                    id="pickUpPoint"
-                    name="pickUpPoint"
-                    value={admissionFormData.pickUpPoint}
-                    onChange={(e) => handleAdmissionChange('pickUpPoint', e.target.value)}
+                    id="pick_up_point"
+                    name="pick_up_point"
+                    value={admissionFormData.pick_up_point}
+                    onChange={(e) => handleAdmissionChange('pick_up_point', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Dress Code */}

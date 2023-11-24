@@ -8,11 +8,11 @@ import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
 
 
-
 const baseurl = 'https://mcf-backend-main.vercel.app'
 
 const FirstDetails = () => {
   const reqData = new FormData();
+
 
   const [state, setState] = React.useState({
     open: false,
@@ -91,15 +91,15 @@ const FirstDetails = () => {
   const [campId, setCampId] = useState('');
 
   useEffect(() => {
-    if (admissionFormData.camp_category) {
-      const selectedCamp = camps.find(camp => camp.camp_name === admissionFormData.camp_category);
+    if (admissionFormData.camp_name) {
+      const selectedCamp = camps.find(camp => camp.camp_name === admissionFormData.camp_name);
       if (selectedCamp) {
         setCampId(selectedCamp.camp_id);
         admissionFormData['camp_id'] = selectedCamp.camp_id;
 
       }
     }
-  }, [admissionFormData.camp_category, camps]);
+  }, [admissionFormData.camp_name, camps]);
   
   const [batches, setBatches] = useState([]);
 
@@ -114,7 +114,7 @@ const FirstDetails = () => {
     };
     fetchBatches();
 
-  }, [campId])
+  }, [campId, admissionFormData.camp_name])
 
   const [batchId, setBatchId] = useState('');
   const [batch, setBatch] = useState({});
@@ -211,7 +211,8 @@ const FirstDetails = () => {
         pincode: '', // New camp field
       });
       
-      setState({ vertical: 'bottom', horizontal: 'right' ,open: true });
+      // setState({ vertical: 'bottom', horizontal: 'right' ,open: true });
+
       
     } catch (error) {
       setErrorState({ vertical: 'bottom', horizontal: 'right' ,open: true });
@@ -328,10 +329,10 @@ const FirstDetails = () => {
                     Camp Name
                   </label>
                   <select
-                    id="camp_category"
-                    name="camp_category"
-                    value={admissionFormData.camp_category}
-                    onChange={(e) => handleAdmissionChange('camp_category', e.target.value)}
+                    id="camp_name"
+                    name="camp_name"
+                    value={admissionFormData.camp_name}
+                    onChange={(e) => handleAdmissionChange('camp_name', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Camp Category */}
