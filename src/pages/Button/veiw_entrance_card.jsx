@@ -5,7 +5,6 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import './entrance.css';
 
-
 function AdmitCard() {
   const [data, setData] = useState({});
   const [id, setId] = useState("");
@@ -21,14 +20,10 @@ function AdmitCard() {
   }, [location.search, id]);
 
   return (
-    <div className="">
+    <>
+    <div className="hey">
       <div class="box">
         <div class="header">
-          <img
-            src="https://source.unsplash.com/random/180x80"
-            alt="logo"
-            class="logo"
-          />
         </div>
 
         <div class="inner-box">
@@ -191,14 +186,16 @@ function AdmitCard() {
             www.mcfcamp.com (http://mcfcamp.in)
           </p>
         </div>
-      </div>
-      <button
+        <button
         onClick={(e) => window.print()}
-        className="no-print bg-blue-500 hover:bg-blue-700 text-white py-1 px-80 mt-4 rounded"
+        className="no-print bg-blue-500 hover:bg-blue-700 text-white py-1 px-8 rounded"
       >
         Print
       </button>
-    </div>
+      </div>
+      </div>
+      </>
+
   );
 }
 
