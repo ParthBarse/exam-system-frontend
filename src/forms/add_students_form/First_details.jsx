@@ -276,19 +276,27 @@ const FirstDetails = () => {
                     <option value="7days">7 DAYS </option>
                     <option value="10days">10 DAYS </option>
                     <option value="15days">15 DAYS </option>
+                    <option value="30days">30 DAYS </option>
                   </select>
                 </div>
-                <div className="mb-4">
-                  <label htmlFor="selectedDate" className="block text-sm font-medium text-gray-600">
-                    Select Date
-                  </label>
-                  <DatePicker
-                    label="Controlled picker"
-                    value={admissionFormData.selectedDate}
-                    placeholder="Select Date"
-                    name="selectedDate"
-                    onChange={(date) => handleAdmissionChange('selectedDate', date)}
-                  />
+                <div className="grid grid-cols-4 gap-4">
+
+                  <div className="mb-4">
+                    <label htmlFor="startDate" className="block text-sm font-medium text-gray-600">Start Date</label>
+                    <input id="startDate" name='startDate' value={formData.startDate} type="date" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Start Date" onChange={handleChange} readOnly />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="endDate" className="block text-sm font-medium text-gray-600">End Date</label>
+                    <input id="endDate" name='endDate' value={formData.endDate} type="date" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="End Date" onChange={handleChange} readOnly />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="company" className="block text-sm font-medium text-gray-600">Company</label>
+                    <input id="company" name='company' value={formData.company} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Company" onChange={handleChange} readOnly />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="duration" className="block text-sm font-medium text-gray-600">Duration</label>
+                    <input id="duration" name='duration' value={formData.duration} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Duration" onChange={handleChange} readOnly />
+                  </div>
                 </div>
                 <div className="mb-4">
                   <label htmlFor="foodOption" className="block text-sm font-medium text-gray-600">
@@ -419,6 +427,27 @@ const FirstDetails = () => {
                   />
                 </div>
 
+                <hr className="my-4 h-1 bg-gray-200" />
+                <div className="mb-4">
+                  <label htmlFor="paymentOptions" className="block text-sm font-medium text-gray-600">
+                   Payment Options
+                  </label>
+                  <select
+                    id="paymentOptions"
+                    name="paymentOptions"
+                    value={admissionFormData.paymentOptions}
+                    onChange={(e) => handleAdmissionChange('paymentOptions', e.target.value)}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Dress Code */}
+                    <option value="">Select Payment Options </option>
+                    <option value="totalPayment">Total Payment</option>
+                    <option value="1installment">1 installment </option>
+                    <option value="2installment">2 installments </option>
+                    <option value="3installment">3 installments </option>
+                    <option value="4installment">4 installments </option>
+                  </select>
+                </div>
                 <hr className="my-4 h-1 bg-gray-200" />
                 <div className="p-4">
               <div className="overflow-x-auto text-xs">
