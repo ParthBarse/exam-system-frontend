@@ -3,6 +3,7 @@ import axios from "axios"; // Import Axios
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link } from "react-router-dom";
+import { Dropdown } from 'react-bootstrap';
 
 const baseurl = 'https://mcf-backend-main.vercel.app'
 
@@ -55,20 +56,31 @@ function RegStudent() {
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-                <header
-                  className="px-5 py-4 border-b border-slate-100 dark:border-slate-700"
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-                    Registered Students List
-                  </h2>
-                  <Link
-                    end
-                    to="/add-student"
-                    className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
-                  >
-                    Add Student
-                  </Link>
+
+                <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <h2 className="font-semibold text-slate-800 dark:text-slate-100">
+                      Registered Students List
+                    </h2>
+                    <div style={{ display: "flex", gap: "10px" }}>
+                      <Dropdown>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded mr-2">
+                          New Admission
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu as="ul" className="mt-2 bg-gray-200 border rounded shadow">
+                          <li><Dropdown.Item href="/add-student" className="px-3 py-2 hover:bg-gray-300">New student</Dropdown.Item></li>
+                          <li><Dropdown.Item href="/admission-form" className="px-3 py-2 hover:bg-gray-300">Already Registered</Dropdown.Item></li>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                      <Link
+                        end
+                        to="/add-student"
+                        className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
+                      >
+                        Add Student
+                      </Link>
+                    </div>
+                  </div>
                 </header>
                 <div className="p-4">
                   {/* Table */}

@@ -8,6 +8,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
+import Sidebar from '../partials/Sidebar';
+import Header from '../partials/Header';
 
 const baseurl = 'https://mcf-backend-main.vercel.app';
 
@@ -17,6 +19,8 @@ const AdmissionForm = () => {
     vertical: 'top',
     horizontal: 'center',
   });
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [errorState, setErrorState] = useState({
     open: false,
@@ -125,8 +129,15 @@ const AdmissionForm = () => {
   };
 
   return (
-    <div>
+    <div className="flex h-screen overflow-hidden">
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+
+      {/* Content area */}
+      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+        {/* Site header */}
+        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       {/* Admission Form */}
+      <main>
       <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
@@ -140,9 +151,85 @@ const AdmissionForm = () => {
             </header>
             <div className="overflow-x-auto">
               <form className="  rounded px-8 pt-6 pb-8 mb-4">
-                {/* Existing form fields */}
-                {/* ... */}
-                {/* New Admission Form fields */}
+              <div className="grid grid-cols-3 gap-4">
+                  {/* Name fields */}
+                  <div className="mb-4">
+                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-600">First Name</label>
+                    <input id="firstName" name='first_name' value={formData.first_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="First Name" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="middlename" className="block text-sm font-medium text-gray-600">Middle Name</label>
+                    <input id="middlename" name='middle_name' value={formData.middle_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Middle Name" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-600">Last Name</label>
+                    <input id="lastName" name='last_name' value={formData.last_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Last Name" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email</label>
+                    <input id="emial" name='email' value={formData.email} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Email" onChange={handleChange} />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="mb-4">
+                    <label htmlFor="Phone" className="block text-sm font-medium text-gray-600">Phone</label>
+                    <input id="Phone" name='phn' value={formData.phn} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Phone" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="address" className="block text-sm font-medium text-gray-600">Address</label>
+                    <input id="address" name='address' value={formData.address} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Address" onChange={handleChange} />
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="dob" className="block text-sm font-medium text-gray-600">Date of Birth</label>
+                  <DatePicker
+                    label="Controlled picker"
+                    value={formData.dob}
+                    placeholder='dob'
+                    name='dob'
+                    onChange={(date) => setFormData({ ...formData, dob: date })}
+                  />
+
+                </div>
+                {/* Father's and Mother's Occupation */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="mb-4">
+                    <label htmlFor="fatherOccupation" className="block text-sm font-medium text-gray-600">Father's Occupation</label>
+                    <input id="fatherOccupation" name='fathers_occupation' value={formData.fathers_occupation} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Father's Occupation" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="motherOccupation" className="block text-sm font-medium text-gray-600">Mother's Occupation</label>
+                    <input id="motherOccupation" name='mothers_occupation' value={formData.mothers_occupation} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Mother's Occupation" onChange={handleChange} />
+                  </div>
+                </div>
+                {/* How You Got to Know and MCF Employee */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="mb-4">
+                    <label htmlFor="howYouKnow" className="block text-sm font-medium text-gray-600">How You Got to Know about MCF Camp</label>
+                    <input id="howYouKnow" name='how_you_got_to_know' value={formData.how_you_got_to_know} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="How You Got to Know" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="mcfEmployee" className="block text-sm font-medium text-gray-600">Name of the MCF Employee Who Reached Out to You</label>
+                    <input id="mcfEmployee" name='employee_who_reached_out_to_you' value={formData.employee_who_reached_out_to_you} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="MCF Employee's Name" onChange={handleChange} />
+                  </div>
+                </div>
+
+                {/* District, State, and Pincode */}
+                <div className="grid grid-cols-4 gap-4">
+
+                  <div className="mb-4">
+                    <label htmlFor="district" className="block text-sm font-medium text-gray-600">District</label>
+                    <input id="district" name='district' value={formData.district} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="District" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="state" className="block text-sm font-medium text-gray-600">State</label>
+                    <input id="state" name='state' value={formData.state} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="State" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="pincode" className="block text-sm font-medium text-gray-600">Pincode</label>
+                    <input id="pincode" name='pincode' value={formData.pincode} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Pincode" onChange={handleChange} />
+                  </div>
+                </div>
                 <div className="mb-4">
                   <label htmlFor="admissionType" className="block text-sm font-medium text-gray-600">
                     Admission Type
@@ -172,6 +259,10 @@ const AdmissionForm = () => {
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Camp Category */}
+                    <option value="">Select Camp Category</option>
+                    <option value="diwali">DIWALI</option>
+                    <option value="chs">CHS</option>
+                    <option value="summer">SUMMER</option>
                   </select>
                 </div>
                 <div className="mb-4">
@@ -186,6 +277,12 @@ const AdmissionForm = () => {
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Batch */}
+                    <option value="">Select Batch </option>
+                    <option value="3days">3 DAYS </option>
+                    <option value="5days">5 DAYS </option>
+                    <option value="7days">7 DAYS </option>
+                    <option value="10days">10 DAYS </option>
+                    <option value="15days">15 DAYS </option>
                   </select>
                 </div>
                 <div className="mb-4">
@@ -212,6 +309,9 @@ const AdmissionForm = () => {
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Food Option */}
+                    <option value="">Select Food Option </option>
+                    <option value="veg">VEG </option>
+                    <option value="jain">JAIN </option>
                   </select>
                 </div>
                 <div className="mb-4">
@@ -226,6 +326,11 @@ const AdmissionForm = () => {
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Dress Code */}
+                    <option value="">Select Dress Code </option>
+                    <option value="trackSuit">TRACK SUIT</option>
+                    <option value="combatDress">COMBAT DRESS </option>
+                    <option value="cheetaDress">CHEETA DRESS</option>
+                    <option value="blackDress">BLACK DRESS </option>
                   </select>
                 </div>
                 {/* ... */}
@@ -235,7 +340,7 @@ const AdmissionForm = () => {
         </div>
       </div>
       <div className="flex justify-around ">
-        <button
+        {/* <button
           className="btn-secondary mr-2"
           style={{
             padding: '5px 10px',
@@ -247,7 +352,7 @@ const AdmissionForm = () => {
           }}
         >
           Previous
-        </button>
+        </button> */}
         <button
           onClick={handleSubmit}
           className="btn-primary"
@@ -286,6 +391,8 @@ const AdmissionForm = () => {
           Enter details first!!
         </Alert>
       </Snackbar>
+      </main>
+      </div>
     </div>
   );
 };
