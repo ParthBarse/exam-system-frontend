@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-flatpickr';
 import dayjs from 'dayjs';
@@ -18,6 +18,20 @@ const FirstDetails = () => {
     vertical: 'top',
     horizontal: 'center',
   });
+
+  const [camps, setCamps] = useState([]);
+
+  useEffect(() => {
+    const fetchCamps = async () => {
+      try {
+        const response = await axios.get(`${baseurl}/getAllCamps`);
+        setCamps(response.data.camps);
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
+    };
+    fetchCamps();
+  } , [])
 
   const [errorState , setErrorState] = useState({ open: false, vertical: 'top', horizontal: 'center' });
 
@@ -51,14 +65,48 @@ const FirstDetails = () => {
     pincode: '', // New camp field
   });
 
+  const [camp, setCamp] = useState({})
+  const [campCategory, setCampCategory] = useState('');
+  
   const [admissionFormData, setAdmissionFormData] = useState({
     admissionType: '',
+    campName: '',
     campCategory: '',
     batch: '',
     selectedDate: '',
     foodOption: '',
     dressCode: '',
   });
+  useEffect(() => {
+    console.log(admissionFormData);
+  },[admissionFormData]);
+
+  
+  const [campId, setCampId] = useState('');
+
+  useEffect(() => {
+    if (admissionFormData.campName) {
+      const selectedCamp = camps.find(camp => camp.camp_name === admissionFormData.campName);
+      if (selectedCamp) {
+        setCampId(selectedCamp.camp_id);
+      }
+    }
+  }, [admissionFormData.campName, camps]);
+  
+  const [batches, setBatches] = useState([]);
+
+  useEffect(() => {
+    const fetchBatches = async () => {
+      try {
+        const response = await axios.get(`${baseurl}/getBatches?camp_id=${campId}`);
+        setBatches(response.data.batches);
+      } catch (error) {
+        console.error('Error fetching data', error); 
+      }
+    };
+    fetchBatches();
+
+  }, [campId])
 
   const handleAdmissionChange = (name, value) => {
     setAdmissionFormData((prevData) => ({
@@ -66,6 +114,7 @@ const FirstDetails = () => {
       [name]: value,
     }));
   };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -231,13 +280,15 @@ const FirstDetails = () => {
                     Camp Name
                   </label>
                   <select
-                    id="campCategory"
-                    name="campCategory"
-                    value={admissionFormData.campCategory}
-                    onChange={(e) => handleAdmissionChange('campCategory', e.target.value)}
+                    id="campName"
+                    name="campName"
+                    value={admissionFormData.campName}
+                    onChange={(e) => handleAdmissionChange('campName', e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Camp Category */}
+                    <option value="">Select Camp Name</option>
+                    {camps.map((camp) => (<option value={camp.camp_name}>{camp.camp_name}</option>))}
                   </select>
                 </div>
                 <div className="mb-4">
@@ -270,13 +321,9 @@ const FirstDetails = () => {
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Batch */}
-                    <option value="">Select Batch </option>
-                    <option value="3days">3 DAYS </option>
-                    <option value="5days">5 DAYS </option>
-                    <option value="7days">7 DAYS </option>
-                    <option value="10days">10 DAYS </option>
-                    <option value="15days">15 DAYS </option>
-                    <option value="30days">30 DAYS </option>
+                    <option value="">Select Batch Name</option>
+                    {batches.map((batch) => (<option value={batch.batch_name}>{batch.batch_name}</option>))}
+                    
                   </select>
                 </div>
                 <div className="grid grid-cols-4 gap-4">
