@@ -30,6 +30,8 @@ import UpdateStudentDetails from './pages/update_student_form';
 import AdmitCard from './pages/Button/veiw_entrance_card';
 import AuthPage from './pages/auth';
 import Receipt from './pages/Button/veiw-receipt';
+import AdmissionForm from './pages/admissionform';
+import PositionedSnackbar from './components/Toast';
 
 
 function App() {
@@ -65,7 +67,8 @@ function App() {
         <Route exact path="/update-student-details" element={<UpdateStudentDetails />} />
         <Route exact path="/veiw-entrance" element={<AdmitCard />} />
         <Route exact path="/receipt" element={<Receipt />} />
-
+        <Route exact path="/toast" element={<PositionedSnackbar />} />
+        <Route exact path="/admission-form" element={<AdmissionForm />} />
       </Routes>
     </>
   );  

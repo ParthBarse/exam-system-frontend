@@ -1,59 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import Sidebar from '../partials/Sidebar';
-import Header from '../partials/Header';
+
+
+import React, { useState } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-flatpickr';
+import dayjs from 'dayjs';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
-import Alert  from '@mui/material/Alert';
-import { useLocation } from 'react-router-dom';
+import { Alert } from '@mui/material';
+import Sidebar from '../partials/Sidebar';
+import Header from '../partials/Header';
 
+const baseurl = 'https://mcf-backend-main.vercel.app';
 
-
-export default function AddStudent() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [step, setStep] = useState(1);
-
-
-
-  return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-        <main>
-          <div className="w-full max-w-l mx-auto p-4">
-            <FirstDetails />
-
-          </div>
-        </main>
-      </div>
-    </div>
-  );
-}
-
-const baseurl = 'https://mcf-backend-main.vercel.app'
-
-const FirstDetails = () => {
-
-  const [studentId, setStudentId] = useState('');
-  const location = useLocation();
-
+const AdmissionForm = () => {
   const [state, setState] = React.useState({
     open: false,
     vertical: 'top',
     horizontal: 'center',
   });
 
-  const [errorState, setErrorState] = useState({ open: false, vertical: 'top', horizontal: 'center' });
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const [errorState, setErrorState] = useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
 
   const { vertical, horizontal, open } = state;
-
 
   const handleClose = () => {
     setState({ ...state, open: false });
@@ -62,7 +37,6 @@ const FirstDetails = () => {
   const handleErrorClose = () => {
     setErrorState({ ...errorState, open: false });
   };
-
 
   const [formData, setFormData] = useState({
     first_name: '',
@@ -78,24 +52,24 @@ const FirstDetails = () => {
     employee_who_reached_out_to_you: '',
     district: '',
     state: '',
-    pincode: '', // New camp field
+    pincode: '',
   });
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const sid = queryParams.get('id');
-    setStudentId(sid);
-    axios.get(`${baseurl}/getStudent?sid=${sid}`).then(x => setFormData(x.data.student)).then(x => console.log(formData))
-  }, [location.search])
+  const [admissionFormData, setAdmissionFormData] = useState({
+    admissionType: '',
+    campCategory: '',
+    batch: '',
+    selectedDate: '',
+    foodOption: '',
+    dressCode: '',
+  });
 
-  useEffect(() => {
-    if (typeof formData['dob'] === 'string') {
-      let parts = formData['dob'].split('-'); // split the date string on '-'
-      let date = new Date(parts[2], parts[1] - 1, parts[0]); // create a new Date object
-      console.log(date)
-      setFormData(prevData => ({...prevData, dob: date}));
-    }
-  }, [formData])
+  const handleAdmissionChange = (name, value) => {
+    setAdmissionFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -105,39 +79,29 @@ const FirstDetails = () => {
     }));
   };
 
-  const handleUpdate = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-
+      // Format the date
+      let date = new Date(formData['dob']);
+      let day = ('0' + date.getDate()).slice(-2);
+      let month = ('0' + (date.getMonth() + 1)).slice(-2);
+      let year = date.getFullYear();
+      let formattedDate = `${day}-${month}-${year}`;
+      formData['dob'] = formattedDate;
 
       const reqData = new FormData();
-      
-      for (let key in formData) {
-        if (key === 'dob') {
-          let date = new Date(formData[key]);
-          let day = ("0" + date.getDate()).slice(-2); // get the day as a string in the format DD
-          let month = ("0" + (date.getMonth() + 1)).slice(-2); // get the month as a string in the format MM
-          let year = date.getFullYear(); // get the year as a string in the format YYYY
-  
-          let formattedDate = `${day}-${month}-${year}`; // combine them all together in the format DD-MM-YYYY
-          reqData.append(key, formattedDate);
-        } else {
-          reqData.append(key, formData[key])
-        }
-      }
-      
 
+      // Append form data to request data
       for (let key in formData) {
-        reqData.append(key, formData[key])
+        reqData.append(key, formData[key]);
       }
 
-      // Make a POST request using axios
+      const response = await axios.post(`${baseurl}/registerStudent`, reqData);
 
-      const response = await axios.put(`${baseurl}/updateStudent`, reqData);
+      console.log(response.data);
 
-      console.log(response.data); // Log the response from the server
-
-      // // After successfully adding a student, you might want to reset the form
+      // Reset form data after successful submission
       setFormData({
         first_name: '',
         middle_name: '',
@@ -152,27 +116,34 @@ const FirstDetails = () => {
         employee_who_reached_out_to_you: '',
         district: '',
         state: '',
-        pincode: '', // New camp field
+        pincode: '',
       });
 
+      // Show success message
       setState({ vertical: 'bottom', horizontal: 'right', open: true });
-
     } catch (error) {
+      // Show error message
       setErrorState({ vertical: 'bottom', horizontal: 'right', open: true });
       console.error('Error adding student:', error);
-
     }
   };
 
   return (
-    <div>
-      {/* Payment Form */}
+    <div className="flex h-screen overflow-hidden">
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+
+      {/* Content area */}
+      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+        {/* Site header */}
+        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      {/* Admission Form */}
+      <main>
       <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
             <header
               className="px-5 py-4 border-b border-slate-100 dark:border-slate-700"
-              style={{ display: "flex", justifyContent: "space-between" }}
+              style={{ display: 'flex', justifyContent: 'space-between' }}
             >
               <h2 className="font-semibold text-slate-800 dark:text-slate-100">
                 Enter Your Details
@@ -180,7 +151,7 @@ const FirstDetails = () => {
             </header>
             <div className="overflow-x-auto">
               <form className="  rounded px-8 pt-6 pb-8 mb-4">
-                <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                   {/* Name fields */}
                   <div className="mb-4">
                     <label htmlFor="firstName" className="block text-sm font-medium text-gray-600">First Name</label>
@@ -199,7 +170,6 @@ const FirstDetails = () => {
                     <input id="emial" name='email' value={formData.email} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Email" onChange={handleChange} />
                   </div>
                 </div>
-                {/* Parents/Guardians and Address */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="mb-4">
                     <label htmlFor="Phone" className="block text-sm font-medium text-gray-600">Phone</label>
@@ -260,16 +230,142 @@ const FirstDetails = () => {
                     <input id="pincode" name='pincode' value={formData.pincode} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Pincode" onChange={handleChange} />
                   </div>
                 </div>
-
-
+                <div className="mb-4">
+                  <label htmlFor="admissionType" className="block text-sm font-medium text-gray-600">
+                    Admission Type
+                  </label>
+                  <select
+                    id="admissionType"
+                    name="admissionType"
+                    value={admissionFormData.admissionType}
+                    onChange={(e) => handleAdmissionChange('admissionType', e.target.value)}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    <option value="">Select Admission Type</option>
+                    <option value="newRegistration">New Registration</option>
+                    <option value="alreadyRegistered">Already Registered</option>
+                    <option value="updateInformation">Update Information</option>
+                  </select>
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="campCategory" className="block text-sm font-medium text-gray-600">
+                    Camp Category
+                  </label>
+                  <select
+                    id="campCategory"
+                    name="campCategory"
+                    value={admissionFormData.campCategory}
+                    onChange={(e) => handleAdmissionChange('campCategory', e.target.value)}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Camp Category */}
+                    <option value="">Select Camp Category</option>
+                    <option value="diwali">DIWALI</option>
+                    <option value="chs">CHS</option>
+                    <option value="summer">SUMMER</option>
+                  </select>
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="batch" className="block text-sm font-medium text-gray-600">
+                    Batch
+                  </label>
+                  <select
+                    id="batch"
+                    name="batch"
+                    value={admissionFormData.batch}
+                    onChange={(e) => handleAdmissionChange('batch', e.target.value)}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Batch */}
+                    <option value="">Select Batch </option>
+                    <option value="3days">3 DAYS </option>
+                    <option value="5days">5 DAYS </option>
+                    <option value="7days">7 DAYS </option>
+                    <option value="10days">10 DAYS </option>
+                    <option value="15days">15 DAYS </option>
+                  </select>
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="selectedDate" className="block text-sm font-medium text-gray-600">
+                    Select Date
+                  </label>
+                  <DatePicker
+                    label="Controlled picker"
+                    value={admissionFormData.selectedDate}
+                    placeholder="Select Date"
+                    name="selectedDate"
+                    onChange={(date) => handleAdmissionChange('selectedDate', date)}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="foodOption" className="block text-sm font-medium text-gray-600">
+                    Food Option
+                  </label>
+                  <select
+                    id="foodOption"
+                    name="foodOption"
+                    value={admissionFormData.foodOption}
+                    onChange={(e) => handleAdmissionChange('foodOption', e.target.value)}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Food Option */}
+                    <option value="">Select Food Option </option>
+                    <option value="veg">VEG </option>
+                    <option value="jain">JAIN </option>
+                  </select>
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="dressCode" className="block text-sm font-medium text-gray-600">
+                    Dress Code
+                  </label>
+                  <select
+                    id="dressCode"
+                    name="dressCode"
+                    value={admissionFormData.dressCode}
+                    onChange={(e) => handleAdmissionChange('dressCode', e.target.value)}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Dress Code */}
+                    <option value="">Select Dress Code </option>
+                    <option value="trackSuit">TRACK SUIT</option>
+                    <option value="combatDress">COMBAT DRESS </option>
+                    <option value="cheetaDress">CHEETA DRESS</option>
+                    <option value="blackDress">BLACK DRESS </option>
+                  </select>
+                </div>
+                {/* ... */}
               </form>
             </div>
           </div>
         </div>
       </div>
-      <div className='flex justify-around '>
-        <button onClick={handleUpdate} className="btn-primary" style={{ padding: "5px 10px", background: "#007BFF", color: "white", border: "none", borderRadius: "5px", marginRight: "10px" }}>
-          Update
+      <div className="flex justify-around ">
+        {/* <button
+          className="btn-secondary mr-2"
+          style={{
+            padding: '5px 10px',
+            background: '#007BFF',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            marginRight: '10px',
+          }}
+        >
+          Previous
+        </button> */}
+        <button
+          onClick={handleSubmit}
+          className="btn-primary"
+          style={{
+            padding: '5px 10px',
+            background: '#007BFF',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            marginRight: '10px',
+          }}
+        >
+          Next
         </button>
       </div>
       <Snackbar
@@ -280,22 +376,25 @@ const FirstDetails = () => {
         autoHideDuration={3000}
       >
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          Student Updated Successfully!!
+          Student Added Successfully
         </Alert>
       </Snackbar>
-      {/* ///////////////////////////////// */}
+      {/* Error Snackbar */}
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={errorState.open}
-        onClose={handleClose}
+        onClose={handleErrorClose}
         key={vertical + horizontal}
         autoHideDuration={3000}
       >
         <Alert onClose={handleErrorClose} severity="error" sx={{ width: '100%' }}>
-          Error Updating Student!!
+          Enter details first!!
         </Alert>
       </Snackbar>
+      </main>
+      </div>
     </div>
   );
 };
 
+export default AdmissionForm;
