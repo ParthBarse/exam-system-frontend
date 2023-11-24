@@ -11,29 +11,48 @@ function Filter() {
 
   console.log(nameFilter)
 
+  const [body,setBody] = useState({
+    sid:'',
+    first_name: '',
+    middle_name: '',
+    last_name: '',
+    email: '',
+    phn: '',
+    dob: '',
+    address: '',
+    fathers_occupation: '',
+    mothers_occupation: '',
+    how_you_got_to_know: '',
+    employee_who_reached_out_to_you: '',
+    district: '',
+    state: '',
+    pincode: '', // New camp field
+  })
+
+  const handleInputChange = (e) => {
+    const {name,value} = e.target
+    setBody({...body,[name]:value})
+  }
+
   const fetchData = async () => {
     try {
-      if(nameFilter){
-        const response = await axios.get(
-          `https://mcf-backend.vercel.app/api/filterbyfirstName/${nameFilter}`
-        );
-        setData(response.data);
+        const response = await axios.post(`https://mcf-backend-main.vercel.app/filterStudents`,body);
+        setData(response.data.students);
 
-      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   useEffect(()=>{
-    if(nameFilter == '' && regId == ''){
-      axios.get('https://mcf-backend.vercel.app/api/getAllStudents').then(x=>setData(x.data))
-    }
-  },[nameFilter,regId])
+    
+    axios.get('https://mcf-backend-main.vercel.app/getAllStudents').then(x=>setData(x.data.students))
+    
+  },[])
 
   useEffect(() => {
     fetchData();
-  }, [nameFilter]);
+  }, [body]);
 
   useEffect(()=>{
     axios.get(`https://mcf-backend.vercel.app/api/filterbyRegID/${regId}`).then(x=>setData(x.data))
@@ -57,13 +76,37 @@ function Filter() {
           <div className="flex justify-center">
             <div className="grid grid-cols-4 grid-rows-2 gap-4">
               <div>
-                <label className="block text-gray-600">Name</label>
+                <label className="block text-gray-600">First Name</label>
                 <input
                   type="text"
                   className="w-full p-2 border rounded-md"
-                  placeholder="name"
-                  value={nameFilter}
-                  onChange={(e) => setNameFilter(e.target.value)}
+                  placeholder="First name"
+                  value={body.first_name}
+                  name="first_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Middle Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Middle Name"
+                  value={body.middle_name}
+                  name="middle_name"
+                  onChange={handleInputChange}
+                />
+                
+              </div>
+              <div>
+                <label className="block text-gray-600">Last Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Last Name"
+                  value={body.last_name}
+                  name="last_name"
+                  onChange={handleInputChange}
                 />
               </div>
               <div>
@@ -71,9 +114,10 @@ function Filter() {
                 <input
                   type="text"
                   className="w-full p-2 border rounded-md"
-                  placeholder="Reg Id"
-                  value={regId}
-                  onChange={e=>setRegId(e.target.value)}
+                  placeholder="Student Id"
+                  value={body.sid}
+                  name="sid"
+                  onChange={handleInputChange}
                 />
               </div>
               <div>
@@ -82,6 +126,9 @@ function Filter() {
                   type="email"
                   className="w-full p-2 border rounded-md"
                   placeholder="email"
+                  value={body.email}
+                  name="email"
+                  onChange={handleInputChange}
                 />
               </div>
               <div>
@@ -90,22 +137,32 @@ function Filter() {
                   type="text"
                   className="w-full p-2 border rounded-md"
                   placeholder="City"
+                  value={body.city}
+                  name="city"
+                  onChange={handleInputChange}
+
                 />
               </div>
               <div>
-                <label className="block text-gray-600">Payment</label>
+                <label className="block text-gray-600">Status</label>
                 <input
                   type="text"
                   className="w-full p-2 border rounded-md"
-                  placeholder="Payment-mode"
+                  placeholder="Status"
+                  value={body.status}
+                  name="status"
+                  onChange={handleInputChange}
                 />
               </div>
               <div>
-                <label className="block text-gray-600">CQY</label>
+                <label className="block text-gray-600">Phone</label>
                 <input
                   type="text"
                   className="w-full p-2 border rounded-md"
-                  placeholder="CQY"
+                  placeholder="Phone"
+                  value={body.phn}
+                  name="phn"
+                  onChange={handleInputChange}
                 />
               </div>
               <div style={{ display: "flex", flexDirection: "column-reverse" }}>
@@ -185,14 +242,14 @@ function Filter() {
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.uuid}
+                                  {item.sid}
                                 </div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.First} {item.last}
+                                  {item.first_name} {item.last_name}
                                 </div>
                               </div>
                             </td>
@@ -200,15 +257,15 @@ function Filter() {
                               <div className="text-center">{item.Camp}</div>
                             </td>
                             <td className="p-2">
-                              {/* <div className="text-center">{item.email}</div> */}
+                              <div className="text-center">{item.email}</div>
                             </td>
                             <td className="p-2">
                               <div className={`text-center`}>
-                                {item.contact}
+                                {item.phn}
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center`}>{item.State}</div>
+                              <div className={`text-center`}>{item.state}</div>
                             </td>
                             <td className="p-2">
                               {/* <div className={`text-center`}>{item.CQY}</div> */}
