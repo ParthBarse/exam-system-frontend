@@ -63,7 +63,7 @@ function RegStudent() {
                       Registered Students List
                     </h2>
                     <div style={{ display: "flex", gap: "10px" }}>
-                      <Dropdown>
+                      {/* <Dropdown>
                         <Dropdown.Toggle variant="success" id="dropdown-basic" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded mr-2">
                           New Admission
                         </Dropdown.Toggle>
@@ -71,7 +71,7 @@ function RegStudent() {
                           <li><Dropdown.Item href="/add-student" className="px-3 py-2 hover:bg-gray-300">New student</Dropdown.Item></li>
                           <li><Dropdown.Item href="/admission-form" className="px-3 py-2 hover:bg-gray-300">Already Registered</Dropdown.Item></li>
                         </Dropdown.Menu>
-                      </Dropdown>
+                      </Dropdown> */}
                       <Link
                         end
                         to="/add-student"
