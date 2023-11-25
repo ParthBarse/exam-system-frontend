@@ -27,18 +27,20 @@ function Camp() {
       const response = await axios.delete(
         `https://mcf-backend-main.vercel.app/deleteCamp?camp_id=${camp_id}`
       );
-  
+
       if (response.status === 200) {
-        console.log('Batch deleted successfully!');
-        alert('Batch deleted successfully!');
-  
+        console.log("Batch deleted successfully!");
+        alert("Batch deleted successfully!");
+
         // Update the state to remove the deleted item
-        setData((prevData) => prevData.filter((item) => item.camp_id !== camp_id));
+        setData((prevData) =>
+          prevData.filter((item) => item.camp_id !== camp_id)
+        );
       } else {
-        console.error('Failed to delete batch. Status:', response.status);
+        console.error("Failed to delete batch. Status:", response.status);
       }
     } catch (error) {
-      console.error('Error deleting batch:', error.message);
+      console.error("Error deleting batch:", error.message);
       console.error(error.response?.data); // Log the response data if available
     }
   };
@@ -163,7 +165,7 @@ function Camp() {
                                   View & Edit
                                 </Link>
                                 <Link
-                                  to={`/batch-details`}
+                                  to={`/batch-details?id=${item.camp_id}`}
                                   className="text-sm text-white px-2 bg-indigo-500 "
                                   style={{
                                     padding: "3px",
@@ -175,20 +177,20 @@ function Camp() {
                                   Batch Details
                                 </Link>
                                 <Link
-    className="text-sm text-white px-2 bg-red-500 rounded"
-    style={{
-        padding: "3px",
-        fontSize: "13px",
-        marginLeft: "2px",
-        marginRight: "1px",
-    }}
-    onClick={(e) => {
-        e.preventDefault(); // Prevent the default link click action
-        handleDelete(item.camp_id);
-    }}
->
-    Delete
-</Link>
+                                  className="text-sm text-white px-2 bg-red-500 rounded"
+                                  style={{
+                                    padding: "3px",
+                                    fontSize: "13px",
+                                    marginLeft: "2px",
+                                    marginRight: "1px",
+                                  }}
+                                  onClick={(e) => {
+                                    e.preventDefault(); // Prevent the default link click action
+                                    handleDelete(item.camp_id);
+                                  }}
+                                >
+                                  Delete
+                                </Link>
                               </div>
                             </td>
                           </tr>

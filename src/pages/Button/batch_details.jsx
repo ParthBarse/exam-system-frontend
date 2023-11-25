@@ -1,41 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link, useLocation } from 'react-router-dom';
 import Sidebar from '../../partials/Sidebar';
 import Header from '../../partials/Header';
-import { Link } from 'react-router-dom';
 
 function Batchdetails() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const [data, setData] = useState({
+    batches: [
+      {
+        batch_id: "",
+        batch_intake: 0,
+        batch_name: "",
+        camp_id: "",
+        company: "",
+        duration: "",
+        end_date: "",
+        start_date: "",
+        students_registered: 0,
+      },
+    ],
+  });
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const campId = queryParams.get('id');
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://mcf-backend.vercel.app/api/getBatchDetails');
-      setData(response.data);
+      const response = await fetch(`https://mcf-backend-main.vercel.app/getBatches?camp_id=${campId}`);
+      if (response.ok) {
+        const responseData = await response.json();
+        setData(responseData);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
-  const handleDelete = async (Batch_id) => {
-    try {
-      const response = await axios.delete(`https://mcf-backend-main.vercel.app/deleteBatch?batch_id=${Batch_id}`);
-      if (response.status === 200) {
-        console.log('Batch deleted successfully!');
-        alert('Batch deleted successfully!');
-        fetchData(); // Refresh the data after deletion
-      } else {
-        console.error('Failed to delete batch. Status:', response.status);
-      }
-    } catch (error) {
-      console.error('Error deleting batch:', error.message); // Log the error message
-      console.error(error.response.data); // Log the response data if available
-    }
-  };
-  
+  useEffect(() => {
+    fetchData();
+  }, [location.search, campId]);
+
+  // const handleDelete = async (batchId) => {
+  //   try {
+  //     const response = await axios.delete(`https://mcf-backend-main.vercel.app/deleteBatch?batch_id=${batchId}`);
+  //     if (response.status === 200) {
+  //       console.log('Batch deleted successfully!');
+  //       alert('Batch deleted successfully!');
+  //       fetchData(); // Refresh the data after deletion
+  //     } else {
+  //       console.error('Failed to delete batch. Status:', response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error deleting batch:', error.message);
+  //     console.error(error.response.data);
+  //   }
+  // };
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -93,6 +112,9 @@ function Batchdetails() {
                             <div className="font-semibold text-center">Intake</div>
                           </th>
                           <th className="p-2">
+                            <div className="font-semibold text-center">Registered students</div>
+                          </th>
+                          <th className="p-2">
                             <div className="font-semibold text-center">Action</div>
                           </th>
                         </tr>
@@ -100,58 +122,62 @@ function Batchdetails() {
                       {/* Table body */}
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
                         {/* Rows */}
-                        {data.map((item, index) => (
-                          <tr style={{ padding: '2px' }} key={index}>
-                            <td>
-                              <div className="text-left" style={{ fontWeight: 'bold' }}>
-                                {index + 1}
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="text-left">
-                                <div className="text-slate-800 dark:text-slate-100">{item.Batch_Name}</div>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="text-center">{item.Batch_Start_Date}</div>
-                            </td>
-                            <td className="p-2">
-                              <div className="text-center">{item.Batch_End_Date}</div>
-                            </td>
-                            <td className="p-2">
-                              <div className="text-center">{item.Company}</div>
-                            </td>
-                            <td className="p-2">
-                              <div className="text-center">{item.Duration}</div>
-                            </td>
-                            <td className="p-2">
-                              <div className="text-center">{item.Intake}</div>
-                            </td>
-                            <td className="p-2">
-                              <div className="text-center">
-                              <Link
-                                  to={`/edit-batch-details?id=${item.camp_id}`}
-                                  className="text-sm text-white px-2 bg-yellow-500 rounded"
-                                  style={{
-                                    padding: "5px",
-                                    fontSize: "13px",
-                                    marginLeft: "1px",
-                                    marginRight: "2px",
-                                  }}
-                                >
-                                  View & Edit
-                                </Link>
-                                <button
-                                  onClick={() => handleDelete(item.Batch_Name)}
-                                  className="text-sm text-white px-2 bg-red-500 rounded"
-                                  style={{ marginLeft: '10px', padding: '3px 10px 3px 10px' }}
-                                >
-                                  Delete
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
+                        {Array.isArray(data.batches) &&
+                          data.batches.map((item, index) => (
+                            <tr style={{ padding: '2px' }} key={index}>
+                              <td>
+                                <div className="text-left" style={{ fontWeight: 'bold' }}>
+                                  {index + 1}
+                                </div>
+                              </td>
+                              <td className="p-2">
+                                <div className="text-left">
+                                  <div className="text-slate-800 dark:text-slate-100">{item.batch_name}</div>
+                                </div>
+                              </td>
+                              <td className="p-2">
+                                <div className="text-center">{item.start_date}</div>
+                              </td>
+                              <td className="p-2">
+                                <div className="text-center">{item.end_date}</div>
+                              </td>
+                              <td className="p-2">
+                                <div className="text-center">{item.company}</div>
+                              </td>
+                              <td className="p-2">
+                                <div className="text-center">{item.duration}</div>
+                              </td>
+                              <td className="p-2">
+                                <div className="text-center">{item.batch_intake}</div>
+                              </td>
+                              <td className="p-2">
+                                <div className="text-center">{item.students_registered}</div>
+                              </td>
+                              <td className="p-2">
+                                <div className="text-center">
+                                  <Link
+                                    to={`/edit-batch-details?id=${item.camp_id}`}
+                                    className="text-sm text-white px-2 bg-yellow-500 rounded"
+                                    style={{
+                                      padding: '5px',
+                                      fontSize: '13px',
+                                      marginLeft: '1px',
+                                      marginRight: '2px',
+                                    }}
+                                  >
+                                    View & Edit
+                                  </Link>
+                                  <button
+                                    onClick={() => handleDelete(item.batch_id)}
+                                    className="text-sm text-white px-2 bg-red-500 rounded"
+                                    style={{ marginLeft: '10px', padding: '3px 10px 3px 10px' }}
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>
