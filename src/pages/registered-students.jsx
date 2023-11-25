@@ -44,7 +44,7 @@ function RegStudent() {
         `${baseurl}/getAllStudents`
       );
       setData(response.data.students); // Update the state with the fetched data
-      
+
       setLoading(false); // Set loading to false
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -61,6 +61,27 @@ function RegStudent() {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  const [batches, setBatches] = useState([]);
+
+  useEffect(() => {
+    const fetchBatches = async () => {
+      try {
+        const response = await axios.get(`${baseurl}/getAllBatches`);
+        setBatches(response.data.camps);
+      } catch (error) {
+        console.error('Error fetching batches:', error);
+      }
+    };
+
+    fetchBatches();
+  }, []);
+
+  const getBatchName = (batchId) => {
+    const batch = batches.find(batch => batch.batch_id === batchId);
+    return batch ? batch.batch_name : 'Batch not assigned';
+  };
+
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -177,28 +198,21 @@ function RegStudent() {
                               <div className="text-center">{getCampName(item.camp_id)}</div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">Batch-1</div>
+                              <div className="text-center">{getBatchName(item.batch_id)}</div>
                             </td>
                             <td className="p-2">
                               <div
-                                className={`text-center ${
-                                  item.status === "inactive"
+                                className={`text-center ${item.status === "inactive"
                                     ? "text-red-500"
                                     : "text-emerald-500"
-                                }`}
+                                  }`}
                               >
                                 {item.status}
                               </div>
                             </td>
                             <td className="p-4">
                               <div className="text-center grid grid-cols-3 grid-rows-2 gap-2 h-full">
-                                <Link
-                                  to={`/view-report?id=${item.sid}`}
-                                  className="text-sm text-white px-2 bg-yellow-500"
-                                  style={{ padding: "1px", fontSize: "13px" }}
-                                >
-                                  View Form
-                                </Link>
+                                
                                 <Link
                                   to={`/update-student-details?id=${item.sid}`}
                                   className="text-sm text-white px-2 bg-blue-500"

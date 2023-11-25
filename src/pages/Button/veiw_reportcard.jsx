@@ -62,7 +62,7 @@ function ViewReportCard() {
                     </tr>
                     <tr>
                       <td className="border p-2 col-span-1">Parent/Guardian</td>
-                      <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{data.parents}</td>
+                      <td colSpan="2" className="border p-2 col-span-2 text-left font-bold">{data.parents_name}</td>
                     </tr>
                     <tr>
                       <td className="border p-2 col-span-1">Camp name</td>
