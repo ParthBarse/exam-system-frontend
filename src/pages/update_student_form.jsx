@@ -149,29 +149,7 @@ const FirstDetails = () => {
       console.log(response.data); // Log the response from the server
 
       // // After successfully adding a student, you might want to reset the form
-      setFormData({
-        first_name: '',
-        middle_name: '',
-        last_name: '',
-        email: '',
-        phn: '',
-        dob: '',
-        address: '',
-        fathers_occupation: '',
-        mothers_occupation: '',
-        how_you_got_to_know: '',
-        employee_who_reached_out_to_you: '',
-        district: '',
-        state: '',
-        pincode: '', // New camp field
-        school_name: '',
-        standard: '',
-        wp_no: '',
-        parents_name: '',
-        parents_phn: '',
-        parents_email: '',
-
-      });
+      
 
       setState({ vertical: 'bottom', horizontal: 'right', open: true });
 
@@ -236,9 +214,12 @@ const FirstDetails = () => {
     if (formData.blood_group) {
       admissionFormData.blood_group = formData.blood_group;
     }
+    if (formData.gender){
+      admissionFormData.gender = formData.gender;
+    }
 
   }
-    , [formData.food_option, formData.dress_code, formData.pick_up_point, formData.height, formData.weight, formData.blood_group])
+    , [formData.food_option, formData.dress_code, formData.pick_up_point, formData.height, formData.weight, formData.blood_group ,formData.gender])
 
   useEffect(() => {
     console.log('campname' + campDetails.camp_name);
@@ -457,7 +438,7 @@ const FirstDetails = () => {
                   </div>
                   <div className="mb-4">
                     <label htmlFor="parents_email" className="block text-sm font-medium text-gray-600">Parents Email</label>
-                    <input id="parents_email" name='parents_phn' value={formData.parents_email} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Email" onChange={handleChange} />
+                    <input id="parents_email" name='parents_email' value={formData.parents_email} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Email" onChange={handleChange} />
                   </div>
                 </div>
 
