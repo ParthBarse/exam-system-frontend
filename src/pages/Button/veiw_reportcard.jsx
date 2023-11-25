@@ -17,6 +17,9 @@ function ViewReportCard() {
     axios.get(`https://mcf-backend-main.vercel.app/getStudent?sid=${id}`).then(x=>setData(x.data.student))
   },[location.search,id])
 
+
+
+
   return (
     <div className='flex flex-col'>
       <button onClick={e => window.print()} className="no-print bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">Print</button>
