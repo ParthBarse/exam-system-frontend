@@ -39,7 +39,7 @@ const FirstDetails = () => {
     return camp ? camp.name : 'Camp not found';
   };
 
-  const [errorState , setErrorState] = useState({ open: false, vertical: 'top', horizontal: 'center' });
+  const [errorState , setErrorState] = useState({ open: false, vertical: 'top', horizontal: 'center' ,message:'none'});
 
 
   const { vertical, horizontal, open } = state;
@@ -235,8 +235,8 @@ const FirstDetails = () => {
 
       
     } catch (error) {
-      setErrorState({ vertical: 'bottom', horizontal: 'right' ,open: true });
-      console.error('Error adding student:', error);
+      setErrorState({ vertical: 'bottom', horizontal: 'right' ,open: true ,message: error.response.data.error });
+      console.error('Error adding student:', error.response.data.error);
 
     }
   };
@@ -688,7 +688,7 @@ const FirstDetails = () => {
         autoHideDuration={3000}
       >
         <Alert onClose={handleErrorClose} severity="error" sx={{ width: '100%' }}>
-          Enter details first!!
+          {errorState.message}
         </Alert>
       </Snackbar>
     </div>
