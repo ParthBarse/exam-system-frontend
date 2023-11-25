@@ -267,7 +267,7 @@ const FirstDetails = () => {
                   {/* Name fields */}
                   <div className="mb-4">
                     <label htmlFor="firstName" className="block text-sm font-medium text-gray-600">First Name</label>
-                    <input id="firstName" name='first_name' value={formData.first_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="First Name" onChange={handleChange} />
+                    <input id="firstName" name='first_name' value={formData.first_name.toUpperCase()} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="First Name" onChange={handleChange} />
                   </div>
                   <div className="mb-4">
                     <label htmlFor="middlename" className="block text-sm font-medium text-gray-600">Middle Name</label>

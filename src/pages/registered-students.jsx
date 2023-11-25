@@ -211,59 +211,49 @@ function RegStudent() {
                               </div>
                             </td>
                             <td className="p-4">
-                              <div className="text-center grid grid-cols-3 grid-rows-2 gap-2 h-full">
-                                
+                              <div className="text-center grid grid-cols-2 grid-rows-2 gap-2 h-full">
                                 <Link
                                   to={`/update-student-details?id=${item.sid}`}
                                   className="text-sm text-white px-2 bg-blue-500"
-                                  style={{ padding: "1px", fontSize: "13px" }}
+                                  style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}
                                 >
-                                  <button>View & Edit</button>
+                                  <button style={{ width: "100%", height: "100%" }}>View & Edit</button>
                                 </Link>
                                 <button
                                   onClick={(e) => {
                                     axios
-                                      .delete(
-                                        `${baseurl}/deleteStudent?sid=${item.sid}`
-                                      )
-                                      .then((x) =>
-                                        alert("Deleted successfully")
-                                      )
+                                      .delete(`${baseurl}/deleteStudent?sid=${item.sid}`)
+                                      .then((x) => alert("Deleted successfully"))
                                       .then((x) => fetchData());
                                   }}
                                   className="text-sm text-white px-2 bg-red-500"
-                                  style={{ padding: "1px", fontSize: "13px" }}
+                                  style={{ padding: "1px", fontSize: "13px", width: "auto", height: "auto" }}
                                 >
                                   Delete
                                 </button>
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{ padding: "1px", fontSize: "13px" }}
+                                  style={{ padding: "1px", fontSize: "13px", width: "auto", height: "auto" }}
                                 >
                                   <Link
                                     to={`/veiw-entrance?id=${item.sid}`}
-                                    style={{
-                                      textDecoration: "none",
-                                      color: "inherit",
-                                    }}
+                                    style={{ textDecoration: "none", color: "inherit", width: "100%", height: "100%" }}
                                   >
                                     Entrance Card
                                   </Link>
                                 </button>
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{ padding: "1px", fontSize: "13px" }}
+                                  style={{ padding: "1px", fontSize: "13px", width: "auto", height: "auto" }}
                                 >
                                   <Link
                                     to={`/receipt?id=${item.sid}`}
-                                    style={{
-                                      textDecoration: "none",
-                                      color: "inherit",
-                                    }}
+                                    style={{ textDecoration: "none", color: "inherit", width: "100%", height: "100%" }}
                                   >
                                     Receipt
                                   </Link>
                                 </button>
+
                               </div>
                             </td>
                           </tr>
