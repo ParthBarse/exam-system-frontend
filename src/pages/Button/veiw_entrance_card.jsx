@@ -46,7 +46,7 @@ function AdmitCard() {
               </td>
               <td>Chess No.</td>
               <td>
-                <strong>{data.Chess}not added</strong>
+                <strong>{data.Chess}</strong>
               </td>
             </tr>
             <tr>
@@ -63,17 +63,17 @@ function AdmitCard() {
               <td>Total days :</td>
               <td>7 Days</td>
               <td>Company Name :</td>
-              <td>{data.CQY} not added</td>
+              <td>{data.CQY} </td>
             </tr>
             <tr>
               <td>Pick Up Point : </td>
-              <td>{data.Pick_Up_Point}</td>
+              <td>{data.pick_up_point}</td>
               <td>Pick Up Time :</td>
-              <td>{data.Pick_Time}not added</td>
+              <td>{data.Pick_Time}</td>
             </tr>
             <tr>
               <td>In-chanrge Name :</td>
-              <td colspan="3">{data.incharge}not added</td>
+              <td colspan="3">{data.incharge}</td>
             </tr>
           </table>
         </div>
@@ -91,16 +91,16 @@ function AdmitCard() {
               </td>
               <td>Camp Date :</td>
               <td>
-                <strong>{data.Start_date + " - " + data.end_date}</strong>
+                <strong>{data.start_date + " - " + data.end_date}</strong>
               </td>
             </tr>
             <tr>
               <td>Guardian name :</td>
-              <td colspan="3">{data.parents}</td>
+              <td colspan="3">{data.parents_name}</td>
             </tr>
             <tr>
               <td>Address :</td>
-              <td>{data.Address}</td>
+              <td>{data.address}</td>
               <td>Landmark :</td>
               <td>{data.Landmark}</td>
             </tr>
@@ -108,35 +108,35 @@ function AdmitCard() {
               <td>City :</td>
               <td>{data.city}</td>
               <td>District :</td>
-              <td>{data.District}</td>
+              <td>{data.district}</td>
             </tr>
             <tr>
               <td>State :</td>
-              <td>{data.State}</td>
+              <td>{data.state}</td>
               <td>Pincode :</td>
-              <td>{data.Pincode}</td>
+              <td>{data.pincode}</td>
             </tr>
             <tr>
               <td>E-mail :</td>
-              <td>{data.mail}not added</td>
+              <td>{data.email}</td>
               <td>contact number :</td>
-              <td>{data.contact}not added</td>
+              <td>{data.phn}</td>
             </tr>
             <tr>
               <td>Whatsapp :</td>
-              <td>{data.whatsapp}not added</td>
+              <td>{data.wp_no}</td>
               <td>Fathers number :</td>
-              <td>{data.father_number}not added</td>
+              <td>{data.parents_phn}</td>
             </tr>
             <tr>
               <td>Blood group :</td>
-              <td>{data.blood}not added</td>
+              <td>{data.blood_group}</td>
               <td>Date of birth :</td>
-              <td>{data.dob}not added</td>
+              <td>{data.dob}</td>
             </tr>
             <tr>
               <td>School Name :</td>
-              <td colspan="3">{data.school}not added</td>
+              <td colspan="3">{data.school}</td>
             </tr>
           </table>
         </div>

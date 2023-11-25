@@ -352,7 +352,7 @@ const FirstDetails = () => {
                   </div>
                   <div className="mb-4">
                     <label htmlFor="parents_email" className="block text-sm font-medium text-gray-600">Parents Email</label>
-                    <input id="parents_email" name='parents_phn' value={formData.parents_email} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Email" onChange={handleChange} />
+                    <input id="parents_email" name='parents_email' value={formData.parents_email} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Email" onChange={handleChange} />
                   </div>
                 </div>
 
