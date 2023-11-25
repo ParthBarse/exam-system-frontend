@@ -84,7 +84,7 @@ function RegStudent() {
 
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden box-content">
       {/* Sidebar */}
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
@@ -211,7 +211,7 @@ function RegStudent() {
                               </div>
                             </td>
                             <td className="p-4">
-                              <div className="text-center grid grid-cols-3 grid-rows-2 gap-2 h-full">
+                              <div className="text-center grid grid-cols-2 grid-rows-2 gap-2">
                                 
                                 <Link
                                   to={`/update-student-details?id=${item.sid}`}

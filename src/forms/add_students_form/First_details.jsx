@@ -267,30 +267,30 @@ const FirstDetails = () => {
                   {/* Name fields */}
                   <div className="mb-4">
                     <label htmlFor="firstName" className="block text-sm font-medium text-gray-600">First Name</label>
-                    <input id="firstName" name='first_name' value={formData.first_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="First Name" onChange={handleChange} />
+                    <input id="firstName" name='first_name' value={formData.first_name.toUpperCase()} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="First Name" onChange={handleChange} required/>
                   </div>
                   <div className="mb-4">
                     <label htmlFor="middlename" className="block text-sm font-medium text-gray-600">Middle Name</label>
-                    <input id="middlename" name='middle_name' value={formData.middle_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Middle Name" onChange={handleChange} />
+                    <input id="middlename" name='middle_name' value={formData.middle_name.toUpperCase()} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Middle Name" onChange={handleChange} required/>
                   </div>
                   <div className="mb-4">
                     <label htmlFor="lastName" className="block text-sm font-medium text-gray-600">Last Name</label>
-                    <input id="lastName" name='last_name' value={formData.last_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Last Name" onChange={handleChange} />
+                    <input id="lastName" name='last_name' value={formData.last_name.toUpperCase()} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Last Name" onChange={handleChange} required/>
                   </div>
                   <div className="mb-4">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email</label>
-                    <input id="emial" name='email' value={formData.email} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Email" onChange={handleChange} />
+                    <input id="emial" name='email' value={formData.email} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Email" onChange={handleChange} required/>
                   </div>
                 </div>
                 {/* Parents/Guardians and Address */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="mb-4">
                     <label htmlFor="Phone" className="block text-sm font-medium text-gray-600">Phone</label>
-                    <input id="Phone" name='phn' value={formData.phn} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Phone" onChange={handleChange} />
+                    <input id="Phone" name='phn' value={formData.phn} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Phone" onChange={handleChange} required/>
                   </div>
                   <div className="mb-4">
                     <label htmlFor="address" className="block text-sm font-medium text-gray-600">Address</label>
-                    <input id="address" name='address' value={formData.address} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Address" onChange={handleChange} />
+                    <input id="address" name='address' value={formData.address.toUpperCase()} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Address" onChange={handleChange} required/>
                   </div>
                 </div>
                 <div className="mb-4">
@@ -325,17 +325,17 @@ const FirstDetails = () => {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="school_name" className="block text-sm font-medium text-gray-600">School</label>
-                    <input id="school_name" name='school_name' value={formData.school_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="School Name" onChange={handleChange} />
+                    <input id="school_name" name='school_name' value={formData.school_name.toUpperCase()} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="School Name" onChange={handleChange} required/>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="mb-4">
                     <label htmlFor="standard" className="block text-sm font-medium text-gray-600">Standard</label>
-                    <input id="standard" name='standard' value={formData.standard} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Standard" onChange={handleChange} />
+                    <input id="standard" name='standard' value={formData.standard} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Standard" onChange={handleChange} required/>
                   </div>
                   <div className="mb-4">
                     <label htmlFor="wp_no" className="block text-sm font-medium text-gray-600">Whatsapp Number</label>
-                    <input id="wp_no" name='wp_no' value={formData.wp_no} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Whatsapp Number" onChange={handleChange} />
+                    <input id="wp_no" name='wp_no' value={formData.wp_no} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Whatsapp Number" onChange={handleChange} required/>
                   </div>
                 </div>
                 {/* Father's and Mother's Occupation */}
@@ -344,11 +344,11 @@ const FirstDetails = () => {
                 <div className="grid grid-cols-3 gap-4">
                   <div className="mb-4">
                     <label htmlFor="parents_name" className="block text-sm font-medium text-gray-600">Parents Name</label>
-                    <input id="parents_name" name='parents_name' value={formData.parents_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Name" onChange={handleChange} />
+                    <input id="parents_name" name='parents_name' value={formData.parents_name.toUpperCase()} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Name" onChange={handleChange} required/>
                   </div>
                   <div className="mb-4">
                     <label htmlFor="parents_phn" className="block text-sm font-medium text-gray-600">Parents Phone</label>
-                    <input id="parents_phn" name='parents_phn' value={formData.parents_phn} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Phone" onChange={handleChange} />
+                    <input id="parents_phn" name='parents_phn' value={formData.parents_phn} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Phone" onChange={handleChange} required/>
                   </div>
                   <div className="mb-4">
                     <label htmlFor="parents_email" className="block text-sm font-medium text-gray-600">Parents Email</label>
@@ -360,22 +360,22 @@ const FirstDetails = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="mb-4">
                     <label htmlFor="fatherOccupation" className="block text-sm font-medium text-gray-600">Father's Occupation</label>
-                    <input id="fatherOccupation" name='fathers_occupation' value={formData.fathers_occupation} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Father's Occupation" onChange={handleChange} />
+                    <input id="fatherOccupation" name='fathers_occupation' value={formData.fathers_occupation.toUpperCase()} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Father's Occupation" onChange={handleChange} />
                   </div>
                   <div className="mb-4">
                     <label htmlFor="motherOccupation" className="block text-sm font-medium text-gray-600">Mother's Occupation</label>
-                    <input id="motherOccupation" name='mothers_occupation' value={formData.mothers_occupation} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Mother's Occupation" onChange={handleChange} />
+                    <input id="motherOccupation" name='mothers_occupation' value={formData.mothers_occupation.toUpperCase()} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Mother's Occupation" onChange={handleChange} />
                   </div>
                 </div>
                 {/* How You Got to Know and MCF Employee */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="mb-4">
                     <label htmlFor="howYouKnow" className="block text-sm font-medium text-gray-600">How You Got to Know about MCF Camp</label>
-                    <input id="howYouKnow" name='how_you_got_to_know' value={formData.how_you_got_to_know} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="How You Got to Know" onChange={handleChange} />
+                    <input id="howYouKnow" name='how_you_got_to_know' value={formData.how_you_got_to_know.toUpperCase()} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="How You Got to Know" onChange={handleChange} required/>
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="mcfEmployee" className="block text-sm font-medium text-gray-600">Name of the MCF Employee Who Reached Out to You</label>
-                    <input id="mcfEmployee" name='employee_who_reached_out_to_you' value={formData.employee_who_reached_out_to_you} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="MCF Employee's Name" onChange={handleChange} />
+                    <label htmlFor="mcfEmployee" className="block text-sm font-medium text-gray-600 required">Name of the MCF Employee Who Reached Out to You</label>
+                    <input id="mcfEmployee" name='employee_who_reached_out_to_you' value={formData.employee_who_reached_out_to_you.toUpperCase()} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="MCF Employee's Name" onChange={handleChange} required/>
                   </div>
                 </div>
 
@@ -384,15 +384,15 @@ const FirstDetails = () => {
 
                   <div className="mb-4">
                     <label htmlFor="district" className="block text-sm font-medium text-gray-600">District</label>
-                    <input id="district" name='district' value={formData.district} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="District" onChange={handleChange} />
+                    <input id="district" name='district' value={formData.district.toUpperCase()} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="District" onChange={handleChange} required/>
                   </div>
                   <div className="mb-4">
                     <label htmlFor="state" className="block text-sm font-medium text-gray-600">State</label>
-                    <input id="state" name='state' value={formData.state} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="State" onChange={handleChange} />
+                    <input id="state" name='state' value={formData.state.toUpperCase()} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="State" onChange={handleChange} required/>
                   </div>
                   <div className="mb-4">
                     <label htmlFor="pincode" className="block text-sm font-medium text-gray-600">Pincode</label>
-                    <input id="pincode" name='pincode' value={formData.pincode} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Pincode" onChange={handleChange} />
+                    <input id="pincode" name='pincode' value={formData.pincode} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Pincode" onChange={handleChange} required/>
                   </div>
                 </div>
                 <hr className="my-4 h-1 bg-gray-200" />
