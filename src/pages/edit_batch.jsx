@@ -64,12 +64,16 @@ function EditBatch() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Convert dates to yyyy-mm-dd format
+    const formattedStartDate = convertDate(batchData.start_date);
+    const formattedEndDate = convertDate(batchData.end_date);
+
     // Create a new FormData object
     const formData = new FormData();
 
     // Iterate over the batchData object and append each key-value pair to the FormData object
     for (let key in batchData) {
-      formData.append(key, batchData[key]);
+      formData.append(key, key.includes("date") ? convertDate(batchData[key]) : batchData[key]);
     }
 
     try {
@@ -104,6 +108,12 @@ function EditBatch() {
       console.error("Error adding batch:", error.message);
       console.error(error.response.data);
     }
+  };
+
+  const convertDate = (dateString) => {
+    const [day, month, year] = dateString.split("-");
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
   };
 
   return (

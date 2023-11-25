@@ -7,16 +7,16 @@ import { Link, useLocation } from "react-router-dom";
 function AddBatch() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const campId = queryParams.get('id');
+  const campId = queryParams.get("id");
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [batchData, setBatchData] = useState({
     batch_name: "",
     start_date: "", // Corrected name
-    end_date: "",   // Corrected name
+    end_date: "", // Corrected name
     batch_intake: "",
-    company: "",          // Added Company field
-    duration: "",         // Added Duration field
+    company: "", // Added Company field
+    duration: "", // Added Duration field
     camp_id: campId,
   });
 
@@ -31,19 +31,26 @@ function AddBatch() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Convert dates to yyyy-mm-dd format
+    const formattedStartDate = convertDate(batchData.start_date);
+    const formattedEndDate = convertDate(batchData.end_date);
+
     // Create a new FormData object
     const formData = new FormData();
 
     // Iterate over the batchData object and append each key-value pair to the FormData object
     for (let key in batchData) {
-      formData.append(key, batchData[key]);
+      formData.append(key, key.includes("date") ? convertDate(batchData[key]) : batchData[key]);
     }
 
     try {
-      const response = await axios.post('https://mcf-backend-main.vercel.app/addBatch', formData);
+      const response = await axios.post(
+        "https://mcf-backend-main.vercel.app/addBatch",
+        formData
+      );
       if (response.status === 200) {
-        console.log('Batch added successfully!');
-        alert('Batch added successfully!');
+        console.log("Batch added successfully!");
+        alert("Batch added successfully!");
         // Clear the form
         setBatchData({
           batch_name: "",
@@ -54,14 +61,21 @@ function AddBatch() {
           duration: "",
           camp_id: campId,
         });
-        window.location.href = "http://localhost:5173/batch-details?id=" + campId + "";
+        window.location.href =
+          "http://localhost:5173/batch-details?id=" + campId + "";
       } else {
-        console.error('Failed to add batch. Status:', response.status);
+        console.error("Failed to add batch. Status:", response.status);
       }
     } catch (error) {
-      console.error('Error adding batch:', error.message);
+      console.error("Error adding batch:", error.message);
       console.error(error.response.data);
     }
+  };
+
+  const convertDate = (dateString) => {
+    const [day, month, year] = dateString.split("-");
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
   };
 
   return (
