@@ -20,9 +20,9 @@ function Batchdetails() {
     }
   };
 
-  const handleDelete = async (Batch_Name) => {
+  const handleDelete = async (Batch_id) => {
     try {
-      const response = await axios.delete(`https://mcf-backend.vercel.app/api/deleteBatch/${Batch_Name}`);
+      const response = await axios.delete(`https://mcf-backend-main.vercel.app/deleteBatch?batch_id=${Batch_id}`);
       if (response.status === 200) {
         console.log('Batch deleted successfully!');
         alert('Batch deleted successfully!');
@@ -129,6 +129,18 @@ function Batchdetails() {
                             </td>
                             <td className="p-2">
                               <div className="text-center">
+                              <Link
+                                  to={`/edit-batch-details?id=${item.camp_id}`}
+                                  className="text-sm text-white px-2 bg-yellow-500 rounded"
+                                  style={{
+                                    padding: "5px",
+                                    fontSize: "13px",
+                                    marginLeft: "1px",
+                                    marginRight: "2px",
+                                  }}
+                                >
+                                  View & Edit
+                                </Link>
                                 <button
                                   onClick={() => handleDelete(item.Batch_Name)}
                                   className="text-sm text-white px-2 bg-red-500 rounded"

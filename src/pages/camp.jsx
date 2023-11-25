@@ -22,6 +22,27 @@ function Camp() {
       });
   }, []);
 
+  const handleDelete = async (camp_id) => {
+    try {
+      const response = await axios.delete(
+        `https://mcf-backend-main.vercel.app/deleteCamp?camp_id=${camp_id}`
+      );
+  
+      if (response.status === 200) {
+        console.log('Batch deleted successfully!');
+        alert('Batch deleted successfully!');
+  
+        // Update the state to remove the deleted item
+        setData((prevData) => prevData.filter((item) => item.camp_id !== camp_id));
+      } else {
+        console.error('Failed to delete batch. Status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error deleting batch:', error.message);
+      console.error(error.response?.data); // Log the response data if available
+    }
+  };
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const indexOfLastEntry = currentPage * entriesPerPage;
@@ -94,9 +115,12 @@ function Camp() {
                       </thead>
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
                         {currentEntries.map((item, index) => (
-                          <tr style={{ padding: "2px" }} key={item.id}>
+                          <tr style={{ padding: "2px" }} key={item.camp_id}>
                             <td>
-                              <div className="text-left" style={{ fontWeight: "bold" }}>
+                              <div
+                                className="text-left"
+                                style={{ fontWeight: "bold" }}
+                              >
                                 {indexOfFirstEntry + index + 1}
                               </div>
                             </td>
@@ -127,7 +151,7 @@ function Camp() {
                             <td className="p-3">
                               <div className="text-center">
                                 <Link
-                                  to={`/fee-details?campname=${item.name}`}
+                                  to={`/edit-fee-details?id=${item.camp_id}`}
                                   className="text-sm text-white px-2 bg-yellow-500"
                                   style={{
                                     padding: "3px",
@@ -136,7 +160,7 @@ function Camp() {
                                     marginRight: "2px",
                                   }}
                                 >
-                                  Fee Details
+                                  View & Edit
                                 </Link>
                                 <Link
                                   to={`/batch-details`}
@@ -151,17 +175,20 @@ function Camp() {
                                   Batch Details
                                 </Link>
                                 <Link
-                                  to={`/edit-fee-details?campname=${item.name}`}
-                                  className="text-sm text-white px-2 bg-red-500 rounded"
-                                  style={{
-                                    padding: "3px",
-                                    fontSize: "13px",
-                                    marginLeft: "2px",
-                                    marginRight: "1px",
-                                  }}
-                                >
-                                  Edit
-                                </Link>
+    className="text-sm text-white px-2 bg-red-500 rounded"
+    style={{
+        padding: "3px",
+        fontSize: "13px",
+        marginLeft: "2px",
+        marginRight: "1px",
+    }}
+    onClick={(e) => {
+        e.preventDefault(); // Prevent the default link click action
+        handleDelete(item.camp_id);
+    }}
+>
+    Delete
+</Link>
                               </div>
                             </td>
                           </tr>
