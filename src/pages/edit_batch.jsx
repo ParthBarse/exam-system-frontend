@@ -105,7 +105,7 @@ function EditBatch() {
         });
 
         // Redirect to the specific URL with the camp_id
-        window.location.href = `https://mcf-backend-main.vercel.app/batch-details?id=${camp_id}`;
+        window.location.href = `https://mfc-tau.vercel.app/batch-details?id=${camp_id}`;
       } else {
         console.error("Failed to add batch. Status:", response.status);
       }
