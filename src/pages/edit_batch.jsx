@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import axios from "axios"; // Import Axios
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function EditBatch() {
   const location = useLocation();
@@ -12,14 +12,46 @@ function EditBatch() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [batchData, setBatchData] = useState({
     batch_name: "",
-    start_date: "", // Corrected name
-    end_date: "", // Corrected name
+    start_date: "",
+    end_date: "",
     batch_intake: "",
-    company: "", // Added Company field
-    duration: "", // Added Duration field
+    company: "",
+    duration: "",
     batch_id: batchId,
     camp_id: "",
   });
+
+  useEffect(() => {
+    // Fetch initial data for the form based on the batch ID
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://mcf-backend-main.vercel.app/getBatch?batch_id=${batchId}`
+        );
+        if (response.ok) {
+          const batchDetails = await response.json();
+
+          // Ensure that the response structure matches your expectations
+          setBatchData({
+            batch_name: batchDetails.batch.batch_name,
+            start_date: batchDetails.batch.start_date,
+            end_date: batchDetails.batch.end_date,
+            batch_intake: batchDetails.batch.batch_intake,
+            duration: batchDetails.batch.duration,
+            company: batchDetails.batch.company,
+            batch_id: batchDetails.batch.batch_id,
+            camp_id: batchDetails.batch.camp_id,
+          });
+        } else {
+          console.error("Failed to fetch batch details");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchData();
+  }, [batchId]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
