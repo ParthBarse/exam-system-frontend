@@ -34,20 +34,23 @@ function AddCamp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
+    // Convert date to yyyy-mm-dd format
+    const formattedDiscountDate = convertDate(formData.discount_date);
+
     try {
       const form = new FormData();
       for (const key in formData) {
-        form.append(key, formData[key]);
+        form.append(key, key === 'discount_date' ? formattedDiscountDate : formData[key]);
       }
-  
+
       const response = await fetch('https://mcf-backend-main.vercel.app/addCamp', {
         method: 'POST',
         body: form,
       });
-  
+
       const responseData = await response.json();
-  
+
       if (response.ok) {
         console.log('Camp added successfully!');
         alert('Camp added successfully!');
@@ -61,8 +64,13 @@ function AddCamp() {
       alert('An error occurred. Check console for details.');
     }
   };
-  
-  
+
+  const convertDate = (dateString) => {
+    const [day, month, year] = dateString.split('-');
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
+  };
+
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
