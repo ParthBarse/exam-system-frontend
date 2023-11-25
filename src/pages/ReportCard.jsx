@@ -27,25 +27,7 @@ function ReportCard() {
   const itemsPerPage = 10; // Number of items to display per page
   const [data, setData] = useState([]); // Store fetched data
   const [loading, setLoading] = useState(true);
-  const [camps, setCamps] = useState([]);
 
-  useEffect(() => {
-    const fetchCamps = async () => {
-      try {
-        const response = await axios.get('https://mcf-backend-main.vercel.app/getAllCamps');
-        setCamps(response.data.camps);
-      } catch (error) {
-        console.error('Error fetching camps:', error);
-      }
-    };
-
-    fetchCamps();
-  }, []);
-
-  const getCampName = (campId) => {
-    const camp = camps.find(camp => camp.id === campId);
-    return camp ? camp.name : 'Camp not assigned';
-  };
 
   useEffect(() => {
     fetchData(); // Fetch data when the component mounts
@@ -72,6 +54,48 @@ function ReportCard() {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+  };
+
+
+
+  const [camps, setCamps] = useState([]);
+
+  useEffect(() => {
+    const fetchCamps = async () => {
+      try {
+        const response = await axios.get('https://mcf-backend-main.vercel.app/getAllCamps');
+        setCamps(response.data.camps);
+      } catch (error) {
+        console.error('Error fetching camps:', error);
+      }
+    };
+
+    fetchCamps();
+  }, []);
+
+  const getCampName = (campId) => {
+    const camp = camps.find(camp => camp.camp_id === campId);
+    return camp ? camp.camp_name : 'Camp not assigned';
+  };
+
+  const [batches, setBatches] = useState([]);
+
+  useEffect(() => {
+    const fetchBatches = async () => {
+      try {
+        const response = await axios.get(`https://mcf-backend-main.vercel.app/getAllBatches`);
+        setBatches(response.data.camps);
+      } catch (error) {
+        console.error('Error fetching batches:', error);
+      }
+    };
+
+    fetchBatches();
+  }, []);
+
+  const getBatchName = (batchId) => {
+    const batch = batches.find(batch => batch.batch_id === batchId);
+    return batch ? batch.batch_name : 'Batch not assigned';
   };
 
   return (
@@ -171,7 +195,7 @@ function ReportCard() {
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">Batch 1</div>
+                              <div className="text-center">{getBatchName(item.batch_id)}</div>
                             </td>
                             <td className="p-2">
                               <div
