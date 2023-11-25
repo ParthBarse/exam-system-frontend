@@ -185,6 +185,12 @@ function Receipt() {
             www.mcfcamp.com (http://mcfcamp.in)
           </p>
         </div>
+        <button
+     onClick={(e) => window.print()}
+     className="no-print bg-blue-500 hover:bg-blue-700 text-white py-1 px-8 rounded"
+   >
+     Print
+   </button>
       </div>
     </div>
   );
