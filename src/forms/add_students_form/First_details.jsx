@@ -22,6 +22,7 @@ const FirstDetails = () => {
 
   const [camps, setCamps] = useState([]);
 
+
   useEffect(() => {
     const fetchCamps = async () => {
       try {
@@ -33,6 +34,10 @@ const FirstDetails = () => {
     };
     fetchCamps();
   } , [])
+  const getCampName = (campId) => {
+    const camp = camps.find(camp => camp.id === campId);
+    return camp ? camp.name : 'Camp not found';
+  };
 
   const [errorState , setErrorState] = useState({ open: false, vertical: 'top', horizontal: 'center' });
 
@@ -64,6 +69,13 @@ const FirstDetails = () => {
     district: '',
     state: '',
     pincode: '', // New camp field
+    school_name: '',
+    standard: '',
+    wp_no: '',
+    parents_name: '',
+    parents_phn: '',
+    parents_email: '',
+
   });
 
   const [camp, setCamp] = useState({})
@@ -80,6 +92,7 @@ const FirstDetails = () => {
     height: '',
     weight: '',
     blood_group: '',
+    gender: '',
     payment_option: '',
 
   });
@@ -209,9 +222,16 @@ const FirstDetails = () => {
         district: '',
         state: '',
         pincode: '', // New camp field
+        school_name: '',
+        standard: '',
+        wp_no: '',
+        parents_name: '',
+        parents_phn: '',
+        parents_email: '',
+    
       });
       
-      // setState({ vertical: 'bottom', horizontal: 'right' ,open: true });
+      setState({ vertical: 'bottom', horizontal: 'right' ,open: true });
 
       
     } catch (error) {
@@ -284,7 +304,59 @@ const FirstDetails = () => {
                   />
 
                 </div>
+                <div className="grid grid-cols-2 gap-4">
+                  
+                  <div className="mb-4">
+                  <label htmlFor="camp_category" className="block text-sm font-medium text-gray-600">
+                    Gender
+                  </label>
+                  <select
+                    id="gender"
+                    name="gender"
+                    value={admissionFormData.gender}
+                    onChange={(e) => handleAdmissionChange('gender', e.target.value)}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Camp Category */}
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="school_name" className="block text-sm font-medium text-gray-600">School</label>
+                    <input id="school_name" name='school_name' value={formData.school_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="School Name" onChange={handleChange} />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="mb-4">
+                    <label htmlFor="standard" className="block text-sm font-medium text-gray-600">Standard</label>
+                    <input id="standard" name='standard' value={formData.standard} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Standard" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="wp_no" className="block text-sm font-medium text-gray-600">Whatsapp Number</label>
+                    <input id="wp_no" name='wp_no' value={formData.wp_no} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Whatsapp Number" onChange={handleChange} />
+                  </div>
+                </div>
                 {/* Father's and Mother's Occupation */}
+                {/*  */}
+
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="mb-4">
+                    <label htmlFor="parents_name" className="block text-sm font-medium text-gray-600">Parents Name</label>
+                    <input id="parents_name" name='parents_name' value={formData.parents_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Name" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="parents_phn" className="block text-sm font-medium text-gray-600">Parents Phone</label>
+                    <input id="parents_phn" name='parents_phn' value={formData.parents_phn} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Phone" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="parents_email" className="block text-sm font-medium text-gray-600">Parents Email</label>
+                    <input id="parents_email" name='parents_phn' value={formData.parents_email} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Email" onChange={handleChange} />
+                  </div>
+                </div>
+
+                {/*  */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="mb-4">
                     <label htmlFor="fatherOccupation" className="block text-sm font-medium text-gray-600">Father's Occupation</label>

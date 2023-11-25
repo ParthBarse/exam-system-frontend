@@ -81,21 +81,21 @@ const FirstDetails = () => {
     pincode: '', // New camp field
   });
 
-  const [campDetails , setCampDetails] = useState({});
-  const [batchDetails , setBatchDetails] = useState({}); 
+  const [campDetails, setCampDetails] = useState({});
+  const [batchDetails, setBatchDetails] = useState({});
 
   useEffect(() => {
     console.log(campDetails);
     console.log(batchDetails);
   }, [campDetails, batchDetails])
 
-  
+
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const sid = queryParams.get('id');
     setStudentId(sid);
-    axios.get(`${baseurl}/getStudent?sid=${sid}`).then(x => {setFormData(x.data.student);setCampDetails(x.data.camp_details);setBatchDetails(x.data.batch_details)});
+    axios.get(`${baseurl}/getStudent?sid=${sid}`).then(x => { setFormData(x.data.student); setCampDetails(x.data.camp_details); setBatchDetails(x.data.batch_details) });
   }, [location.search])
 
   useEffect(() => {
@@ -140,7 +140,7 @@ const FirstDetails = () => {
       for (let key in formData) {
         reqData.append(key, formData[key])
       }
-      
+
 
       // Make a POST request using axios
 
@@ -151,7 +151,7 @@ const FirstDetails = () => {
       // // After successfully adding a student, you might want to reset the form
       setFormData({
         first_name: '',
-        middle_name: '',
+        middle_name:'',
         last_name: '',
         email: '',
         phn: '',
@@ -164,6 +164,13 @@ const FirstDetails = () => {
         district: '',
         state: '',
         pincode: '', // New camp field
+        school_name: '',
+        standard: '',
+        wp_no: '',
+        parents_name: '',
+        parents_phn: '',
+        parents_email: '',
+    
       });
 
       setState({ vertical: 'bottom', horizontal: 'right', open: true });
@@ -189,11 +196,11 @@ const FirstDetails = () => {
       }
     };
     fetchCamps();
-  } , [])
+  }, [])
 
   const [camp, setCamp] = useState({})
   const [camp_category, setCampCategory] = useState('');
-  
+
   const [admissionFormData, setAdmissionFormData] = useState({
     admissionType: '',
     camp_category: '',
@@ -205,36 +212,37 @@ const FirstDetails = () => {
     height: '',
     weight: '',
     blood_group: '',
+    gender: '',
     payment_option: '',
 
   });
 
   useEffect(() => {
-    if (formData.food_option){
+    if (formData.food_option) {
       admissionFormData.food_option = formData.food_option;
     }
-    if (formData.dress_code){
+    if (formData.dress_code) {
       admissionFormData.dress_code = formData.dress_code;
     }
-    if (formData.pick_up_point){
+    if (formData.pick_up_point) {
       admissionFormData.pick_up_point = formData.pick_up_point;
     }
-    if (formData.height){
+    if (formData.height) {
       admissionFormData.height = formData.height;
     }
-    if (formData.weight){
+    if (formData.weight) {
       admissionFormData.weight = formData.weight;
     }
-    if (formData.blood_group){
+    if (formData.blood_group) {
       admissionFormData.blood_group = formData.blood_group;
     }
 
   }
-  , [formData.food_option, formData.dress_code , formData.pick_up_point , formData.height , formData.weight , formData.blood_group ])
+    , [formData.food_option, formData.dress_code, formData.pick_up_point, formData.height, formData.weight, formData.blood_group])
 
   useEffect(() => {
-    console.log('campname'+campDetails.camp_name);
-    
+    console.log('campname' + campDetails.camp_name);
+
     if (campDetails.camp_name) {
       admissionFormData.camp_name = campDetails.camp_name;
     }
@@ -251,7 +259,7 @@ const FirstDetails = () => {
       admissionFormData.batch_name = batchDetails.batch_name;
     }
   }, [batchDetails.batch_name]);
-    
+
   // //////////////////////////////////////////////
 
 
@@ -260,7 +268,7 @@ const FirstDetails = () => {
   }, [admissionFormData])
 
   /////////////////////////////////////////////////
-  
+
   const [campId, setCampId] = useState('');
 
   useEffect(() => {
@@ -274,11 +282,11 @@ const FirstDetails = () => {
       const selectedCamp = camps.find(camp => camp.camp_name === admissionFormData.camp_name);
       if (selectedCamp) {
         setCampId(selectedCamp.camp_id);
-        console.log('campid'+selectedCamp.camp_id)
+        console.log('campid' + selectedCamp.camp_id)
       }
     }
   }, [admissionFormData.camp_name, camps]);
-  
+
   const [batches, setBatches] = useState([]);
 
   useEffect(() => {
@@ -287,7 +295,7 @@ const FirstDetails = () => {
         const response = await axios.get(`${baseurl}/getBatches?camp_id=${campId}`);
         setBatches(response.data.batches);
       } catch (error) {
-        console.error('Error fetching data', error); 
+        console.error('Error fetching data', error);
       }
     };
     fetchBatches();
@@ -308,7 +316,7 @@ const FirstDetails = () => {
       const selectedBatch = batches.find(batch => batch.batch_name === admissionFormData.batch_name);
       if (selectedBatch) {
         setBatchId(selectedBatch.batch_id);
-        console.log('batchid: '+ selectedBatch.batch_id)
+        console.log('batchid: ' + selectedBatch.batch_id)
       }
     }
   }, [admissionFormData.batch_name, batches]);
@@ -319,7 +327,7 @@ const FirstDetails = () => {
         const response = await axios.get(`${baseurl}/getBatch?batch_id=${batchId}`);
         setBatch(response.data.batch);
       } catch (error) {
-        console.error('Error fetching data', error); 
+        console.error('Error fetching data', error);
       }
     };
     if (batchId) {
@@ -402,6 +410,40 @@ const FirstDetails = () => {
                     onChange={(date) => setFormData({ ...formData, dob: date })}
                   />
 
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+
+                  <div className="mb-4">
+                    <label htmlFor="camp_category" className="block text-sm font-medium text-gray-600">
+                      Gender
+                    </label>
+                    <select
+                      id="gender"
+                      name="gender"
+                      value={admissionFormData.gender}
+                      onChange={(e) => handleAdmissionChange('gender', e.target.value)}
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                    >
+                      {/* Options for Camp Category */}
+                      <option value="">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="school_name" className="block text-sm font-medium text-gray-600">School</label>
+                    <input id="school_name" name='school_name' value={formData.school_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="School Name" onChange={handleChange} />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="mb-4">
+                    <label htmlFor="standard" className="block text-sm font-medium text-gray-600">Standard</label>
+                    <input id="standard" name='standard' value={formData.standard} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Standard" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="wp_no" className="block text-sm font-medium text-gray-600">Whatsapp Number</label>
+                    <input id="wp_no" name='wp_no' value={formData.wp_no} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Whatsapp Number" onChange={handleChange} />
+                  </div>
                 </div>
                 {/* Father's and Mother's Occupation */}
                 <div className="grid grid-cols-2 gap-4">

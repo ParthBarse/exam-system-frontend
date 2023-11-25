@@ -27,6 +27,25 @@ function ReportCard() {
   const itemsPerPage = 10; // Number of items to display per page
   const [data, setData] = useState([]); // Store fetched data
   const [loading, setLoading] = useState(true);
+  const [camps, setCamps] = useState([]);
+
+  useEffect(() => {
+    const fetchCamps = async () => {
+      try {
+        const response = await axios.get('/getAllCamps');
+        setCamps(response.data.camps);
+      } catch (error) {
+        console.error('Error fetching camps:', error);
+      }
+    };
+
+    fetchCamps();
+  }, []);
+
+  const getCampName = (campId) => {
+    const camp = camps.find(camp => camp.id === campId);
+    return camp ? camp.name : 'Camp not assigned';
+  };
 
   useEffect(() => {
     fetchData(); // Fetch data when the component mounts
@@ -35,9 +54,9 @@ function ReportCard() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://mcf-backend.vercel.app/api/getAllStudents"
+        "https://mcf-backend-main.vercel.app/getAllStudents"
       );
-      setData(response.data); // Update the state with the fetched data
+      setData(response.data.students); // Update the state with the fetched data
       setLoading(false); // Set loading to false
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -106,7 +125,7 @@ function ReportCard() {
                           </th>
                           <th className="p-2">
                             <div className="font-semibold text-center">
-                              Venue
+                              Batch
                             </div>
                           </th>
                           <th className="p-2">
@@ -135,24 +154,24 @@ function ReportCard() {
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.uuid}
+                                  {item.sid}
                                 </div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.First + " " + item.last}
+                                  {item.first_name + " " + item.last_name}
                                 </div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="text-center">
-                                {item.Camp}
+                                {getCampName(item.camp_id)}
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{}</div>
+                              <div className="text-center">Batch 1</div>
                             </td>
                             <td className="p-2">
                               <div
@@ -172,7 +191,7 @@ function ReportCard() {
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   <Link
-                                    to={`/view-report?id=${item.uuid}`}
+                                    to={`/view-report?id=${item.sid}`}
                                     className="block w-full h-full"
                                     >
                                     Download
