@@ -62,7 +62,7 @@ function AddBatch() {
           camp_id: campId,
         });
         window.location.href =
-          "http://localhost:5173/batch-details?id=" + campId + "";
+          "https://mcf-backend-main.vercel.app/batch-details?id=" + campId + "";
       } else {
         console.error("Failed to add batch. Status:", response.status);
       }
