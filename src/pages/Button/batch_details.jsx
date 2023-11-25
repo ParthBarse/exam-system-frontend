@@ -56,6 +56,32 @@ function Batchdetails() {
   //   }
   // };
 
+  const handleDelete = async (batch_id) => {
+    try {
+      const response = await axios.delete(
+        `https://mcf-backend-main.vercel.app/deleteBatch?batch_id=${batch_id}`
+      );
+
+      if (response.status === 200) {
+        console.log("Batch deleted successfully!");
+        alert("Batch deleted successfully!");
+
+        // Update the state to remove the deleted item
+        setData((prevData) =>
+          prevData.filter((item) => item.batch_id.toString() !== batch_id.toString())
+        );
+
+        // Refresh the page
+        window.location.reload();
+      } else {
+        console.error("Failed to delete batch. Status:", response.status);
+      }
+    } catch (error) {
+      console.error("Error deleting batch:", error.message);
+      console.error(error.response?.data); // Log the response data if available
+    }
+  };
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -75,14 +101,14 @@ function Batchdetails() {
                 >
                   <h2 className="font-semibold text-slate-800 dark:text-slate-100">Camp Batch details</h2>
                   <div>
-                    <Link to="/add-batch" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded mr-2">
+                    <Link to={`/add-batch?id=${campId}`} className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded mr-2">
                       Add Batch
                     </Link>
                     <Link to="/camp" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">
                       Back to Camp List
                     </Link>
                   </div>
-                </header>
+                </header> 
                 <div className="p-4">
                   {/* Table */}
                   <div className="overflow-x-auto">
@@ -156,7 +182,7 @@ function Batchdetails() {
                               <td className="p-2">
                                 <div className="text-center">
                                   <Link
-                                    to={`/edit-batch-details?id=${item.camp_id}`}
+                                    to={`/edit-batch?id=${item.camp_id}`}
                                     className="text-sm text-white px-2 bg-yellow-500 rounded"
                                     style={{
                                       padding: '5px',

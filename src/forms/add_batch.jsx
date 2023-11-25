@@ -2,18 +2,22 @@ import React, { useState } from "react";
 import axios from "axios"; // Import Axios
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function AddBatch() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const campId = queryParams.get('id');
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [batchData, setBatchData] = useState({
-    Batch_Name: "",
-    Batch_Start_Date: "", // Corrected name
-    Batch_End_Date: "",   // Corrected name
-    Intake: "",
-    Company: "",          // Added Company field
-    Duration: "",         // Added Duration field
-    isActive: false,
+    batch_name: "",
+    start_date: "", // Corrected name
+    end_date: "",   // Corrected name
+    batch_intake: "",
+    company: "",          // Added Company field
+    duration: "",         // Added Duration field
+    camp_id: campId,
   });
 
   const handleChange = (e) => {
@@ -27,23 +31,35 @@ function AddBatch() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      // Make a POST request to the API endpoint
-      const response = await axios.post(
-        "https://mcf-backend.vercel.app/api/addBatchDetails",
-        batchData
-      );
+    // Create a new FormData object
+    const formData = new FormData();
 
+    // Iterate over the batchData object and append each key-value pair to the FormData object
+    for (let key in batchData) {
+      formData.append(key, batchData[key]);
+    }
+
+    try {
+      const response = await axios.post('https://mcf-backend-main.vercel.app/addBatch', formData);
       if (response.status === 200) {
-        console.log("Batch added successfully!");
+        console.log('Batch added successfully!');
         alert('Batch added successfully!');
-        window.location.href = '/batch-details';
-        // Optionally, you can redirect the user to another page or perform other actions
+        // Clear the form
+        setBatchData({
+          batch_name: "",
+          start_date: "",
+          end_date: "",
+          batch_intake: "",
+          company: "",
+          duration: "",
+          camp_id: campId,
+        });
       } else {
-        console.error("Failed to add batch");
+        console.error('Failed to add batch. Status:', response.status);
       }
     } catch (error) {
-      console.error("Error adding batch:", error);
+      console.error('Error adding batch:', error.message);
+      console.error(error.response.data);
     }
   };
 
@@ -69,7 +85,7 @@ function AddBatch() {
                 </h2>
                 <Link
                   end
-                  to="/batch-details"
+                  to={`/batch-details?id=${campId}`}
                   className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
                 >
                   Back to Batch list
@@ -83,9 +99,9 @@ function AddBatch() {
                     </label>
                     <input
                       type="text"
-                      id="batchName"
-                      name="Batch_Name"
-                      value={batchData.Batch_Name}
+                      id="batch_name"
+                      name="batch_name"
+                      value={batchData.batch_name}
                       onChange={handleChange}
                       className="w-full p-2 border rounded-lg"
                     />
@@ -97,9 +113,9 @@ function AddBatch() {
                       </label>
                       <input
                         type="date"
-                        id="startDate"
-                        name="Batch_Start_Date"
-                        value={batchData.Batch_Start_Date}
+                        id="start_date"
+                        name="start_date"
+                        value={batchData.start_date}
                         onChange={handleChange}
                         className="w-full border rounded-lg p-2"
                       />
@@ -110,9 +126,9 @@ function AddBatch() {
                       </label>
                       <input
                         type="date"
-                        id="endDate"
-                        name="Batch_End_Date"
-                        value={batchData.Batch_End_Date}
+                        id="end_date"
+                        name="end_date"
+                        value={batchData.end_date}
                         onChange={handleChange}
                         className="w-full border rounded-lg p-2"
                       />
@@ -125,9 +141,9 @@ function AddBatch() {
                       </label>
                       <input
                         type="text"
-                        id="Company"
-                        name="Company"
-                        value={batchData.Company}
+                        id="company"
+                        name="company"
+                        value={batchData.company}
                         onChange={handleChange}
                         className="w-full p-2 border rounded-lg"
                       />
@@ -138,9 +154,9 @@ function AddBatch() {
                       </label>
                       <input
                         type="text"
-                        id="Duration"
-                        name="Duration"
-                        value={batchData.Duration}
+                        id="duration"
+                        name="duration"
+                        value={batchData.duration}
                         onChange={handleChange}
                         className="w-full p-2 border rounded-lg"
                       />
@@ -152,24 +168,12 @@ function AddBatch() {
                     </label>
                     <input
                       type="text"
-                      id="batchIntake"
-                      name="Intake"
-                      value={batchData.Intake}
+                      id="batch_intake"
+                      name="batch_intake"
+                      value={batchData.batch_intake}
                       onChange={handleChange}
                       className="w-full p-2 border rounded-lg"
                     />
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700">
-                      <input
-                        type="checkbox"
-                        name="isActive"
-                        checked={batchData.isActive}
-                        onChange={handleChange}
-                        className="mr-2 leading-tight"
-                      />
-                      Is Active
-                    </label>
                   </div>
                   <button
                     type="submit"
