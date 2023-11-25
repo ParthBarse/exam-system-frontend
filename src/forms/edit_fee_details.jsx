@@ -67,13 +67,6 @@ function EditFeeDetails() {
     });
   };
 
-  //   const handleCheckboxChange = (event) => {
-  //     setFormData({
-  //       ...formData,
-  //       [event.target.name]: event.target.checked,
-  //     });
-  //   };
-
   const handleCheckboxChange = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,

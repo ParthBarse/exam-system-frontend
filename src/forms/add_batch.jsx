@@ -54,6 +54,7 @@ function AddBatch() {
           duration: "",
           camp_id: campId,
         });
+        window.location.href = "http://localhost:5173/batch-details?id=" + campId + "";
       } else {
         console.error('Failed to add batch. Status:', response.status);
       }
