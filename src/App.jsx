@@ -32,7 +32,7 @@ import AuthPage from './pages/auth';
 import Receipt from './pages/Button/veiw-receipt';
 import AdmissionForm from './pages/admissionform';
 import PositionedSnackbar from './components/Toast';
-// import EditBatch from './pages/Button/edit_batch';
+import EditBatch from './pages/edit_batch';
 
 
 function App() {
@@ -70,7 +70,7 @@ function App() {
         <Route exact path="/receipt" element={<Receipt />} />
         <Route exact path="/toast" element={<PositionedSnackbar />} />
         <Route exact path="/admission-form" element={<AdmissionForm />} />
-        {/* <Route exact path="/edit-batch" element={<EditBatch />} /> */}
+        <Route exact path="/edit-batch" element={<EditBatch />} />
       </Routes>
     </>
   );  
