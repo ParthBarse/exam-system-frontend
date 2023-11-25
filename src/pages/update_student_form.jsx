@@ -151,7 +151,7 @@ const FirstDetails = () => {
       // // After successfully adding a student, you might want to reset the form
       setFormData({
         first_name: '',
-        middle_name:'',
+        middle_name: '',
         last_name: '',
         email: '',
         phn: '',
@@ -170,7 +170,7 @@ const FirstDetails = () => {
         parents_name: '',
         parents_phn: '',
         parents_email: '',
-    
+
       });
 
       setState({ vertical: 'bottom', horizontal: 'right', open: true });
@@ -445,6 +445,22 @@ const FirstDetails = () => {
                     <input id="wp_no" name='wp_no' value={formData.wp_no} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Whatsapp Number" onChange={handleChange} />
                   </div>
                 </div>
+
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="mb-4">
+                    <label htmlFor="parents_name" className="block text-sm font-medium text-gray-600">Parents Name</label>
+                    <input id="parents_name" name='parents_name' value={formData.parents_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Name" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="parents_phn" className="block text-sm font-medium text-gray-600">Parents Phone</label>
+                    <input id="parents_phn" name='parents_phn' value={formData.parents_phn} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Phone" onChange={handleChange} />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="parents_email" className="block text-sm font-medium text-gray-600">Parents Email</label>
+                    <input id="parents_email" name='parents_phn' value={formData.parents_email} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Parent's Email" onChange={handleChange} />
+                  </div>
+                </div>
+
                 {/* Father's and Mother's Occupation */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="mb-4">

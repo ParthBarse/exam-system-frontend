@@ -32,7 +32,7 @@ function ReportCard() {
   useEffect(() => {
     const fetchCamps = async () => {
       try {
-        const response = await axios.get('/getAllCamps');
+        const response = await axios.get('https://mcf-backend-main.vercel.app/getAllCamps');
         setCamps(response.data.camps);
       } catch (error) {
         console.error('Error fetching camps:', error);
