@@ -19,6 +19,7 @@ function EditBatch() {
     duration: "",
     batch_id: batchId,
     camp_id: "",
+    students_registered: "",
   });
 
   useEffect(() => {
@@ -41,6 +42,7 @@ function EditBatch() {
             company: batchDetails.batch.company,
             batch_id: batchDetails.batch.batch_id,
             camp_id: batchDetails.batch.camp_id,
+            students_registered: batchDetails.batch.students_registered,
           });
         } else {
           console.error("Failed to fetch batch details");
@@ -97,6 +99,9 @@ function EditBatch() {
           company: "",
           duration: "",
           batch_id: batchId,
+          camp_id: "",
+          students_registered: "",
+          
         });
 
         // Redirect to the specific URL with the camp_id
@@ -223,6 +228,22 @@ function EditBatch() {
                       id="batch_intake"
                       name="batch_intake"
                       value={batchData.batch_intake}
+                      onChange={handleChange}
+                      className="w-full p-2 border rounded-lg"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="batch_intake"
+                      className="block text-gray-700"
+                    >
+                      Total Students Registered 
+                    </label>
+                    <input
+                      type="text"
+                      id="students_registered"
+                      name="students_registered"
+                      value={batchData.students_registered}
                       onChange={handleChange}
                       className="w-full p-2 border rounded-lg"
                     />
