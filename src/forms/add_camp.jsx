@@ -6,15 +6,15 @@ import { Link } from 'react-router-dom';
 function AddCamp() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [formData, setFormData] = useState({
-    _id: '654e8bf95490a9b536d89427',
-    Name: '',
-    Chess_Prefix: '',
-    Venue: '',
-    Fees: '',
-    Description: '',
-    Fee_Discount: '',
-    Discount_date: '',
-    Status: '',
+    camp_name: '',
+    chess_prefix: '',
+    camp_place: '',
+    camp_fee: '',
+    camp_description: '',
+    fee_discount: '',
+    discount_date: '',
+    final_fee: '',
+    camp_status: '',
   });
 
   const handleChange = (e) => {
@@ -28,35 +28,41 @@ function AddCamp() {
   const handleCheckboxChange = () => {
     setFormData((prevData) => ({
       ...prevData,
-      Status: prevData.Status === 'Active' ? 'Inactive' : 'Active',
+      camp_status: prevData.camp_status === 'Active' ? 'Inactive' : 'Active',
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const response = await fetch('https://mcf-backend.vercel.app/api/AddCamp', {
+      const form = new FormData();
+      for (const key in formData) {
+        form.append(key, formData[key]);
+      }
+  
+      const response = await fetch('https://mcf-backend-main.vercel.app/addCamp', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: form,
       });
-
+  
+      const responseData = await response.json();
+  
       if (response.ok) {
         console.log('Camp added successfully!');
         alert('Camp added successfully!');
         window.location.href = '/camp';
-        // Optionally, you can redirect the user to another page or perform other actions
       } else {
-        console.error('Failed to add camp');
+        console.error('Failed to add camp:', responseData.error);
+        alert('Failed to add camp. Check console for details.');
       }
     } catch (error) {
       console.error('Error:', error);
+      alert('An error occurred. Check console for details.');
     }
   };
-
+  
+  
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -70,17 +76,22 @@ function AddCamp() {
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-screen-xl mx-auto">
             <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-              <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700" style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <header
+                className="px-5 py-4 border-b border-slate-100 dark:border-slate-700"
+                style={{ display: 'flex', justifyContent: 'space-between' }}
+              >
                 <h2 className="font-semibold text-slate-800 dark:text-slate-100">Add Camp</h2>
-                <Link end to="/camp" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">Back to camp list</Link>
+                <Link end to="/camp" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">
+                  Back to camp list
+                </Link>
               </header>
               <div className="p-3 shadow-lg border border-gray-300 rounded-lg">
                 <form className="space-y-2" onSubmit={handleSubmit}>
                   <label className="text-lg font-semibold">Camp Name</label>
                   <input
                     type="text"
-                    name="Name"
-                    value={formData.Name}
+                    name="camp_name"
+                    value={formData.camp_name}
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
@@ -89,8 +100,8 @@ function AddCamp() {
                   <label className="text-lg font-semibold">Chess Prefix</label>
                   <input
                     type="text"
-                    name="Chess_Prefix"
-                    value={formData.Chess_Prefix}
+                    name="chess_prefix"
+                    value={formData.chess_prefix}
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
@@ -99,8 +110,8 @@ function AddCamp() {
                   <label className="text-lg font-semibold">Camp Place</label>
                   <input
                     type="text"
-                    name="Venue"
-                    value={formData.Venue}
+                    name="camp_place"
+                    value={formData.camp_place}
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
@@ -109,8 +120,8 @@ function AddCamp() {
                   <label className="text-lg font-semibold">Camp Fee</label>
                   <input
                     type="number"
-                    name="Fees"
-                    value={formData.Fees}
+                    name="camp_fee"
+                    value={formData.camp_fee}
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
@@ -119,8 +130,8 @@ function AddCamp() {
                   <label className="text-lg font-semibold">Camp Description</label>
                   <input
                     type="text"
-                    name="Description"
-                    value={formData.Description}
+                    name="camp_description"
+                    value={formData.camp_description}
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
@@ -129,8 +140,8 @@ function AddCamp() {
                   <label className="text-lg font-semibold">Fee Discount</label>
                   <input
                     type="text"
-                    name="Fee_Discount"
-                    value={formData.Fee_Discount}
+                    name="fee_discount"
+                    value={formData.fee_discount}
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
@@ -139,8 +150,18 @@ function AddCamp() {
                   <label className="text-lg font-semibold">Discount Date</label>
                   <input
                     type="date"
-                    name="Discount_date"
-                    value={formData.Discount_date}
+                    name="discount_date"
+                    value={formData.discount_date}
+                    onChange={handleChange}
+                    required
+                    className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
+                  />
+
+                  <label className="text-lg font-semibold">Final Fee</label>
+                  <input
+                    type="text"
+                    name="final_fee"
+                    value={formData.final_fee}
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
@@ -149,8 +170,8 @@ function AddCamp() {
                   <div className="flex items-center space-x-4">
                     <input
                       type="checkbox"
-                      name="Status"
-                      checked={formData.Status === 'Active'}
+                      name="camp_status"
+                      checked={formData.camp_status === 'Active'}
                       onChange={handleCheckboxChange}
                       className="text-blue-500 focus:ring focus:ring-blue-400"
                     />
