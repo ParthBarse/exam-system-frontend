@@ -9,27 +9,50 @@ function CanStudent() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [cancelledStudents, setCancelledStudents] = useState([]);
+  const [camps, setCamps] = useState([]);
+
+  useEffect(() => {
+    const fetchCamps = async () => {
+      try {
+        const response = await axios.get('https://mcf-backend-main.vercel.app/getAllCamps');
+        setCamps(response.data.camps);
+      } catch (error) {
+        console.error('Error fetching camps:', error);
+      }
+    };
+
+    fetchCamps();
+  }, []);
+
+  const getCampName = (campId) => {
+    const camp = camps.find(camp => camp.camp_id === campId);
+    return camp ? camp.camp_name : 'Camp not assigned';
+  };
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://mcf-backend-main.vercel.app/CancelledStudents"
+        "https://mcf-backend-main.vercel.app/getInactiveStudents"
       );
-      setCancelledStudents(response.data);
+      setCancelledStudents(response.data.students);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const handleClick = async (item)=>{
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = async (sid)=>{
       console.log('clicked')
-      const res = await axios.put(`https://mfc-tau.vercel.app/api/updateStudentStatus/${item.uuid}`)
+      const res = await axios.get(`https://mcf-backend-main.vercel.app/activateStudent?sid=${sid}`)
+      setIsClicked(true)
+
       alert("status updated successfully")
   }
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData().then(x=>setIsClicked(false));
+  }, [isClicked]);
 
   const totalItems = cancelledStudents.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -103,7 +126,7 @@ function CanStudent() {
                       </thead>
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
                         {itemsToDisplay.map((item, index) => (
-                          <tr key={item.id}>
+                          <tr key={item.sid}>
                             <td>
                               <div
                                 className="text-left"
@@ -115,19 +138,19 @@ function CanStudent() {
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.uuid}
+                                  {item.sid}
                                 </div>
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.First} {item.last}
+                                  {item.first_name} {item.last_name}
                                 </div>
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{item.Camp}</div>
+                              <div className="text-center">{getCampName(item.camp_id)}</div>
                             </td>
                             <td className="p-2">
                               <div className="text-center">Batch-1</div>
@@ -146,18 +169,20 @@ function CanStudent() {
                             <td className="p-4">
                               <div className="text-center grid grid-cols-2 grid-rows-2 gap-2 h-full">
                                 <Link
-                                  to={`/view-report?id=${item.uuid}`}
+                                  to={`/view-report?id=${item.sid}`}
                                   className="text-sm text-white px-2 bg-yellow-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   Veiw Form
                                 </Link>
-                                <button onClick={e=>axios.put(`https://mcf-backend.vercel.app/api/updateStudentStatus/${item.uuid}`).then(x=>alert("status updated successfully")).then(x=>fetchData())} className="text-sm text-white px-2 bg-emerald-500"
+                                <button onClick={e=>{
+                                  handleClick(item.sid)
+                                }} className="text-sm text-white px-2 bg-emerald-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
                                   Activate
                                 </button>
-                                <Link to={`/veiw-entrance?id=${item.uuid}`} className="text-sm text-white px-2 bg-indigo-500" >
+                                <Link to={`/veiw-entrance?id=${item.sid}`} className="text-sm text-white px-2 bg-indigo-500" >
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
                                   style={{ padding: "1px", fontSize: "13px" }}

@@ -14,6 +14,25 @@ function RegStudent() {
   const [data, setData] = useState([]); // Store fetched data
   const [loading, setLoading] = useState(true);
   const [isDeleted, setIsDeleted] = useState(false);
+  const [camps, setCamps] = useState([]);
+
+  useEffect(() => {
+    const fetchCamps = async () => {
+      try {
+        const response = await axios.get('https://mcf-backend-main.vercel.app/getAllCamps');
+        setCamps(response.data.camps);
+      } catch (error) {
+        console.error('Error fetching camps:', error);
+      }
+    };
+
+    fetchCamps();
+  }, []);
+
+  const getCampName = (campId) => {
+    const camp = camps.find(camp => camp.camp_id === campId);
+    return camp ? camp.camp_name : 'Camp not assigned';
+  };
 
   useEffect(() => {
     fetchData(); // Fetch data when the component mounts
@@ -25,6 +44,7 @@ function RegStudent() {
         `${baseurl}/getAllStudents`
       );
       setData(response.data.students); // Update the state with the fetched data
+      
       setLoading(false); // Set loading to false
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -154,7 +174,7 @@ function RegStudent() {
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{item.Camp}</div>
+                              <div className="text-center">{getCampName(item.camp_id)}</div>
                             </td>
                             <td className="p-2">
                               <div className="text-center">Batch-1</div>
