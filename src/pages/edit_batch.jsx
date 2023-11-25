@@ -1,20 +1,57 @@
-import React, { useState } from "react";
-import axios from "axios"; // Import Axios
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function EditBatch() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const batchId = queryParams.get("id");
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [batchData, setBatchData] = useState({
-    Batch_Name: "",
-    Batch_Start_Date: "", // Corrected name
-    Batch_End_Date: "",   // Corrected name
-    Intake: "",
-    Company: "",          // Added Company field
-    Duration: "",         // Added Duration field
-    isActive: false,
+    batch_name: "",
+    start_date: "",
+    end_date: "",
+    batch_intake: "",
+    company: "",
+    duration: "",
+    batch_id: batchId,
+    camp_id: "",
   });
+
+  useEffect(() => {
+    // Fetch initial data for the form based on the batch ID
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://mcf-backend-main.vercel.app/getBatch?batch_id=${batchId}`
+        );
+        if (response.ok) {
+          const batchDetails = await response.json();
+
+          // Ensure that the response structure matches your expectations
+          setBatchData({
+            batch_name: batchDetails.batch.batch_name,
+            start_date: batchDetails.batch.start_date,
+            end_date: batchDetails.batch.end_date,
+            batch_intake: batchDetails.batch.batch_intake,
+            duration: batchDetails.batch.duration,
+            company: batchDetails.batch.company,
+            batch_id: batchDetails.batch.batch_id,
+            camp_id: batchDetails.batch.camp_id,
+          });
+        } else {
+          console.error("Failed to fetch batch details");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchData();
+  }, [batchId]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -27,23 +64,45 @@ function EditBatch() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      // Make a POST request to the API endpoint
-      const response = await axios.post(
-        "https://mcf-backend.vercel.app/api/addBatchDetails",
-        batchData
-      );
+    // Create a new FormData object
+    const formData = new FormData();
 
+    // Iterate over the batchData object and append each key-value pair to the FormData object
+    for (let key in batchData) {
+      formData.append(key, batchData[key]);
+    }
+
+    try {
+      const response = await axios.post(
+        "https://mcf-backend-main.vercel.app/updateBatch",
+        formData
+      );
       if (response.status === 200) {
-        console.log("Batch added successfully!");
-        alert('Batch added successfully!');
-        window.location.href = '/batch-details';
-        // Optionally, you can redirect the user to another page or perform other actions
+        console.log("Batch Updated successfully!");
+        alert("Batch Updated successfully!");
+
+        // Get the camp_id from the response
+        const camp_id = response.data.camp_id;
+
+        // Clear the form
+        setBatchData({
+          batch_name: "",
+          start_date: "",
+          end_date: "",
+          batch_intake: "",
+          company: "",
+          duration: "",
+          batch_id: batchId,
+        });
+
+        // Redirect to the specific URL with the camp_id
+        window.location.href = `http://localhost:5173/batch-details?id=${camp_id}`;
       } else {
-        console.error("Failed to add batch");
+        console.error("Failed to add batch. Status:", response.status);
       }
     } catch (error) {
-      console.error("Error adding batch:", error);
+      console.error("Error adding batch:", error.message);
+      console.error(error.response.data);
     }
   };
 
@@ -65,54 +124,50 @@ function EditBatch() {
                 style={{ display: "flex", justifyContent: "space-between" }}
               >
                 <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-                  Add Batch
+                  Update Batch
                 </h2>
-                <Link
-                  end
-                  to="/batch-details"
-                  className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
-                >
-                  Back to Batch list
-                </Link>
               </header>
               <div className="p-3 shadow-lg border border-gray-300 rounded-lg">
                 <form onSubmit={handleSubmit}>
                   <div className="mb-4">
-                    <label htmlFor="batchName" className="block text-gray-700">
+                    <label htmlFor="batch_name" className="block text-gray-700">
                       Batch Name
                     </label>
                     <input
                       type="text"
-                      id="batchName"
-                      name="Batch_Name"
-                      value={batchData.Batch_Name}
+                      id="batch_name"
+                      name="batch_name"
+                      value={batchData.batch_name}
                       onChange={handleChange}
                       className="w-full p-2 border rounded-lg"
                     />
                   </div>
                   <div className="flex flex-row mb-4">
                     <div className="flex flex-col p-4 w-1/2">
-                      <label htmlFor="startDate" className="block text-gray-700">
+                      <label
+                        htmlFor="start_date"
+                        className="block text-gray-700"
+                      >
                         Start Date
                       </label>
                       <input
                         type="date"
-                        id="startDate"
-                        name="Batch_Start_Date"
-                        value={batchData.Batch_Start_Date}
+                        id="start_date"
+                        name="start_date"
+                        value={batchData.start_date}
                         onChange={handleChange}
                         className="w-full border rounded-lg p-2"
                       />
                     </div>
                     <div className="flex flex-col p-4 w-1/2">
-                      <label htmlFor="endDate" className="block text-gray-700">
+                      <label htmlFor="end_date" className="block text-gray-700">
                         End Date
                       </label>
                       <input
                         type="date"
                         id="endDate"
-                        name="Batch_End_Date"
-                        value={batchData.Batch_End_Date}
+                        name="end_date"
+                        value={batchData.end_date}
                         onChange={handleChange}
                         className="w-full border rounded-lg p-2"
                       />
@@ -120,56 +175,47 @@ function EditBatch() {
                   </div>
                   <div className="flex flex-row mb-4">
                     <div className="flex flex-col p-4 w-1/2">
-                      <label htmlFor="Company" className="block text-gray-700">
+                      <label htmlFor="company" className="block text-gray-700">
                         Company
                       </label>
                       <input
                         type="text"
-                        id="Company"
-                        name="Company"
-                        value={batchData.Company}
+                        id="company"
+                        name="company"
+                        value={batchData.company}
                         onChange={handleChange}
                         className="w-full p-2 border rounded-lg"
                       />
                     </div>
                     <div className="flex flex-col p-4 w-1/2">
-                      <label htmlFor="Duration" className="block text-gray-700">
-                        Duration
+                      <label htmlFor="duration" className="block text-gray-700">
+                        duration
                       </label>
                       <input
                         type="text"
-                        id="Duration"
-                        name="Duration"
-                        value={batchData.Duration}
+                        id="duration"
+                        name="duration"
+                        value={batchData.duration}
                         onChange={handleChange}
                         className="w-full p-2 border rounded-lg"
                       />
                     </div>
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="batchIntake" className="block text-gray-700">
+                    <label
+                      htmlFor="batch_intake"
+                      className="block text-gray-700"
+                    >
                       Batch Intake
                     </label>
                     <input
                       type="text"
-                      id="batchIntake"
-                      name="Intake"
-                      value={batchData.Intake}
+                      id="batch_intake"
+                      name="batch_intake"
+                      value={batchData.batch_intake}
                       onChange={handleChange}
                       className="w-full p-2 border rounded-lg"
                     />
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700">
-                      <input
-                        type="checkbox"
-                        name="isActive"
-                        checked={batchData.isActive}
-                        onChange={handleChange}
-                        className="mr-2 leading-tight"
-                      />
-                      Is Active
-                    </label>
                   </div>
                   <button
                     type="submit"

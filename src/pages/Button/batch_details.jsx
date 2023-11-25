@@ -40,21 +40,6 @@ function Batchdetails() {
     fetchData();
   }, [location.search, campId]);
 
-  // const handleDelete = async (batchId) => {
-  //   try {
-  //     const response = await axios.delete(`https://mcf-backend-main.vercel.app/deleteBatch?batch_id=${batchId}`);
-  //     if (response.status === 200) {
-  //       console.log('Batch deleted successfully!');
-  //       alert('Batch deleted successfully!');
-  //       fetchData(); // Refresh the data after deletion
-  //     } else {
-  //       console.error('Failed to delete batch. Status:', response.status);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error deleting batch:', error.message);
-  //     console.error(error.response.data);
-  //   }
-  // };
 
   const handleDelete = async (batch_id) => {
     try {
@@ -182,7 +167,7 @@ function Batchdetails() {
                               <td className="p-2">
                                 <div className="text-center">
                                   <Link
-                                    to={`/edit-batch?id=${item.camp_id}`}
+                                    to={`/edit-batch?id=${item.batch_id}`}
                                     className="text-sm text-white px-2 bg-yellow-500 rounded"
                                     style={{
                                       padding: '5px',
