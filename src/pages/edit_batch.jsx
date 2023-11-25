@@ -101,11 +101,11 @@ function EditBatch() {
           batch_id: batchId,
           camp_id: "",
           students_registered: "",
-          
+
         });
 
         // Redirect to the specific URL with the camp_id
-        window.location.href = `http://localhost:5173/batch-details?id=${camp_id}`;
+        window.location.href = `https://mcf-backend-main.vercel.app/batch-details?id=${camp_id}`;
       } else {
         console.error("Failed to add batch. Status:", response.status);
       }
