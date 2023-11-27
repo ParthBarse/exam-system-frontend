@@ -117,15 +117,15 @@ const StudentGradingForm = ({ formData, handleChange, handleSubmit }) => {
                 <span className="ml-2 text-gray-700">
                   {(() => {
                     switch (rating) {
-                      case 1:
+                      case "1":
                         return "Bad";
-                      case 2:
+                      case "2":
                         return "Average";
-                      case 3:
+                      case "3":
                         return "OK";
-                      case 4:
+                      case "4":
                         return "Good";
-                      case 5:
+                      case "5":
                         return "Excellent";
                       default:
                         return "";
