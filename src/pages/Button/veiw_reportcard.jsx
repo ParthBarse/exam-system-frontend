@@ -79,13 +79,13 @@ function ViewReportCard() {
               </tr>
               <tr>
                 <td>In-chanrge Name :</td>
-                <td colspan="3">{data.employee_who_reached_out_to_you}</td>
+                <td colspan="3">{data.in_charge}</td>
               </tr>
             </table>
           </div>
 
           <div class="in-box-2">
-            <strong>Other Information :- </strong>
+            <strong>Grading Parameters :- </strong>
           </div>
 
           <div class="table-container">
@@ -99,7 +99,7 @@ function ViewReportCard() {
               <tr>
                 <td>Physical Fitness</td>
                 <td>
-                  <strong>{data.physical}</strong>
+                  <strong>{data.physical_fitness}</strong>
                 </td>
               </tr>
               <tr>
@@ -116,11 +116,11 @@ function ViewReportCard() {
               </tr>
               <tr>
                 <td>Interpersonal Relation</td>
-                <td>{data.IR}</td>
+                <td>{data.interpersonal_relations}</td>
               </tr>
               <tr>
                 <td>Team Building</td>
-                <td>{data.team}</td>
+                <td>{data.team_building}</td>
               </tr>
               <tr>
                 <td>Training</td>
@@ -147,12 +147,6 @@ function ViewReportCard() {
               www.mcfcamp.com (http://mcfcamp.in)
             </p>
           </div>
-          <button
-            onClick={(e) => window.print()}
-            className="no-print bg-blue-500 hover:bg-blue-700 text-white py-1 px-8 rounded"
-          >
-            Print
-          </button>
         </div>
       </div>
     </div>
