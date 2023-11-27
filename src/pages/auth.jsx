@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import authbg from './authbg.png';
 import { Link } from 'react-router-dom';
+
+
 
 const LoginForm = ({ onLogin, onSwitchToRegister }) => {
 
@@ -22,21 +25,18 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Basic form validation
-    const newErrors = {};
-    if (!formData.username.trim()) {
-      newErrors.username = 'Username is required';
-    }
-    if (!formData.password.trim()) {
-      newErrors.password = 'Password is required';
-    }
-
-    if (Object.keys(newErrors).length === 0) {
-      // Submit the form (you can send the data to the server or perform any other actions)
-      onLogin(formData);
-    } else {
-      setErrors(newErrors);
-    }
+    axios.post('https://mcf-backend-main.vercel.app/loginAdmin', formData)
+      .then(response => {
+        console.log('Successful login:', response);
+        // Redirect to /dash or perform any other actions
+        window.location.href = '/dash';
+      })
+      .catch(error => {
+        console.error('Login failed:', error);
+        // Handle login error, update state, or display an error message to the user
+      });
   };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"  style={{
@@ -94,14 +94,14 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
           </div>
 
           <div>
-            <Link end to="/dash">
+           
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Log In
             </button>
-            </Link>
+          
           </div>
           <div className="text-center">
             <p className="mt-2 text-sm text-gray-600">
@@ -142,26 +142,17 @@ const RegisterForm = ({ onRegister, onSwitchToLogin }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Basic form validation
-    const newErrors = {};
-    if (!formData.username.trim()) {
-      newErrors.username = 'Username is required';
-    }
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    }
-    if (!formData.password.trim()) {
-      newErrors.password = 'Password is required';
-    }
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
-    }
-
-    if (Object.keys(newErrors).length === 0) {
+    axios.post('https://mcf-backend-main.vercel.app/addAdmin', formData)
+    .then(response => {
+      console.log('successful registration:', response);
+      // Redirect to /dash or perform any other actions
+      window.location.href = '/';
       
-      onRegister(formData);
-    } else {
-      setErrors(newErrors);
-    }
+    })
+    .catch(error => {
+      console.error('registration failed:', error);
+      // Handle login error, update state, or display an error message to the user
+    });
   };
 
   return (
@@ -260,14 +251,14 @@ const RegisterForm = ({ onRegister, onSwitchToLogin }) => {
           </div>
 
           <div>
-          <Link end to="/dash">
+          
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Register
             </button>
-            </Link>
+         
           </div>
           <div className="text-center">
             <p className="mt-2 text-sm text-gray-600">
@@ -290,9 +281,17 @@ const RegisterForm = ({ onRegister, onSwitchToLogin }) => {
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
 
-  const handleLogin = (formData) => {
-    // Handle login logic (you can send data to the server or perform any other actions)
-    console.log('Login submitted:', formData);
+  const handleLogin = async (formData) => {
+  
+    try {
+      const response = await axios.post('https://mcf-backend-main.vercel.app/loginAdmin', formData);
+      console.log('Login successful:', response.data);
+      window.location.href = '/dash';
+      // Handle successful login, e.g., redirect to another page
+    } catch (error) {
+      console.error('Login failed:', error.response.data);
+      // Handle login error, update state, or display an error message to the user
+    }
   };
 
   const handleRegister = (formData) => {
