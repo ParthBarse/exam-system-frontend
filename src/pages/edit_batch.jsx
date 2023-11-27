@@ -19,6 +19,7 @@ function EditBatch() {
     duration: "",
     batch_id: batchId,
     camp_id: "",
+    students_registered: "",
   });
 
   useEffect(() => {
@@ -41,6 +42,7 @@ function EditBatch() {
             company: batchDetails.batch.company,
             batch_id: batchDetails.batch.batch_id,
             camp_id: batchDetails.batch.camp_id,
+            students_registered: batchDetails.batch.students_registered,
           });
         } else {
           console.error("Failed to fetch batch details");
@@ -64,12 +66,16 @@ function EditBatch() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Convert dates to yyyy-mm-dd format
+    const formattedStartDate = convertDate(batchData.start_date);
+    const formattedEndDate = convertDate(batchData.end_date);
+
     // Create a new FormData object
     const formData = new FormData();
 
     // Iterate over the batchData object and append each key-value pair to the FormData object
     for (let key in batchData) {
-      formData.append(key, batchData[key]);
+      formData.append(key, key.includes("date") ? convertDate(batchData[key]) : batchData[key]);
     }
 
     try {
@@ -93,10 +99,13 @@ function EditBatch() {
           company: "",
           duration: "",
           batch_id: batchId,
+          camp_id: "",
+          students_registered: "",
+
         });
 
         // Redirect to the specific URL with the camp_id
-        window.location.href = `http://localhost:5173/batch-details?id=${camp_id}`;
+        window.location.href = `https://mfc-tau.vercel.app/batch-details?id=${camp_id}`;
       } else {
         console.error("Failed to add batch. Status:", response.status);
       }
@@ -104,6 +113,12 @@ function EditBatch() {
       console.error("Error adding batch:", error.message);
       console.error(error.response.data);
     }
+  };
+
+  const convertDate = (dateString) => {
+    const [day, month, year] = dateString.split("-");
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
   };
 
   return (
@@ -213,6 +228,22 @@ function EditBatch() {
                       id="batch_intake"
                       name="batch_intake"
                       value={batchData.batch_intake}
+                      onChange={handleChange}
+                      className="w-full p-2 border rounded-lg"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="batch_intake"
+                      className="block text-gray-700"
+                    >
+                      Total Students Registered 
+                    </label>
+                    <input
+                      type="text"
+                      id="students_registered"
+                      name="students_registered"
+                      value={batchData.students_registered}
                       onChange={handleChange}
                       className="w-full p-2 border rounded-lg"
                     />

@@ -73,17 +73,20 @@ function EditFeeDetails() {
       camp_status: prevFormData.camp_status === "Active" ? false : "Active",
     }));
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
+    // Convert date to yyyy-mm-dd format
+    const formattedDiscountDate = convertDate(formData.discount_date);
+
     try {
       const formDataToSend = new URLSearchParams();
-  
+
       for (const key in formData) {
-        formDataToSend.append(key, formData[key]);
+        formDataToSend.append(key, key === 'discount_date' ? formattedDiscountDate : formData[key]);
       }
-  
+
       const response = await fetch(
         `https://mcf-backend-main.vercel.app/updateCamp`,
         {
@@ -94,7 +97,7 @@ function EditFeeDetails() {
           body: formDataToSend.toString(),
         }
       );
-  
+
       if (response.ok) {
         console.log("Camp details updated successfully!");
         alert("Camp details Updated successfully!");
@@ -107,7 +110,12 @@ function EditFeeDetails() {
       console.error("Error:", error);
     }
   };
-  
+
+  const convertDate = (dateString) => {
+    const [day, month, year] = dateString.split('-');
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
+  };
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -224,8 +232,7 @@ function EditFeeDetails() {
                     <input
                       type="checkbox"
                       name="camp_status"
-                      checked={formData.camp_status==="Active"}
-
+                      checked={formData.camp_status === "Active"}
                       onChange={handleCheckboxChange}
                       className="text-blue-500 focus:ring focus:ring-blue-400"
                     />

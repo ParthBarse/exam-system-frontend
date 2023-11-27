@@ -17,6 +17,9 @@ function ViewReportCard() {
       .then((x) => setData(x.data.student));
   }, [location.search, id]);
 
+
+
+
   return (
     <div className="flex flex-col">
       <button

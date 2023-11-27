@@ -281,7 +281,7 @@ const FirstDetails = () => {
     };
     fetchBatches();
 
-  }, [campId])
+  }, [campId,admissionFormData.camp_name])
 
   const [batchId, setBatchId] = useState('');
   const [batch, setBatch] = useState({});
@@ -297,6 +297,7 @@ const FirstDetails = () => {
       const selectedBatch = batches.find(batch => batch.batch_name === admissionFormData.batch_name);
       if (selectedBatch) {
         setBatchId(selectedBatch.batch_id);
+        formData.batch_id = selectedBatch.batch_id;
         console.log('batchid: ' + selectedBatch.batch_id)
       }
     }
@@ -315,6 +316,8 @@ const FirstDetails = () => {
       fetchBatch();
     }
   }, [batchId]);
+
+
 
 
 
