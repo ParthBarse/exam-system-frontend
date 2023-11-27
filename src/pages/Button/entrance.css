@@ -127,3 +127,52 @@ li{
     width: 95%;
     padding: 10px 0px;
 }
+
+@media print {
+    .box {
+      width: 100%; /* Adjust according to your print layout */
+      margin: 0 auto; /* Centering the content */
+    }
+  
+    .header {
+      display: none; /* Hide header in print */
+    }
+  
+    .inner-box {
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .photo {
+      width: 50%; /* Adjust the image size for print */
+    }
+  
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+  
+    .table {
+      table-layout: fixed;
+      width: 100%;
+    }
+  
+    .table td {
+      box-sizing: border-box;
+      word-wrap: break-word;
+      max-width: 100%;
+      white-space: normal;
+    }
+  
+    .signature,
+    .terms,
+    .footer {
+      width: 100%;
+    }
+  
+    .footer {
+      font-size: 10px; /* Adjust font size for print */
+    }
+  }
+  

@@ -16,7 +16,8 @@ function AdmitCard() {
     setId(uid);
     axios
       .get(`https://mcf-backend-main.vercel.app/getStudent?sid=${id}`)
-      .then((x) => setData(x.data.student));
+      .then((x) => setData(x.data));
+      console.log(data)
   }, [location.search, id]);
 
   return (
@@ -46,7 +47,7 @@ function AdmitCard() {
               </td>
               <td>Chess No.</td>
               <td>
-                <strong>{data.Chess}</strong>
+                <strong>{data.chess_prefix}</strong>
               </td>
             </tr>
             <tr>
@@ -62,8 +63,8 @@ function AdmitCard() {
             <tr>
               <td>Total days :</td>
               <td>7 Days</td>
-              <td>Company Name :</td>
-              <td>{data.CQY} </td>
+              <td>Camp Category :</td>
+              <td>{data.camp_category} </td>
             </tr>
             <tr>
               <td>Pick Up Point : </td>
@@ -73,7 +74,7 @@ function AdmitCard() {
             </tr>
             <tr>
               <td>In-chanrge Name :</td>
-              <td colspan="3">{data.incharge}</td>
+              <td colspan="3">{data.employee_who_reached_out_to_you}</td>
             </tr>
           </table>
         </div>
@@ -105,8 +106,8 @@ function AdmitCard() {
               <td>{data.Landmark}</td>
             </tr>
             <tr>
-              <td>City :</td>
-              <td>{data.city}</td>
+              <td>Pick Up  :</td>
+              <td>{data.pick_up_point}</td>
               <td>District :</td>
               <td>{data.district}</td>
             </tr>
@@ -124,7 +125,7 @@ function AdmitCard() {
             </tr>
             <tr>
               <td>Whatsapp :</td>
-              <td>{data.wp_no}</td>
+              <td>{data.parents_phn}</td>
               <td>Fathers number :</td>
               <td>{data.parents_phn}</td>
             </tr>
