@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const StudentGradingForm = ({ formData, handleChange, handleSubmit }) => {
   return (
@@ -92,7 +93,7 @@ const GenerateReport = () => {
     leadership: 'average',
     initiative: 'average',
     interpersonal_Relations: 'average',
-    teamBuilding: 'average',
+    team_Building: 'average',
     training: 'average',
   });
 
@@ -100,9 +101,24 @@ const GenerateReport = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData); // Add logic for form submission
+    try {
+      const response = await axios.post('https://mcf-backend-main.vercel.app/generateReport?regId=${formData.regId}', {
+        ...formData,
+        regId: formData.regId // Ensure regId is included in the request body
+      });
+      alert('Report generated successfully');
+      console.log(response.data); // Handle success response
+    } catch (error) {
+      if (error.response) {
+        console.error('Server Error:', error.response.data); // Handle error response from the server
+      } else if (error.request) {
+        console.error('Request Error:', error.request); // Handle error related to the request itself
+      } else {
+        console.error('Error:', error.message); // Handle other errors
+      }
+    }
   };
 
   return (
