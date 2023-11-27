@@ -14,7 +14,7 @@ const StudentGradingForm = ({ formData, handleChange, handleSubmit }) => {
         </div>
         <div className="w-full md:w-1/2 px-2 mb-4">
           <label className="block text-gray-700">Registration ID:</label>
-          <input type="text" name="regId" value={formData.regId} onChange={handleChange} required className="w-full p-2 border rounded-lg" />
+          <input type="text" name="sid" value={formData.sid} onChange={handleChange} required className="w-full p-2 border rounded-lg" />
         </div>
         <div className="w-full md:w-1/2 px-2 mb-4">
           <label className="block text-gray-700">Rank:</label>
@@ -43,7 +43,7 @@ const StudentGradingForm = ({ formData, handleChange, handleSubmit }) => {
         {Object.keys(formData).map(
           (key) =>
             key !== 'name' &&
-            key !== 'regId' &&
+            key !== 'sid' &&
             key !== 'rank' &&
             key !== 'date' &&
             key !== 'campName' &&
@@ -81,11 +81,11 @@ const GenerateReport = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
-    regId: '',
+    sid: '',
     rank: '',
     date: '',
     campName: '',
-    inCharge: '',
+    in_charge: '',
     cqy: '',
     discipline: 'average',
     physicalFitness: 'average',
@@ -104,9 +104,9 @@ const GenerateReport = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://mcf-backend-main.vercel.app/generateReport?regId=${formData.regId}', {
+      const response = await axios.post('https://mcf-backend-main.vercel.app/generateReport?sid=${formData.sid}', {
         ...formData,
-        regId: formData.regId // Ensure regId is included in the request body
+        sid: formData.sid // Ensure sid is included in the request body
       });
       alert('Report generated successfully');
       console.log(response.data); // Handle success response
