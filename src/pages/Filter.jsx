@@ -203,11 +203,7 @@ function Filter() {
                               Name
                             </div>
                           </th>
-                          <th className="p-2">
-                            <div className="font-semibold text-center">
-                              Camp
-                            </div>
-                          </th>
+                          
                           <th className="p-2">
                             <div className="font-semibold text-center">
                               E-mail
@@ -253,9 +249,7 @@ function Filter() {
                                 </div>
                               </div>
                             </td>
-                            <td className="p-2">
-                              <div className="text-center">{item.Camp}</div>
-                            </td>
+                            
                             <td className="p-2">
                               <div className="text-center">{item.email}</div>
                             </td>
