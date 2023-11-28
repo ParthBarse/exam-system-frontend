@@ -84,6 +84,15 @@ function DropdownProfile({
             <li>
               <Link
                 className="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3"
+                to="/auth"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                Register
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3"
                 to="/signin"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
