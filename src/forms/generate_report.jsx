@@ -56,8 +56,8 @@ const StudentGradingForm = ({ formData, handleChange, handleSubmit }) => {
           <label className="block text-gray-700">Camp Name:</label>
           <input
             type="text"
-            name="campName"
-            value={formData.campName}
+            name="report_camp_name"
+            value={formData.report_camp_name}
             onChange={handleChange}
             required
             className="w-full p-2 border rounded-lg"
@@ -67,8 +67,8 @@ const StudentGradingForm = ({ formData, handleChange, handleSubmit }) => {
           <label className="block text-gray-700">In Charge:</label>
           <input
             type="text"
-            name="inCharge"
-            value={formData.inCharge}
+            name="in_charge"
+            value={formData.in_charge}
             onChange={handleChange}
             required
             className="w-full p-2 border rounded-lg"
@@ -95,13 +95,13 @@ const StudentGradingForm = ({ formData, handleChange, handleSubmit }) => {
       key !== "sid" &&
       key !== "rank" &&
       key !== "date" &&
-      key !== "campName" &&
-      key !== "inCharge" &&
+      key !== "report_camp_name" &&
+      key !== "in_charge" &&
       key !== "cqy" && (
         <div key={key} className="flex flex-col">
           <span className="text-gray-700">{key.charAt(0).toUpperCase() + key.slice(1)}:</span>
           <div className="grid grid-cols-6 gap-2 mb-2">
-            {[1, 2, 3, 4, 5].map((rating) => (
+            {["1", "2", "3", "4", "5"].map((rating) => (
               <label key={rating} className="inline-flex items-center">
                 <input
                   type="checkbox"
@@ -157,7 +157,7 @@ const GenerateReport = () => {
     sid: "",
     rank: "",
     date: "",
-    campName: "",
+    report_camp_name: "",
     in_charge: "",
     cqy: "",
     discipline: "average",
