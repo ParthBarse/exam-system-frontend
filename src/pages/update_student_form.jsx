@@ -140,6 +140,9 @@ const FirstDetails = () => {
       for (let key in formData) {
         reqData.append(key, formData[key])
       }
+      for (let key in admissionFormData) {
+        reqData.append(key, admissionFormData[key])
+      }
 
 
       // Make a POST request using axios
@@ -219,6 +222,7 @@ const FirstDetails = () => {
     if (formData.gender){
       admissionFormData.gender = formData.gender;
     }
+    
 
   }
     , [formData.food_option, formData.dress_code, formData.pick_up_point, formData.height, formData.weight, formData.blood_group ,formData.gender])
@@ -228,6 +232,7 @@ const FirstDetails = () => {
 
     if (campDetails.camp_name) {
       admissionFormData.camp_name = campDetails.camp_name;
+      formData.camp_name = campDetails.camp_name;
     }
   }, [campDetails.camp_name]);
 
@@ -265,6 +270,9 @@ const FirstDetails = () => {
       const selectedCamp = camps.find(camp => camp.camp_name === admissionFormData.camp_name);
       if (selectedCamp) {
         setCampId(selectedCamp.camp_id);
+        admissionFormData.camp_id = selectedCamp.camp_id;
+        formData.camp_id = selectedCamp.camp_id;
+
         console.log('campid' + selectedCamp.camp_id)
       }
     }
@@ -303,7 +311,8 @@ const FirstDetails = () => {
         console.log('batchid: ' + selectedBatch.batch_id)
       }
     }
-  }, [admissionFormData.batch_name, batches]);
+  }, [admissionFormData.batch_name]);
+
 
   useEffect(() => {
     const fetchBatch = async () => {
@@ -337,6 +346,11 @@ const FirstDetails = () => {
     const [day, month, year] = dateString.split('-');
     const formattedDate = `${year}-${month}-${day}`;
     return formattedDate;
+  };
+
+  const getCampId = (campName) => {
+    const camp = camps.find(camp => camp.camp_name === campName);
+    return camp ? camp.camp_id : 'Camp not found';
   };
 
   return (
