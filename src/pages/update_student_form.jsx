@@ -5,7 +5,7 @@ import axios from 'axios';
 import DatePicker from 'react-flatpickr';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import { useLocation } from 'react-router-dom';
+import { useAsyncError, useLocation } from 'react-router-dom';
 
 
 
@@ -40,7 +40,6 @@ const baseurl = 'https://mcf-backend-main.vercel.app'
 
 const FirstDetails = () => {
 
-  const [studentId, setStudentId] = useState('');
   const location = useLocation();
 
   const [state, setState] = React.useState({
@@ -64,39 +63,17 @@ const FirstDetails = () => {
   };
 
 
-  const [formData, setFormData] = useState({
-    first_name: '',
-    middle_name: '',
-    last_name: '',
-    email: '',
-    phn: '',
-    dob: '',
-    address: '',
-    fathers_occupation: '',
-    mothers_occupation: '',
-    how_you_got_to_know: '',
-    employee_who_reached_out_to_you: '',
-    district: '',
-    state: '',
-    pincode: '', // New camp field
-  });
-
-  const [campDetails, setCampDetails] = useState({});
-  const [batchDetails, setBatchDetails] = useState({});
-
-  useEffect(() => {
-    console.log(campDetails);
-    console.log(batchDetails);
-  }, [campDetails, batchDetails])
+  const [formData, setFormData] = useState({});
 
 
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const sid = queryParams.get('id');
-    setStudentId(sid);
-    axios.get(`${baseurl}/getStudent?sid=${sid}`).then(x => { setFormData(x.data.student); setCampDetails(x.data.camp_details); setBatchDetails(x.data.batch_details) });
+    axios.get(`${baseurl}/getStudent?sid=${sid}`).then(x =>  setFormData(x.data.student));
   }, [location.search])
+
+
 
   useEffect(() => {
     if (typeof formData['dob'] === 'string') {
@@ -131,18 +108,20 @@ const FirstDetails = () => {
 
           let formattedDate = `${day}-${month}-${year}`; // combine them all together in the format DD-MM-YYYY
           reqData.append(key, formattedDate);
-        } else {
+        } 
+        else if(key == 'camp_id' || key == 'batch_id'){
+          continue;
+        }
+        else {
           reqData.append(key, formData[key])
         }
       }
 
-
-      for (let key in formData) {
-        reqData.append(key, formData[key])
-      }
-      for (let key in admissionFormData) {
-        reqData.append(key, admissionFormData[key])
-      }
+      // formData.camp_id = getCampId(selectedCamp);
+      // formData.batch_id = getBatchId(selectedBatch)
+      reqData.append('camp_id',getCampId(selectedCamp))
+      reqData.append('batch_id',getBatchId(selectedBatch))
+      
 
 
       // Make a POST request using axios
@@ -178,169 +157,54 @@ const FirstDetails = () => {
     };
     fetchCamps();
   }, [])
-
-  const [camp, setCamp] = useState({})
-  const [camp_category, setCampCategory] = useState('');
-
-  const [admissionFormData, setAdmissionFormData] = useState({
-    admissionType: '',
-    camp_category: '',
-    camp_name: '',
-    camp_id: '',
-    batch_id: '',
-    selectedDate: '',
-    food_option: '',
-    dress_code: '',
-    pick_up_point: '',
-    height: '',
-    weight: '',
-    blood_group: '',
-    gender: '',
-    payment_option: '',
-
-  });
+  
+  const [batches, setBatches] = useState([]);
+  const [selectedCamp , setSelectedCamp] = useState('')
+  const [selectedBatch , setSelectedBatch] = useState('')
+  const [batch, setBatch] = useState({})
 
   useEffect(() => {
-    if (formData.food_option) {
-      admissionFormData.food_option = formData.food_option;
+    const fetchBatches = async () => {
+      try{
+        const response = await axios.get(`${baseurl}/getBatches?camp_id=${getCampId(selectedCamp)}`);
+        setBatches(response.data.batches);
+      } catch (error){
+        console.log("Error fetching batches :",error)
+      }
     }
-    if (formData.dress_code) {
-      admissionFormData.dress_code = formData.dress_code;
-    }
-    if (formData.pick_up_point) {
-      admissionFormData.pick_up_point = formData.pick_up_point;
-    }
-    if (formData.height) {
-      admissionFormData.height = formData.height;
-    }
-    if (formData.weight) {
-      admissionFormData.weight = formData.weight;
-    }
-    if (formData.blood_group) {
-      admissionFormData.blood_group = formData.blood_group;
-    }
-    if (formData.gender){
-      admissionFormData.gender = formData.gender;
-    }
-    
-
-  }
-    , [formData.food_option, formData.dress_code, formData.pick_up_point, formData.height, formData.weight, formData.blood_group ,formData.gender])
-
-  useEffect(() => {
-    console.log('campname' + campDetails.camp_name);
-
-    if (campDetails.camp_name) {
-      admissionFormData.camp_name = campDetails.camp_name;
-      formData.camp_name = campDetails.camp_name;
-    }
-  }, [campDetails.camp_name]);
-
-  useEffect(() => {
-    if (formData.camp_category) {
-      admissionFormData.camp_category = formData.camp_category;
-    }
-  }, [formData.camp_category]);
-
-  useEffect(() => {
-    if (batchDetails.batch_name) {
-      admissionFormData.batch_name = batchDetails.batch_name;
-    }
-  }, [batchDetails.batch_name]);
+    fetchBatches()
+  },[selectedCamp])
 
   // //////////////////////////////////////////////
 
 
-  useEffect(() => {
-    console.log(admissionFormData);
-  }, [admissionFormData])
+  ////////////////////////////////////////////
 
-  /////////////////////////////////////////////////
-
-  const [campId, setCampId] = useState('');
 
   useEffect(() => {
-    if (campDetails.camp_id) {
-      setCampId(campDetails.camp_id);
+    if(formData.camp_id){
+      const currentCamp = getCampName(formData.camp_id);
+      setSelectedCamp(currentCamp);
     }
-  }, [campDetails.camp_id]);
+
+  },[formData.camp_id])
 
   useEffect(() => {
-    if (admissionFormData.camp_name) {
-      const selectedCamp = camps.find(camp => camp.camp_name === admissionFormData.camp_name);
-      if (selectedCamp) {
-        setCampId(selectedCamp.camp_id);
-        admissionFormData.camp_id = selectedCamp.camp_id;
-        formData.camp_id = selectedCamp.camp_id;
-
-        console.log('campid' + selectedCamp.camp_id)
-      }
+    if(formData.batch_id){
+      const currentBatch = getBatchName(formData.batch_id);
+      setSelectedBatch(currentBatch);
     }
-  }, [admissionFormData.camp_name, camps]);
-
-  const [batches, setBatches] = useState([]);
-
-  useEffect(() => {
-    const fetchBatches = async () => {
-      try {
-        const response = await axios.get(`${baseurl}/getBatches?camp_id=${campId}`);
-        setBatches(response.data.batches);
-      } catch (error) {
-        console.error('Error fetching data', error);
-      }
-    };
-    fetchBatches();
-
-  }, [campId,admissionFormData.camp_name])
-
-  const [batchId, setBatchId] = useState('');
-  const [batch, setBatch] = useState({});
-
-  useEffect(() => {
-    if (batchDetails.batch_id) {
-      setBatchId(batchDetails.batch_id);
-    }
-  }, [batchDetails.batch_id]);
-
-  useEffect(() => {
-    if (admissionFormData.batch_name) {
-      const selectedBatch = batches.find(batch => batch.batch_name === admissionFormData.batch_name);
-      if (selectedBatch) {
-        setBatchId(selectedBatch.batch_id);
-        formData.batch_id = selectedBatch.batch_id;
-        console.log('batchid: ' + selectedBatch.batch_id)
-      }
-    }
-  }, [admissionFormData.batch_name]);
-
+  },[formData.batch_id,batches])
 
   useEffect(() => {
     const fetchBatch = async () => {
-      try {
-        const response = await axios.get(`${baseurl}/getBatch?batch_id=${batchId}`);
-        setBatch(response.data.batch);
-      } catch (error) {
-        console.error('Error fetching data', error);
-      }
-    };
-    if (batchId) {
-      fetchBatch();
+      const response = await axios.get(`${baseurl}/getBatch?batch_id=${getBatchId(selectedBatch)}`)
+      setBatch(response.data.batch)
     }
-  }, [batchId]);
+    fetchBatch()
+  },[selectedBatch])
 
 
-  const handleAdmissionChange = (name, value) => {
-    
-      
-    setAdmissionFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
 
   const convertDate = (dateString) => {
     const [day, month, year] = dateString.split('-');
@@ -352,6 +216,21 @@ const FirstDetails = () => {
     const camp = camps.find(camp => camp.camp_name === campName);
     return camp ? camp.camp_id : 'Camp not found';
   };
+
+  const getBatchId = (batchName) => {
+    const batch = batches.find(batch => batch.batch_name === batchName);
+    return batch ? batch.batch_id : 'not found'
+  }
+
+  const getBatchName = (batchId) => {
+    const batch = batches.find(batch => batch.batch_id === batchId);
+    return batch ? batch.batch_name : 'not found';
+  }
+
+  const getCampName = (campId) => {
+    const camp = camps.find(camp => camp.camp_id === campId);
+    return camp ? camp.camp_name : 'not found';
+  }
 
   return (
     <div>
@@ -419,8 +298,8 @@ const FirstDetails = () => {
                     <select
                       id="gender"
                       name="gender"
-                      value={admissionFormData.gender}
-                      onChange={(e) => handleAdmissionChange('gender', e.target.value)}
+                      value={formData.gender}
+                      onChange={handleChange}
                       className="w-full px-3 py-2 border rounded shadow appearance-none"
                     >
                       {/* Options for Camp Category */}
@@ -507,8 +386,8 @@ const FirstDetails = () => {
                   <select
                     id="camp_name"
                     name="camp_name"
-                    value={admissionFormData.camp_name}
-                    onChange={(e) => handleAdmissionChange('camp_name', e.target.value)}
+                    value={selectedCamp}
+                    onChange={e=>setSelectedCamp(e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Camp Category */}
@@ -523,8 +402,8 @@ const FirstDetails = () => {
                   <select
                     id="camp_category"
                     name="camp_category"
-                    value={admissionFormData.camp_category}
-                    onChange={(e) => handleAdmissionChange('camp_category', e.target.value)}
+                    value={formData.camp_category}
+                    onChange={handleChange}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Camp Category */}
@@ -541,14 +420,14 @@ const FirstDetails = () => {
                   <select
                     id="batch_name"
                     name="batch_name"
-                    value={admissionFormData.batch_name}
-                    onChange={(e) => handleAdmissionChange('batch_name', e.target.value)}
+                    value={selectedBatch}
+                    onChange={e => setSelectedBatch(e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Batch */}
                     <option value="">Select Batch Name</option>
                     {batches.map((batch) => (<option value={batch.batch_name}>{batch.batch_name}</option>))}
-
+                    
                   </select>
                 </div>
                 <div className="grid grid-cols-4 gap-4">
@@ -577,8 +456,8 @@ const FirstDetails = () => {
                   <select
                     id="food_option"
                     name="food_option"
-                    value={admissionFormData.food_option}
-                    onChange={(e) => handleAdmissionChange('food_option', e.target.value)}
+                    value={formData.food_option}
+                    onChange={handleChange}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Food Option */}
@@ -594,8 +473,8 @@ const FirstDetails = () => {
                   <select
                     id="dress_code"
                     name="dress_code"
-                    value={admissionFormData.dress_code}
-                    onChange={(e) => handleAdmissionChange('dress_code', e.target.value)}
+                    value={formData.dress_code}
+                    onChange={handleChange}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Dress Code */}
@@ -613,8 +492,8 @@ const FirstDetails = () => {
                   <select
                     id="pick_up_point"
                     name="pick_up_point"
-                    value={admissionFormData.pick_up_point}
-                    onChange={(e) => handleAdmissionChange('pick_up_point', e.target.value)}
+                    value={formData.pick_up_point}
+                    onChange={handleChange}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Dress Code */}
@@ -626,15 +505,15 @@ const FirstDetails = () => {
                 <hr className="my-4 h-1 bg-gray-200" />
                 <div className="mb-4">
                   <label htmlFor="height" className="block text-sm font-medium text-gray-600">Height</label>
-                  <input id="height" name='height' value={admissionFormData.height} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Height in cm" onChange={e => handleAdmissionChange('height', e.target.value)} />
+                  <input id="height" name='height' value={formData.height} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Height in cm" onChange={handleChange} />
                 </div>
                 <div className="mb-4">
                   <label htmlFor="weight" className="block text-sm font-medium text-gray-600">Weight</label>
-                  <input id="weight" name='weight' value={admissionFormData.weight} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Weight in Kg" onChange={e => handleAdmissionChange('weight', e.target.value)} />
+                  <input id="weight" name='weight' value={formData.weight} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Weight in Kg" onChange={handleChange} />
                 </div>
                 <div className="mb-4">
                   <label htmlFor="blood_group" className="block text-sm font-medium text-gray-600">Blood Group</label>
-                  <input id="blood_group" name='blood_group' value={admissionFormData.blood_group} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Blood Group" onChange={e => handleAdmissionChange('blood_group', e.target.value)} />
+                  <input id="blood_group" name='blood_group' value={formData.blood_group} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Blood Group" onChange={handleChange} />
                 </div>
 
               </form>
