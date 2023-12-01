@@ -182,6 +182,8 @@ const FirstDetails = () => {
   const [admissionFormData, setAdmissionFormData] = useState({
     admissionType: '',
     camp_category: '',
+    camp_name: '',
+    camp_id: '',
     batch_id: '',
     selectedDate: '',
     food_option: '',
@@ -318,10 +320,9 @@ const FirstDetails = () => {
   }, [batchId]);
 
 
-
-
-
   const handleAdmissionChange = (name, value) => {
+    
+      
     setAdmissionFormData((prevData) => ({
       ...prevData,
       [name]: value,
