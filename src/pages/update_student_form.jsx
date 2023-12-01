@@ -5,15 +5,14 @@ import axios from 'axios';
 import DatePicker from 'react-flatpickr';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import { useAsyncError, useLocation } from 'react-router-dom';
+import { useLocation , useNavigate} from 'react-router-dom';
 
 
 
 export default function AddStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [step, setStep] = useState(1);
-
-
+  
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -41,6 +40,7 @@ const baseurl = 'https://mcf-backend-main.vercel.app'
 const FirstDetails = () => {
 
   const location = useLocation();
+  const navigate = useNavigate()
 
   const [state, setState] = React.useState({
     open: false,
@@ -134,6 +134,8 @@ const FirstDetails = () => {
       
 
       setState({ vertical: 'bottom', horizontal: 'right', open: true });
+      navigate('/RegStudent')
+      
 
     } catch (error) {
       setErrorState({ vertical: 'bottom', horizontal: 'right', open: true });

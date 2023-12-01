@@ -6,13 +6,14 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 
 const baseurl = 'https://mcf-backend-main.vercel.app'
 
 const FirstDetails = () => {
   const reqData = new FormData();
-
+  const navigate = useNavigate()
 
   const [state, setState] = React.useState({
     open: false,
@@ -232,7 +233,7 @@ const FirstDetails = () => {
       });
       
       setState({ vertical: 'bottom', horizontal: 'right' ,open: true });
-
+      navigate('/RegStudent')
       
     } catch (error) {
       setErrorState({ vertical: 'bottom', horizontal: 'right' ,open: true ,message: error.response.data.error });
