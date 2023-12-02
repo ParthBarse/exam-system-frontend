@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from '../../partials/Sidebar';
 import Header from '../../partials/Header';
 import FirstDetails from './First_details';
-import Agreement from './Terms_conditons';
-import Payment from './Payment';
-import ConfirmRegistration from './ConfirmRegistration';
+
 
 
 function AddStudent() {
