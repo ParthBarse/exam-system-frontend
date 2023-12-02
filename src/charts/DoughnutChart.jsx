@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useThemeProvider } from '../utils/ThemeContext';
-
 import { chartColors } from './ChartjsConfig';
 import {
   Chart, DoughnutController, ArcElement, TimeScale, Tooltip,
@@ -12,10 +11,35 @@ import { tailwindConfig } from '../utils/Utils';
 
 Chart.register(DoughnutController, ArcElement, TimeScale, Tooltip);
 
+class DoughnutChartErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    // You can log the error here
+    console.error('Error caught by DoughnutChartErrorBoundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // Fallback UI when an error occurs
+      return <h1>Something went wrong with the DoughnutChart.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+
 function DoughnutChart({
   data,
   width,
-  height
+  height,
 }) {
 
   const [chart, setChart] = useState(null)

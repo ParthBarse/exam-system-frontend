@@ -49,7 +49,7 @@ function Dashboard() {
               {/* Active Camps) */}
               <DashboardCard07 />
               {/* Payments */}
-              <DashboardCard06 />
+              {/* <DashboardCard06 /> */}
               {/* Camps today */}
               <DashboardCard12 />        
             </div>
