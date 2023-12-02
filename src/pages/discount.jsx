@@ -66,7 +66,7 @@ export default function Discount() {
                             <div className='flex justify-around '>
                                 
                                 <button onClick={handleSubmit} className="btn-primary" style={{ padding: "5px 10px", background: "#007BFF", color: "white", border: "none", borderRadius: "5px", marginRight: "10px" }}>
-                                    Next
+                                    Add
                                 </button>
                             </div>
                            
