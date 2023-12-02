@@ -40,6 +40,11 @@ const FirstDetails = () => {
     return camp ? camp.name : 'Camp not found';
   };
 
+  const getCampPrice = (campId) => {
+    const camp = camps.find(camp => camp.camp_id === campId);
+    return camp ? camp.camp_fee : 'no found';
+  }
+
   const [errorState, setErrorState] = useState({ open: false, vertical: 'top', horizontal: 'center', message: 'none' });
 
 
@@ -104,6 +109,7 @@ const FirstDetails = () => {
 
 
   const [campId, setCampId] = useState('');
+  const [campFee,setCampFee] = useState('')
 
   useEffect(() => {
     if (admissionFormData.camp_name) {
@@ -111,7 +117,7 @@ const FirstDetails = () => {
       if (selectedCamp) {
         setCampId(selectedCamp.camp_id);
         admissionFormData['camp_id'] = selectedCamp.camp_id;
-
+        setCampFee(getCampPrice(selectedCamp.camp_id))
       }
     }
   }, [admissionFormData.camp_name, camps]);
@@ -606,6 +612,9 @@ const FirstDetails = () => {
                       .then(res=>{
                         if(res.data.success){
                           alert(`Congratulations! You got a discount of ${res.data.discount_amount}`)
+                          setCampFee((prev)=>(prev-parseInt(res.data.discount_amount)))
+                          console.log(res.data.discount_amount)
+                          console.log(campFee)
                         }
                         else{
                           alert('Invalid Code')
@@ -614,6 +623,7 @@ const FirstDetails = () => {
                       })
                   }}>check</Button>
                 </div>
+                <p>{`Final Price : ${campFee}`}</p>
                 <hr className="my-4 h-1 bg-gray-200" />
                 <div className="p-4">
                   <div className="overflow-x-auto text-xs">
