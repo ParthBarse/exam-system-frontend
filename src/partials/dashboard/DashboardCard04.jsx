@@ -1,50 +1,46 @@
-import React from 'react';
-import BarChart from '../../charts/BarChart01';
-
-// Import utilities
-import { tailwindConfig } from '../../utils/Utils';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Icon from '../../images/icon-03.svg';
+import EditMenu from '../../components/DropdownEditMenu';
 
 function DashboardCard04() {
+  const [refundedStudentCount, setRefundedStudentCount] = useState(0);
 
-  const chartData = {
-    labels: [
-      '12-01-2020', '01-01-2021', '02-01-2021',
-      '03-01-2021', '04-01-2021', '05-01-2021',
-    ],
-    datasets: [
-      // Light blue bars
-      {
-        label: 'Direct',
-        data: [
-          800, 1600, 900, 1300, 1950, 1700,
-        ],
-        backgroundColor: tailwindConfig().theme.colors.blue[400],
-        hoverBackgroundColor: tailwindConfig().theme.colors.blue[500],
-        barPercentage: 0.66,
-        categoryPercentage: 0.66,
-      },
-      // Blue bars
-      {
-        label: 'Indirect',
-        data: [
-          4900, 2600, 5350, 4800, 5200, 4800,
-        ],
-        backgroundColor: tailwindConfig().theme.colors.indigo[500],
-        hoverBackgroundColor: tailwindConfig().theme.colors.indigo[600],
-        barPercentage: 0.66,
-        categoryPercentage: 0.66,
-      },
-    ],
-  };
+  useEffect(() => {
+    // Fetch data from the API
+    axios.get('https://mcf-backend-main.vercel.app/getStudentCounts')
+      .then(response => {
+        const refundedStudents = response.data.refundedStudent; // Assuming 'refundedStudent' holds the count
+        setRefundedStudentCount(refundedStudents);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        // Implement error handling or retry logic if needed
+      });
+  }, []);
 
   return (
-    <div className="flex flex-col col-span-full sm:col-span-6 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-      <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
-        <h2 className="font-semibold text-slate-800 dark:text-slate-100">Direct VS Indirect</h2>
-      </header>
-      {/* Chart built with Chart.js 3 */}
-      {/* Change the height attribute to adjust the chart height */}
-      <BarChart data={chartData} width={595} height={248} />
+    <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
+      <div className="px-5 pt-5">
+        <header className="flex justify-between items-start mb-2">
+          {/* Icon */}
+          <img src={Icon} width="32" height="32" alt="Icon 03" />
+          {/* Menu button */}
+          <EditMenu align="right" className="relative inline-flex">
+            <li>
+              <Link className="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex py-1 px-3" to="/CanStudent">
+                More Info
+              </Link>
+            </li>
+          </EditMenu>
+        </header>
+        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Refunded Students</h2>
+        <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">till date</div>
+        <div className="flex items-start">
+          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">{refundedStudentCount}</div>
+        </div>
+      </div>
     </div>
   );
 }

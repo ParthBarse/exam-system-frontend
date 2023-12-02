@@ -10,6 +10,7 @@ import DashboardCard04 from '../partials/dashboard/DashboardCard04';
 import DashboardCard06 from '../partials/dashboard/DashboardCard06';
 import DashboardCard07 from '../partials/dashboard/DashboardCard07';
 import DashboardCard12 from '../partials/dashboard/DashboardCard12';
+import DashboardCard05 from '../partials/dashboard/DashboardCard05';
 
 
 function Dashboard() {
@@ -43,14 +44,14 @@ function Dashboard() {
               <DashboardCard02 />
               {/* Cancelled students */}
               <DashboardCard03 />
+              <DashboardCard04 />
+              <DashboardCard05 />
               {/* Active Camps) */}
               <DashboardCard07 />
               {/* Payments */}
-              <DashboardCard06 />
-              {/* Bar chart (Direct vs Indirect) */}
-              <DashboardCard04 />
+              {/* <DashboardCard06 /> */}
               {/* Camps today */}
-              <DashboardCard12 />        
+              {/* <DashboardCard12 />         */}
             </div>
           </div>
         </main>
