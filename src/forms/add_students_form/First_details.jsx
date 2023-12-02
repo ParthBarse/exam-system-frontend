@@ -226,6 +226,9 @@ const FirstDetails = () => {
     return formattedDate;
   };
 
+  const [couponStatus,setCouponStatus] = useState(true);
+  const [discountCode , setDiscountCode] = useState('')
+
   return (
     <div>
       {/* Payment Form */}
@@ -597,7 +600,19 @@ const FirstDetails = () => {
                 </div>
                 <div className="mb-4">
                   <label htmlFor="discount_code" className="block text-sm font-medium text-gray-600">Discount Code</label>
-                  <input id="discount_code" name='discount_code' value={formData.discount_code} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Enter code" onChange={handleChange} />
+                  <input id="discount_code" name='discount_code' value={discountCode} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Enter code" onChange={e=>setDiscountCode(e.target.value)} />
+                  <Button onClick={e=>{
+                    axios.post(`${baseurl}/checkDiscountCode`,{discount_code:discountCode})
+                      .then(res=>{
+                        if(res.data.success){
+                          alert(`Congratulations! You got a discount of ${res.data.discount_amount}`)
+                        }
+                        else{
+                          alert('Invalid Code')
+                          setDiscountCode('')
+                        }
+                      })
+                  }}>check</Button>
                 </div>
                 <hr className="my-4 h-1 bg-gray-200" />
                 <div className="p-4">
