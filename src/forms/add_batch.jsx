@@ -57,7 +57,6 @@ function AddBatch() {
           start_date: "",
           end_date: "",
           batch_intake: "",
-          company: "",
           duration: "",
           camp_id: campId,
         });
@@ -151,17 +150,17 @@ function AddBatch() {
                   </div>
                   <div className="flex flex-row mb-4">
                     <div className="flex flex-col p-4 w-1/2">
-                      <label htmlFor="Company" className="block text-gray-700">
-                        Company
-                      </label>
-                      <input
-                        type="text"
-                        id="company"
-                        name="company"
-                        value={batchData.company}
-                        onChange={handleChange}
-                        className="w-full p-2 border rounded-lg"
-                      />
+                    <label htmlFor="batchIntake" className="block text-gray-700">
+                      Batch Intake
+                    </label>
+                    <input
+                      type="text"
+                      id="batch_intake"
+                      name="batch_intake"
+                      value={batchData.batch_intake}
+                      onChange={handleChange}
+                      className="w-full p-2 border rounded-lg"
+                    />
                     </div>
                     <div className="flex flex-col p-4 w-1/2">
                       <label htmlFor="Duration" className="block text-gray-700">
@@ -176,19 +175,6 @@ function AddBatch() {
                         className="w-full p-2 border rounded-lg"
                       />
                     </div>
-                  </div>
-                  <div className="mb-4">
-                    <label htmlFor="batchIntake" className="block text-gray-700">
-                      Batch Intake
-                    </label>
-                    <input
-                      type="text"
-                      id="batch_intake"
-                      name="batch_intake"
-                      value={batchData.batch_intake}
-                      onChange={handleChange}
-                      className="w-full p-2 border rounded-lg"
-                    />
                   </div>
                   <button
                     type="submit"
