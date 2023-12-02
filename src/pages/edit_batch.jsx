@@ -15,7 +15,6 @@ function EditBatch() {
     start_date: "",
     end_date: "",
     batch_intake: "",
-    company: "",
     duration: "",
     batch_id: batchId,
     camp_id: "",
@@ -39,7 +38,6 @@ function EditBatch() {
             end_date: batchDetails.batch.end_date,
             batch_intake: batchDetails.batch.batch_intake,
             duration: batchDetails.batch.duration,
-            company: batchDetails.batch.company,
             batch_id: batchDetails.batch.batch_id,
             camp_id: batchDetails.batch.camp_id,
             students_registered: batchDetails.batch.students_registered,
@@ -96,7 +94,6 @@ function EditBatch() {
           start_date: "",
           end_date: "",
           batch_intake: "",
-          company: "",
           duration: "",
           batch_id: batchId,
           camp_id: "",
@@ -190,17 +187,20 @@ function EditBatch() {
                   </div>
                   <div className="flex flex-row mb-4">
                     <div className="flex flex-col p-4 w-1/2">
-                      <label htmlFor="company" className="block text-gray-700">
-                        Company
-                      </label>
-                      <input
-                        type="text"
-                        id="company"
-                        name="company"
-                        value={batchData.company}
-                        onChange={handleChange}
-                        className="w-full p-2 border rounded-lg"
-                      />
+                    <label
+                      htmlFor="batch_intake"
+                      className="block text-gray-700"
+                    >
+                      Batch Intake
+                    </label>
+                    <input
+                      type="text"
+                      id="batch_intake"
+                      name="batch_intake"
+                      value={batchData.batch_intake}
+                      onChange={handleChange}
+                      className="w-full p-2 border rounded-lg"
+                    />
                     </div>
                     <div className="flex flex-col p-4 w-1/2">
                       <label htmlFor="duration" className="block text-gray-700">
@@ -217,20 +217,7 @@ function EditBatch() {
                     </div>
                   </div>
                   <div className="mb-4">
-                    <label
-                      htmlFor="batch_intake"
-                      className="block text-gray-700"
-                    >
-                      Batch Intake
-                    </label>
-                    <input
-                      type="text"
-                      id="batch_intake"
-                      name="batch_intake"
-                      value={batchData.batch_intake}
-                      onChange={handleChange}
-                      className="w-full p-2 border rounded-lg"
-                    />
+
                   </div>
                   <div className="mb-4">
                     <label
