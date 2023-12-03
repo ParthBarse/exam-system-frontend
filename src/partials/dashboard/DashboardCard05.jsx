@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Icon from '../../images/icon-02.svg';
+import Icon from '../../images/icon-01.svg';
 import EditMenu from '../../components/DropdownEditMenu';
 
 function DashboardCard05() {
