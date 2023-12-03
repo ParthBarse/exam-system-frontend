@@ -11,12 +11,10 @@ function DashboardCard04() {
     // Fetch data from the API
     axios.get('https://mcf-backend-main.vercel.app/getStudentCounts')
       .then(response => {
-        const refundedStudents = response.data.refundedStudent; // Assuming 'refundedStudent' holds the count
-        setRefundedStudentCount(refundedStudents);
+        setTotalStudentsCount(response.data.refunded_students_count);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
-        // Implement error handling or retry logic if needed
       });
   }, []);
 

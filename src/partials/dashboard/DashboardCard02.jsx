@@ -5,21 +5,19 @@ import LineChart from '../../charts/LineChart01';
 import Icon from '../../images/icon-02.svg';
 import EditMenu from '../../components/DropdownEditMenu';
 
-
 function DashboardCard02() {
-  const [activeStudentsCount, setActiveStudentsCount] = useState(0); // Corrected variable name
+  const [activeStudentsCount, setActiveStudentsCount] = useState(0); // State for active students count
 
   useEffect(() => {
     // Fetch data from the API
-    axios.get('https://mcf-backend.vercel.app/api/activeStudentsCount')
+    axios.get('https://mcf-backend-main.vercel.app/getStudentCounts')
       .then(response => {
-        setActiveStudentsCount(response.data.activeStudentsCount);
+        setActiveStudentsCount(response.data.active_students_count); // Set active students count from API
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, [activeStudentsCount]);
-
+  }, []);
 
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
@@ -36,14 +34,16 @@ function DashboardCard02() {
             </li>
           </EditMenu>
         </header>
-        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Active Students</h2> {/* Corrected title */}
+        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Active Students</h2> {/* Display title */}
         <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">till date</div>
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">{activeStudentsCount}</div>
+          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">{activeStudentsCount}</div> {/* Display active students count */}
         </div>
       </div>
       {/* Chart built with Chart.js 3 */}
       <div className="grow max-sm:max-h-[128px] xl:max-h-[128px]">
+        {/* Place your chart component here */}
+        {/* For example: <LineChart data={yourData} /> */}
       </div>
     </div>
   );

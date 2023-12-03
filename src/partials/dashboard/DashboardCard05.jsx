@@ -9,9 +9,9 @@ function DashboardCard05() {
 
   useEffect(() => {
     // Fetch data from the API
-    axios.get('https://mcf-backend.vercel.app/api/ExtendedStudentsCount')
+    axios.get('https://mcf-backend-main.vercel.app/getStudentCounts')
       .then(response => {
-        setExtendedStudentCount(response.data.extendedStudentsCount);
+        setExtendedStudentCount(response.data.extended_students_count); // Set extended students count from API
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -36,7 +36,7 @@ function DashboardCard05() {
         <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Extended Students</h2>
         <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">till date</div>
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">{extendedStudentCount}</div>
+          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">{extendedStudentCount}</div> {/* Display extended students count */}
         </div>
       </div>
     </div>
