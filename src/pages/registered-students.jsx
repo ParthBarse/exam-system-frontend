@@ -101,7 +101,7 @@ function RegStudent() {
                 <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
                   <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-                      Registered Students List
+                      Registered Cadets List
                     </h2>
                     <div style={{ display: "flex", gap: "10px" }}>
                       {/* <Dropdown>
@@ -118,7 +118,7 @@ function RegStudent() {
                         to="/add-student"
                         className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
                       >
-                        Add Student
+                        Add Cadet
                       </Link>
                     </div>
                   </div>
