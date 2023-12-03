@@ -351,6 +351,44 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   );
                 }}
               </SidebarLinkGroup>
+              {/* {add admin} */}
+              <SidebarLinkGroup activecondition={pathname.includes('addadmin')}>
+                {(handleClick, open) => {
+                  return (
+                    <React.Fragment>
+                      <a
+                        href="/addadmin"
+                        className={`block text-slate-200 truncate transition duration-150 ${pathname.includes('addadmin') ? 'hover:text-slate-200' : 'hover:text-white'
+                          }`}
+                        onClick={(e) => {
+
+                        }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                          <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="white"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 5v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+                            <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                              Add Admin
+                            </span>
+                          </div>
+                        </div>
+                      </a>
+                    </React.Fragment>
+                  );
+                }}
+              </SidebarLinkGroup>
 
             </ul>
           </div>
