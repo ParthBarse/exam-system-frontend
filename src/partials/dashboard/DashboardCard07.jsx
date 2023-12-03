@@ -68,6 +68,12 @@ function DashboardCard07() {
                 <th className="p-2">
                   <div className="font-semibold text-center">Status</div>
                 </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">Date</div>
+                </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">Batches</div>
+                </th>
               </tr>
             </thead>
             {/* Table body */}
@@ -84,6 +90,12 @@ function DashboardCard07() {
                   </td>
                   <td className="p-2">
                     <div className="text-center text-emerald-500">{camp.camp_status}</div>
+                  </td>
+                  <td className="p-2">
+                    <div className="text-center">{camp.camp_date}</div>
+                  </td>
+                  <td className="p-2">
+                    <div className="text-center">{camp.camp_total_batches}</div>
                   </td>
                 </tr>
               ))}
