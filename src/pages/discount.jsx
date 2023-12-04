@@ -11,6 +11,12 @@ export default function Discount() {
     const [step, setStep] = useState(1);
 
     const [reqData, setReqData] = useState({})
+
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      navigate("/")
+    }
+  }, [])
     const handleChange = (e) => {
         const {name , value} = e.target;
         setReqData(reqData => ({

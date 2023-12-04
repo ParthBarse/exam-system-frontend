@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
@@ -11,11 +11,19 @@ import DashboardCard06 from '../partials/dashboard/DashboardCard06';
 import DashboardCard07 from '../partials/dashboard/DashboardCard07';
 import DashboardCard12 from '../partials/dashboard/DashboardCard12';
 import DashboardCard05 from '../partials/dashboard/DashboardCard05';
+import { useNavigate } from 'react-router-dom';
 
 
 function Dashboard() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      navigate("/")
+    }
+  }, [])
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -46,10 +54,10 @@ function Dashboard() {
               <DashboardCard03 />
               <DashboardCard04 />
               <DashboardCard05 />
-              <DashboardCard06 />
               {/* Active Camps) */}
               <DashboardCard07 />
               {/* Payments */}
+              {/* <DashboardCard06 /> */}
               {/* Camps today */}
               {/* <DashboardCard12 />         */}
             </div>

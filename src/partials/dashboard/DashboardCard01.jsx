@@ -5,19 +5,21 @@ import LineChart from '../../charts/LineChart01';
 import Icon from '../../images/icon-01.svg';
 import EditMenu from '../../components/DropdownEditMenu';
 
+
 function DashboardCard01() {
   const [totalStudentsCount, setTotalStudentsCount] = useState(0);
 
   useEffect(() => {
     // Fetch data from the API
-    axios.get('https://mcf-backend-main.vercel.app/getStudentCounts')
+    axios.get('https://mcf-backend.vercel.app/api/totalStudentsCount')
       .then(response => {
-        setTotalStudentsCount(response.data.total_students_count);
+        setTotalStudentsCount(response.data.totalStudentsCount);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
   }, []);
+
 
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
@@ -34,7 +36,7 @@ function DashboardCard01() {
             </li>
           </EditMenu>
         </header>
-        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Total Cadets</h2>
+        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Total Students</h2>
         <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">till date</div>
         <div className="flex items-start">
           <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">{totalStudentsCount}</div>
@@ -42,8 +44,6 @@ function DashboardCard01() {
       </div>
       {/* Chart built with Chart.js 3 */}
       <div className="grow max-sm:max-h-[128px] xl:max-h-[128px]">
-        {/* Place your chart component here */}
-        {/* For example: <LineChart data={yourData} /> */}
       </div>
     </div>
   );

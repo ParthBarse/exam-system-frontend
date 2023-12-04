@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Settings (){
     const [formData, setFormData] = useState({
@@ -6,6 +7,13 @@ function Settings (){
         email: '',
       });
       const [submitted, setSubmitted] = useState(false);
+      const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      navigate("/")
+    }
+  }, [])
     
       const handleChange = (e) => {
         const { name, value } = e.target;

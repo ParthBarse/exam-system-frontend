@@ -1,10 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const StudentGradingForm = ({ formData, handleChange, handleSubmit }) => {
+const baseurl = 'https://mcf-backend-main.vercel.app'
+
+const StudentGradingForm = ({ formData, handleChange, handleSubmit, handleChangeOnAddingRegID }) => {
+  const [SID, setSID] = useState(null)
+  const getStudent = async() => {
+    console.log(SID);
+    const res = await axios({
+      method : "get",
+      url : `${baseurl}/getStudent?sid=${SID}`
+    })
+    console.log(res);
+    const { first_name, middle_name, last_name, company } = res.data.student
+    const { batch_name } = res.data.batch_details
+    const { camp_name } = res.data.camp_details
+    // console.log(res.data.camp_details.camp_name);
+    handleChangeOnAddingRegID(first_name+middle_name+last_name, camp_name, company, batch_name )
+  }
+const handleChangeRegID = async(e) => {
+  setSID(e.target.value)
+  handleChange(e)
+}
+
+useEffect(()=>{
+  if (SID !== null) {
+    getStudent()
+  }
+}, [SID])
+
   return (
     <form className="space-y-2" onSubmit={handleSubmit}>
       <div className="flex flex-wrap -mx-2">
@@ -25,7 +52,7 @@ const StudentGradingForm = ({ formData, handleChange, handleSubmit }) => {
             type="text"
             name="sid"
             value={formData.sid}
-            onChange={handleChange}
+            onChange={(e)=>handleChangeRegID(e)}
             required
             className="w-full p-2 border rounded-lg"
           />
@@ -80,6 +107,28 @@ const StudentGradingForm = ({ formData, handleChange, handleSubmit }) => {
             type="text"
             name="cqy"
             value={formData.cqy}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border rounded-lg"
+          />
+        </div>
+        <div className="w-full md:w-1/2 px-2 mb-4">
+          <label className="block text-gray-700">Company</label>
+          <input
+            type="text"
+            name="company"
+            value={formData.company}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border rounded-lg"
+          />
+        </div>
+        <div className="w-full md:w-1/2 px-2 mb-4">
+          <label className="block text-gray-700">Batch</label>
+          <input
+            type="text"
+            name="batch_name"
+            value={formData.batch_name}
             onChange={handleChange}
             required
             className="w-full p-2 border rounded-lg"
@@ -160,6 +209,8 @@ const GenerateReport = () => {
     report_camp_name: "",
     in_charge: "",
     cqy: "",
+    company: "",
+    batch_name: "",
     discipline: "average",
     physical_fitness: "average",
     courage: "average",
@@ -173,12 +224,15 @@ const GenerateReport = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const handleChangeOnAddingRegID = (name, camp_name, company, batch_name) => {
+    setFormData({ ...formData, name, report_camp_name: camp_name, company, batch_name});
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://mcf-backend-main.vercel.app/generateReport?sid=${formData.sid}",
+        `https://mcf-backend-main.vercel.app/generateReport?sid=${formData.sid}`,
         {
           ...formData,
           sid: formData.sid, // Ensure sid is included in the request body
@@ -224,6 +278,7 @@ const GenerateReport = () => {
                 <StudentGradingForm
                   formData={formData}
                   handleChange={handleChange}
+                  handleChangeOnAddingRegID={handleChangeOnAddingRegID}
                   handleSubmit={handleSubmit}
                 />
               </div>

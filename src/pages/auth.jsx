@@ -28,6 +28,7 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
     axios.post('https://mcf-backend-main.vercel.app/loginAdmin', formData)
       .then(response => {
         console.log('Successful login:', response);
+        localStorage.setItem("token" , "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0YmJiMWQ5YTE2MGYxNTBkYjNiMWMxIiwidXNlck5hbWUiOiJBbGkiLCJ1aWQiOiI4MzYwMjYxMzU4MyJ9LCJpYXQiOjE2OTk0NjE5MTd9.yHsKqTOyVv-aElFARozNEURJhjwFKjc4yBvNTj0qyc0")
         // Redirect to /dash or perform any other actions
         window.location.href = '/dash';
       })
@@ -35,6 +36,7 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
         console.error('Login failed:', error);
         // Handle login error, update state, or display an error message to the user
       });
+
   };
   
 
@@ -145,6 +147,7 @@ const RegisterForm = ({ onRegister, onSwitchToLogin }) => {
     axios.post('https://mcf-backend-main.vercel.app/addAdmin', formData)
     .then(response => {
       console.log('successful registration:', response);
+      localStorage.setItem("token" , "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0YmJiMWQ5YTE2MGYxNTBkYjNiMWMxIiwidXNlck5hbWUiOiJBbGkiLCJ1aWQiOiI4MzYwMjYxMzU4MyJ9LCJpYXQiOjE2OTk0NjE5MTd9.yHsKqTOyVv-aElFARozNEURJhjwFKjc4yBvNTj0qyc0")
       // Redirect to /dash or perform any other actions
       window.location.href = '/';
       

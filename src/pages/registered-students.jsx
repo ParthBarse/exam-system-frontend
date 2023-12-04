@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import Axios
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
+import BasicModal from "../components/Modal";
 
 const baseurl = 'https://mcf-backend-main.vercel.app'
 
@@ -15,6 +16,8 @@ function RegStudent() {
   const [loading, setLoading] = useState(true);
   const [isDeleted, setIsDeleted] = useState(false);
   const [camps, setCamps] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false)
+  const [SID, setSID] = useState(null)
 
   useEffect(() => {
     const fetchCamps = async () => {
@@ -63,6 +66,13 @@ function RegStudent() {
   };
 
   const [batches, setBatches] = useState([]);
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      navigate("/")
+    }
+  }, [])
 
   useEffect(() => {
     const fetchBatches = async () => {
@@ -85,6 +95,7 @@ function RegStudent() {
 
   return (
     <div className="flex h-screen overflow-hidden box-content">
+      <BasicModal modalOpen={modalOpen} sid={SID} fetchData={fetchData}/>
       {/* Sidebar */}
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
@@ -118,7 +129,7 @@ function RegStudent() {
                         to="/add-student"
                         className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
                       >
-                        Add Cadet
+                        Add Student
                       </Link>
                     </div>
                   </div>
@@ -222,15 +233,13 @@ function RegStudent() {
                                 </Link>
                                 <button
                                   onClick={(e) => {
-                                    axios
-                                      .delete(`${baseurl}/deleteStudent?sid=${item.sid}`)
-                                      .then((x) => alert("Deleted successfully"))
-                                      .then((x) => fetchData());
+                                    setModalOpen(prev => !prev)
+                                    setSID(item.sid)
                                   }}
-                                  className="text-sm text-white px-2 bg-red-500"
+                                  className="text-sm text-white px-2 bg-yellow-500"
                                   style={{ padding: "1px", fontSize: "13px", width: "auto", height: "auto" }}
                                 >
-                                  Delete
+                                  Cancel
                                 </button>
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
@@ -254,9 +263,21 @@ function RegStudent() {
                                     Receipt
                                   </Link>
                                 </button>
+                                <button
+                                  className="text-sm text-white px-2 bg-indigo-500"
+                                  style={{ padding: "1px", fontSize: "13px", width: "auto", height: "auto" }}
+                                >
+                                  <Link
+                                    to={`/view_medical_report/${item.sid}`}
+                                    style={{ textDecoration: "none", color: "inherit", width: "100%", height: "100%" }}
+                                  >
+                                    Medical Certificate
+                                  </Link>
+                                </button>
 
                               </div>
                             </td>
+
                           </tr>
                         ))}
                       </tbody>

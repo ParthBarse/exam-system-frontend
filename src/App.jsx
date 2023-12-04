@@ -34,6 +34,7 @@ import AdmissionForm from './pages/admissionform';
 import PositionedSnackbar from './components/Toast';
 import EditBatch from './pages/edit_batch';
 import Discount from './pages/discount';
+import View_medical_certificate from './pages/Button/View_medical_certificate';
 
 function App() {
 
@@ -44,6 +45,8 @@ function App() {
     window.scroll({ top: 0 })
     document.querySelector('html').style.scrollBehavior = ''
   }, [location.pathname]); // triggered on route change
+
+  
 
   return (
     <>
@@ -64,6 +67,7 @@ function App() {
         <Route exact path="/add-batch" element={<AddBatch/>} />
         <Route exact path="/generate-report" element={<GenerateReport/>}/>
         <Route exact path="/view-report" element={<VeiwReportCard />} />
+        <Route exact path="/view_medical_report/:id" element={<View_medical_certificate />} />
         <Route exact path="/edit-fee-details" element={<EditFeeDetails />} />
         <Route exact path="/update-student-details" element={<UpdateStudentDetails />} />
         <Route exact path="/veiw-entrance" element={<AdmitCard />} />

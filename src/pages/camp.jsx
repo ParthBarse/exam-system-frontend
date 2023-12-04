@@ -2,12 +2,19 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Camp() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const entriesPerPage = 15;
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      navigate("/")
+    }
+  }, [])
 
   useEffect(() => {
     // Fetch data from the API endpoint

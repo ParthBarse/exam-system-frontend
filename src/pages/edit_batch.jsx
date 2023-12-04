@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function EditBatch() {
   const location = useLocation();
@@ -20,6 +20,13 @@ function EditBatch() {
     camp_id: "",
     students_registered: "",
   });
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      navigate("/")
+    }
+  }, [])
 
   useEffect(() => {
     // Fetch initial data for the form based on the batch ID

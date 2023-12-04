@@ -2,14 +2,24 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Select from "../components/Select";
+import BasicSelect from "../components/Select";
 
 function CanStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [rawCancelledStudents, setRawCancelledStudents] = useState([]);
   const [cancelledStudents, setCancelledStudents] = useState([]);
   const [camps, setCamps] = useState([]);
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      navigate("/")
+    }
+  }, [])
 
   useEffect(() => {
     const fetchCamps = async () => {
@@ -35,6 +45,7 @@ function CanStudent() {
         "https://mcf-backend-main.vercel.app/getInactiveStudents"
       );
       setCancelledStudents(response.data.students);
+      setRawCancelledStudents(response.data.students);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -65,6 +76,14 @@ function CanStudent() {
     setCurrentPage(pageNumber);
   };
 
+  const filterInActiveUsers = (reason) => {
+    const filteredData = rawCancelledStudents.filter((ele)=>{
+      return ele.status === reason
+    })
+    // console.log(filteredData);
+    setCancelledStudents(filteredData)
+  }
+
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
@@ -76,10 +95,11 @@ function CanStudent() {
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-                <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
+                <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
                   <h2 className="font-semibold text-slate-800 dark:text-slate-100">
                     Cancelled Cadets List
                   </h2>
+                  <BasicSelect filterInActiveUsers={filterInActiveUsers}/>
                 </header>
                 <div className="p-4">
                   <div className="overflow-x-auto">

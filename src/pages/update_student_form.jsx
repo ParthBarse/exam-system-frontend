@@ -12,6 +12,13 @@ import { useLocation , useNavigate} from 'react-router-dom';
 export default function AddStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [step, setStep] = useState(1);
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      navigate("/")
+    }
+  }, [])
   
 
   return (

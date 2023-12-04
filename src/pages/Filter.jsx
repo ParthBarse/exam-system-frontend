@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
+import { Link, useNavigate } from "react-router-dom";
+
 
 function Filter() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [data, setData] = useState([]);
   const [nameFilter, setNameFilter] = useState('');
   const [regId,setRegId] = useState('')
+  
 
   console.log(nameFilter)
 
@@ -27,16 +30,27 @@ function Filter() {
     district: '',
     state: '',
     pincode: '', // New camp field
+    camp_name: '',
+    batch_name: '',
+    company: '',
   })
 
   const handleInputChange = (e) => {
     const {name,value} = e.target
     setBody({...body,[name]:value})
   }
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      navigate("/")
+    }
+  }, [])
 
   const fetchData = async () => {
     try {
         const response = await axios.post(`https://mcf-backend-main.vercel.app/filterStudents`,body);
+        console.log(response.data.students);
         setData(response.data.students);
 
     } catch (error) {
@@ -71,7 +85,7 @@ function Filter() {
 
         <main>
           <div className="text-center my-8">
-            <h2 className="text-2xl font-bold">Filter Students by</h2>
+            <h2 className="text-2xl font-bold">Filter Cadets by</h2>
           </div>
           <div className="flex justify-center">
             <div className="grid grid-cols-4 grid-rows-2 gap-4">
@@ -165,6 +179,39 @@ function Filter() {
                   onChange={handleInputChange}
                 />
               </div>
+              <div>
+                <label className="block text-gray-600">Camp</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Camp"
+                  value={body.camp_name}
+                  name="camp_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Batch</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Batch"
+                  value={body.batch_name}
+                  name="batch_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Company</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Company"
+                  value={body.company}
+                  name="company"
+                  onChange={handleInputChange}
+                />
+              </div>
               <div style={{ display: "flex", flexDirection: "column-reverse" }}>
                 <div className="text-center bg-blue-500 text-white py-2 px-2 rounded-md hover:bg-blue-600">
                   <button type="button" onClick={handleFilterSubmit}>
@@ -179,7 +226,7 @@ function Filter() {
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
                 <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
                   <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-                    Filtered Students
+                    Filtered Cadets
                   </h2>
                 </header>
                 <div className="p-4">
@@ -262,7 +309,13 @@ function Filter() {
                               <div className={`text-center`}>{item.state}</div>
                             </td>
                             <td className="p-2">
-                              {/* <div className={`text-center`}>{item.CQY}</div> */}
+                              <Link
+                                  to={`/update-student-details?id=${item.sid}`}
+                                  className="text-sm text-white py-1 px-2 bg-blue-500"
+                                  // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}
+                                >
+                                  <button style={{ width: "100%", height: "100%", padding: "3px" }}>View & Edit</button>
+                                </Link>
                             </td>
                           </tr>
                         ))}
