@@ -31,7 +31,7 @@ function DashboardCard07() {
   };
 
   return (
-    <div className="col-span-full xl:col-span-8 bg-white dark-bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
+    <div className="col-span-full xl:col-span-12 bg-white dark-bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700"  style={{display:'flex', justifyContent:'space-between'}}>
                 {/* Pagination */}
           <button
@@ -61,10 +61,16 @@ function DashboardCard07() {
                   <div className="font-semibold text-left">Name</div>
                 </th>
                 <th className="p-2">
+                  <div className="font-semibold text-center">Date</div>
+                </th>
+                <th className="p-2">
                   <div className="font-semibold text-center">Venue</div>
                 </th>
                 <th className="p-2">
                   <div className="font-semibold text-center">Status</div>
+                </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">Batches</div>
                 </th>
               </tr>
             </thead>
@@ -78,10 +84,16 @@ function DashboardCard07() {
                     </div>
                   </td>
                   <td className="p-2">
+                    <div className= "text-center text-emerald-500">{camp.date}</div>
+                  </td>
+                  <td className="p-2">
                     <div className="text-center">{camp.Venue}</div>
                   </td>
                   <td className="p-2">
                     <div className= "text-center text-emerald-500">{camp.Status}</div>
+                  </td>
+                  <td className="p-2">
+                    <div className= "text-center text-emerald-500">{camp.batches}</div>
                   </td>
                 </tr>
               ))}

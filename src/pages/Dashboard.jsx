@@ -54,10 +54,11 @@ function Dashboard() {
               <DashboardCard03 />
               <DashboardCard04 />
               <DashboardCard05 />
+               <DashboardCard06 />
               {/* Active Camps) */}
               <DashboardCard07 />
               {/* Payments */}
-              {/* <DashboardCard06 /> */}
+             
               {/* Camps today */}
               {/* <DashboardCard12 />         */}
             </div>
