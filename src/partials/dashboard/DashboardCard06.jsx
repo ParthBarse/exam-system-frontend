@@ -9,7 +9,7 @@ function DashboardCard06() {
 
   useEffect(() => {
     // Fetch data from the API
-    axios.get('https://mcf-backend.vercel.app/api/ExtendedStudentsCount')
+    axios.get('https://mcf-backend.vercel.app/api/TotalAdmin')
       .then(response => {
         setExtendedStudentCount(response.data.extendedStudentsCount);
       })
