@@ -223,10 +223,27 @@ function EditBatch() {
                       />
                     </div>
                   </div>
-                  <div className="mb-4">
 
+                  <div className="flex flex-row">
+
+                  
+                  <div className="flex flex-col p-4 w-1/2">
+                  <label
+                      htmlFor="batch_intake"
+                      className="block text-gray-700"
+                    >
+                      Date 
+                    </label>
+                    <input
+                      type="text"
+                      id="camp_dates"
+                      name="Camp_dates"
+                      value={batchData.students_registered}
+                      onChange={handleChange}
+                      className="w-full p-2 border rounded-lg"
+                    />
                   </div>
-                  <div className="mb-4">
+                  <div className="flex flex-col p-4 w-1/2">
                     <label
                       htmlFor="batch_intake"
                       className="block text-gray-700"
@@ -242,6 +259,9 @@ function EditBatch() {
                       className="w-full p-2 border rounded-lg"
                     />
                   </div>
+
+                  </div>
+                  
                   <button
                     type="submit"
                     className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
