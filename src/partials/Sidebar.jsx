@@ -347,11 +347,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           </div>
                         </div>
                       </a>
-                    </React.Fragment>
+                    </React.Fragment>        
                   );
                 }}
               </SidebarLinkGroup>
 
+             {/* {admin} */}
             </ul>
           </div>
         </div>

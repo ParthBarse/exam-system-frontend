@@ -7,7 +7,7 @@ function AddCamp() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [formData, setFormData] = useState({
     camp_name: '',
-    chess_prefix: '',
+    // chess_prefix: '',
     camp_place: '',
     camp_fee: '',
     camp_description: '',
@@ -105,7 +105,7 @@ function AddCamp() {
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
                   />
 
-                  <label className="text-lg font-semibold">Chess Prefix</label>
+                  {/* <label className="text-lg font-semibold">Chess Prefix</label>
                   <input
                     type="text"
                     name="chess_prefix"
@@ -113,7 +113,7 @@ function AddCamp() {
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
-                  />
+                  /> */}
 
                   <label className="text-lg font-semibold">Camp Place</label>
                   <input

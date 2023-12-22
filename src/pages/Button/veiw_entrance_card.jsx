@@ -189,8 +189,7 @@ function AdmitCard() {
         </div>
         <button
         onClick={(e) => window.print()}
-        className="no-print bg-blue-500 hover:bg-blue-700 text-white py-1 px-8 rounded"
-      >
+        className="no-print bg-blue-500 hover:bg-blue-700 text-white py-1 px-8 rounded">
         Print
       </button>
       </div>

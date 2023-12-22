@@ -4,73 +4,87 @@ import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
 
-
 function Filter() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [data, setData] = useState([]);
-  const [nameFilter, setNameFilter] = useState('');
-  const [regId,setRegId] = useState('')
-  
+  const [nameFilter, setNameFilter] = useState("");
+  const [regId, setRegId] = useState("");
 
-  console.log(nameFilter)
+  console.log(nameFilter);
 
-  const [body,setBody] = useState({
-    sid:'',
-    first_name: '',
-    middle_name: '',
-    last_name: '',
-    email: '',
-    phn: '',
-    dob: '',
-    address: '',
-    fathers_occupation: '',
-    mothers_occupation: '',
-    how_you_got_to_know: '',
-    employee_who_reached_out_to_you: '',
-    district: '',
-    state: '',
-    pincode: '', // New camp field
-    camp_name: '',
-    batch_name: '',
-    company: '',
-  })
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const handleOptionClick = (option) => {
+    // Handle the click on each option here
+    console.log(`Selected option: ${option}`);
+    // You can add logic to perform actions based on the selected option
+  };
+
+  const [body, setBody] = useState({
+    sid: "",
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    email: "",
+    phn: "",
+    dob: "",
+    address: "",
+    fathers_occupation: "",
+    mothers_occupation: "",
+    how_you_got_to_know: "",
+    employee_who_reached_out_to_you: "",
+    district: "",
+    state: "",
+    pincode: "", // New camp field
+    camp_name: "",
+    batch_name: "",
+    company: "",
+  });
 
   const handleInputChange = (e) => {
-    const {name,value} = e.target
-    setBody({...body,[name]:value})
-  }
-  const navigate = useNavigate()
+    const { name, value } = e.target;
+    setBody({ ...body, [name]: value });
+  };
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(!localStorage.getItem("token")){
-      navigate("/")
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
     }
-  }, [])
+  }, []);
 
   const fetchData = async () => {
     try {
-        const response = await axios.post(`https://mcf-backend-main.vercel.app/filterStudents`,body);
-        console.log(response.data.students);
-        setData(response.data.students);
-
+      const response = await axios.post(
+        `https://mcf-backend-main.vercel.app/filterStudents`,
+        body
+      );
+      console.log(response.data.students);
+      setData(response.data.students);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  useEffect(()=>{
-    
-    axios.get('https://mcf-backend-main.vercel.app/getAllStudents').then(x=>setData(x.data.students))
-    
-  },[])
+  useEffect(() => {
+    axios
+      .get("https://mcf-backend-main.vercel.app/getAllStudents")
+      .then((x) => setData(x.data.students));
+  }, []);
 
   useEffect(() => {
     fetchData();
   }, [body]);
 
-  useEffect(()=>{
-    axios.get(`https://mcf-backend.vercel.app/api/filterbyRegID/${regId}`).then(x=>setData(x.data))
-  },[regId])
+  useEffect(() => {
+    axios
+      .get(`https://mcf-backend.vercel.app/api/filterbyRegID/${regId}`)
+      .then((x) => setData(x.data));
+  }, [regId]);
 
   const handleFilterSubmit = () => {
     fetchData();
@@ -110,7 +124,6 @@ function Filter() {
                   name="middle_name"
                   onChange={handleInputChange}
                 />
-                
               </div>
               <div>
                 <label className="block text-gray-600">Last Name</label>
@@ -154,9 +167,9 @@ function Filter() {
                   value={body.city}
                   name="city"
                   onChange={handleInputChange}
-
                 />
               </div>
+
               <div>
                 <label className="block text-gray-600">Status</label>
                 <input
@@ -168,6 +181,7 @@ function Filter() {
                   onChange={handleInputChange}
                 />
               </div>
+
               <div>
                 <label className="block text-gray-600">Phone</label>
                 <input
@@ -179,6 +193,7 @@ function Filter() {
                   onChange={handleInputChange}
                 />
               </div>
+
               <div>
                 <label className="block text-gray-600">Camp</label>
                 <input
@@ -190,6 +205,7 @@ function Filter() {
                   onChange={handleInputChange}
                 />
               </div>
+
               <div>
                 <label className="block text-gray-600">Batch</label>
                 <input
@@ -201,6 +217,7 @@ function Filter() {
                   onChange={handleInputChange}
                 />
               </div>
+
               <div>
                 <label className="block text-gray-600">Company</label>
                 <input
@@ -212,6 +229,7 @@ function Filter() {
                   onChange={handleInputChange}
                 />
               </div>
+
               <div style={{ display: "flex", flexDirection: "column-reverse" }}>
                 <div className="text-center bg-blue-500 text-white py-2 px-2 rounded-md hover:bg-blue-600">
                   <button type="button" onClick={handleFilterSubmit}>
@@ -221,7 +239,8 @@ function Filter() {
               </div>
             </div>
           </div>
-          <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
+
+          <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xxl mx-auto">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
                 <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
@@ -250,7 +269,7 @@ function Filter() {
                               Name
                             </div>
                           </th>
-                          
+
                           <th className="p-2">
                             <div className="font-semibold text-center">
                               E-mail
@@ -296,26 +315,87 @@ function Filter() {
                                 </div>
                               </div>
                             </td>
-                            
+
                             <td className="p-2">
                               <div className="text-center">{item.email}</div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center`}>
-                                {item.phn}
-                              </div>
+                              <div className={`text-center`}>{item.phn}</div>
                             </td>
                             <td className="p-2">
                               <div className={`text-center`}>{item.state}</div>
                             </td>
                             <td className="p-2">
-                              <Link
+                              <div className="text-center grid grid-cols-2 grid-rows-1 gap-1">
+                                <Link
                                   to={`/update-student-details?id=${item.sid}`}
-                                  className="text-sm text-white py-1 px-2 bg-blue-500"
-                                  // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}
+                                  className="text-sm text-white py-1 px-1 bg-blue-500"
+                                  // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
                                 >
-                                  <button style={{ width: "100%", height: "100%", padding: "3px" }}>View & Edit</button>
+                                  <button
+                                    style={{
+                                      width: "100%",
+                                      height: "100%",
+                                      padding: "1px",
+                                    }}
+                                  >
+                                    View & Edit
+                                  </button>
                                 </Link>
+                                {/* //add entrance card, report card, escort card, receipt on filter students // */}
+                                <Link
+                                  // to={`/update-student-details?id=${item.sid}`}
+                                  className="text-sm text-white py-1 px-2 bg-yellow-500"
+                                >
+                                  <button
+                                    style={{
+                                      width: "100%",
+                                      height: "100%",
+                                      padding: "1px",
+                                    }}
+                                    onClick={handleButtonClick}
+                                  >
+                                    More
+                                  </button>
+                                </Link>
+
+                                {showDropdown && (
+                                  <div className="absolute z-10 right-0 mt-2 w-40 bg-white rounded-md shadow-lg">
+                                    <button
+                                      onClick={() =>
+                                        handleOptionClick("escort card")
+                                      }
+                                      className="block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-gray-200"
+                                    >
+                                      Escort Card
+                                    </button>
+                                    <button
+                                      onClick={() =>
+                                        handleOptionClick("entrance card")
+                                      }
+                                      className="block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-gray-200"
+                                    >
+                                      Entrance Card
+                                    </button>
+                                    <button
+                                      onClick={() =>
+                                        handleOptionClick("report card")
+                                      }
+                                      className="block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-gray-200"
+                                    >
+                                      Report Card
+                                    </button>
+                                    <button
+                                      onClick={() =>
+                                        handleOptionClick("receipt")
+                                      }
+                                      className="block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-gray-200"
+                                    >
+                                      Receipt
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
                             </td>
                           </tr>
                         ))}

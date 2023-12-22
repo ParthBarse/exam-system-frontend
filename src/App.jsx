@@ -35,6 +35,7 @@ import PositionedSnackbar from './components/Toast';
 import EditBatch from './pages/edit_batch';
 import Discount from './pages/discount';
 import View_medical_certificate from './pages/Button/View_medical_certificate';
+import RegisterAdmin from './pages/register';
 
 function App() {
 
@@ -76,7 +77,7 @@ function App() {
         <Route exact path="/admission-form" element={<AdmissionForm />} />
         <Route exact path="/edit-batch" element={<EditBatch />} />
         <Route exact path="/discount" element={<Discount />} />
-
+        <Route exact path="/register" element={<RegisterAdmin />} />
       </Routes>
     </>
   );  

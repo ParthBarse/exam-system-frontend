@@ -57,10 +57,6 @@ function Dashboard() {
                <DashboardCard06 />
               {/* Active Camps) */}
               <DashboardCard07 />
-              {/* Payments */}
-             
-              {/* Camps today */}
-              {/* <DashboardCard12 />         */}
             </div>
           </div>
         </main>

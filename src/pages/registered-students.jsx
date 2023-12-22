@@ -3,7 +3,6 @@ import axios from "axios"; // Import Axios
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
-import { Dropdown } from "react-bootstrap";
 import BasicModal from "../components/Modal";
 
 const baseurl = 'https://mcf-backend-main.vercel.app'
@@ -145,7 +144,9 @@ function RegStudent() {
                       <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
                         <tr>
                           <th className="p-2">
-                            <div className="font-semibold text-left">Sr.</div>
+                            <div className="font-semibold text-left">
+                              Sr.
+                            </div>
                           </th>
                           <th className="p-2 max-w-xs">
                             <div className="font-semibold text-center">
@@ -263,7 +264,7 @@ function RegStudent() {
                                     Receipt
                                   </Link>
                                 </button>
-                                <button
+                                {/* <button
                                   className="text-sm text-white px-2 bg-indigo-500"
                                   style={{ padding: "1px", fontSize: "13px", width: "auto", height: "auto" }}
                                 >
@@ -273,7 +274,7 @@ function RegStudent() {
                                   >
                                     Medical Certificate
                                   </Link>
-                                </button>
+                                </button> */}
 
                               </div>
                             </td>

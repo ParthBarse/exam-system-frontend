@@ -67,10 +67,13 @@ function DashboardCard07() {
                   <div className="font-semibold text-center">Venue</div>
                 </th>
                 <th className="p-2">
-                  <div className="font-semibold text-center">Status</div>
+                  <div className="font-semibold text-center">Batches</div>
                 </th>
                 <th className="p-2">
-                  <div className="font-semibold text-center">Batches</div>
+                  <div className="font-semibold text-center">fees</div>
+                </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">discounts</div>
                 </th>
               </tr>
             </thead>
@@ -90,10 +93,13 @@ function DashboardCard07() {
                     <div className="text-center">{camp.Venue}</div>
                   </td>
                   <td className="p-2">
-                    <div className= "text-center text-emerald-500">{camp.Status}</div>
+                    <div className= "text-center text-emerald-500">{camp.batches}</div>
                   </td>
                   <td className="p-2">
-                    <div className= "text-center text-emerald-500">{camp.batches}</div>
+                    <div className= "text-center text-emerald-500">{camp.fees}</div>
+                  </td>
+                  <td className="p-2">
+                    <div className= "text-center text-emerald-500">{camp.discounts}</div>
                   </td>
                 </tr>
               ))}

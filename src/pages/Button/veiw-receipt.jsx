@@ -43,7 +43,7 @@ function Receipt() {
             <tr>
               <td>Registration No.</td>
               <td>
-                <strong>ATC23-523AATC1203</strong>
+                <strong>{data.sid}</strong>
               </td>
               <td>RECEIPT No.</td>
               <td>
@@ -52,7 +52,7 @@ function Receipt() {
             </tr>
             <tr>
               <td>Name :</td>
-              <td colspan="3">SHIVADNYA RAHUL KATE</td>
+              <td colspan="3">{data.name}</td>
             </tr>
             <tr>
               <td>Address :</td>
