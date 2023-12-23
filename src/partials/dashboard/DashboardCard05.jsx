@@ -9,9 +9,9 @@ function DashboardCard05() {
 
   useEffect(() => {
     // Fetch data from the API
-    axios.get('https://mcf-backend.vercel.app/api/ExtendedStudentsCount')
+    axios.get('https://mcf-backend-main.vercel.app/getStudentCounts')
       .then(response => {
-        setExtendedStudentCount(response.data.extendedStudentsCount);
+        setExtendedStudentCount(response.data.extended_students_count);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
