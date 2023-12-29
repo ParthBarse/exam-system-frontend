@@ -5,21 +5,24 @@ import axios from 'axios';
 import DatePicker from 'react-flatpickr';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import { useLocation , useNavigate} from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 
 export default function AddStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [step, setStep] = useState(1);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(!localStorage.getItem("token")){
+
+
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
       navigate("/")
     }
   }, [])
-  
+
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -47,7 +50,47 @@ const baseurl = 'https://mcf-backend-main.vercel.app'
 const FirstDetails = () => {
 
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const punePickupLocations = [
+    'Nigadi Bhaktishakti',
+    'Akurdi Khandoba Mandir',
+    'Chinchawad Chaphekar Chowk',
+    'Kalewadi Phata',
+    'Sangvi Phata',
+    'Aundh Shivaji Vidyalaya',
+    'Khadki Bazar',
+    'Yerwada Deccan College',
+    'Kharadi Bypass',
+    'Hadapsar – Gadital Akashwani',
+    'Swarget – PMPL Bus Stop',
+    'Katraj – PMPL Bus stop',
+    'Spine Road',
+    'Bhosari Dighi Road',
+    'Nasik Phata',
+    'Kokane Chowk',
+    'Baner Sadanand Hotel',
+    'Chandani Chowk – Auto Stop',
+    'Warje- Mai Mangeshkar Hospital',
+    'Sinhgad Navale Bridge'
+  ];
+
+  const mumbaiPickupLocations = [
+    'Dadar (Asiad bus stop)',
+    'Vashi (Vashi Plaza, Below Vashi Bridge, Shivneri, Bus stop)',
+    'Thane(Near Shivaji Hospital Kalwa Naka)',
+    'Airoli',
+    'Rabale',
+    'Ghansoli',
+    'Koparkhairane',
+    'Turbhe',
+    'Juinagar',
+    'Nerur',
+    'Belapur',
+    'Kamati',
+    'Kharghar',
+    'Panvel (McDonald’s Panvel Bus Stand)'
+  ];
 
   const [state, setState] = React.useState({
     open: false,
@@ -77,7 +120,7 @@ const FirstDetails = () => {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const sid = queryParams.get('id');
-    axios.get(`${baseurl}/getStudent?sid=${sid}`).then(x =>  setFormData(x.data.student));
+    axios.get(`${baseurl}/getStudent?sid=${sid}`).then(x => setFormData(x.data.student));
   }, [location.search])
 
 
@@ -115,8 +158,8 @@ const FirstDetails = () => {
 
           let formattedDate = `${day}-${month}-${year}`; // combine them all together in the format DD-MM-YYYY
           reqData.append(key, formattedDate);
-        } 
-        else if(key == 'camp_id' || key == 'batch_id'){
+        }
+        else if (key == 'camp_id' || key == 'batch_id') {
           continue;
         }
         else {
@@ -126,9 +169,9 @@ const FirstDetails = () => {
 
       // formData.camp_id = getCampId(selectedCamp);
       // formData.batch_id = getBatchId(selectedBatch)
-      reqData.append('camp_id',getCampId(selectedCamp))
-      reqData.append('batch_id',getBatchId(selectedBatch))
-      
+      reqData.append('camp_id', getCampId(selectedCamp))
+      reqData.append('batch_id', getBatchId(selectedBatch))
+
 
 
       // Make a POST request using axios
@@ -138,11 +181,11 @@ const FirstDetails = () => {
       console.log(response.data); // Log the response from the server
 
       // // After successfully adding a student, you might want to reset the form
-      
+
 
       setState({ vertical: 'bottom', horizontal: 'right', open: true });
       navigate('/RegStudent')
-      
+
 
     } catch (error) {
       setErrorState({ vertical: 'bottom', horizontal: 'right', open: true });
@@ -166,23 +209,23 @@ const FirstDetails = () => {
     };
     fetchCamps();
   }, [])
-  
+
   const [batches, setBatches] = useState([]);
-  const [selectedCamp , setSelectedCamp] = useState('')
-  const [selectedBatch , setSelectedBatch] = useState('')
+  const [selectedCamp, setSelectedCamp] = useState('')
+  const [selectedBatch, setSelectedBatch] = useState('')
   const [batch, setBatch] = useState({})
 
   useEffect(() => {
     const fetchBatches = async () => {
-      try{
+      try {
         const response = await axios.get(`${baseurl}/getBatches?camp_id=${getCampId(selectedCamp)}`);
         setBatches(response.data.batches);
-      } catch (error){
-        console.log("Error fetching batches :",error)
+      } catch (error) {
+        console.log("Error fetching batches :", error)
       }
     }
     fetchBatches()
-  },[selectedCamp])
+  }, [selectedCamp])
 
   // //////////////////////////////////////////////
 
@@ -191,19 +234,19 @@ const FirstDetails = () => {
 
 
   useEffect(() => {
-    if(formData.camp_id){
+    if (formData.camp_id) {
       const currentCamp = getCampName(formData.camp_id);
       setSelectedCamp(currentCamp);
     }
 
-  },[formData.camp_id])
+  }, [formData.camp_id])
 
   useEffect(() => {
-    if(formData.batch_id){
+    if (formData.batch_id) {
       const currentBatch = getBatchName(formData.batch_id);
       setSelectedBatch(currentBatch);
     }
-  },[formData.batch_id,batches])
+  }, [formData.batch_id, batches])
 
   useEffect(() => {
     const fetchBatch = async () => {
@@ -211,7 +254,7 @@ const FirstDetails = () => {
       setBatch(response.data.batch)
     }
     fetchBatch()
-  },[selectedBatch])
+  }, [selectedBatch])
 
 
 
@@ -396,7 +439,7 @@ const FirstDetails = () => {
                     id="camp_name"
                     name="camp_name"
                     value={selectedCamp}
-                    onChange={e=>setSelectedCamp(e.target.value)}
+                    onChange={e => setSelectedCamp(e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Camp Category */}
@@ -436,7 +479,7 @@ const FirstDetails = () => {
                     {/* Options for Batch */}
                     <option value="">Select Batch Name</option>
                     {batches.map((batch) => (<option value={batch.batch_name}>{batch.batch_name}</option>))}
-                    
+
                   </select>
                 </div>
                 <div className="grid grid-cols-4 gap-4">
@@ -495,8 +538,31 @@ const FirstDetails = () => {
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="pick_up_point" className="block text-sm font-medium text-gray-600">
-                    Pick Up Point Location
+                  <label
+                    htmlFor="pick_up_city"
+                    className="block text-sm font-medium text-gray-600"
+                  >
+                    Pick Up City
+                  </label>
+                  <select
+                    id="pick_up_city"
+                    name="pick_up_city"
+                    value={formData.pick_up_city}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Dress Code */}
+                    <option value="">Select Pick Up City </option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="pune">Pune </option>
+                  </select>
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="pick_up_point"
+                    className="block text-sm font-medium text-gray-600"
+                  >
+                    Pick Up Point
                   </label>
                   <select
                     id="pick_up_point"
@@ -506,9 +572,13 @@ const FirstDetails = () => {
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Dress Code */}
-                    <option value="">Select Pick Up Point Location </option>
-                    <option value="mumbai">Mumbai</option>
-                    <option value="pune">Pune </option>
+                    <option value="">Select Pick Up Point </option>
+                    {formData.pick_up_city === "mumbai" ? (
+                      mumbaiPickupLocations.map(location => (<option value={location}>{location}</option>))
+                    ) : ''}
+                    {formData.pick_up_city === "pune" ? (
+                      punePickupLocations.map(location => (<option value={location}>{location}</option>))
+                    ) : ''}
                   </select>
                 </div>
                 <hr className="my-4 h-1 bg-gray-200" />
@@ -522,8 +592,111 @@ const FirstDetails = () => {
                 </div>
                 <div className="mb-4">
                   <label htmlFor="blood_group" className="block text-sm font-medium text-gray-600">Blood Group</label>
-                  <input id="blood_group" name='blood_group' value={formData.blood_group} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Blood Group" onChange={handleChange} />
+                  {/* <input id="blood_group" name='blood_group' value={formData.blood_group} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Blood Group" onChange={handleChange} />  */}
+                  <select
+                    id="blood_group"
+                    name="blood_group"
+                    value={formData.blood_group}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Blood Group */}
+                    <option value="">Select Blood Group </option>
+                    <option value="A+">A+</option>
+                    <option value="B+">B+ </option>
+                    <option value="AB+">AB+</option>
+                    <option value="O+">O+</option>
+                    <option value="A-">A-</option>
+                    <option value="B-">B- </option>
+                    <option value="AB-">AB-</option>
+                    <option value="O-">O-</option>
+
+                  </select>
                 </div>
+                <div>
+                  <h2 className="text-xl font-bold">Health</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                    <div>
+                      <label htmlFor="physical_problem">Define Physical Problem</label>
+                      <input
+
+                        type="text"
+                        id="physical_problem"
+                        name="physical_problem"
+                        value={formData.physical_problem}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      />
+                    </div>
+                    <div>
+
+
+                      <label htmlFor="allergy">Define Allergy</label>
+                      <input
+                        type="text"
+                        id="allergy"
+                        name="allergy"
+                        value={formData.allergy}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      />
+                    </div>
+                    <div>
+
+                      <label htmlFor="other_problem">Define Other Problem</label>
+                      <input
+                        type="text"
+                        id="other_problem"
+                        name="other_problem"
+                        value={formData.other_problem}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      />
+                    </div>
+                    <div>
+
+                      <label htmlFor="medication_physical">Medication For Physical Problem</label>
+                      <input
+                        type="text"
+                        id="medication_physical"
+                        name="medication_physical"
+                        value={formData.medication_physical}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      />
+                    </div>
+                    <div>
+
+
+                      <label htmlFor="medication_allergy">Medication For Allergy</label>
+                      <input
+                        type="text"
+                        id="medication_allergy"
+                        name="medication_allergy"
+                        value={formData.medication_allergy}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      />
+                    </div>
+                    <div>
+
+
+                      <label htmlFor="medication_other">Medication For Other Problem</label>
+                      <input
+                        type="text"
+                        id="medication_other"
+                        name="medication_other"
+                        value={formData.medication_other}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      />
+
+                    </div>
+
+                  </div>
+                </div>
+
+
 
               </form>
             </div>

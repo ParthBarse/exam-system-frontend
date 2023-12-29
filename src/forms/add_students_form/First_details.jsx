@@ -16,6 +16,47 @@ const FirstDetails = () => {
   const reqData = new FormData();
   const navigate = useNavigate();
 
+  const punePickupLocations = [
+    'Nigadi Bhaktishakti',
+    'Akurdi Khandoba Mandir',
+    'Chinchawad Chaphekar Chowk',
+    'Kalewadi Phata',
+    'Sangvi Phata',
+    'Aundh Shivaji Vidyalaya',
+    'Khadki Bazar',
+    'Yerwada Deccan College',
+    'Kharadi Bypass',
+    'Hadapsar – Gadital Akashwani',
+    'Swarget – PMPL Bus Stop',
+    'Katraj – PMPL Bus stop',
+    'Spine Road',
+    'Bhosari Dighi Road',
+    'Nasik Phata',
+    'Kokane Chowk',
+    'Baner Sadanand Hotel',
+    'Chandani Chowk – Auto Stop',
+    'Warje- Mai Mangeshkar Hospital',
+    'Sinhgad Navale Bridge'
+  ];
+
+  const mumbaiPickupLocations = [
+    'Dadar (Asiad bus stop)',
+    'Vashi (Vashi Plaza, Below Vashi Bridge, Shivneri, Bus stop)',
+    'Thane(Near Shivaji Hospital Kalwa Naka)',
+    'Airoli',
+    'Rabale',
+    'Ghansoli',
+    'Koparkhairane',
+    'Turbhe',
+    'Juinagar',
+    'Nerur',
+    'Belapur',
+    'Kamati',
+    'Kharghar',
+    'Panvel (McDonald’s Panvel Bus Stand)'
+  ];
+
+
   const [state, setState] = React.useState({
     open: false,
     vertical: "top",
@@ -96,6 +137,7 @@ const FirstDetails = () => {
     selectedDate: "",
     food_option: "",
     dress_code: "",
+    pick_up_city: "",
     pick_up_point: "",
     height: "",
     weight: "",
@@ -966,10 +1008,33 @@ const FirstDetails = () => {
 
                 <div className="mb-4">
                   <label
+                    htmlFor="pick_up_city"
+                    className="block text-sm font-medium text-gray-600"
+                  >
+                    Pick Up City
+                  </label>
+                  <select
+                    id="pick_up_city"
+                    name="pick_up_city"
+                    value={admissionFormData.pick_up_city}
+                    onChange={(e) =>
+                      handleAdmissionChange("pick_up_city", e.target.value)
+                    }
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Dress Code */}
+                    <option value="">Select Pick Up City </option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="pune">Pune </option>
+                  </select>
+                </div>
+
+                <div className="mb-4">
+                  <label
                     htmlFor="pick_up_point"
                     className="block text-sm font-medium text-gray-600"
                   >
-                    Pick Up Point Location
+                    Pick Up Point
                   </label>
                   <select
                     id="pick_up_point"
@@ -981,9 +1046,13 @@ const FirstDetails = () => {
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Dress Code */}
-                    <option value="">Select Pick Up Point Location </option>
-                    <option value="mumbai">Mumbai</option>
-                    <option value="pune">Pune </option>
+                    <option value="">Select Pick Up Point </option>
+                    {admissionFormData.pick_up_city === "mumbai" ? (
+                      mumbaiPickupLocations.map(location => (<option value={location}>{location}</option>))
+                    ) : ''}
+                    {admissionFormData.pick_up_city === "pune" ? (
+                      punePickupLocations.map(location => (<option value={location}>{location}</option>))
+                    ) : ''}
                   </select>
                 </div>
 
@@ -1228,7 +1297,7 @@ const FirstDetails = () => {
                     <div>
                       <label htmlFor="physical_problem">Define Physical Problem</label>
                       <input
-
+                        placeholder="Define Physical Problem"
                         type="text"
                         id="physical_problem"
                         name="physical_problem"
@@ -1242,6 +1311,7 @@ const FirstDetails = () => {
 
                       <label htmlFor="allergy">Define Allergy</label>
                       <input
+                        placeholder="Define Allergy"
                         type="text"
                         id="allergy"
                         name="allergy"
@@ -1254,6 +1324,7 @@ const FirstDetails = () => {
 
                       <label htmlFor="other_problem">Define Other Problem</label>
                       <input
+                        placeholder="Define Other Problem"
                         type="text"
                         id="other_problem"
                         name="other_problem"
@@ -1266,6 +1337,7 @@ const FirstDetails = () => {
 
                       <label htmlFor="medication_physical">Medication For Physical Problem</label>
                       <input
+                        placeholder="Medication For Physical Problem"
                         type="text"
                         id="medication_physical"
                         name="medication_physical"
@@ -1279,6 +1351,7 @@ const FirstDetails = () => {
 
                       <label htmlFor="medication_allergy">Medication For Allergy</label>
                       <input
+                        placeholder="Medication For Allergy"
                         type="text"
                         id="medication_allergy"
                         name="medication_allergy"
@@ -1292,6 +1365,7 @@ const FirstDetails = () => {
 
                       <label htmlFor="medication_other">Medication For Other Problem</label>
                       <input
+                        placeholder="Medication For Other Problem"
                         type="text"
                         id="medication_other"
                         name="medication_other"
