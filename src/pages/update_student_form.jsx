@@ -45,7 +45,7 @@ export default function AddStudent() {
   );
 }
 
-const baseurl = 'https://mcf-backend-main.vercel.app'
+const baseurl = 'https://mcfapis.bnbdevelopers.in'
 
 const FirstDetails = () => {
 
@@ -494,7 +494,7 @@ const FirstDetails = () => {
                   </div>
                   <div className="mb-4">
                     <label htmlFor="company" className="block text-sm font-medium text-gray-600">Company</label>
-                    <input id="company" name='company' value={batch.company} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Company" onChange={handleChange} readOnly />
+                    <input id="company" name='company' value={formData.company} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Company" onChange={handleChange} readOnly />
                   </div>
                   <div className="mb-4">
                     <label htmlFor="duration" className="block text-sm font-medium text-gray-600">Duration</label>
@@ -695,6 +695,72 @@ const FirstDetails = () => {
 
                   </div>
                 </div>
+
+                <hr className="my-4 h-1 bg-gray-200" />
+                <div className="mb-4 flex items-center">
+                  <label
+                    htmlFor="cadetPhoto"
+                    className="block text-sm font-medium text-gray-600 mr-2"
+                  >
+                    Medical Certificate
+                  </label>
+                  <button style={{marginLeft:20}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.medicalCertificate, "_blank")}>
+                    View
+                  </button>
+                </div>
+                <br/>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                
+                <div className="mb-4 flex items-center">
+                  <label
+                    htmlFor="cadetPhoto"
+                    className="block text-sm font-medium text-gray-600 mr-2"
+                  >
+                    Cadet Photo
+                  </label>
+                  <button 
+                    style={{marginLeft:70}} 
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" 
+                    onClick={() => window.open(formData.cadetPhoto, "_blank")}
+                  >
+                    View
+                  </button>
+                </div>
+                <div className="mb-4 flex items-center">
+                  <label
+                    htmlFor="cadetPhoto"
+                    className="block text-sm font-medium text-gray-600 mr-2"
+                  >
+                    Cadet Sign
+                  </label>
+                  <button  style={{marginLeft:70}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.cadetSign, "_blank")}>
+                    View
+                  </button>
+                </div>
+                <div className="mb-4 flex items-center">
+                  <label
+                    htmlFor="cadetPhoto"
+                    className="block text-sm font-medium text-gray-600 mr-2"
+                  >
+                    Parent/Gurdian Photo
+                  </label>
+                  <button style={{marginLeft:10}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.parentGurdianPhoto, "_blank")}>
+                    View
+                  </button>
+                </div>
+                <div className="mb-4 flex items-center">
+                  <label
+                    htmlFor="cadetPhoto"
+                    className="block text-sm font-medium text-gray-600 mr-2"
+                  >
+                    Parent-Gurdian Sign
+                  </label>
+                  <button style={{marginLeft:8}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.parentGurdianSign, "_blank")}>
+                    View
+                  </button>
+                </div>
+                </div>
+                
 
 
 

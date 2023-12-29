@@ -60,7 +60,7 @@ function Filter() {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        `https://mcf-backend-main.vercel.app/filterStudents`,
+        `https://mcfapis.bnbdevelopers.in/filterStudents`,
         body
       );
       console.log(response.data.students);
@@ -72,7 +72,7 @@ function Filter() {
 
   useEffect(() => {
     axios
-      .get("https://mcf-backend-main.vercel.app/getAllStudents")
+      .get("https://mcfapis.bnbdevelopers.in/getAllStudents")
       .then((x) => setData(x.data.students));
   }, []);
 

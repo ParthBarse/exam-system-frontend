@@ -9,7 +9,7 @@ function EditFeeDetails() {
   const [formData, setFormData] = useState({
     Name: "",
     Fees: "",
-    chess_prefix: "",
+    // chess_prefix: "",
     camp_place: "",
     camp_description: "",
     fee_discount: "",
@@ -29,7 +29,7 @@ function EditFeeDetails() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://mcf-backend-main.vercel.app/getCamp?camp_id=${campId}`
+          `https://mcfapis.bnbdevelopers.in/getCamp?camp_id=${campId}`
         );
         if (response.ok) {
           const campDetails = await response.json();
@@ -38,7 +38,7 @@ function EditFeeDetails() {
           setFormData({
             Name: campDetails.camp.camp_name,
             Fees: campDetails.camp.camp_fee,
-            chess_prefix: campDetails.camp.chess_prefix,
+            // chess_prefix: campDetails.camp.chess_prefix,
             camp_place: campDetails.camp.camp_place,
             camp_description: campDetails.camp.camp_description,
             fee_discount: campDetails.camp.fee_discount,
@@ -88,7 +88,7 @@ function EditFeeDetails() {
       }
 
       const response = await fetch(
-        `https://mcf-backend-main.vercel.app/updateCamp`,
+        `https://mcfapis.bnbdevelopers.in/updateCamp`,
         {
           method: "PUT",
           headers: {
@@ -157,7 +157,7 @@ function EditFeeDetails() {
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
                   />
-                  <label className="text-lg font-semibold">Chess Prefix</label>
+                  {/* <label className="text-lg font-semibold">Chess Prefix</label>
                   <input
                     type="text"
                     name="chess_prefix"
@@ -165,7 +165,7 @@ function EditFeeDetails() {
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
-                  />
+                  /> */}
 
                   <label className="text-lg font-semibold">Camp Place</label>
                   <input
@@ -208,12 +208,14 @@ function EditFeeDetails() {
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
                   />
+                  {/* console.log({formData.discount_date}) */}
+
 
                   <label className="text-lg font-semibold">Discount Date</label>
                   <input
                     type="date"
                     name="discount_date"
-                    value={formData.discount_date}
+                    value={convertDate(formData.discount_date)}       
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"

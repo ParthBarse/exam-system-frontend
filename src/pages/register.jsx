@@ -32,7 +32,7 @@ const RegisterAdmin = () => {
 
     try {
       const response = await axios.post(
-        "https://mcf-backend-main.vercel.app/registerAdmin",
+        "https://mcfapis.bnbdevelopers.in/registerAdmin",
         formData
       );
       console.log("Successful admin registration:", response);

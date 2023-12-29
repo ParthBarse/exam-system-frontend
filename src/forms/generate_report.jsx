@@ -4,7 +4,7 @@ import Header from "../partials/Header";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const baseurl = 'https://mcf-backend-main.vercel.app'
+const baseurl = 'https://mcfapis.bnbdevelopers.in'
 
 const StudentGradingForm = ({ formData, handleChange, handleSubmit, handleChangeOnAddingRegID }) => {
   const [SID, setSID] = useState(null)
@@ -232,7 +232,7 @@ const GenerateReport = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `https://mcf-backend-main.vercel.app/generateReport?sid=${formData.sid}`,
+        `https://mcfapis.bnbdevelopers.in/generateReport?sid=${formData.sid}`,
         {
           ...formData,
           sid: formData.sid, // Ensure sid is included in the request body

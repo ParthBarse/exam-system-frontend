@@ -44,7 +44,7 @@ function AddCamp() {
         form.append(key, key === 'discount_date' ? formattedDiscountDate : formData[key]);
       }
 
-      const response = await fetch('https://mcf-backend-main.vercel.app/addCamp', {
+      const response = await fetch('https://mcfapis.bnbdevelopers.in/addCamp', {
         method: 'POST',
         body: form,
       });

@@ -24,7 +24,7 @@ function CanStudent() {
   useEffect(() => {
     const fetchCamps = async () => {
       try {
-        const response = await axios.get('https://mcf-backend-main.vercel.app/getAllCamps');
+        const response = await axios.get('https://mcfapis.bnbdevelopers.in/getAllCamps');
         setCamps(response.data.camps);
       } catch (error) {
         console.error('Error fetching camps:', error);
@@ -42,7 +42,7 @@ function CanStudent() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://mcf-backend-main.vercel.app/getInactiveStudents"
+        "https://mcfapis.bnbdevelopers.in/getInactiveStudents"
       );
       setCancelledStudents(response.data.students);
       setRawCancelledStudents(response.data.students);
@@ -55,7 +55,7 @@ function CanStudent() {
 
   const handleClick = async (sid)=>{
       console.log('clicked')
-      const res = await axios.get(`https://mcf-backend-main.vercel.app/activateStudent?sid=${sid}`)
+      const res = await axios.get(`https://mcfapis.bnbdevelopers.in/activateStudent?sid=${sid}`)
       setIsClicked(true)
 
       alert("status updated successfully")

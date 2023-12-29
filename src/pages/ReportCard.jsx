@@ -43,7 +43,7 @@ function ReportCard() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://mcf-backend-main.vercel.app/getAllStudents"
+        "https://mcfapis.bnbdevelopers.in/getAllStudents"
       );
       setData(response.data.students); // Update the state with the fetched data
       setLoading(false); // Set loading to false
@@ -70,7 +70,7 @@ function ReportCard() {
   useEffect(() => {
     const fetchCamps = async () => {
       try {
-        const response = await axios.get('https://mcf-backend-main.vercel.app/getAllCamps');
+        const response = await axios.get('https://mcfapis.bnbdevelopers.in/getAllCamps');
         setCamps(response.data.camps);
       } catch (error) {
         console.error('Error fetching camps:', error);
@@ -90,7 +90,7 @@ function ReportCard() {
   useEffect(() => {
     const fetchBatches = async () => {
       try {
-        const response = await axios.get(`https://mcf-backend-main.vercel.app/getAllBatches`);
+        const response = await axios.get(`https://mcfapis.bnbdevelopers.in/getAllBatches`);
         setBatches(response.data.camps);
       } catch (error) {
         console.error('Error fetching batches:', error);

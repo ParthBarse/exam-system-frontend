@@ -33,7 +33,7 @@ function EditBatch() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://mcf-backend-main.vercel.app/getBatch?batch_id=${batchId}`
+          `https://mcfapis.bnbdevelopers.in/getBatch?batch_id=${batchId}`
         );
         if (response.ok) {
           const batchDetails = await response.json();
@@ -85,7 +85,7 @@ function EditBatch() {
 
     try {
       const response = await axios.post(
-        "https://mcf-backend-main.vercel.app/updateBatch",
+        "https://mcfapis.bnbdevelopers.in/updateBatch",
         formData
       );
       if (response.status === 200) {
@@ -227,7 +227,7 @@ function EditBatch() {
                   <div className="flex flex-row">
 
                   
-                  <div className="flex flex-col p-4 w-1/2">
+                  {/* <div className="flex flex-col p-4 w-1/2">
                   <label
                       htmlFor="batch_intake"
                       className="block text-gray-700"
@@ -242,7 +242,7 @@ function EditBatch() {
                       onChange={handleChange}
                       className="w-full p-2 border rounded-lg"
                     />
-                  </div>
+                  </div> */}
                   <div className="flex flex-col p-4 w-1/2">
                     <label
                       htmlFor="batch_intake"

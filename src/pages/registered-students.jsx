@@ -5,7 +5,7 @@ import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
 import BasicModal from "../components/Modal";
 
-const baseurl = 'https://mcf-backend-main.vercel.app'
+const baseurl = 'https://mcfapis.bnbdevelopers.in'
 
 function RegStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -21,7 +21,7 @@ function RegStudent() {
   useEffect(() => {
     const fetchCamps = async () => {
       try {
-        const response = await axios.get('https://mcf-backend-main.vercel.app/getAllCamps');
+        const response = await axios.get('https://mcfapis.bnbdevelopers.in/getAllCamps');
         setCamps(response.data.camps);
       } catch (error) {
         console.error('Error fetching camps:', error);

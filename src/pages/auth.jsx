@@ -25,7 +25,7 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Basic form validation
-    axios.post('https://mcf-backend-main.vercel.app/loginAdmin', formData)
+    axios.post('https://mcfapis.bnbdevelopers.in/loginAdmin', formData)
       .then(response => {
         console.log('Successful login:', response);
         localStorage.setItem("token" , "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0YmJiMWQ5YTE2MGYxNTBkYjNiMWMxIiwidXNlck5hbWUiOiJBbGkiLCJ1aWQiOiI4MzYwMjYxMzU4MyJ9LCJpYXQiOjE2OTk0NjE5MTd9.yHsKqTOyVv-aElFARozNEURJhjwFKjc4yBvNTj0qyc0")
@@ -144,7 +144,7 @@ const RegisterForm = ({ onRegister, onSwitchToLogin }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Basic form validation
-    axios.post('https://mcf-backend-main.vercel.app/addAdmin', formData)
+    axios.post('https://mcfapis.bnbdevelopers.in/addAdmin', formData)
     .then(response => {
       console.log('successful registration:', response);
       localStorage.setItem("token" , "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0YmJiMWQ5YTE2MGYxNTBkYjNiMWMxIiwidXNlck5hbWUiOiJBbGkiLCJ1aWQiOiI4MzYwMjYxMzU4MyJ9LCJpYXQiOjE2OTk0NjE5MTd9.yHsKqTOyVv-aElFARozNEURJhjwFKjc4yBvNTj0qyc0")
@@ -287,7 +287,7 @@ const AuthPage = () => {
   const handleLogin = async (formData) => {
   
     try {
-      const response = await axios.post('https://mcf-backend-main.vercel.app/loginAdmin', formData);
+      const response = await axios.post('https://mcfapis.bnbdevelopers.in/loginAdmin', formData);
       console.log('Login successful:', response.data);
       window.location.href = '/dash';
       // Handle successful login, e.g., redirect to another page

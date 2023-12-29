@@ -28,7 +28,7 @@ export default function Discount() {
     }
 
     const handleSubmit = (e) => {
-        axios.post('https://mcf-backend-main.vercel.app/addDiscountCodes',reqData).then(e=>navigate('/Dash'))
+        axios.post('https://mcfapis.bnbdevelopers.in/addDiscountCodes',reqData).then(e=>navigate('/Dash'))
 
     }
 

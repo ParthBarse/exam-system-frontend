@@ -13,7 +13,7 @@ function ViewReportCard() {
     const uid = queryParams.get("id");
     setId(uid);
     axios
-      .get(`https://mcf-backend-main.vercel.app/getStudent?sid=${id}`)
+      .get(`https://mcfapis.bnbdevelopers.in/getStudent?sid=${id}`)
       .then((x) => setData(x.data.student));
   }, [location.search, id]);
 

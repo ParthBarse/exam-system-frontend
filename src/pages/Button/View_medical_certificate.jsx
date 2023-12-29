@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 
-const baseurl = 'https://mcf-backend-main.vercel.app'
+const baseurl = 'https://mcfapis.bnbdevelopers.in'
 
 const View_medical_certificate = () => {
   const [student, setStudent] = useState(null)

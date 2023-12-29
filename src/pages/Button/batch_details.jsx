@@ -26,7 +26,7 @@ function Batchdetails() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://mcf-backend-main.vercel.app/getBatches?camp_id=${campId}`);
+      const response = await fetch(`https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${campId}`);
       if (response.ok) {
         const responseData = await response.json();
         setData(responseData);
@@ -44,7 +44,7 @@ function Batchdetails() {
   const handleDelete = async (batch_id) => {
     try {
       const response = await axios.delete(
-        `https://mcf-backend-main.vercel.app/deleteBatch?batch_id=${batch_id}`
+        `https://mcfapis.bnbdevelopers.in/deleteBatch?batch_id=${batch_id}`
       );
 
       if (response.status === 200) {

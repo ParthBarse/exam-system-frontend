@@ -9,7 +9,7 @@ function DashboardCard04() {
 
   useEffect(() => {
     // Fetch data from the API
-    axios.get('https://mcf-backend-main.vercel.app/getStudentCounts')
+    axios.get('https://mcfapis.bnbdevelopers.in/getStudentCounts')
       .then(response => {
         const refundedStudents = response.data.refunded_students_count; // Assuming 'refundedStudent' holds the count
         setRefundedStudentCount(refundedStudents);

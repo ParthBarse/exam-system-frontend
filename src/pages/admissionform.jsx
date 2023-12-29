@@ -6,7 +6,7 @@ import { Alert } from '@mui/material';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 
-const baseurl = 'https://mcf-backend-main.vercel.app';
+const baseurl = 'https://mcfapis.bnbdevelopers.in';
 
 const AdmissionForm = () => {
   const [state, setState] = React.useState({

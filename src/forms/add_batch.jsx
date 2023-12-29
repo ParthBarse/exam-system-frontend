@@ -45,7 +45,7 @@ function AddBatch() {
 
     try {
       const response = await axios.post(
-        "https://mcf-backend-main.vercel.app/addBatch",
+        "https://mcfapis.bnbdevelopers.in/addBatch",
         formData
       );
       if (response.status === 200) {
@@ -175,44 +175,6 @@ function AddBatch() {
                         className="w-full p-2 border rounded-lg"
                       />
                     </div>
-                  </div>
-                  
-                  <div className="flex flex-row">
-
-                  
-                  <div className="flex flex-col p-4 w-1/2">
-                  <label
-                      htmlFor="batch_intake"
-                      className="block text-gray-700"
-                    >
-                      Date 
-                    </label>
-                    <input
-                      type="text"
-                      id="camp_dates"
-                      name="Camp_dates"
-                      value={batchData.students_registered}
-                      onChange={handleChange}
-                      className="w-full p-2 border rounded-lg"
-                    />
-                  </div>
-                  <div className="flex flex-col p-4 w-1/2">
-                    <label
-                      htmlFor="batch_intake"
-                      className="block text-gray-700"
-                    >
-                      Total Students Registered 
-                    </label>
-                    <input
-                      type="text"
-                      id="students_registered"
-                      name="students_registered"
-                      value={batchData.students_registered}
-                      onChange={handleChange}
-                      className="w-full p-2 border rounded-lg"
-                    />
-                  </div>
-
                   </div>
                   <button
                     type="submit"

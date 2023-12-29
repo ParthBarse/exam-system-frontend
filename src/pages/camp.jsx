@@ -19,7 +19,7 @@ function Camp() {
   useEffect(() => {
     // Fetch data from the API endpoint
     axios
-      .get("https://mcf-backend-main.vercel.app/getAllCamps")
+      .get("https://mcfapis.bnbdevelopers.in/getAllCamps")
       .then((response) => {
         // Update the state with the fetched data
         setData(response.data.camps); // Assuming response.data is an array of camp objects
@@ -32,7 +32,7 @@ function Camp() {
   const handleDelete = async (camp_id) => {
     try {
       const response = await axios.delete(
-        `https://mcf-backend-main.vercel.app/deleteCamp?camp_id=${camp_id}`
+        `https://mcfapis.bnbdevelopers.in/deleteCamp?camp_id=${camp_id}`
       );
 
       if (response.status === 200) {
