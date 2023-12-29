@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import { Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+// import Popper from "@mui/material";
+// import { PopperProps } from "@mui/material";
 
 const baseurl = "https://mcf-backend-main.vercel.app";
 
@@ -101,9 +103,52 @@ const FirstDetails = () => {
     gender: "",
     payment_option: "",
   });
+
+  const [healthData, setHealthData] = useState({
+    physical_problem: "",
+    allergy: "",
+    other_problem: "",
+    medication_physical: "",
+    medication_allegric: "",
+    medication_other: ""
+
+  });
+
+  const handleHealthChange = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    setHealthData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const [files, setFiles] = useState({
+    medicalCertificate: "",
+    cadetPhoto: "",
+    cadetSign: "",
+    parentGurdianPhoto: "",
+    parentGurdianSign: "",
+  })
+
   useEffect(() => {
-    console.log(admissionFormData);
-  }, [admissionFormData]);
+    console.log(files)
+  }, [files])
+
+  const handleFileChange = async (e) => {
+    const { name, files } = e.target;
+    const f = new FormData();
+    f.append("file", files[0]);
+    const res = await axios.post('https://mcfapis.bnbdevelopers.in/uploadFile', f);
+    setFiles((prev) => {
+      return {
+        ...prev,
+        [name]: res.data.file_url
+      }
+
+    })
+
+  }
 
   const [campId, setCampId] = useState("");
   const [campFee, setCampFee] = useState("");
@@ -205,7 +250,12 @@ const FirstDetails = () => {
       for (let key in admissionFormData) {
         reqData.append(key, admissionFormData[key]);
       }
-
+      for (let key in healthData) {
+        reqData.append(key, healthData[key]);
+      }
+      for (let key in files) {
+        reqData.append(key, files[key]);
+      }
       // Make a POST request using axios
 
       const response = await axios.post(`${baseurl}/registerStudent`, reqData);
@@ -250,7 +300,7 @@ const FirstDetails = () => {
             </header>
             <div className="overflow-x-auto">
               <form className="  rounded px-8 pt-6 pb-8 mb-4">
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid-cols-1 grid md:grid-cols-3 gap-4">
                   {/* Name fields */}
                   <div className="mb-4">
                     <label
@@ -326,7 +376,7 @@ const FirstDetails = () => {
                   </div>
                 </div>
                 {/* Parents/Guardians and Address */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid-cols-1 grid md:grid-cols-2 gap-4">
                   <div className="mb-4">
                     <label
                       htmlFor="Phone"
@@ -372,15 +422,17 @@ const FirstDetails = () => {
                     Date of Birth
                   </label>
                   <DatePicker
+
                     label="Controlled picker"
                     value={formData.dob}
-                    placeholder="dob"
+                    placeholder="Date of Birth"
                     name="dob"
                     onChange={(date) => setFormData({ ...formData, dob: date })}
+
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="mb-4">
                     <label
                       htmlFor="camp_category"
@@ -423,7 +475,7 @@ const FirstDetails = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="mb-4">
                     <label
                       htmlFor="standard"
@@ -480,7 +532,7 @@ const FirstDetails = () => {
                 </div> */}
 
                 {/*  */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="mb-4">
                     <label
                       htmlFor="fatherOccupation"
@@ -518,7 +570,7 @@ const FirstDetails = () => {
                 </div>
 
                 {/* How You Got to Know and MCF Employee */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="mb-4">
                     <label
                       htmlFor="howYouKnow"
@@ -612,7 +664,7 @@ const FirstDetails = () => {
                 </div>
 
                 {/* District, State, and Pincode */}
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="mb-4">
                     <label
                       htmlFor="district"
@@ -787,7 +839,7 @@ const FirstDetails = () => {
                   </select>
                 </div>
 
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="mb-4">
                     <label
                       htmlFor="startDate"
@@ -1048,30 +1100,30 @@ const FirstDetails = () => {
                 </div>
                 <div className="mb-4">
                   <label
-                    htmlFor="parent-GurdianPhoto"
+                    htmlFor="parentGurdianPhoto"
                     className="block text-sm font-medium text-gray-600"
                   >
                     Parent/Gurdian Photo
                   </label>
                   <input
                     type="file"
-                    id="parent-GurdianPhoto"
-                    name="parent-GurdianPhoto"
+                    id="parentGurdianPhoto"
+                    name="parentGurdianPhoto"
                     onChange={(e) => handleFileChange(e)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   />
                 </div>
                 <div className="mb-4">
                   <label
-                    htmlFor="parent-GurdianSign"
+                    htmlFor="parentGurdianSign"
                     className="block text-sm font-medium text-gray-600"
                   >
                     Parent-Gurdian Sign
                   </label>
                   <input
                     type="file"
-                    id="parent-GurdianSign"
-                    name="parent-GurdianSign"
+                    id="parentGurdianSign"
+                    name="parentGurdianSign"
                     onChange={(e) => handleFileChange(e)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   />
@@ -1147,6 +1199,91 @@ const FirstDetails = () => {
                   </Button>
                 </div>
                 <p>{`Final Price : ${campFee}`}</p>
+
+                <div>
+                  <h2 className="text-xl font-bold">Health</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                    <div>
+                      <label htmlFor="physical_problem">Define Physical Problem</label>
+                      <input
+
+                        type="text"
+                        id="physical_problem"
+                        name="physical_problem"
+                        value={healthData.physical_problem}
+                        onChange={(e) => handleHealthChange(e)}
+                        className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      />
+                    </div>
+                    <div>
+
+
+                      <label htmlFor="allergy">Define Allergy</label>
+                      <input
+                        type="text"
+                        id="allergy"
+                        name="allergy"
+                        value={healthData.allergy}
+                        onChange={(e) => handleHealthChange(e)}
+                        className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      />
+                    </div>
+                    <div>
+
+                      <label htmlFor="other_problem">Define Other Problem</label>
+                      <input
+                        type="text"
+                        id="other_problem"
+                        name="other_problem"
+                        value={healthData.other_problem}
+                        onChange={(e) => handleHealthChange(e)}
+                        className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      />
+                    </div>
+                    <div>
+
+                      <label htmlFor="medication_physical">Medication For Physical Problem</label>
+                      <input
+                        type="text"
+                        id="medication_physical"
+                        name="medication_physical"
+                        value={healthData.medication_physical}
+                        onChange={(e) => handleHealthChange(e)}
+                        className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      />
+                    </div>
+                    <div>
+
+
+                      <label htmlFor="medication_allergy">Medication For Allergy</label>
+                      <input
+                        type="text"
+                        id="medication_allergy"
+                        name="medication_allergy"
+                        value={healthData.medication_allergy}
+                        onChange={(e) => handleHealthChange(e)}
+                        className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      />
+                    </div>
+                    <div>
+
+
+                      <label htmlFor="medication_other">Medication For Other Problem</label>
+                      <input
+                        type="text"
+                        id="medication_other"
+                        name="medication_other"
+                        value={healthData.medication_other}
+                        onChange={(e) => handleHealthChange(e)}
+                        className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      />
+
+                    </div>
+
+                  </div>
+
+                </div>
+
                 <hr className="my-4 h-1 bg-gray-200" />
                 <div className="p-4">
                   <div className="overflow-x-auto text-xs">
