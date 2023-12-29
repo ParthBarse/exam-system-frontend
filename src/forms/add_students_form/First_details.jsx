@@ -1036,7 +1036,7 @@ const FirstDetails = () => {
                   >
                     Blood Group
                   </label>
-                  <input
+                  {/* <input
                     id="blood_group"
                     name="blood_group"
                     value={admissionFormData.blood_group}
@@ -1046,7 +1046,29 @@ const FirstDetails = () => {
                     onChange={(e) =>
                       handleAdmissionChange("blood_group", e.target.value)
                     }
-                  />
+                  /> */}
+                  <select
+                    id="blood_group"
+                    name="blood_group"
+                    value={admissionFormData.blood_group}
+                    onChange={(e) =>
+                      handleAdmissionChange("blood_group", e.target.value)
+                    }
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                  >
+                    {/* Options for Blood Group */}
+                    <option value="">Select Blood Group </option>
+                    <option value="A+">A+</option>
+                    <option value="B+">B+ </option>
+                    <option value="AB+">AB+</option>
+                    <option value="O+">O+</option>
+                    <option value="A-">A-</option>
+                    <option value="B-">B- </option>
+                    <option value="AB-">AB-</option>
+                    <option value="O-">O-</option>
+
+                  </select>
+                  {/* Options for Blood Group */}
                 </div>
 
                 <div className="mb-4">
