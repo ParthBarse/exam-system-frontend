@@ -3,6 +3,7 @@ import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
+import BasicModal1 from '../components/Modal1';
 
 function Filter() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -12,16 +13,28 @@ function Filter() {
 
   console.log(nameFilter);
 
-  const [showDropdown, setShowDropdown] = useState(false);
+  // const [showDropdown, setShowDropdown] = useState(false);
 
-  const handleButtonClick = () => {
-    setShowDropdown(!showDropdown);
+  // const handleButtonClick = () => {
+  //   setShowDropdown(!showDropdown);
+  // };
+
+  // const handleOptionClick = (option) => {
+  //   // Handle the click on each option here
+  //   console.log(`Selected option: ${option}`);
+  //   // You can add logic to perform actions based on the selected option
+  // };
+
+
+  // ...
+  const [modalOpen, setModalOpen] = useState({});
+  const [activeSid, setActiveSid] = useState(null);
+  
+  const handleShow = (sid) => {
+    setModalOpen((prev) => ({ ...prev, [sid]: true }));
   };
-
-  const handleOptionClick = (option) => {
-    // Handle the click on each option here
-    console.log(`Selected option: ${option}`);
-    // You can add logic to perform actions based on the selected option
+  const handleClose = (sid) => {
+    setModalOpen((prev) => ({ ...prev, [sid]: false }));
   };
 
   const [body, setBody] = useState({
@@ -344,22 +357,24 @@ function Filter() {
                                 </Link>
                                 {/* //add entrance card, report card, escort card, receipt on filter students // */}
                                 <Link
-                                  // to={`/update-student-details?id=${item.sid}`}
-                                  className="text-sm text-white py-1 px-2 bg-yellow-500"
-                                >
-                                  <button
-                                    style={{
-                                      width: "100%",
-                                      height: "100%",
-                                      padding: "1px",
-                                    }}
-                                    onClick={handleButtonClick}
-                                  >
-                                    More
-                                  </button>
-                                </Link>
+  className="text-sm text-white py-1 px-2 bg-yellow-500"
+>
+  <button
+    style={{
+      width: "100%",
+      height: "100%",
+      padding: "1px",
+    }}
+    onClick={() => handleShow(item.sid)}
+  >
+    More
+  </button>
+</Link>
 
-                                {showDropdown && (
+<BasicModal1 modalOpen={modalOpen[item.sid]} handleClose={() => handleClose(item.sid)} sid={activeSid} />
+
+
+                                {/* {showDropdown && (
                                   <div className="absolute z-10 right-0 mt-2 w-40 bg-white rounded-md shadow-lg">
                                     <button
                                       onClick={() =>
@@ -394,7 +409,7 @@ function Filter() {
                                       Receipt
                                     </button>
                                   </div>
-                                )}
+                                )} */}
                               </div>
                             </td>
                           </tr>
