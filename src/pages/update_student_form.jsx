@@ -162,7 +162,7 @@ const FirstDetails = () => {
         else if (key == 'camp_id' || key == 'batch_id') {
           continue;
         }
-        else {
+        else if(key != 'company'){
           reqData.append(key, formData[key])
         }
       }
@@ -173,7 +173,7 @@ const FirstDetails = () => {
       reqData.append('batch_id', getBatchId(selectedBatch))
 
 
-
+      reqData.append('company', company);
       // Make a POST request using axios
 
       const response = await axios.put(`${baseurl}/updateStudent`, reqData);
@@ -255,6 +255,35 @@ const FirstDetails = () => {
     }
     fetchBatch()
   }, [selectedBatch])
+
+    // Function to calculate age
+    function calculate_age(dob) {
+      var diff_ms = Date.now() - new Date(dob).getTime();
+      var age_dt = new Date(diff_ms); 
+  
+      return Math.abs(age_dt.getUTCFullYear() - 1970);
+    }
+  
+    // Function to assign company
+    function assign_company(age, gender) {
+      if (age >= 7 && age <= 11 && gender === "male") {
+        return "ALPHA";
+      } else if (age >= 12 && age <= 16 && gender === "male") {
+        return "BRAVO";
+      } else if (age >= 17 && age <= 21 && gender === "male") {
+        return "DELTA";
+      } else if (age >= 7 && age <= 11 && gender === "female") {
+        return "CHARLEY";
+      } else if (age >= 12 && age <= 16 && gender === "female") {
+        return "ECO";
+      } else if (age >= 17 && age <= 21 && gender === "female") {
+        return "FOXFORD";
+      }
+    }
+  
+    // Inside handleChange function or wherever the form data is being handled
+    let age = calculate_age(formData.dob);
+    let company = assign_company(age, formData.gender);
 
 
 

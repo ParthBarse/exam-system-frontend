@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import authbg from './authbg.png';
 import { Link } from 'react-router-dom';
-
+import logo from './logo.jpg'; // adjust the path as necessary
 
 
 const LoginForm = ({ onLogin, onSwitchToRegister }) => {
@@ -47,6 +47,12 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
       backgroundPosition: "left",
       height: "100vh",
     }}>
+      <img src={logo} style={{ position: 'absolute',
+  top: 0,
+  left: '4rem',
+  height: '200px', /* adjust as necessary */
+  width:' 150px', /* adjust as necessary */
+  padding: '10px',}} alt="Logo" className="logo" />
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

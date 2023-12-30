@@ -299,7 +299,7 @@ const FirstDetails = () => {
         reqData.append(key, files[key]);
       }
       // Make a POST request using axios
-
+      reqData.append('company', company);
       const response = await axios.post(`${baseurl}/registerStudent`, reqData);
 
       console.log(response.data); // Log the response from the server
@@ -316,6 +316,34 @@ const FirstDetails = () => {
       console.error("Error adding student:", error.response.data.error);
     }
   };
+  // Function to calculate age
+  function calculate_age(dob) {
+    var diff_ms = Date.now() - new Date(dob).getTime();
+    var age_dt = new Date(diff_ms); 
+
+    return Math.abs(age_dt.getUTCFullYear() - 1970);
+  }
+
+  // Function to assign company
+  function assign_company(age, gender) {
+    if (age >= 7 && age <= 11 && gender === "male") {
+      return "ALPHA";
+    } else if (age >= 12 && age <= 16 && gender === "male") {
+      return "BRAVO";
+    } else if (age >= 17 && age <= 21 && gender === "male") {
+      return "DELTA";
+    } else if (age >= 7 && age <= 11 && gender === "female") {
+      return "CHARLEY";
+    } else if (age >= 12 && age <= 16 && gender === "female") {
+      return "ECO";
+    } else if (age >= 17 && age <= 21 && gender === "female") {
+      return "FOXFORD";
+    }
+  }
+
+  // Inside handleChange function or wherever the form data is being handled
+  let age = calculate_age(formData.dob);
+  let company = assign_company(age, admissionFormData.gender);
 
   const convertDate = (dateString) => {
     const [day, month, year] = dateString.split("-");
@@ -930,7 +958,7 @@ const FirstDetails = () => {
                     <input
                       id="company"
                       name="company"
-                      value={batch.company}
+                      value={company}
                       type="text"
                       className="w-full px-3 py-2 border rounded shadow appearance-none"
                       placeholder="Company"
