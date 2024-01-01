@@ -25,7 +25,7 @@ export default function BasicSelect({filterInActiveUsers}) {
           label="Category"
           onChange={handleChange}
         >
-          <MenuItem value={"cancel"}>Canceled</MenuItem>
+          <MenuItem value={"cancel"}>Cancelled</MenuItem>
           <MenuItem value={"refunded"}>Refunded</MenuItem>
           <MenuItem value={"extended"}>Extended</MenuItem>
         </Select>
