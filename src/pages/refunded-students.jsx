@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Select from "../components/Select";
 import BasicSelect from "../components/Select";
 
-function CanStudent() {
+function RefStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -76,13 +76,19 @@ function CanStudent() {
     setCurrentPage(pageNumber);
   };
 
-  const filterInActiveUsers = (reason) => {
-    const filteredData = rawCancelledStudents.filter((ele)=>{
-      return ele.status === reason
-    })
-    // console.log(filteredData);
-    setCancelledStudents(filteredData)
-  }
+const filterInActiveUsers = (reason) => {
+    const filteredData = rawCancelledStudents.filter((ele) => {
+        return ele.status === reason;
+    });
+
+    const extendedStudents = filteredData.filter(student => student.status === 'Extend');
+
+    extendedStudents.map((student, index) => {
+        // ... existing code ...
+    });
+
+    setCancelledStudents(filteredData);
+};
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -97,9 +103,9 @@ function CanStudent() {
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
                 <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
                   <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-                    Cancelled Cadets List
+                    Refunded Cadets List
                   </h2>
-                  {/* <BasicSelect filterInActiveUsers={filterInActiveUsers}/> */}
+                  {/* <BasicSelect filterInActiveUsers={filterInActiveUsers} /> */}
                 </header>
                 <div className="p-4">
                   <div className="overflow-x-auto">
@@ -145,7 +151,7 @@ function CanStudent() {
                         </tr>
                       </thead>
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
-                      {itemsToDisplay.filter(item => item.status === "Cancle").map((item, index) => (
+                      {itemsToDisplay.filter(item => item.status === "Refund").map((item, index) => (
                           <tr key={item.sid}>
                             <td>
                               <div
@@ -210,14 +216,6 @@ function CanStudent() {
                                   Entrance Card
                                 </button>
                                 </Link>
-                                <Link to={`/veiw-reason?id=${item.sid}`} className="text-sm text-white px-2 bg-indigo-500" >
-                                <button
-                                  className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{ padding: "1px", fontSize: "13px" }}
-                                >
-                                  Reason
-                                </button>
-                                </Link>
                               </div>
                             </td>
                           </tr>
@@ -279,4 +277,4 @@ function CanStudent() {
   );
 }
 
-export default CanStudent;
+export default RefStudent;

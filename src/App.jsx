@@ -36,6 +36,8 @@ import EditBatch from './pages/edit_batch';
 import Discount from './pages/discount';
 import View_medical_certificate from './pages/Button/View_medical_certificate';
 import RegisterAdmin from './pages/register';
+import ExtStudent from './pages/extended-students';
+import RefStudent from './pages/refunded-students';
 
 function App() {
 
@@ -78,6 +80,8 @@ function App() {
         <Route exact path="/edit-batch" element={<EditBatch />} />
         <Route exact path="/discount" element={<Discount />} />
         <Route exact path="/register" element={<RegisterAdmin />} />
+        <Route exact path="/extStudent" element={<ExtStudent />} />
+        <Route exact path="/refStudent" element={<RefStudent />} />
       </Routes>
     </>
   );  

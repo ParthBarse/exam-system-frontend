@@ -32,6 +32,7 @@ export default function BasicModal({ modalOpen, sid, fetchData }) {
         data : {
             sid, 
             "new_status" : status
+            
         }
     })
     fetchData()
