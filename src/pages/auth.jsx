@@ -42,17 +42,21 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"  style={{
-      backgroundImage: `url(${authbg})`,
+      // backgroundImage: `url(${authbg})`,
       backgroundSize: "cover",
       backgroundPosition: "left",
       height: "100vh",
     }}>
-      <img src={logo} style={{ position: 'absolute',
-  top: 0,
-  left: '4rem',
-  height: '200px', /* adjust as necessary */
-  width:' 150px', /* adjust as necessary */
-  padding: '10px',}} alt="Logo" className="logo" />
+      <img src={logo} style={{ 
+        position: 'absolute',
+        top: '5%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        height: '200px', /* adjust as necessary */
+        width:' 170px', /* adjust as necessary */
+        padding: '10px',
+      }} alt="Logo" className="logo" />
+      <br/>
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

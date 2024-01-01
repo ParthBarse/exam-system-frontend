@@ -313,7 +313,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </SidebarLinkGroup>
               {/*  */}
               {/* Setting */}
-              <SidebarLinkGroup activecondition={pathname.includes('settings')}>
+              {/* <SidebarLinkGroup activecondition={pathname.includes('settings')}>
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
@@ -350,7 +350,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </React.Fragment>        
                   );
                 }}
-              </SidebarLinkGroup>
+              </SidebarLinkGroup> */}
 
              {/* {admin} */}
             </ul>
