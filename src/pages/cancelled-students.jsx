@@ -210,14 +210,13 @@ function CanStudent() {
                                   Entrance Card
                                 </button>
                                 </Link>
-                                <Link to={`/veiw-reason?id=${item.sid}`} className="text-sm text-white px-2 bg-indigo-500" >
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
+                                  onClick={() => alert(`Reason : ${item.reason}`)}
                                 >
                                   Reason
                                 </button>
-                                </Link>
                               </div>
                             </td>
                           </tr>
