@@ -56,7 +56,6 @@ function Filter() {
     camp_name: "",
     batch_name: "",
     company: "",
-    pick_up_city:"",
   });
 
   const handleInputChange = (e) => {
@@ -173,13 +172,13 @@ function Filter() {
                 />
               </div>
               <div>
-                <label className="block text-gray-600">Pick-up City</label>
+                <label className="block text-gray-600">City</label>
                 <input
                   type="text"
                   className="w-full p-2 border rounded-md"
-                  placeholder="Pick-up City"
-                  value={body.pick_up_city}
-                  name="pick_up_city"
+                  placeholder="City"
+                  value={body.city}
+                  name="city"
                   onChange={handleInputChange}
                 />
               </div>
@@ -296,11 +295,11 @@ function Filter() {
                           </th>
                           <th className="p-2">
                             <div className="font-semibold text-center">
-                            Pick-up City
+                              City
                             </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">CQY</div>
+                            <div className="font-semibold text-center"> Entrence Card</div>
                           </th>
                         </tr>
                       </thead>
@@ -337,12 +336,12 @@ function Filter() {
                               <div className={`text-center`}>{item.phn}</div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center`}>{item.pick_up_city}</div>
+                              <div className={`text-center`}>{item.state}</div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center grid grid-cols-2 grid-rows-1 gap-1">
+                              <div className="text-center grid grid-cols-1 grid-rows-1 gap-1">
                                 <Link
-                                  to={`/update-student-details?id=${item.sid}`}
+                                  to={`${item.entrence_card}`}
                                   className="text-sm text-white py-1 px-1 bg-blue-500"
                                   // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
                                 >
@@ -353,64 +352,9 @@ function Filter() {
                                       padding: "1px",
                                     }}
                                   >
-                                    View & Edit
+                                    Entrence Card
                                   </button>
                                 </Link>
-                                {/* //add entrance card, report card, escort card, receipt on filter students // */}
-                                <Link
-  className="text-sm text-white py-1 px-2 bg-yellow-500"
->
-  <button
-    style={{
-      width: "100%",
-      height: "100%",
-      padding: "1px",
-    }}
-    onClick={() => handleShow(item.sid)}
-  >
-    More
-  </button>
-</Link>
-
-<BasicModal1 modalOpen={modalOpen[item.sid]} handleClose={() => handleClose(item.sid)} sid={activeSid} />
-
-
-                                {/* {showDropdown && (
-                                  <div className="absolute z-10 right-0 mt-2 w-40 bg-white rounded-md shadow-lg">
-                                    <button
-                                      onClick={() =>
-                                        handleOptionClick("escort card")
-                                      }
-                                      className="block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-gray-200"
-                                    >
-                                      Escort Card
-                                    </button>
-                                    <button
-                                      onClick={() =>
-                                        handleOptionClick("entrance card")
-                                      }
-                                      className="block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-gray-200"
-                                    >
-                                      Entrance Card
-                                    </button>
-                                    <button
-                                      onClick={() =>
-                                        handleOptionClick("report card")
-                                      }
-                                      className="block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-gray-200"
-                                    >
-                                      Report Card
-                                    </button>
-                                    <button
-                                      onClick={() =>
-                                        handleOptionClick("receipt")
-                                      }
-                                      className="block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-gray-200"
-                                    >
-                                      Receipt
-                                    </button>
-                                  </div>
-                                )} */}
                               </div>
                             </td>
                           </tr>

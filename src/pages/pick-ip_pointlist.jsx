@@ -10,6 +10,9 @@ function Filter() {
   const [data, setData] = useState([]);
   const [nameFilter, setNameFilter] = useState("");
   const [regId, setRegId] = useState("");
+  const [campName, setCampName] = useState('');
+  const [batchName, setBatchName] = useState('');
+ 
 
   console.log(nameFilter);
 
@@ -57,6 +60,7 @@ function Filter() {
     batch_name: "",
     company: "",
     pick_up_city:"",
+    pick_up_point:"",
   });
 
   const handleInputChange = (e) => {
@@ -71,7 +75,35 @@ function Filter() {
     }
   }, []);
 
+// import axios from 'axios';
+
+async function getCampName(camp_id) {
+    try {
+        const response = await axios.get(`https://mcfapis.bnbdevelopers.in/getCamp?camp_id=${camp_id}`);
+        // setCampName(response.camp.camp_name);
+        console.log(response);
+        return response.data.camp.camp_name;
+    } catch (error) {
+        console.error("Error fetching camp name:", error);
+    }
+}
+async function getBatchName(batch_id) {
+    try {
+        const response = await axios.get(`https://mcfapis.bnbdevelopers.in/getBatch?batch_id=${batch_id}`);
+        // setCampName(response.camp.camp_name);
+        console.log(response);
+        return response.data.batch.batch_name;
+    } catch (error) {
+        console.error("Error fetching camp name:", error);
+    }
+}
+
+// // Usage
+// const camp_id = item.camp_id; // get camp_id from your item
+// const camp_name = await getCampName(camp_id);
+
   const fetchData = async () => {
+    
     try {
       const response = await axios.post(
         `https://mcfapis.bnbdevelopers.in/filterStudents`,
@@ -79,10 +111,15 @@ function Filter() {
       );
       console.log(response.data.students);
       setData(response.data.students);
+
+    
+
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+  
+  
 
   useEffect(() => {
     axios
@@ -99,6 +136,23 @@ function Filter() {
       .get(`https://mcf-backend.vercel.app/api/filterbyRegID/${regId}`)
       .then((x) => setData(x.data));
   }, [regId]);
+
+  const handleClick = async (id) => {
+    const name = await getCampName(id);
+    // const Batchname = await getBatchName(id);
+
+    // setBatchName(Batchname);
+    console.log(name);
+    setCampName(name);
+  };
+  const handleClick1 = async (id) => {
+    // const name = await getCampName(id);
+    const Batchname = await getBatchName(id);
+
+    setBatchName(Batchname);
+    // console.log(name);
+    // setCampName(name);
+  };
 
   const handleFilterSubmit = () => {
     fetchData();
@@ -117,7 +171,7 @@ function Filter() {
           </div>
           <div className="flex justify-center">
             <div className="grid grid-cols-4 grid-rows-2 gap-4">
-              <div>
+              {/* <div>
                 <label className="block text-gray-600">First Name</label>
                 <input
                   type="text"
@@ -127,8 +181,8 @@ function Filter() {
                   name="first_name"
                   onChange={handleInputChange}
                 />
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label className="block text-gray-600">Middle Name</label>
                 <input
                   type="text"
@@ -138,8 +192,8 @@ function Filter() {
                   name="middle_name"
                   onChange={handleInputChange}
                 />
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label className="block text-gray-600">Last Name</label>
                 <input
                   type="text"
@@ -149,8 +203,8 @@ function Filter() {
                   name="last_name"
                   onChange={handleInputChange}
                 />
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label className="block text-gray-600">Reg Id</label>
                 <input
                   type="text"
@@ -160,8 +214,8 @@ function Filter() {
                   name="sid"
                   onChange={handleInputChange}
                 />
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label className="block text-gray-600">E-mail</label>
                 <input
                   type="email"
@@ -171,7 +225,7 @@ function Filter() {
                   name="email"
                   onChange={handleInputChange}
                 />
-              </div>
+              </div> */}
               <div>
                 <label className="block text-gray-600">Pick-up City</label>
                 <input
@@ -185,18 +239,18 @@ function Filter() {
               </div>
 
               <div>
-                <label className="block text-gray-600">Status</label>
+                <label className="block text-gray-600">Pick-up Point</label>
                 <input
                   type="text"
                   className="w-full p-2 border rounded-md"
                   placeholder="Status"
-                  value={body.status}
-                  name="status"
+                  value={body.pick_up_point}
+                  name="pick_up_point"
                   onChange={handleInputChange}
                 />
               </div>
 
-              <div>
+              {/* <div>
                 <label className="block text-gray-600">Phone</label>
                 <input
                   type="text"
@@ -206,7 +260,7 @@ function Filter() {
                   name="phn"
                   onChange={handleInputChange}
                 />
-              </div>
+              </div> */}
 
               <div>
                 <label className="block text-gray-600">Camp</label>
@@ -232,7 +286,7 @@ function Filter() {
                 />
               </div>
 
-              <div>
+              {/* <div>
                 <label className="block text-gray-600">Company</label>
                 <input
                   type="text"
@@ -242,7 +296,7 @@ function Filter() {
                   name="company"
                   onChange={handleInputChange}
                 />
-              </div>
+              </div> */}
 
               <div style={{ display: "flex", flexDirection: "column-reverse" }}>
                 <div className="text-center bg-blue-500 text-white py-2 px-2 rounded-md hover:bg-blue-600">
@@ -273,11 +327,11 @@ function Filter() {
                           <th className="p-2">
                             <div className="font-semibold text-left">Sr.</div>
                           </th>
-                          <th className="p-2">
+                          {/* <th className="p-2">
                             <div className="font-semibold text-center">
                               Reg. Id
                             </div>
-                          </th>
+                          </th> */}
                           <th className="p-2">
                             <div className="font-semibold text-center">
                               Name
@@ -286,7 +340,12 @@ function Filter() {
 
                           <th className="p-2">
                             <div className="font-semibold text-center">
-                              E-mail
+                              Camp Name
+                            </div>
+                          </th>
+                          <th className="p-2">
+                            <div className="font-semibold text-center">
+                              Batch Name
                             </div>
                           </th>
                           <th className="p-2">
@@ -300,8 +359,11 @@ function Filter() {
                             </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">CQY</div>
+                            <div className="font-semibold text-center">
+                            Pick-up Point
+                            </div>
                           </th>
+                          
                         </tr>
                       </thead>
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
@@ -315,24 +377,31 @@ function Filter() {
                                 {index + 1}
                               </div>
                             </td>
-                            <td className="p-2">
+                            {/* <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
                                   {item.sid}
                                 </div>
                               </div>
-                            </td>
+                            </td> */}
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.first_name} {item.last_name}
+                                  {item.first_name}  {item.last_name}
                                 </div>
                               </div>
                             </td>
 
-                            <td className="p-2">
-                              <div className="text-center">{item.email}</div>
-                            </td>
+                            <td className="p-2" onClick={() => handleClick(item.camp_id)}>
+  <div className="text-center">{campName}</div>
+  {/* <div className="text-center">{item.camp_id}</div> */}
+
+</td>
+<td className="p-2" onClick={() => handleClick1(item.batch_id)}>
+  <div className="text-center">{batchName}</div>
+  {/* <div className="text-center">{item.camp_id}</div> */}
+
+</td>
                             <td className="p-2">
                               <div className={`text-center`}>{item.phn}</div>
                             </td>
@@ -340,8 +409,9 @@ function Filter() {
                               <div className={`text-center`}>{item.pick_up_city}</div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center grid grid-cols-2 grid-rows-1 gap-1">
-                                <Link
+                            <div className={`text-center`}>{item.pick_up_point}</div>
+                              {/* <div className="text-center grid grid-cols-2 grid-rows-1 gap-1"> */}
+                                {/* <Link
                                   to={`/update-student-details?id=${item.sid}`}
                                   className="text-sm text-white py-1 px-1 bg-blue-500"
                                   // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
@@ -355,9 +425,9 @@ function Filter() {
                                   >
                                     View & Edit
                                   </button>
-                                </Link>
+                                </Link> */}
                                 {/* //add entrance card, report card, escort card, receipt on filter students // */}
-                                <Link
+                                {/* <Link
   className="text-sm text-white py-1 px-2 bg-yellow-500"
 >
   <button
@@ -372,7 +442,7 @@ function Filter() {
   </button>
 </Link>
 
-<BasicModal1 modalOpen={modalOpen[item.sid]} handleClose={() => handleClose(item.sid)} sid={activeSid} />
+<BasicModal1 modalOpen={modalOpen[item.sid]} handleClose={() => handleClose(item.sid)} sid={activeSid} /> */}
 
 
                                 {/* {showDropdown && (
@@ -411,7 +481,7 @@ function Filter() {
                                     </button>
                                   </div>
                                 )} */}
-                              </div>
+                              {/* </div> */}
                             </td>
                           </tr>
                         ))}

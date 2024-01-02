@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import authbg from './authbg.png';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,20 @@ import logo from './logo.jpg'; // adjust the path as necessary
 
 
 const LoginForm = ({ onLogin, onSwitchToRegister }) => {
+  const images = [
+    'https://mcfcamp.in/wp-content/uploads/2023/11/35_wm-1.jpg',
+    'https://mcfcamp.in/wp-content/uploads/2023/11/DSC_6581.jpg',
+    'https://mcfcamp.in/wp-content/uploads/2023/11/IMG_2164.jpg',
+    'https://mcfcamp.in/wp-content/uploads/2023/11/IMG_2164.jpg',
+    'https://mcfcamp.in/wp-content/uploads/2023/11/IMG_2164.jpg'
+];
+const [currentImageIndex, setCurrentImageIndex] = useState(0);
+useEffect(() => {
+  const timer = setInterval(() => {
+      setCurrentImageIndex((currentImageIndex + 1) % images.length);
+  }, 2000);
+  return () => clearInterval(timer);
+}, [currentImageIndex]);
 
   const [formData, setFormData] = useState({
     username: '',
@@ -41,26 +55,37 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
   
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"  style={{
-      // backgroundImage: `url(${authbg})`,
-      backgroundSize: "cover",
-      backgroundPosition: "left",
-      height: "100vh",
+    <div style={{ 
+      display: 'flex', 
+      width: '100%', 
+      height: '100vh',
+      alignItems:'center',
+      // backgroundSize: "cover",
+      // backgroundPosition: "left",
+      justifyContent:'center'
     }}>
-      <img src={logo} style={{ 
-        position: 'absolute',
-        top: '5%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        height: '200px', /* adjust as necessary */
-        width:' 170px', /* adjust as necessary */
-        padding: '10px',
-      }} alt="Logo" className="logo" />
-      <br/>
+  <div style={{ width: '70%' }}>
+  <img 
+                src={images[currentImageIndex]} 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                alt="Slideshow" 
+            />
+  </div>
+  <div style={{ 
+    width: '10px', 
+    height: '100%', 
+    borderLeft: '2px solid gray', 
+    marginRight: '3rem', 
+    borderRadius: '10px',
+  }} />
+  <div style={{ width: '30%' ,marginRight: '3rem'}}>
       <div className="max-w-md w-full space-y-8">
         <div>
+          <h1 className="mt-6 text-center text-3xl font-extrabold text-gray-900" >Welcome To MCF Camp</h1>
+        <h1 className="mt-6 text-center text-xl font-bold text-gray-500">Creating Tomorrow’s Responsible Citizen</h1>
+        <br/><br/>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Log in to your account
+            Login
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -130,6 +155,7 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
         </form>
       </div>
     </div>
+    </div>
   );
 };
 
@@ -169,12 +195,26 @@ const RegisterForm = ({ onRegister, onSwitchToLogin }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8" style={{
-        backgroundImage: `url(${authbg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "left",
-        height: "100vh",
-      }}>
+    <div style={{ 
+      display: 'flex', 
+      width: '100%', 
+      height: '100vh',
+      alignItems:'center',
+      // backgroundSize: "cover",
+      // backgroundPosition: "left",
+      justifyContent:'center'
+    }}>
+  <div style={{ width: '70%' }}>
+    {/* This is the 80% width div. You can put other content here. */}
+  </div>
+  <div style={{ 
+    width: '10px', 
+    height: '100%', 
+    borderLeft: '2px solid gray', 
+    marginRight: '3rem', 
+    borderRadius: '10px',
+  }} />
+  <div style={{ width: '30%' ,marginRight: '3rem'}}>
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -287,6 +327,8 @@ const RegisterForm = ({ onRegister, onSwitchToLogin }) => {
           </div>
         </form>
       </div>
+    
+    </div>
     </div>
   );
 };
