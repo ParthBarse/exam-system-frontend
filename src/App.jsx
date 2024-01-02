@@ -38,6 +38,11 @@ import View_medical_certificate from './pages/Button/View_medical_certificate';
 import RegisterAdmin from './pages/register';
 import ExtStudent from './pages/extended-students';
 import RefStudent from './pages/refunded-students';
+import Reciptlist from './pages/receipt_list';
+import Medicallist from './pages/medical_certificate';
+import Reportlist from './pages/reportlist';
+import Enterancecard from './pages/enterancecard_list';
+import Pickuplist from './pages/pick-ip_pointlist';
 
 function App() {
 
@@ -82,6 +87,11 @@ function App() {
         <Route exact path="/register" element={<RegisterAdmin />} />
         <Route exact path="/extStudent" element={<ExtStudent />} />
         <Route exact path="/refStudent" element={<RefStudent />} />
+        <Route exact path="/Receiptlist" element={<Reciptlist />}/>
+        <Route exact path="/Medicallist" element={<Medicallist/>}/>
+        <Route exact path="/Reportlist" element={<Reportlist/>}/>
+        <Route exact path="/Enterancecard" element={<Enterancecard/>}/>
+        <Route exact path="/Pickuplist" element={<Pickuplist/>}/>
       </Routes>
     </>
   );  
