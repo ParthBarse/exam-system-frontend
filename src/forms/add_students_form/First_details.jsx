@@ -360,6 +360,7 @@ const FirstDetails = () => {
       <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
+          <div className="watermark">
             <header
               className="px-5 py-4 border-b border-slate-100 dark:border-slate-700"
               style={{ display: "flex", justifyContent: "space-between" }}
@@ -553,16 +554,21 @@ const FirstDetails = () => {
                     >
                       Standard
                     </label>
-                    <input
+                    <select
                       id="standard"
                       name="standard"
                       value={formData.standard}
-                      type="text"
                       className="w-full px-3 py-2 border rounded shadow appearance-none"
-                      placeholder="Standard"
                       onChange={handleChange}
                       required
-                    />
+                    >
+                      <option value="">Select Standard</option>
+                      {Array.from({ length: 12 }, (_, i) => i + 1).map((standard) => (
+                        <option key={standard} value={standard}>
+                          {standard}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="mb-4">
                     <label
@@ -1542,6 +1548,7 @@ const FirstDetails = () => {
                   </label>
                 </div>
               </form>
+            </div>
             </div>
           </div>
         </div>
