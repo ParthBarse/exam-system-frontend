@@ -29,7 +29,7 @@ function Filter() {
   // ...
   const [modalOpen, setModalOpen] = useState({});
   const [activeSid, setActiveSid] = useState(null);
-  
+
   const handleShow = (sid) => {
     setModalOpen((prev) => ({ ...prev, [sid]: true }));
   };
@@ -58,10 +58,7 @@ function Filter() {
     company: "",
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setBody({ ...body, [name]: value });
-  };
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -102,6 +99,31 @@ function Filter() {
   const handleFilterSubmit = () => {
     fetchData();
   };
+
+
+  const [batches, setBatches] = useState([]);
+
+  const handleInputChange = async (e) => {
+    const { name, value } = e.target;
+    if (name === "camp_id") {
+      const res = await axios.get(`https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`);
+      const batches = res.data.batches;
+      setBatches(batches);
+    }
+    setBody({ ...body, [name]: value });
+  };
+
+  const [camps, setCamps] = useState([]);
+
+  useEffect(() => {
+    async function getAllCamps() {
+      const res = await axios.get("https://mcfapis.bnbdevelopers.in/getAllCamps");
+      const camps = res.data.camps;
+      // console.log('camps' + camps);
+      setCamps(camps);
+    }
+    getAllCamps();
+  }, [])
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -208,27 +230,49 @@ function Filter() {
               </div>
 
               <div>
-                <label className="block text-gray-600">Camp</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Camp"
-                  value={body.camp_name}
-                  name="camp_name"
+                <label
+                  htmlFor="camp_category"
+                  className="block text-lg font-medium text-gray-600"
+                >
+                  Camp Name
+                </label>
+                <select
+                  id="camp_name"
+                  name="camp_id"
+                  // value={body.camp_name}
                   onChange={handleInputChange}
-                />
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Camp Category */}
+                  <option value="">Select Camp Name</option>
+                  {camps.map((camp) => (
+                    <option value={camp.camp_id}>{camp.camp_name}</option>
+                  ))}
+                </select>
               </div>
 
-              <div>
-                <label className="block text-gray-600">Batch</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Batch"
-                  value={body.batch_name}
-                  name="batch_name"
+              <div >
+                <label
+                  htmlFor="batch"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Batch
+                </label>
+                <select
+                  id="batch"
+                  name="batch_id"
+                  // value={admissionFormData.batch}
                   onChange={handleInputChange}
-                />
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Batch */}
+                  <option value="">Select Batch Name</option>
+                  {batches.map((batch) => (
+                    <option value={batch.batch_id}>
+                      {batch.batch_name}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>
@@ -343,7 +387,7 @@ function Filter() {
                                 <Link
                                   to={`/${item.receipt_card}`}
                                   className="text-sm text-white py-1 px-1 bg-blue-500"
-                                  // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
+                                // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
                                 >
                                   <button
                                     style={{

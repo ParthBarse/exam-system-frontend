@@ -12,7 +12,7 @@ function Filter() {
   const [regId, setRegId] = useState("");
   const [campName, setCampName] = useState('');
   const [batchName, setBatchName] = useState('');
- 
+
 
   console.log(nameFilter);
 
@@ -32,13 +32,54 @@ function Filter() {
   // ...
   const [modalOpen, setModalOpen] = useState({});
   const [activeSid, setActiveSid] = useState(null);
-  
+
   const handleShow = (sid) => {
     setModalOpen((prev) => ({ ...prev, [sid]: true }));
   };
   const handleClose = (sid) => {
     setModalOpen((prev) => ({ ...prev, [sid]: false }));
   };
+
+  const punePickupLocations = [
+    'Nigadi Bhaktishakti',
+    'Akurdi Khandoba Mandir',
+    'Chinchawad Chaphekar Chowk',
+    'Kalewadi Phata',
+    'Sangvi Phata',
+    'Aundh Shivaji Vidyalaya',
+    'Khadki Bazar',
+    'Yerwada Deccan College',
+    'Kharadi Bypass',
+    'Hadapsar – Gadital Akashwani',
+    'Swarget – PMPL Bus Stop',
+    'Katraj – PMPL Bus stop',
+    'Spine Road',
+    'Bhosari Dighi Road',
+    'Nasik Phata',
+    'Kokane Chowk',
+    'Baner Sadanand Hotel',
+    'Chandani Chowk – Auto Stop',
+    'Warje- Mai Mangeshkar Hospital',
+    'Sinhgad Navale Bridge'
+  ];
+
+  const mumbaiPickupLocations = [
+    'Dadar (Asiad bus stop)',
+    'Vashi (Vashi Plaza, Below Vashi Bridge, Shivneri, Bus stop)',
+    'Thane(Near Shivaji Hospital Kalwa Naka)',
+    'Airoli',
+    'Rabale',
+    'Ghansoli',
+    'Koparkhairane',
+    'Turbhe',
+    'Juinagar',
+    'Nerur',
+    'Belapur',
+    'Kamati',
+    'Kharghar',
+    'Panvel (McDonald’s Panvel Bus Stand)'
+  ];
+
 
   const [body, setBody] = useState({
     sid: "",
@@ -59,12 +100,21 @@ function Filter() {
     camp_name: "",
     batch_name: "",
     company: "",
-    pick_up_city:"",
-    pick_up_point:"",
+    pick_up_city: "",
+    pick_up_point: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const { name, value } = e.target;
+    if (name === 'pick_up_city') {
+      setBody({ ...body, [name]: value, pick_up_point: '' });
+      return;
+    }
+    if (name === "camp_id") {
+      const res = await axios.get(`https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`);
+      const batches = res.data.batches;
+      setBatches(batches);
+    }
     setBody({ ...body, [name]: value });
   };
   const navigate = useNavigate();
@@ -75,35 +125,50 @@ function Filter() {
     }
   }, []);
 
-// import axios from 'axios';
+  // import axios from 'axios';
+  const [batches, setBatches] = useState([]);
 
-async function getCampName(camp_id) {
-    try {
-        const response = await axios.get(`https://mcfapis.bnbdevelopers.in/getCamp?camp_id=${camp_id}`);
-        // setCampName(response.camp.camp_name);
-        console.log(response);
-        return response.data.camp.camp_name;
-    } catch (error) {
-        console.error("Error fetching camp name:", error);
-    }
-}
-async function getBatchName(batch_id) {
-    try {
-        const response = await axios.get(`https://mcfapis.bnbdevelopers.in/getBatch?batch_id=${batch_id}`);
-        // setCampName(response.camp.camp_name);
-        console.log(response);
-        return response.data.batch.batch_name;
-    } catch (error) {
-        console.error("Error fetching camp name:", error);
-    }
-}
 
-// // Usage
-// const camp_id = item.camp_id; // get camp_id from your item
-// const camp_name = await getCampName(camp_id);
+
+  const [camps, setCamps] = useState([]);
+
+  useEffect(() => {
+    async function getAllCamps() {
+      const res = await axios.get("https://mcfapis.bnbdevelopers.in/getAllCamps");
+      const camps = res.data.camps;
+      // console.log('camps' + camps);
+      setCamps(camps);
+    }
+    getAllCamps();
+  }, [])
+
+  async function getCampName(camp_id) {
+    try {
+      const response = await axios.get(`https://mcfapis.bnbdevelopers.in/getCamp?camp_id=${camp_id}`);
+      // setCampName(response.camp.camp_name);
+      console.log(response);
+      return response.data.camp.camp_name;
+    } catch (error) {
+      console.error("Error fetching camp name:", error);
+    }
+  }
+  async function getBatchName(batch_id) {
+    try {
+      const response = await axios.get(`https://mcfapis.bnbdevelopers.in/getBatch?batch_id=${batch_id}`);
+      // setCampName(response.camp.camp_name);
+      console.log(response);
+      return response.data.batch.batch_name;
+    } catch (error) {
+      console.error("Error fetching camp name:", error);
+    }
+  }
+
+  // // Usage
+  // const camp_id = item.camp_id; // get camp_id from your item
+  // const camp_name = await getCampName(camp_id);
 
   const fetchData = async () => {
-    
+
     try {
       const response = await axios.post(
         `https://mcfapis.bnbdevelopers.in/filterStudents`,
@@ -112,14 +177,14 @@ async function getBatchName(batch_id) {
       console.log(response.data.students);
       setData(response.data.students);
 
-    
+
 
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  
-  
+
+
 
   useEffect(() => {
     axios
@@ -170,7 +235,7 @@ async function getBatchName(batch_id) {
             <h2 className="text-2xl font-bold">Filter Cadets by</h2>
           </div>
           <div className="flex justify-center">
-            <div className="grid grid-cols-4 grid-rows-2 gap-4">
+            <div className="grid grid-cols-4 px-9 justify-center items-center grid-rows-2 gap-4">
               {/* <div>
                 <label className="block text-gray-600">First Name</label>
                 <input
@@ -226,28 +291,50 @@ async function getBatchName(batch_id) {
                   onChange={handleInputChange}
                 />
               </div> */}
-              <div>
-                <label className="block text-gray-600">Pick-up City</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Pick-up City"
-                  value={body.pick_up_city}
+              <div className="">
+                <label
+                  htmlFor="pick_up_city"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Pick Up City
+                </label>
+                <select
+                  id="pick_up_city"
                   name="pick_up_city"
+                  // value={body.pick_up_city}
                   onChange={handleInputChange}
-                />
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Dress Code */}
+                  <option value="">Select Pick Up City </option>
+                  <option value="mumbai">Mumbai</option>
+                  <option value="pune">Pune </option>
+                </select>
               </div>
 
-              <div>
-                <label className="block text-gray-600">Pick-up Point</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Status"
-                  value={body.pick_up_point}
+              <div className="">
+                <label
+                  htmlFor="pick_up_point"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Pick Up Point
+                </label>
+                <select
+                  id="pick_up_point"
                   name="pick_up_point"
+                  // value={body.pick_up_point}
                   onChange={handleInputChange}
-                />
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Dress Code */}
+                  <option value="">Select Pick Up Point </option>
+                  {body.pick_up_city === "mumbai" ? (
+                    mumbaiPickupLocations.map(location => (<option value={location}>{location}</option>))
+                  ) : ''}
+                  {body.pick_up_city === "pune" ? (
+                    punePickupLocations.map(location => (<option value={location}>{location}</option>))
+                  ) : ''}
+                </select>
               </div>
 
               {/* <div>
@@ -263,27 +350,49 @@ async function getBatchName(batch_id) {
               </div> */}
 
               <div>
-                <label className="block text-gray-600">Camp</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Camp"
-                  value={body.camp_name}
-                  name="camp_name"
+                <label
+                  htmlFor="camp_category"
+                // className="block text-lg font-medium text-gray-600"
+                >
+                  Camp Name
+                </label>
+                <select
+                  id="camp_name"
+                  name="camp_id"
+                  // value={body.camp_name}
                   onChange={handleInputChange}
-                />
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Camp Category */}
+                  <option value="">Select Camp Name</option>
+                  {camps.map((camp) => (
+                    <option value={camp.camp_id}>{camp.camp_name}</option>
+                  ))}
+                </select>
               </div>
 
-              <div>
-                <label className="block text-gray-600">Batch</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Batch"
-                  value={body.batch_name}
-                  name="batch_name"
+              <div >
+                <label
+                  htmlFor="batch"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Batch
+                </label>
+                <select
+                  id="batch"
+                  name="batch_id"
+                  // value={admissionFormData.batch}
                   onChange={handleInputChange}
-                />
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Batch */}
+                  <option value="">Select Batch Name</option>
+                  {batches.map((batch) => (
+                    <option value={batch.batch_id}>
+                      {batch.batch_name}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               {/* <div>
@@ -355,15 +464,15 @@ async function getBatchName(batch_id) {
                           </th>
                           <th className="p-2">
                             <div className="font-semibold text-center">
-                            Pick-up City
+                              Pick-up City
                             </div>
                           </th>
                           <th className="p-2">
                             <div className="font-semibold text-center">
-                            Pick-up Point
+                              Pick-up Point
                             </div>
                           </th>
-                          
+
                         </tr>
                       </thead>
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
@@ -393,15 +502,15 @@ async function getBatchName(batch_id) {
                             </td>
 
                             <td className="p-2" onClick={() => handleClick(item.camp_id)}>
-  <div className="text-center">{campName}</div>
-  {/* <div className="text-center">{item.camp_id}</div> */}
+                              <div className="text-center">{campName}</div>
+                              {/* <div className="text-center">{item.camp_id}</div> */}
 
-</td>
-<td className="p-2" onClick={() => handleClick1(item.batch_id)}>
-  <div className="text-center">{batchName}</div>
-  {/* <div className="text-center">{item.camp_id}</div> */}
+                            </td>
+                            <td className="p-2" onClick={() => handleClick1(item.batch_id)}>
+                              <div className="text-center">{batchName}</div>
+                              {/* <div className="text-center">{item.camp_id}</div> */}
 
-</td>
+                            </td>
                             <td className="p-2">
                               <div className={`text-center`}>{item.phn}</div>
                             </td>
@@ -409,9 +518,9 @@ async function getBatchName(batch_id) {
                               <div className={`text-center`}>{item.pick_up_city}</div>
                             </td>
                             <td className="p-2">
-                            <div className={`text-center`}>{item.pick_up_point}</div>
+                              <div className={`text-center`}>{item.pick_up_point}</div>
                               {/* <div className="text-center grid grid-cols-2 grid-rows-1 gap-1"> */}
-                                {/* <Link
+                              {/* <Link
                                   to={`/update-student-details?id=${item.sid}`}
                                   className="text-sm text-white py-1 px-1 bg-blue-500"
                                   // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
@@ -426,8 +535,8 @@ async function getBatchName(batch_id) {
                                     View & Edit
                                   </button>
                                 </Link> */}
-                                {/* //add entrance card, report card, escort card, receipt on filter students // */}
-                                {/* <Link
+                              {/* //add entrance card, report card, escort card, receipt on filter students // */}
+                              {/* <Link
   className="text-sm text-white py-1 px-2 bg-yellow-500"
 >
   <button
@@ -445,7 +554,7 @@ async function getBatchName(batch_id) {
 <BasicModal1 modalOpen={modalOpen[item.sid]} handleClose={() => handleClose(item.sid)} sid={activeSid} /> */}
 
 
-                                {/* {showDropdown && (
+                              {/* {showDropdown && (
                                   <div className="absolute z-10 right-0 mt-2 w-40 bg-white rounded-md shadow-lg">
                                     <button
                                       onClick={() =>
