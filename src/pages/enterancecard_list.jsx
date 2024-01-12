@@ -342,7 +342,7 @@ function Filter() {
                             </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center"> Entrence Card</div>
+                            <div className="font-semibold text-center"> Entrance Card</div>
                           </th>
                         </tr>
                       </thead>
@@ -395,7 +395,7 @@ function Filter() {
                                       padding: "1px",
                                     }}
                                   >
-                                    Entrence Card
+                                    Entrance Card
                                   </button>
                                 </Link>
                                 <Link
@@ -408,6 +408,18 @@ function Filter() {
                                       width: "100%",
                                       height: "100%",
                                       padding: "1px",
+                                    }}
+                                    onClick={async () => {
+                                      try {
+                                        const response = await axios.get(`https://mcfapis.bnbdevelopers.in/sendEntranceCard?sid=${item.sid}`);
+                                        console.log(response.data);
+                                        // Show a success message
+                                        alert('Entrance card sent successfully!');
+                                      } catch (error) {
+                                        console.error(error);
+                                        // Show an error message
+                                        alert('Failed to send entrance card. Please try again.');
+                                      }
                                     }}
                                   >
                                     Send via Email

@@ -208,7 +208,7 @@ const filterInActiveUsers = (reason) => {
                                 >
                                   Activate
                                 </button>
-                                <Link to={`/veiw-entrance?id=${item.sid}`} className="text-sm text-white px-2 bg-indigo-500" >
+                                <Link to={`${item.entrence_card}`} className="text-sm text-white px-2 bg-indigo-500" >
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
