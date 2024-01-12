@@ -8,7 +8,7 @@ function DashboardCard07() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://mcf-backend.vercel.app/api/ActiveCamps');
+      const response = await axios.get('https://mcfapis.bnbdevelopers.in/getAllCampsActive');
       setCampData(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -19,12 +19,17 @@ function DashboardCard07() {
     fetchData();
   }, []);
 
-  const totalItems = campData.length;
+  // if (!campData || !Array.isArray(campData.camps)) {
+  //   console.error('campData.camps is not an array:', campData?.camps);
+  //   return;
+  // }
+
+  const totalItems = campData.camps.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const itemsToDisplay = campData.slice(startIndex, endIndex);
+  const itemsToDisplay = campData.camps.slice(startIndex, endIndex);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);

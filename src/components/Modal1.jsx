@@ -6,6 +6,8 @@ import Modal from "@mui/material/Modal";
 import { useEffect } from "react";
 import axios from "axios";
 
+          
+
 const baseurl = 'https://mcfapis.bnbdevelopers.in/'
 
 const style = {
@@ -62,7 +64,9 @@ export default function BasicModal1({ modalOpen, sid, fetchData }) {
         <Box sx={style} className="flex gap-3">
           <button
             className="border border-solid p-2 px-4 bg-red-500 text-white min-w-[130px]"
-            // onClick={() => handleChangeStatus("Cancle")}
+            onClick={() => {
+              history.push(`${sid.entrence_card}`);
+            }}
           >
             Enterance Card
           </button>

@@ -43,6 +43,7 @@ import Medicallist from './pages/medical_certificate';
 import Reportlist from './pages/reportlist';
 import Enterancecard from './pages/enterancecard_list';
 import Pickuplist from './pages/pick-ip_pointlist';
+import Actstudent from './pages/active-students';
 
 function App() {
 
@@ -92,6 +93,7 @@ function App() {
         <Route exact path="/Reportlist" element={<Reportlist/>}/>
         <Route exact path="/Enterancecard" element={<Enterancecard/>}/>
         <Route exact path="/Pickuplist" element={<Pickuplist/>}/>
+        <Route exact path="/Actstudent" element={<Actstudent/>}/>
       </Routes>
     </>
   );  

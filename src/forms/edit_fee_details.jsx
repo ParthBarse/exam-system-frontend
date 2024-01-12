@@ -13,7 +13,7 @@ function EditFeeDetails() {
     camp_place: "",
     camp_description: "",
     fee_discount: "",
-    discount_date: "",
+    // discount_date: "",
     final_fee: "",
     camp_status: false,
   });
@@ -42,7 +42,7 @@ function EditFeeDetails() {
             camp_place: campDetails.camp.camp_place,
             camp_description: campDetails.camp.camp_description,
             fee_discount: campDetails.camp.fee_discount,
-            discount_date: campDetails.camp.discount_date,
+            // discount_date: campDetails.camp.discount_date,
             final_fee: campDetails.camp.final_fee,
             camp_status: campDetails.camp.camp_status || false,
             camp_id: campDetails.camp.camp_id,
@@ -78,14 +78,14 @@ function EditFeeDetails() {
     e.preventDefault();
 
     // Convert date to yyyy-mm-dd format
-    const formattedDiscountDate = convertDate(formData.discount_date);
+    // const formattedDiscountDate = convertDate(formData.discount_date);
 
     try {
       const formDataToSend = new URLSearchParams();
 
-      for (const key in formData) {
-        formDataToSend.append(key, key === 'discount_date' ? formattedDiscountDate : formData[key]);
-      }
+      // for (const key in formData) {
+      //   formDataToSend.append(key, key === 'discount_date' ? formattedDiscountDate : formData[key]);
+      // }
 
       const response = await fetch(
         `https://mcfapis.bnbdevelopers.in/updateCamp`,
@@ -211,7 +211,7 @@ function EditFeeDetails() {
                   {/* console.log({formData.discount_date}) */}
 
 
-                  <label className="text-lg font-semibold">Discount Date</label>
+                  {/* <label className="text-lg font-semibold">Discount Date</label>
                   <input
                     type="date"
                     name="discount_date"
@@ -219,7 +219,7 @@ function EditFeeDetails() {
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
-                  />
+                  /> */}
                   <label className="text-lg font-semibold">Final Fee</label>
                   <input
                     type="text"

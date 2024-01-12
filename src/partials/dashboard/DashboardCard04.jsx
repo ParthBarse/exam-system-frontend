@@ -29,7 +29,7 @@ function DashboardCard04() {
           {/* Menu button */}
           <EditMenu align="right" className="relative inline-flex">
             <li>
-              <Link className="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex py-1 px-3" to="/CanStudent">
+              <Link className="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex py-1 px-3" to="/RefStudent">
                 More Info
               </Link>
             </li>

@@ -12,7 +12,7 @@ function AddCamp() {
     camp_fee: '',
     camp_description: '',
     fee_discount: '',
-    discount_date: '',
+    // discount_date: '',
     final_fee: '',
     camp_status: '',
   });
@@ -36,13 +36,13 @@ function AddCamp() {
     e.preventDefault();
 
     // Convert date to yyyy-mm-dd format
-    const formattedDiscountDate = convertDate(formData.discount_date);
+    // const formattedDiscountDate = convertDate(formData.discount_date);
 
     try {
       const form = new FormData();
-      for (const key in formData) {
-        form.append(key, key === 'discount_date' ? formattedDiscountDate : formData[key]);
-      }
+      // for (const key in formData) {
+      //   form.append(key, key === 'discount_date' ? formattedDiscountDate : formData[key]);
+      // }
 
       const response = await fetch('https://mcfapis.bnbdevelopers.in/addCamp', {
         method: 'POST',
@@ -155,7 +155,7 @@ function AddCamp() {
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
                   />
 
-                  <label className="text-lg font-semibold">Discount Date</label>
+                  {/* <label className="text-lg font-semibold">Discount Date</label>
                   <input
                     type="date"
                     name="discount_date"
@@ -163,7 +163,7 @@ function AddCamp() {
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
-                  />
+                  /> */}
 
                   <label className="text-lg font-semibold">Final Fee</label>
                   <input

@@ -111,7 +111,7 @@ function RegStudent() {
                 <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
                   <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-                      Registered Cadets List
+                      Active Cadets List
                     </h2>
                     <div style={{ display: "flex", gap: "10px" }}>
                       {/* <Dropdown>
@@ -123,13 +123,13 @@ function RegStudent() {
                           <li><Dropdown.Item href="/admission-form" className="px-3 py-2 hover:bg-gray-300">Already Registered</Dropdown.Item></li>
                         </Dropdown.Menu>
                       </Dropdown> */}
-                      <Link
+                      {/* <Link
                         end
                         to="/add-student"
                         className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
                       >
                         Add Student
-                      </Link>
+                      </Link> */}
                     </div>
                   </div>
                 </header>
@@ -182,8 +182,8 @@ function RegStudent() {
                       </thead>
                       {/* Table body */}
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
-                        {itemsToDisplay.map((item, index) => (
-                          <tr key={index}>
+                      {itemsToDisplay.filter(item => item.status === "Active").map((item, index) => (
+                          <tr key={item.sid}>
                             <td>
                               <div
                                 className="text-left"
@@ -223,59 +223,36 @@ function RegStudent() {
                               </div>
                             </td>
                             <td className="p-4">
-                              <div className="text-center grid grid-cols-2 grid-rows-2 gap-1">
-                                
+                            <div className="text-center grid grid-cols-2 grid-rows-2 gap-2 h-full">
                                 <Link
-                                  to={`/update-student-details?id=${item.sid}`}
-                                  className="text-sm text-white px-2 bg-blue-500"
-                                  // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}
-                                >
-                                  <button style={{ width: "100%", height: "100%", padding: "3px" }}>View & Edit</button>
-                                </Link>
-                                <button
-                                  onClick={(e) => {
-                                    setModalOpen(prev => !prev)
-                                    setSID(item.sid)
-                                  }}
+                                   to={`/update-student-details?id=${item.sid}`}
                                   className="text-sm text-white px-2 bg-yellow-500"
-                                  style={{ padding: "1px", fontSize: "13px", width: "auto", height: "auto" }}
+                                  style={{ padding: "1px", fontSize: "13px" }}
                                 >
-                                  Cancel
-                                </button>
+                                  Veiw Form
+                                </Link>
+                                {/* <button onClick={e=>{
+                                  handleClick(item.sid)
+                                }} className="text-sm text-white px-2 bg-emerald-500"
+                                  style={{ padding: "1px", fontSize: "13px" }}
+                                >
+                                  Activate
+                                </button> */}
+                                <Link to={`/veiw-entrance?id=${item.sid}`} className="text-sm text-white px-2 bg-indigo-500" >
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{ padding: "1px", fontSize: "13px", width: "auto", height: "auto" }}
+                                  style={{ padding: "1px", fontSize: "13px" }}
                                 >
-                                  <Link
-                                    to={`${item.entrence_card}`}
-                                    // style={{ textDecoration: "none", color: "inherit", width: "100%", height: "100%" }}
-                                  >
-                                    Entrance Card
-                                  </Link>
+                                  Entrance Card
                                 </button>
-                                <button
-                                  className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{ padding: "1px", fontSize: "13px", width: "auto", height: "auto" }}
-                                >
-                                  <Link
-                                    to={`/receipt?id=${item.sid}`}
-                                    style={{ textDecoration: "none", color: "inherit", width: "100%", height: "100%" }}
-                                  >
-                                    Receipt
-                                  </Link>
-                                </button>
+                                </Link>
                                 {/* <button
                                   className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{ padding: "1px", fontSize: "13px", width: "auto", height: "auto" }}
+                                  style={{ padding: "1px", fontSize: "13px" }}
+                                  onClick={() => alert(`Reason : ${item.reason}`)}
                                 >
-                                  <Link
-                                    to={`/view_medical_report/${item.sid}`}
-                                    style={{ textDecoration: "none", color: "inherit", width: "100%", height: "100%" }}
-                                  >
-                                    Medical Certificate
-                                  </Link>
+                                  Reason
                                 </button> */}
-
                               </div>
                             </td>
 

@@ -382,7 +382,7 @@ function Filter() {
                               <div className={`text-center`}>{item.state}</div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center grid grid-cols-1 grid-rows-1 gap-1">
+                              <div className="text-center grid grid-cols-2 grid-rows-1 gap-1">
                                 <Link
                                   to={`${item.medicalCertificate}`}
                                   className="text-sm text-white py-1 px-1 bg-blue-500"
@@ -396,6 +396,21 @@ function Filter() {
                                     }}
                                   >
                                     Medical Certificate
+                                  </button>
+                                </Link>
+                                <Link
+                                  // to={`${item.entrence_card}`}
+                                  className="text-sm text-white py-1 px-1 bg-yellow-500"
+                                // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
+                                >
+                                  <button
+                                    style={{
+                                      width: "100%",
+                                      height: "100%",
+                                      padding: "1px",
+                                    }}
+                                  >
+                                    Send via Email
                                   </button>
                                 </Link>
                               </div>
