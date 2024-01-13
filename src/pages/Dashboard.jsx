@@ -19,8 +19,8 @@ function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate()
 
-  useEffect(()=>{
-    if(!localStorage.getItem("token")){
+  useEffect(() => {
+    if (!document.cookie.includes("session")) {
       navigate("/")
     }
   }, [])
@@ -54,7 +54,7 @@ function Dashboard() {
               <DashboardCard03 />
               <DashboardCard04 />
               <DashboardCard05 />
-               <DashboardCard06 />
+              <DashboardCard06 />
               {/* Active Camps) */}
               <DashboardCard07 />
             </div>

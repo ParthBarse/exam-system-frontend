@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const LoginForm = ({ onLogin, onSwitchToRegister }) => {
   const navigate = useNavigate();
   useEffect(() => {
-    if (document.cookie.includes('session')) {
+    if (localStorage.getItem("token")) {
       navigate('/dash');
     }
   })
@@ -54,7 +54,8 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
       axios.post('https://mcfapis.bnbdevelopers.in/loginAdmin', formData)
         .then(response => {
           console.log('Successful login:', response);
-          document.cookie = `session=${response.data.token}; path=/;samesite=lax;max-age=${60 * 60 * 24 * 30}  ;`
+          localStorage.setItem("token", response.data.token);
+
           // Redirect to /dash or perform any other actions
           navigate('/dash');
         })
@@ -378,7 +379,7 @@ const AuthPage = () => {
   const navigate = useNavigate();
   useEffect(() => {
 
-    if (document.cookie.includes('session')) {
+    if (localStorage.getItem("token")) {
       navigate('/dash');
     }
   })
