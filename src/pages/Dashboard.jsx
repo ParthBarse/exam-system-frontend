@@ -20,7 +20,7 @@ function Dashboard() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!document.cookie.includes("session")) {
+    if (!localStorage.getItem("token")) {
       navigate("/")
     }
   }, [])
