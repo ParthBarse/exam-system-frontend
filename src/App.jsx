@@ -44,6 +44,7 @@ import Reportlist from './pages/reportlist';
 import Enterancecard from './pages/enterancecard_list';
 import Pickuplist from './pages/pick-ip_pointlist';
 import Actstudent from './pages/active-students';
+import VisitingCard from './pages/visiting_card_list';
 
 function App() {
 
@@ -94,6 +95,7 @@ function App() {
         <Route exact path="/Enterancecard" element={<Enterancecard/>}/>
         <Route exact path="/Pickuplist" element={<Pickuplist/>}/>
         <Route exact path="/Actstudent" element={<Actstudent/>}/>
+        <Route exact path='/VisitingCard' element={<VisitingCard/>}/>
       </Routes>
     </>
   );  
