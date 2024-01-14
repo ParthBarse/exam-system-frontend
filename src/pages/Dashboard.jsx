@@ -56,7 +56,7 @@ function Dashboard() {
               <DashboardCard05 />
               <DashboardCard06 />
               {/* Active Camps) */}
-              <DashboardCard07 />
+              {/* <DashboardCard07 /> */}
             </div>
           </div>
         </main>

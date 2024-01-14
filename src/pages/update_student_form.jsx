@@ -547,7 +547,7 @@ const FirstDetails = () => {
                     <option value="jain">JAIN </option>
                   </select>
                 </div>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label htmlFor="dress_code" className="block text-sm font-medium text-gray-600">
                     Dress Code
                   </label>
@@ -557,15 +557,15 @@ const FirstDetails = () => {
                     value={formData.dress_code}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
-                  >
+                  > */}
                     {/* Options for Dress Code */}
-                    <option value="">Select Dress Code </option>
+                    {/* <option value="">Select Dress Code </option>
                     <option value="trackSuit">TRACK SUIT</option>
                     <option value="combatDress">COMBAT DRESS </option>
                     <option value="cheetaDress">CHEETA DRESS</option>
                     <option value="blackDress">BLACK DRESS </option>
                   </select>
-                </div>
+                </div> */}
                 <div className="mb-4">
                   <label
                     htmlFor="pick_up_city"
@@ -726,7 +726,7 @@ const FirstDetails = () => {
                 </div>
 
                 <hr className="my-4 h-1 bg-gray-200" />
-                <div className="mb-4 flex items-center">
+                {/* <div className="mb-4 flex items-center">
                   <label
                     htmlFor="cadetPhoto"
                     className="block text-sm font-medium text-gray-600 mr-2"
@@ -736,7 +736,7 @@ const FirstDetails = () => {
                   <button style={{marginLeft:20}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.medicalCertificate, "_blank")}>
                     View
                   </button>
-                </div>
+                </div> */}
                 <br/>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                 

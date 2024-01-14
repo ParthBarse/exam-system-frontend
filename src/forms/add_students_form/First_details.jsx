@@ -136,7 +136,7 @@ const FirstDetails = () => {
     batch_id: "",
     selectedDate: "",
     food_option: "",
-    dress_code: "",
+    // dress_code: "",
     pick_up_city: "",
     pick_up_point: "",
     height: "",
@@ -166,7 +166,7 @@ const FirstDetails = () => {
   };
 
   const [files, setFiles] = useState({
-    medicalCertificate: "",
+    // medicalCertificate: "",
     cadetPhoto: "",
     cadetSign: "",
     parentGurdianPhoto: "",
@@ -1015,7 +1015,7 @@ const FirstDetails = () => {
                   </select>
                 </div>
 
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label
                     htmlFor="dress_code"
                     className="block text-sm font-medium text-gray-600"
@@ -1032,13 +1032,13 @@ const FirstDetails = () => {
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Dress Code */}
-                    <option value="">Select Dress Code </option>
+                    {/* <option value="">Select Dress Code </option>
                     <option value="trackSuit">TRACK SUIT</option>
                     <option value="combatDress">COMBAT DRESS </option>
                     <option value="cheetaDress">CHEETA DRESS</option>
                     <option value="blackDress">BLACK DRESS </option>
                   </select>
-                </div>
+                </div> */} 
 
                 <div className="mb-4">
                   <label
@@ -1174,7 +1174,7 @@ const FirstDetails = () => {
                   {/* Options for Blood Group */}
                 </div>
 
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label
                     htmlFor="medicalCertificate"
                     className="block text-sm font-medium text-gray-600"
@@ -1188,7 +1188,7 @@ const FirstDetails = () => {
                     onChange={(e) => handleFileChange(e)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   />
-                </div>
+                </div> */}
 
                 <hr className="my-4 h-1 bg-gray-200" />
 

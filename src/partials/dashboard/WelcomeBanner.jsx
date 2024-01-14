@@ -1,11 +1,12 @@
 import React from 'react';
+import logo1 from '../../forms/add_students_form/watermark-removebg-preview.png'
 
 function WelcomeBanner() {
   return (
-    <div className="relative bg-indigo-200 dark:bg-indigo-500 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
+    <div className="relative bg-blue-100 dark:bg-indigo-500 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
       {/* Background illustration */}
       <div className="absolute right-0 top-0 -mt-4 mr-16 pointer-events-none hidden xl:block" aria-hidden="true">
-        <svg width="319" height="198" xmlnsXlink="http://www.w3.org/1999/xlink">
+        {/* <svg width="319" height="198" xmlnsXlink="http://www.w3.org/1999/xlink">
           <defs>
             <path id="welcome-a" d="M64 0l64 128-64-20-64 20z" />
             <path id="welcome-e" d="M40 0l40 80-40-12.5L0 80z" />
@@ -42,13 +43,15 @@ function WelcomeBanner() {
               <path fill="url(#welcome-c)" mask="url(#welcome-h)" d="M40.333-15.147h50v95h-50z" />
             </g>
           </g>
-        </svg>
+        </svg> */}
       </div>
 
       {/* Content */}
-      <div className="relative">
-        <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">Good afternoon, MCF  Inc. 👋</h1>
-        <p className="dark:text-indigo-200">Here is what’s happening with your Camp Registrations today  :</p>
+      <div className="flex" style={{justifyContent:"space-between"}}>
+        <img src={logo1} style={{height:100}} alt="LOGO" />
+
+        <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">JAI HIND MCF CAMP </h1>
+        <p className="dark:text-indigo-200 font-bold">Creating Tomorrow’s Responsible Citizen</p>
       </div>
     </div>
   );
