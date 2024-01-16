@@ -142,21 +142,23 @@ function Filter() {
     getAllCamps();
   }, [])
 
+  const [campbyId, setCampbyId] = useState({});
+
   async function getCampName(camp_id) {
     try {
       const response = await axios.get(`https://mcfapis.bnbdevelopers.in/getCamp?camp_id=${camp_id}`);
       // setCampName(response.camp.camp_name);
-      console.log(response);
-      return response.data.camp.camp_name;
+      setCampbyId({ ...campbyId, camp_id: response.data.camp.camp_id });
     } catch (error) {
       console.error("Error fetching camp name:", error);
     }
   }
+
   async function getBatchName(batch_id) {
     try {
       const response = await axios.get(`https://mcfapis.bnbdevelopers.in/getBatch?batch_id=${batch_id}`);
       // setCampName(response.camp.camp_name);
-      console.log(response);
+      // console.log(response);
       return response.data.batch.batch_name;
     } catch (error) {
       console.error("Error fetching camp name:", error);
@@ -222,6 +224,8 @@ function Filter() {
   const handleFilterSubmit = () => {
     fetchData();
   };
+
+
 
   return (
     <div className="flex h-screen overflow-hidden">
