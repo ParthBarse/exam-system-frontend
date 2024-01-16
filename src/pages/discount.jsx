@@ -119,7 +119,11 @@ export default function Discount() {
                                                                     Amount
                                                                 </div>
                                                             </th>
-
+                                                            <th className="p-2">
+                                                                <div className="font-semibold text-center">
+                                                                    Action
+                                                                </div>
+                                                            </th>
 
                                                         </tr>
                                                     </thead>
@@ -134,13 +138,7 @@ export default function Discount() {
                                                                         {index + 1}
                                                                     </div>
                                                                 </td>
-                                                                <td className="p-2">
-                                                                    <div className="flex items-center">
-                                                                        <div className="text-slate-800 dark:text-slate-100">
-                                                                            {item.discount_id}
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
+
 
 
                                                                 <td className="p-2">
@@ -149,19 +147,19 @@ export default function Discount() {
                                                                 <td className="p-2">
                                                                     <div className={`text-center`}>{item.discount_amount}</div>
                                                                 </td>
-                                                                <td className="p-2">
-                                                                    <div className="text-center grid grid-cols-1 grid-rows-1 gap-1">
+                                                                <td className="p-2 flex justify-center">
+                                                                    {/* <div className="text-center grid grid-cols-1 grid-rows-1 gap-1"> */}
 
-                                                                        <button
-                                                                            className='btn-primary bg-red-500 hover:bg-red-600 text-white'
-                                                                            onClick={(e) => {
-                                                                                axios.delete(`${baseurl}/deleteDiscount?discount_id=${item.discount_id}`).then(e => fetchData()).then(e => { toast.success('Deleted successfully!') }).catch(e => console.log(e));
-                                                                            }}
-                                                                        >
-                                                                            Delete
-                                                                        </button>
+                                                                    <button
+                                                                        className='btn-primary bg-red-500 hover:bg-red-600 text-white px-1 '
+                                                                        onClick={(e) => {
+                                                                            axios.delete(`${baseurl}/deleteDiscount?discount_id=${item.discount_id}`).then(e => fetchData()).then(e => { toast.success('Deleted successfully!') }).catch(e => console.log(e));
+                                                                        }}
+                                                                    >
+                                                                        Delete
+                                                                    </button>
 
-                                                                    </div>
+                                                                    {/* </div> */}
                                                                 </td>
                                                             </tr>
                                                         ))}
