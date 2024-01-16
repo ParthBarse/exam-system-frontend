@@ -81,20 +81,19 @@ function EditFeeDetails() {
     // const formattedDiscountDate = convertDate(formData.discount_date);
 
     try {
-      const formDataToSend = new URLSearchParams();
+      const formDataToSend = new FormData(e.target);
 
       // for (const key in formData) {
       //   formDataToSend.append(key, key === 'discount_date' ? formattedDiscountDate : formData[key]);
       // }
+      formDataToSend.append("camp_id", formData.camp_id);
 
       const response = await fetch(
         `https://mcfapis.bnbdevelopers.in/updateCamp`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: formDataToSend.toString(),
+
+          body: formDataToSend,
         }
       );
 

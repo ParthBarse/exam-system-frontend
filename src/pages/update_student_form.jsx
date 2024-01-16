@@ -53,43 +53,43 @@ const FirstDetails = () => {
   const navigate = useNavigate();
 
   const punePickupLocations = [
-    'Nigadi Bhaktishakti',
-    'Akurdi Khandoba Mandir',
-    'Chinchawad Chaphekar Chowk',
-    'Kalewadi Phata',
-    'Sangvi Phata',
-    'Aundh Shivaji Vidyalaya',
-    'Khadki Bazar',
-    'Yerwada Deccan College',
-    'Kharadi Bypass',
-    'Hadapsar – Gadital Akashwani',
-    'Swarget – PMPL Bus Stop',
-    'Katraj – PMPL Bus stop',
-    'Spine Road',
-    'Bhosari Dighi Road',
-    'Nasik Phata',
-    'Kokane Chowk',
-    'Baner Sadanand Hotel',
-    'Chandani Chowk – Auto Stop',
-    'Warje- Mai Mangeshkar Hospital',
-    'Sinhgad Navale Bridge'
+    'NIGADI BHAKTISHAKTI',
+    'AKURDI KHANDOBA MANDIR',
+    'CHINCHAWAD CHAPHEKAR CHOWK',
+    'KALEWADI PHATA',
+    'SANGVI PHATA',
+    'AUNDH SHIVAJI VIDYALAYA',
+    'KHADKI BAZAR',
+    'YERWADA DECCAN COLLEGE',
+    'KHARADI BYPASS',
+    'HADAPSAR – GADITAL AKASHWANI',
+    'SWARGET – PMPL BUS STOP',
+    'KATRAJ – PMPL BUS STOP',
+    'SPINE ROAD',
+    'BHOSARI DIGHI ROAD',
+    'NASIK PHATA',
+    'KOKANE CHOWK',
+    'BANER SADANAND HOTEL',
+    'CHANDANI CHOWK – AUTO STOP',
+    'WARJE- MAI MANGESHKAR HOSPITAL',
+    'SINHGAD NAVALE BRIDGE'
   ];
 
   const mumbaiPickupLocations = [
-    'Dadar (Asiad bus stop)',
-    'Vashi (Vashi Plaza, Below Vashi Bridge, Shivneri, Bus stop)',
-    'Thane(Near Shivaji Hospital Kalwa Naka)',
-    'Airoli',
-    'Rabale',
-    'Ghansoli',
-    'Koparkhairane',
-    'Turbhe',
-    'Juinagar',
-    'Nerur',
-    'Belapur',
-    'Kamati',
-    'Kharghar',
-    'Panvel (McDonald’s Panvel Bus Stand)'
+    'DADAR (ASIAD BUS STOP)',
+    'VASHI (VASHI PLAZA, BELOW VASHI BRIDGE, SHIVNERI, BUS STOP)',
+    'THANE(NEAR SHIVAJI HOSPITAL KALWA NAKA)',
+    'AIROLI',
+    'RABALE',
+    'GHANSOLI',
+    'KOPARKHAIRANE',
+    'TURBHE',
+    'JUINAGAR',
+    'NERUR',
+    'BELAPUR',
+    'KAMATI',
+    'KHARGHAR',
+    'PANVEL (MCDONALD’S PANVEL BUS STAND)'
   ];
 
   const [state, setState] = React.useState({
@@ -162,7 +162,7 @@ const FirstDetails = () => {
         else if (key == 'camp_id' || key == 'batch_id') {
           continue;
         }
-        else if(key != 'company'){
+        else if (key != 'company') {
           reqData.append(key, formData[key])
         }
       }
@@ -256,34 +256,34 @@ const FirstDetails = () => {
     fetchBatch()
   }, [selectedBatch])
 
-    // Function to calculate age
-    function calculate_age(dob) {
-      var diff_ms = Date.now() - new Date(dob).getTime();
-      var age_dt = new Date(diff_ms); 
-  
-      return Math.abs(age_dt.getUTCFullYear() - 1970);
+  // Function to calculate age
+  function calculate_age(dob) {
+    var diff_ms = Date.now() - new Date(dob).getTime();
+    var age_dt = new Date(diff_ms);
+
+    return Math.abs(age_dt.getUTCFullYear() - 1970);
+  }
+
+  // Function to assign company
+  function assign_company(age, gender) {
+    if (age >= 7 && age <= 11 && gender === "male") {
+      return "ALPHA";
+    } else if (age >= 12 && age <= 16 && gender === "male") {
+      return "BRAVO";
+    } else if (age >= 17 && age <= 21 && gender === "male") {
+      return "DELTA";
+    } else if (age >= 7 && age <= 11 && gender === "female") {
+      return "CHARLEY";
+    } else if (age >= 12 && age <= 16 && gender === "female") {
+      return "ECO";
+    } else if (age >= 17 && age <= 21 && gender === "female") {
+      return "FOXFORD";
     }
-  
-    // Function to assign company
-    function assign_company(age, gender) {
-      if (age >= 7 && age <= 11 && gender === "male") {
-        return "ALPHA";
-      } else if (age >= 12 && age <= 16 && gender === "male") {
-        return "BRAVO";
-      } else if (age >= 17 && age <= 21 && gender === "male") {
-        return "DELTA";
-      } else if (age >= 7 && age <= 11 && gender === "female") {
-        return "CHARLEY";
-      } else if (age >= 12 && age <= 16 && gender === "female") {
-        return "ECO";
-      } else if (age >= 17 && age <= 21 && gender === "female") {
-        return "FOXFORD";
-      }
-    }
-  
-    // Inside handleChange function or wherever the form data is being handled
-    let age = calculate_age(formData.dob);
-    let company = assign_company(age, formData.gender);
+  }
+
+  // Inside handleChange function or wherever the form data is being handled
+  let age = calculate_age(formData.dob);
+  let company = assign_company(age, formData.gender);
 
 
 
@@ -489,9 +489,9 @@ const FirstDetails = () => {
                   >
                     {/* Options for Camp Category */}
                     <option value="">Select Camp Category</option>
-                    <option value="diwali">DIWALI</option>
-                    <option value="chs">CHS</option>
-                    <option value="summer">SUMMER</option>
+                    <option value="DIWALI">DIWALI</option>
+                    <option value="CHS">CHS</option>
+                    <option value="SUMMER">SUMMER</option>
                   </select>
                 </div>
                 <div className="mb-4">
@@ -543,8 +543,8 @@ const FirstDetails = () => {
                   >
                     {/* Options for Food Option */}
                     <option value="">Select Food Option </option>
-                    <option value="veg">VEG </option>
-                    <option value="jain">JAIN </option>
+                    <option value="VEG">VEG </option>
+                    <option value="JAIN">JAIN </option>
                   </select>
                 </div>
                 {/* <div className="mb-4">
@@ -558,8 +558,8 @@ const FirstDetails = () => {
                     onChange={handleChange}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   > */}
-                    {/* Options for Dress Code */}
-                    {/* <option value="">Select Dress Code </option>
+                {/* Options for Dress Code */}
+                {/* <option value="">Select Dress Code </option>
                     <option value="trackSuit">TRACK SUIT</option>
                     <option value="combatDress">COMBAT DRESS </option>
                     <option value="cheetaDress">CHEETA DRESS</option>
@@ -582,8 +582,8 @@ const FirstDetails = () => {
                   >
                     {/* Options for Dress Code */}
                     <option value="">Select Pick Up City </option>
-                    <option value="mumbai">Mumbai</option>
-                    <option value="pune">Pune </option>
+                    <option value="MUMBAI">Mumbai</option>
+                    <option value="PUNE">Pune </option>
                   </select>
                 </div>
                 <div className="mb-4">
@@ -602,10 +602,10 @@ const FirstDetails = () => {
                   >
                     {/* Options for Dress Code */}
                     <option value="">Select Pick Up Point </option>
-                    {formData.pick_up_city === "mumbai" ? (
+                    {formData.pick_up_city === "MUMBAI" ? (
                       mumbaiPickupLocations.map(location => (<option value={location}>{location}</option>))
                     ) : ''}
-                    {formData.pick_up_city === "pune" ? (
+                    {formData.pick_up_city === "PUNE" ? (
                       punePickupLocations.map(location => (<option value={location}>{location}</option>))
                     ) : ''}
                   </select>
@@ -737,59 +737,59 @@ const FirstDetails = () => {
                     View
                   </button>
                 </div> */}
-                <br/>
+                <br />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                
-                <div className="mb-4 flex items-center">
-                  <label
-                    htmlFor="cadetPhoto"
-                    className="block text-sm font-medium text-gray-600 mr-2"
-                  >
-                    Cadet Photo
-                  </label>
-                  <button 
-                    style={{marginLeft:70}} 
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" 
-                    onClick={() => window.open(formData.cadetPhoto, "_blank")}
-                  >
-                    View
-                  </button>
+
+                  <div className="mb-4 flex items-center">
+                    <label
+                      htmlFor="cadetPhoto"
+                      className="block text-sm font-medium text-gray-600 mr-2"
+                    >
+                      Cadet Photo
+                    </label>
+                    <button
+                      style={{ marginLeft: 70 }}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
+                      onClick={() => window.open(formData.cadetPhoto, "_blank")}
+                    >
+                      View
+                    </button>
+                  </div>
+                  <div className="mb-4 flex items-center">
+                    <label
+                      htmlFor="cadetPhoto"
+                      className="block text-sm font-medium text-gray-600 mr-2"
+                    >
+                      Cadet Sign
+                    </label>
+                    <button style={{ marginLeft: 70 }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.cadetSign, "_blank")}>
+                      View
+                    </button>
+                  </div>
+                  <div className="mb-4 flex items-center">
+                    <label
+                      htmlFor="cadetPhoto"
+                      className="block text-sm font-medium text-gray-600 mr-2"
+                    >
+                      Parent/Gurdian Photo
+                    </label>
+                    <button style={{ marginLeft: 10 }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.parentGurdianPhoto, "_blank")}>
+                      View
+                    </button>
+                  </div>
+                  <div className="mb-4 flex items-center">
+                    <label
+                      htmlFor="cadetPhoto"
+                      className="block text-sm font-medium text-gray-600 mr-2"
+                    >
+                      Parent-Gurdian Sign
+                    </label>
+                    <button style={{ marginLeft: 8 }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.parentGurdianSign, "_blank")}>
+                      View
+                    </button>
+                  </div>
                 </div>
-                <div className="mb-4 flex items-center">
-                  <label
-                    htmlFor="cadetPhoto"
-                    className="block text-sm font-medium text-gray-600 mr-2"
-                  >
-                    Cadet Sign
-                  </label>
-                  <button  style={{marginLeft:70}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.cadetSign, "_blank")}>
-                    View
-                  </button>
-                </div>
-                <div className="mb-4 flex items-center">
-                  <label
-                    htmlFor="cadetPhoto"
-                    className="block text-sm font-medium text-gray-600 mr-2"
-                  >
-                    Parent/Gurdian Photo
-                  </label>
-                  <button style={{marginLeft:10}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.parentGurdianPhoto, "_blank")}>
-                    View
-                  </button>
-                </div>
-                <div className="mb-4 flex items-center">
-                  <label
-                    htmlFor="cadetPhoto"
-                    className="block text-sm font-medium text-gray-600 mr-2"
-                  >
-                    Parent-Gurdian Sign
-                  </label>
-                  <button style={{marginLeft:8}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.parentGurdianSign, "_blank")}>
-                    View
-                  </button>
-                </div>
-                </div>
-                
+
 
 
 

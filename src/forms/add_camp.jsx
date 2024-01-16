@@ -17,6 +17,7 @@ function AddCamp() {
     camp_status: '',
   });
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -40,9 +41,9 @@ function AddCamp() {
 
     try {
       const form = new FormData();
-      // for (const key in formData) {
-      //   form.append(key, key === 'discount_date' ? formattedDiscountDate : formData[key]);
-      // }
+      for (const key in formData) {
+        form.append(key, key === 'discount_date' ? formattedDiscountDate : formData[key]);
+      }
 
       const response = await fetch('https://mcfapis.bnbdevelopers.in/addCamp', {
         method: 'POST',
