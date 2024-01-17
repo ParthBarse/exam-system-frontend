@@ -144,25 +144,31 @@ function Filter() {
 
   const [campbyId, setCampbyId] = useState({});
 
-  async function getCampName(camp_id) {
-    try {
-      const response = await axios.get(`https://mcfapis.bnbdevelopers.in/getCamp?camp_id=${camp_id}`);
-      // setCampName(response.camp.camp_name);
-      setCampbyId({ ...campbyId, camp_id: response.data.camp.camp_id });
-    } catch (error) {
-      console.error("Error fetching camp name:", error);
-    }
+  function getCampName(camp_id) {
+    const cam = camps.find((camp) => {
+      if (camp.camp_id === camp_id) {
+        return camp.camp_name;
+      }
+    })
+    return cam ? cam.camp_name : '';
   }
-
-  async function getBatchName(batch_id) {
-    try {
-      const response = await axios.get(`https://mcfapis.bnbdevelopers.in/getBatch?batch_id=${batch_id}`);
-      // setCampName(response.camp.camp_name);
-      // console.log(response);
-      return response.data.batch.batch_name;
-    } catch (error) {
-      console.error("Error fetching camp name:", error);
+  const [allBatches, setAllBatches] = useState([]);
+  useEffect(() => {
+    async function getAllBatches() {
+      const res = await axios.get("https://mcfapis.bnbdevelopers.in/getAllBatches");
+      const batches = res.data.camps;
+      setAllBatches(batches);
     }
+    getAllBatches();
+  })
+
+  function getBatchName(batch_id) {
+    const bat = allBatches.find((batch) => {
+      if (batch.batch_id === batch_id) {
+        return batch.batch_name;
+      }
+    })
+    return bat ? bat.batch_name : '';
   }
 
   // // Usage
@@ -506,12 +512,12 @@ function Filter() {
                             </td>
 
                             <td className="p-2" onClick={() => handleClick(item.camp_id)}>
-                              <div className="text-center">{campName}</div>
+                              <div className="text-center">{`${getCampName(item.camp_id)}`}</div>
                               {/* <div className="text-center">{item.camp_id}</div> */}
 
                             </td>
                             <td className="p-2" onClick={() => handleClick1(item.batch_id)}>
-                              <div className="text-center">{batchName}</div>
+                              <div className="text-center">{`${getBatchName(item.batch_id)}`}</div>
                               {/* <div className="text-center">{item.camp_id}</div> */}
 
                             </td>
