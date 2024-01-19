@@ -8,6 +8,11 @@ function EditBatch() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const batchId = queryParams.get("id");
+  const convertDate = (dateString) => {
+    const [day, month, year] = dateString.split("-");
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
+  };
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [batchData, setBatchData] = useState({
@@ -22,8 +27,8 @@ function EditBatch() {
   });
   const navigate = useNavigate()
 
-  useEffect(()=>{
-    if(!localStorage.getItem("token")){
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
       navigate("/")
     }
   }, [])
@@ -41,8 +46,8 @@ function EditBatch() {
           // Ensure that the response structure matches your expectations
           setBatchData({
             batch_name: batchDetails.batch.batch_name,
-            start_date: batchDetails.batch.start_date,
-            end_date: batchDetails.batch.end_date,
+            start_date: convertDate(batchDetails.batch.start_date),
+            end_date: convertDate(batchDetails.batch.end_date),
             batch_intake: batchDetails.batch.batch_intake,
             duration: batchDetails.batch.duration,
             batch_id: batchDetails.batch.batch_id,
@@ -72,15 +77,19 @@ function EditBatch() {
     e.preventDefault();
 
     // Convert dates to yyyy-mm-dd format
-    const formattedStartDate = convertDate(batchData.start_date);
-    const formattedEndDate = convertDate(batchData.end_date);
 
     // Create a new FormData object
     const formData = new FormData();
 
     // Iterate over the batchData object and append each key-value pair to the FormData object
     for (let key in batchData) {
-      formData.append(key, key.includes("date") ? convertDate(batchData[key]) : batchData[key]);
+      if (key === "start_date" || key === "end_date") {
+        const [year, month, day] = batchData[key].split("-");
+        const formattedDate = `${day}-${month}-${year}`;
+        formData.append(key, formattedDate);
+        continue;
+      }
+      formData.append(key, batchData[key]);
     }
 
     try {
@@ -119,11 +128,9 @@ function EditBatch() {
     }
   };
 
-  const convertDate = (dateString) => {
-    const [day, month, year] = dateString.split("-");
-    const formattedDate = `${year}-${month}-${day}`;
-    return formattedDate;
-  };
+
+  const formattedStartDate = convertDate(batchData.start_date);
+  const formattedEndDate = convertDate(batchData.end_date);
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -171,6 +178,9 @@ function EditBatch() {
                       </label>
                       <input
                         type="date"
+                        required
+
+                        placeholder="yyyy-mm-dd"
                         id="start_date"
                         name="start_date"
                         value={batchData.start_date}
@@ -183,6 +193,8 @@ function EditBatch() {
                         End Date
                       </label>
                       <input
+
+                        placeholder="yyyy-mm-dd"
                         type="date"
                         id="endDate"
                         name="end_date"
@@ -194,20 +206,20 @@ function EditBatch() {
                   </div>
                   <div className="flex flex-row mb-4">
                     <div className="flex flex-col p-4 w-1/2">
-                    <label
-                      htmlFor="batch_intake"
-                      className="block text-gray-700"
-                    >
-                      Batch Intake
-                    </label>
-                    <input
-                      type="text"
-                      id="batch_intake"
-                      name="batch_intake"
-                      value={batchData.batch_intake}
-                      onChange={handleChange}
-                      className="w-full p-2 border rounded-lg"
-                    />
+                      <label
+                        htmlFor="batch_intake"
+                        className="block text-gray-700"
+                      >
+                        Batch Intake
+                      </label>
+                      <input
+                        type="text"
+                        id="batch_intake"
+                        name="batch_intake"
+                        value={batchData.batch_intake}
+                        onChange={handleChange}
+                        className="w-full p-2 border rounded-lg"
+                      />
                     </div>
                     <div className="flex flex-col p-4 w-1/2">
                       <label htmlFor="duration" className="block text-gray-700">
@@ -226,8 +238,8 @@ function EditBatch() {
 
                   <div className="flex flex-row">
 
-                  
-                  {/* <div className="flex flex-col p-4 w-1/2">
+
+                    {/* <div className="flex flex-col p-4 w-1/2">
                   <label
                       htmlFor="batch_intake"
                       className="block text-gray-700"
@@ -243,25 +255,25 @@ function EditBatch() {
                       className="w-full p-2 border rounded-lg"
                     />
                   </div> */}
-                  <div className="flex flex-col p-4 w-1/2">
-                    <label
-                      htmlFor="batch_intake"
-                      className="block text-gray-700"
-                    >
-                      Total Students Registered 
-                    </label>
-                    <input
-                      type="text"
-                      id="students_registered"
-                      name="students_registered"
-                      value={batchData.students_registered}
-                      onChange={handleChange}
-                      className="w-full p-2 border rounded-lg"
-                    />
-                  </div>
+                    <div className="flex flex-col p-4 w-1/2">
+                      <label
+                        htmlFor="batch_intake"
+                        className="block text-gray-700"
+                      >
+                        Total Students Registered
+                      </label>
+                      <input
+                        type="text"
+                        id="students_registered"
+                        name="students_registered"
+                        value={batchData.students_registered}
+                        onChange={handleChange}
+                        className="w-full p-2 border rounded-lg"
+                      />
+                    </div>
 
                   </div>
-                  
+
                   <button
                     type="submit"
                     className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
