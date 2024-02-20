@@ -4,6 +4,7 @@ import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
 import BasicModal1 from '../components/Modal1';
+import { toast } from "sonner";
 
 function Filter() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -123,6 +124,8 @@ function Filter() {
     }
     getAllCamps();
   }, [])
+
+  const [loadingSms,setLoadingSms]=useState(false);
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -382,7 +385,7 @@ function Filter() {
                               <div className={`text-center`}>{item.state}</div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center grid grid-cols-2 grid-rows-1 gap-1">
+                              <div className="text-center grid grid-cols-3 grid-rows-1 gap-1">
                                 <Link
                                   to={`${item.medicalCertificate}`}
                                   className="text-sm text-white py-1 px-1 bg-blue-500"
@@ -413,7 +416,7 @@ function Filter() {
                                     onClick={async () => {
                                       try {
                                         const response = await axios.get(`https://mcfapis.bnbdevelopers.in/sendMedicalCertificate?sid=${item.sid}`);
-                                        console.log(response.data);
+                                        // console.log(response.data);
                                         // Show a success message
                                         alert('Entrance card sent successfully!');
                                       } catch (error) {
@@ -426,6 +429,17 @@ function Filter() {
                                     Send via Email
                                   </button>
                                 </Link>
+                                <button className={`text-sm text-white py-1 px-1 bg-green-500 ${loadingSms?'bg-green-300':'bg-green-300'}`}
+                                onClick={async (e)=>{
+                                  setLoadingSms(true);
+                                  const res = await axios.get(`https://mcfapis.bnbdevelopers.in/sendMedicalCertificate_sms?sid=${item.sid}`);
+                                  toast('Medical Certificate sent...');
+                                  setLoadingSms(false);
+                                }}
+                                disabled={loadingSms}
+                                >
+                                  Send via SMS
+                                </button>
                               </div>
                             </td>
                           </tr>

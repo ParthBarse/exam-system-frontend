@@ -6,6 +6,7 @@ import DatePicker from 'react-flatpickr';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Loader2Icon } from 'lucide-react';
 
 
 
@@ -141,8 +142,9 @@ const FirstDetails = () => {
       [name]: value,
     }));
   };
-
+  const [loading, setLoading] = useState(false);
   const handleUpdate = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
 
@@ -177,17 +179,22 @@ const FirstDetails = () => {
       // Make a POST request using axios
 
       const response = await axios.put(`${baseurl}/updateStudent`, reqData);
-
+      // if (response.data.status === 'success') {
+      // alert('Student Updated Successfully');
       console.log(response.data); // Log the response from the server
+
+      setState({ vertical: 'bottom', horizontal: 'right', open: true });
+      navigate('/RegStudent')
+      // }
+
 
       // // After successfully adding a student, you might want to reset the form
 
 
-      setState({ vertical: 'bottom', horizontal: 'right', open: true });
-      navigate('/RegStudent')
 
 
     } catch (error) {
+      setLoading(false);
       setErrorState({ vertical: 'bottom', horizontal: 'right', open: true });
       console.error('Error adding student:', error);
 
@@ -798,9 +805,9 @@ const FirstDetails = () => {
           </div>
         </div>
       </div>
-      <div className='flex justify-around '>
+      <div className='flex justify-center '>
         <button onClick={handleUpdate} className="btn-primary" style={{ padding: "5px 10px", background: "#007BFF", color: "white", border: "none", borderRadius: "5px", marginRight: "10px" }}>
-          Update
+          {loading ? <Loader2Icon className='animate-spin' /> : 'Update'}
         </button>
       </div>
       <Snackbar
