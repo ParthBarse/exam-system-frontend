@@ -440,6 +440,14 @@ function Filter() {
                                 >
                                   Send via SMS
                                 </button>
+                                <button className={`text-sm text-white py-1 px-1 bg-rose-500`}
+                                onClick={async (e)=>{
+                                  const res = await axios.get(`https://mcfapis.bnbdevelopers.in/sendMedicalCertificate_wp?sid=${item.sid}`);
+                                  toast('Medical Certificate sent...');
+                                }}
+                                >
+                                  Send via Whatsapp
+                                </button>
                               </div>
                             </td>
                           </tr>
