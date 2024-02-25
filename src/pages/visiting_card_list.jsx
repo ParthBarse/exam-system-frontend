@@ -385,7 +385,7 @@ function Filter() {
                               <div className={`text-center`}>{item.state}</div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center grid grid-cols-3 grid-rows-1 gap-1">
+                              <div className="text-center grid grid-cols-2 grid-rows-2 gap-1">
                                 <Link
                                   to={`${item.visiting_card}`}
                                   className="text-sm text-white py-1 px-1 bg-blue-500"
@@ -429,7 +429,7 @@ function Filter() {
                                     Send via Email
                                   </button>
                                 </Link>
-                                <button className={`text-sm text-white py-1 px-1  ${loadingSms?'bg-green-300':'bg-green-500'}`}
+                                <button className={`text-sm text-white py-1 px-1 bg-green-500`}
                                 onClick={async (e)=>{
                                   setLoadingSms(true);
                                   const res = await axios.get(`https://mcfapis.bnbdevelopers.in/sendVisitingCard_sms?sid=${item.sid}`);
