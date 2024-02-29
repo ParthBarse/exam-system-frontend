@@ -18,45 +18,44 @@ const FirstDetails = () => {
   const navigate = useNavigate();
 
   const punePickupLocations = [
-    'Nigadi Bhaktishakti',
-    'Akurdi Khandoba Mandir',
-    'Chinchawad Chaphekar Chowk',
-    'Kalewadi Phata',
-    'Sangvi Phata',
-    'Aundh Shivaji Vidyalaya',
-    'Khadki Bazar',
-    'Yerwada Deccan College',
-    'Kharadi Bypass',
-    'Hadapsar – Gadital Akashwani',
-    'Swarget – PMPL Bus Stop',
-    'Katraj – PMPL Bus stop',
-    'Spine Road',
-    'Bhosari Dighi Road',
-    'Nasik Phata',
-    'Kokane Chowk',
-    'Baner Sadanand Hotel',
-    'Chandani Chowk – Auto Stop',
-    'Warje- Mai Mangeshkar Hospital',
-    'Sinhgad Navale Bridge'
+    "Nigadi Bhaktishakti",
+    "Akurdi Khandoba Mandir",
+    "Chinchawad Chaphekar Chowk",
+    "Kalewadi Phata",
+    "Sangvi Phata",
+    "Aundh Shivaji Vidyalaya",
+    "Khadki Bazar",
+    "Yerwada Deccan College",
+    "Kharadi Bypass",
+    "Hadapsar – Gadital Akashwani",
+    "Swarget – PMPL Bus Stop",
+    "Katraj – PMPL Bus stop",
+    "Spine Road",
+    "Bhosari Dighi Road",
+    "Nasik Phata",
+    "Kokane Chowk",
+    "Baner Sadanand Hotel",
+    "Chandani Chowk – Auto Stop",
+    "Warje- Mai Mangeshkar Hospital",
+    "Sinhgad Navale Bridge",
   ];
 
   const mumbaiPickupLocations = [
-    'Dadar (Asiad bus stop)',
-    'Vashi (Vashi Plaza, Below Vashi Bridge, Shivneri, Bus stop)',
-    'Thane(Near Shivaji Hospital Kalwa Naka)',
-    'Airoli',
-    'Rabale',
-    'Ghansoli',
-    'Koparkhairane',
-    'Turbhe',
-    'Juinagar',
-    'Nerur',
-    'Belapur',
-    'Kamati',
-    'Kharghar',
-    'Panvel (McDonald’s Panvel Bus Stand)'
+    "Dadar (Asiad bus stop)",
+    "Vashi (Vashi Plaza, Below Vashi Bridge, Shivneri, Bus stop)",
+    "Thane(Near Shivaji Hospital Kalwa Naka)",
+    "Airoli",
+    "Rabale",
+    "Ghansoli",
+    "Koparkhairane",
+    "Turbhe",
+    "Juinagar",
+    "Nerur",
+    "Belapur",
+    "Kamati",
+    "Kharghar",
+    "Panvel (McDonald’s Panvel Bus Stand)",
   ];
-
 
   const [state, setState] = React.useState({
     open: false,
@@ -153,8 +152,7 @@ const FirstDetails = () => {
     other_problem: "",
     medication_physical: "",
     medication_allegric: "",
-    medication_other: ""
-
+    medication_other: "",
   });
 
   const handleHealthChange = (e) => {
@@ -172,26 +170,27 @@ const FirstDetails = () => {
     cadetSign: "",
     parentGurdianPhoto: "",
     parentGurdianSign: "",
-  })
+  });
 
   useEffect(() => {
-    console.log(files)
-  }, [files])
+    console.log(files);
+  }, [files]);
 
   const handleFileChange = async (e) => {
     const { name, files } = e.target;
     const f = new FormData();
     f.append("file", files[0]);
-    const res = await axios.post('https://mcfapis.bnbdevelopers.in/uploadFile', f);
+    const res = await axios.post(
+      "https://mcfapis.bnbdevelopers.in/uploadFile",
+      f
+    );
     setFiles((prev) => {
       return {
         ...prev,
-        [name]: res.data.file_url
-      }
-
-    })
-
-  }
+        [name]: res.data.file_url,
+      };
+    });
+  };
 
   const [campId, setCampId] = useState("");
   const [campFee, setCampFee] = useState("");
@@ -301,7 +300,7 @@ const FirstDetails = () => {
         reqData.append(key, files[key]);
       }
       // Make a POST request using axios
-      reqData.append('company', company);
+      reqData.append("company", company);
       const response = await axios.post(`${baseurl}/registerStudent`, reqData);
 
       console.log(response.data); // Log the response from the server
@@ -363,7 +362,7 @@ const FirstDetails = () => {
       <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-            <div >
+            <div>
               <header
                 className="px-5 py-4 border-b border-slate-100 dark:border-slate-700"
                 style={{ display: "flex", justifyContent: "space-between" }}
@@ -496,13 +495,13 @@ const FirstDetails = () => {
                       Date of Birth
                     </label>
                     <DatePicker
-
                       label="Controlled picker"
                       value={formData.dob}
                       placeholder="Date of Birth"
                       name="dob"
-                      onChange={(date) => setFormData({ ...formData, dob: date })}
-
+                      onChange={(date) =>
+                        setFormData({ ...formData, dob: date })
+                      }
                     />
                   </div>
 
@@ -566,11 +565,13 @@ const FirstDetails = () => {
                         required
                       >
                         <option value="">Select Standard</option>
-                        {Array.from({ length: 12 }, (_, i) => i + 1).map((standard) => (
-                          <option key={standard} value={standard}>
-                            {standard}
-                          </option>
-                        ))}
+                        {Array.from({ length: 12 }, (_, i) => i + 1).map(
+                          (standard) => (
+                            <option key={standard} value={standard}>
+                              {standard}
+                            </option>
+                          )
+                        )}
                       </select>
                     </div>
                     <div className="mb-4">
@@ -691,10 +692,16 @@ const FirstDetails = () => {
                         required
                       >
                         <option value="">Select an option</option>
-                        <option value="ADM . POONAM MAM">ADM . POONAM MAM</option>
-                        <option value="ADM. DIVYA MAM">ADM. DAKSHATA MAM</option>
+                        <option value="ADM . POONAM MAM">
+                          ADM . POONAM MAM
+                        </option>
+                        <option value="ADM. DIVYA MAM">
+                          ADM. DAKSHATA MAM
+                        </option>
                         <option value="ADM. ANJANA MAM">ADM. ANJANA MAM</option>
-                        <option value="ADM. SHARAYU MAM">ADM. SHARAYU MAM</option>
+                        <option value="ADM. SHARAYU MAM">
+                          ADM. SHARAYU MAM
+                        </option>
                         <option value="ADM. BHAGYASHREE MAM">
                           ADM. BHAGYASHREE MAM
                         </option>
@@ -788,7 +795,9 @@ const FirstDetails = () => {
                         <option value="Goa">Goa</option>
                         <option value="Gujarat">Gujarat</option>
                         <option value="Haryana">Haryana</option>
-                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Himachal Pradesh">
+                          Himachal Pradesh
+                        </option>
                         <option value="Jharkhand">Jharkhand</option>
                         <option value="Karnataka">Karnataka</option>
                         <option value="Kerala">Kerala</option>
@@ -949,7 +958,9 @@ const FirstDetails = () => {
                       <input
                         id="endDate"
                         name="endDate"
-                        value={batch.end_date ? convertDate(batch.end_date) : ""}
+                        value={
+                          batch.end_date ? convertDate(batch.end_date) : ""
+                        }
                         type="date"
                         className="w-full px-3 py-2 border rounded shadow appearance-none"
                         placeholder="End Date"
@@ -1084,12 +1095,16 @@ const FirstDetails = () => {
                     >
                       {/* Options for Dress Code */}
                       <option value="">Select Pick Up Point </option>
-                      {admissionFormData.pick_up_city === "mumbai" ? (
-                        mumbaiPickupLocations.map(location => (<option value={location}>{location}</option>))
-                      ) : ''}
-                      {admissionFormData.pick_up_city === "pune" ? (
-                        punePickupLocations.map(location => (<option value={location}>{location}</option>))
-                      ) : ''}
+                      {admissionFormData.pick_up_city === "mumbai"
+                        ? mumbaiPickupLocations.map((location) => (
+                            <option value={location}>{location}</option>
+                          ))
+                        : ""}
+                      {admissionFormData.pick_up_city === "pune"
+                        ? punePickupLocations.map((location) => (
+                            <option value={location}>{location}</option>
+                          ))
+                        : ""}
                     </select>
                   </div>
 
@@ -1172,7 +1187,6 @@ const FirstDetails = () => {
                       <option value="B-">B- </option>
                       <option value="AB-">AB-</option>
                       <option value="O-">O-</option>
-
                     </select>
                     {/* Options for Blood Group */}
                   </div>
@@ -1326,13 +1340,31 @@ const FirstDetails = () => {
                       check
                     </Button>
                   </div>
-                  <p>{`Final Price : ${campFee}`}</p>
+                  {/* <p>{`Final Price : ${campFee}`}</p> */}
+                  <div className="flex flex-col mb-2">
+                    <label htmlFor="final_price" className="font-bold ">
+                      Final Price
+                    </label>
+                    <input
+                      // placeholder="Define Allergy"
+                      type="number"
+                      id="final_price"
+                      name="final_price"
+                      className=" px-3 py-2 border rounded shadow appearance-none"
+                      value={campFee}
+                      disabled
+                    />
+                  </div>
+
+                  <hr className="my-4 h-1 bg-gray-200" />
 
                   <div>
                     <h2 className="text-xl font-bold">Health</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                       <div>
-                        <label htmlFor="physical_problem">Define Physical Problem</label>
+                        <label htmlFor="physical_problem">
+                          Define Physical Problem
+                        </label>
                         <input
                           placeholder="Define Physical Problem"
                           type="text"
@@ -1344,8 +1376,6 @@ const FirstDetails = () => {
                         />
                       </div>
                       <div>
-
-
                         <label htmlFor="allergy">Define Allergy</label>
                         <input
                           placeholder="Define Allergy"
@@ -1358,8 +1388,9 @@ const FirstDetails = () => {
                         />
                       </div>
                       <div>
-
-                        <label htmlFor="other_problem">Define Other Problem</label>
+                        <label htmlFor="other_problem">
+                          Define Other Problem
+                        </label>
                         <input
                           placeholder="Define Other Problem"
                           type="text"
@@ -1371,8 +1402,9 @@ const FirstDetails = () => {
                         />
                       </div>
                       <div>
-
-                        <label htmlFor="medication_physical">Medication For Physical Problem</label>
+                        <label htmlFor="medication_physical">
+                          Medication For Physical Problem
+                        </label>
                         <input
                           placeholder="Medication For Physical Problem"
                           type="text"
@@ -1384,9 +1416,9 @@ const FirstDetails = () => {
                         />
                       </div>
                       <div>
-
-
-                        <label htmlFor="medication_allergy">Medication For Allergy</label>
+                        <label htmlFor="medication_allergy">
+                          Medication For Allergy
+                        </label>
                         <input
                           placeholder="Medication For Allergy"
                           type="text"
@@ -1398,9 +1430,9 @@ const FirstDetails = () => {
                         />
                       </div>
                       <div>
-
-
-                        <label htmlFor="medication_other">Medication For Other Problem</label>
+                        <label htmlFor="medication_other">
+                          Medication For Other Problem
+                        </label>
                         <input
                           placeholder="Medication For Other Problem"
                           type="text"
@@ -1410,11 +1442,8 @@ const FirstDetails = () => {
                           onChange={(e) => handleHealthChange(e)}
                           className="w-full px-3 py-2 border rounded shadow appearance-none"
                         />
-
                       </div>
-
                     </div>
-
                   </div>
 
                   <hr className="my-4 h-1 bg-gray-200" />
@@ -1426,8 +1455,8 @@ const FirstDetails = () => {
                       </h1>
                       <ul className="list-disc pl-6 mb-4">
                         <li>
-                          Age limit for all the camps is strictly between 7 to 21
-                          years.
+                          Age limit for all the camps is strictly between 7 to
+                          21 years.
                         </li>
                         <li>
                           It is a Commando Training Camp and not a Luxurious
@@ -1440,9 +1469,9 @@ const FirstDetails = () => {
                           Electronic Gadgets are not allowed in the Camp.
                         </li>
                         <li>
-                          Abusive Language, Bad Words, any type of Addiction, and
-                          Fighting, if it happens in the Camp, then that child
-                          will be rusticated from the Camp.
+                          Abusive Language, Bad Words, any type of Addiction,
+                          and Fighting, if it happens in the Camp, then that
+                          child will be rusticated from the Camp.
                         </li>
                         <li>
                           Students need to take care of their provisions, food,
@@ -1450,29 +1479,29 @@ const FirstDetails = () => {
                         </li>
                         <li>
                           Junk Food is strictly prohibited in the camp. You may
-                          send healthy snacks like dry fruits or homemade healthy
-                          snacks.
+                          send healthy snacks like dry fruits or homemade
+                          healthy snacks.
                         </li>
                         <li>
                           Parents are allowed to call their wards only on
                           mentioned/given scheduled days.
                         </li>
                         <li>
-                          Parents would be notified by a message from MCF for the
-                          arrival of the cadet on the first day and departure
-                          timing on the last day of the camp. Please don't expect
-                          calls on the same.
+                          Parents would be notified by a message from MCF for
+                          the arrival of the cadet on the first day and
+                          departure timing on the last day of the camp. Please
+                          don't expect calls on the same.
                         </li>
                         <li>
-                          For a 7-day camp, the calling schedule will be alternate
-                          day from the 2nd day, 4th day, and 6th day, between
-                          12.00 am to 3.00 pm. If students have any complaints or
-                          requirements, then tell them to inform us. Cadets will
-                          be handed over to the parents at the camp place after
-                          the closing ceremony. Remaining kids will be dropped by
-                          MCF (whatever committed pick-up & drop place). If
-                          students have any complaints or requirements, then tell
-                          them to inform us.
+                          For a 7-day camp, the calling schedule will be
+                          alternate day from the 2nd day, 4th day, and 6th day,
+                          between 12.00 am to 3.00 pm. If students have any
+                          complaints or requirements, then tell them to inform
+                          us. Cadets will be handed over to the parents at the
+                          camp place after the closing ceremony. Remaining kids
+                          will be dropped by MCF (whatever committed pick-up &
+                          drop place). If students have any complaints or
+                          requirements, then tell them to inform us.
                         </li>
                         <li>
                           If anyone has any complaint or suggestion about this
@@ -1480,7 +1509,8 @@ const FirstDetails = () => {
                           pm. After that, calls will not be received.
                         </li>
                         <li>
-                          Fees once paid are Non-Refundable and Non-Transferable.
+                          Fees once paid are Non-Refundable and
+                          Non-Transferable.
                         </li>
                       </ul>
                       <h1 className="text-2xl font-bold mb-4">
@@ -1489,16 +1519,16 @@ const FirstDetails = () => {
                       <ul className="list-disc pl-6 mb-4">
                         <li>
                           This is a Commando Training Camp, not a Luxurious one,
-                          and I am very well aware of it. I am sending my child of
-                          my own free will.
+                          and I am very well aware of it. I am sending my child
+                          of my own free will.
                         </li>
                         <li>
                           I will not claim to MCF for any Natural Calamity or
-                          Natural Accident that may happen. My child is physically
-                          and mentally prepared for this Camp, and I have provided
-                          them with the information about the situation of the
-                          Camp. I know that fees once paid are non-refundable
-                          under any condition.
+                          Natural Accident that may happen. My child is
+                          physically and mentally prepared for this Camp, and I
+                          have provided them with the information about the
+                          situation of the Camp. I know that fees once paid are
+                          non-refundable under any condition.
                         </li>
                         <li>
                           I have carefully read and accepted all the above rules
@@ -1511,8 +1541,8 @@ const FirstDetails = () => {
                       <ul className="list-disc pl-6 mb-4">
                         <li>
                           I confirm that my ward/son/daughter is physically and
-                          medically fit to undertake the rigorous training of the
-                          course.
+                          medically fit to undertake the rigorous training of
+                          the course.
                         </li>
                         <li>
                           I hereby declare that I shall not hold MCF CAMP or the
@@ -1524,29 +1554,33 @@ const FirstDetails = () => {
                         <li>
                           I agree to adhere strictly to the rules and discipline
                           of the course and abide by the directions of the
-                          organizing authority or the nominee at all times during
-                          the course. Failing to do so may result in expulsion. In
-                          case of any injury, accident, or sickness of any member
-                          of my family, I shall not hold MCF CAMP or the
-                          instructors or any staff wholly or partially, either
-                          individually or jointly responsible, and no compensation
-                          will be claimed by me.
+                          organizing authority or the nominee at all times
+                          during the course. Failing to do so may result in
+                          expulsion. In case of any injury, accident, or
+                          sickness of any member of my family, I shall not hold
+                          MCF CAMP or the instructors or any staff wholly or
+                          partially, either individually or jointly responsible,
+                          and no compensation will be claimed by me.
                         </li>
                         <li>
-                          I hereby declare that to the best of my knowledge, I do
-                          not suffer from any ailment or disability likely to
+                          I hereby declare that to the best of my knowledge, I
+                          do not suffer from any ailment or disability likely to
                           handicap me in undergoing the course. I am taking part
                           in this course at my own risk.
                         </li>
                         <li>
-                          This indemnity bond/certificate is given by me with due
-                          diligence and based on the information imparted to me by
-                          MCF CAMP authorities.
+                          This indemnity bond/certificate is given by me with
+                          due diligence and based on the information imparted to
+                          me by MCF CAMP authorities.
                         </li>
                       </ul>
                     </div>
                     <label>
-                      <input type="checkbox" name="accept" id="accept-checkbox" />
+                      <input
+                        type="checkbox"
+                        name="accept"
+                        id="accept-checkbox"
+                      />
                       {""} I accept
                     </label>
                   </div>
