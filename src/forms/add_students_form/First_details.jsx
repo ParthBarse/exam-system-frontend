@@ -300,6 +300,8 @@ const FirstDetails = () => {
         reqData.append(key, files[key]);
       }
       // Make a POST request using axios
+      reqData.append("discount_code", discountCode);
+      reqData.append("discount_amount", discountAmount);
       reqData.append("company", company);
       const response = await axios.post(`${baseurl}/registerStudent`, reqData);
 
@@ -355,6 +357,7 @@ const FirstDetails = () => {
 
   const [couponStatus, setCouponStatus] = useState(true);
   const [discountCode, setDiscountCode] = useState("");
+  const [discountAmount, setDiscountAmount] = useState(0);
 
   return (
     <div>
@@ -1321,6 +1324,7 @@ const FirstDetails = () => {
                           })
                           .then((res) => {
                             if (res.data.success) {
+                              setDiscountAmount(res.data.discount_amount);
                               alert(
                                 `Congratulations! You got a discount of ${res.data.discount_amount}`
                               );
@@ -1333,6 +1337,7 @@ const FirstDetails = () => {
                             } else {
                               alert("Invalid Code");
                               setDiscountCode("");
+                              setDiscountAmount(0);
                             }
                           });
                       }}
@@ -1341,12 +1346,11 @@ const FirstDetails = () => {
                     </Button>
                   </div>
                   {/* <p>{`Final Price : ${campFee}`}</p> */}
-                  <div className="flex flex-col mb-2">
+                  <div className="flex flex-col mb-2 text-md">
                     <label htmlFor="final_price" className="font-bold ">
                       Final Price
                     </label>
                     <input
-                      // placeholder="Define Allergy"
                       type="number"
                       id="final_price"
                       name="final_price"
