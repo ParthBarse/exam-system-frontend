@@ -193,7 +193,7 @@ const FirstDetails = () => {
   };
 
   const [campId, setCampId] = useState("");
-  const [campFee, setCampFee] = useState("");
+  const [campFee, setCampFee] = useState(0);
 
   useEffect(() => {
     if (admissionFormData.camp_name) {
@@ -302,6 +302,8 @@ const FirstDetails = () => {
       // Make a POST request using axios
       reqData.append("discount_code", discountCode);
       reqData.append("discount_amount", discountAmount);
+      reqData.append("camp_fee", getCampPrice(campId));
+      reqData.append("total_amount_payable", campFee);
       reqData.append("company", company);
       const response = await axios.post(`${baseurl}/registerStudent`, reqData);
 
