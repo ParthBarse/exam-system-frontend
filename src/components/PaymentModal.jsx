@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -17,10 +18,21 @@ const style = {
 };
 
 export default function PaymentModal({ sid }) {
+  const baseurl = "https://mcfapis.bnbdevelopers.in";
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [selectedMode, setSelectedMode] = useState("");
+
+  const [paymentData, setPaymentData] = useState({
+    sid: sid,
+    payment_option: "",
+    payment_amount: 0,
+    payment_mode: "",
+    transaction_id: "",
+    payment_date: "",
+  });
 
   const paymentModes = [
     "IMPS",
@@ -36,11 +48,22 @@ export default function PaymentModal({ sid }) {
   ];
 
   const handleChange = (event) => {
-    setSelectedMode(event.target.value);
+    const { name, value } = event.target;
+    setPaymentData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const addPayment = async (e) => {
+    setLoading(true);
+    const response = await axios.post(`${baseurl}/createPayment`, paymentData);
+    handleClose();
+    setLoading(false);
   };
 
   return (
-    <div>
+    <div className="flex items-center justify-center">
       <Button
         className="text-sm text-white px-2 bg-indigo-500"
         style={{ padding: "1px", fontSize: "13px" }}
@@ -68,23 +91,26 @@ export default function PaymentModal({ sid }) {
                 id="payment_option"
                 name="payment_option"
                 className="w-full px-3 py-2 border rounded shadow appearance-none"
+                value={paymentData.payment_option}
+                onChange={handleChange}
               >
                 {/* Options for Dress Code */}
                 <option value="">Select Payment Options </option>
                 <option value="totalPayment">Total Payment</option>
-                <option value="1installment">1 installment </option>
-                <option value="2installment">2 installments </option>
-                <option value="3installment">3 installments </option>
-                <option value="4installment">4 installments </option>
+                <option value="1installment">1st Installment </option>
+                <option value="2installment">2nd Installments </option>
+                <option value="booking">Booking</option>
               </select>
             </label>
-            <div className="mt-2" htmlFor="amount">
+            <div className="mt-2" htmlFor="payment_amount">
               <input
                 type="number"
-                name="amount"
-                id="amount"
+                name="payment_amount"
+                value={paymentData.payment_amount}
+                id="payment_amount"
                 placeholder="Enter amount"
                 className="w-full px-3 py-2 border rounded shadow appearance-none "
+                onChange={handleChange}
               />
             </div>
 
@@ -94,9 +120,10 @@ export default function PaymentModal({ sid }) {
             >
               Select Payment Mode:
               <select
+                name="payment_mode"
                 className="w-full rounded"
-                id="paymentSelect"
-                value={selectedMode}
+                id="payment_mode"
+                value={paymentData.payment_mode}
                 onChange={handleChange}
               >
                 <option value="">Select Mode</option>
@@ -113,8 +140,10 @@ export default function PaymentModal({ sid }) {
                 className="w-full mt-2 rounded"
                 type="text"
                 name="transaction_id"
+                value={paymentData.transaction_id}
                 id="transaction_id"
                 placeholder="Enter transaction id"
+                onChange={handleChange}
               />
             </label>
             <label htmlFor="payment_data">
@@ -122,17 +151,19 @@ export default function PaymentModal({ sid }) {
               <input
                 className="w-full mt-2 rounded"
                 type="date"
+                value={paymentData.payment_date}
                 name="payment_date"
                 id="payment_date"
+                onChange={handleChange}
               />
             </label>
           </div>
 
           <button
             className="text-md w-full text-white px-2 py-1 bg-indigo-500"
-            onClick={handleClose}
+            onClick={addPayment}
           >
-            Add
+            {loading ? "Adding..." : "Add"}
           </button>
         </Box>
       </Modal>

@@ -5,6 +5,7 @@ import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
 import BasicModal from "../components/Modal";
 import PaymentModal from "../components/PaymentModal";
+import ListPayments from "../components/ListPaymentModal";
 
 const baseurl = "https://mcfapis.bnbdevelopers.in";
 
@@ -121,6 +122,11 @@ export default function Payments() {
                               Name
                             </div>
                           </th>
+                          <th className="p-2">
+                            <div className="font-semibold text-center">
+                              paid/payable
+                            </div>
+                          </th>
 
                           <th className="p-2">
                             <div className="font-semibold text-center">
@@ -157,7 +163,12 @@ export default function Payments() {
                             </td>
 
                             <td className="p-4">
-                              <div className="text-center grid grid-cols-2 grid-rows-2 gap-2 h-full">
+                              {item.total_amount_paid}/
+                              {item.total_amount_payable}
+                            </td>
+
+                            <td className="p-4">
+                              <div className="text-center grid grid-cols-2 grid-rows- gap-2 h-full">
                                 {/* <Link
                                    to={`/update-student-details?id=${item.sid}`}
                                   className="text-sm text-white px-2 bg-yellow-500"
@@ -167,12 +178,7 @@ export default function Payments() {
                                 </Link> */}
                                 <PaymentModal sid={item.sid} />
 
-                                <button
-                                  className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{ padding: "1px", fontSize: "13px" }}
-                                >
-                                  View
-                                </button>
+                                <ListPayments sid={item.sid} send={false} />
 
                                 {/* <button
                                   className="text-sm text-white px-2 bg-indigo-500"
