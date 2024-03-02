@@ -3,7 +3,7 @@ import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
-import BasicModal1 from '../components/Modal1';
+import BasicModal1 from "../components/Modal1";
 import { toast } from "sonner";
 
 function Filter() {
@@ -25,7 +25,6 @@ function Filter() {
   //   console.log(`Selected option: ${option}`);
   //   // You can add logic to perform actions based on the selected option
   // };
-
 
   // ...
   const [modalOpen, setModalOpen] = useState({});
@@ -58,7 +57,6 @@ function Filter() {
     batch_name: "",
     company: "",
   });
-
 
   const navigate = useNavigate();
 
@@ -106,7 +104,9 @@ function Filter() {
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
     if (name === "camp_id") {
-      const res = await axios.get(`https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`);
+      const res = await axios.get(
+        `https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`
+      );
       const batches = res.data.batches;
       setBatches(batches);
     }
@@ -117,15 +117,17 @@ function Filter() {
 
   useEffect(() => {
     async function getAllCamps() {
-      const res = await axios.get("https://mcfapis.bnbdevelopers.in/getAllCamps");
+      const res = await axios.get(
+        "https://mcfapis.bnbdevelopers.in/getAllCamps"
+      );
       const camps = res.data.camps;
       // console.log('camps' + camps);
       setCamps(camps);
     }
     getAllCamps();
-  }, [])
+  }, []);
 
-  const [loadingSms,setLoadingSms]=useState(false);
+  const [loadingSms, setLoadingSms] = useState(false);
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -253,7 +255,7 @@ function Filter() {
                 </select>
               </div>
 
-              <div >
+              <div>
                 <label
                   htmlFor="batch"
                   className="block text-sm font-medium text-gray-600"
@@ -270,9 +272,7 @@ function Filter() {
                   {/* Options for Batch */}
                   <option value="">Select Batch Name</option>
                   {batches.map((batch) => (
-                    <option value={batch.batch_id}>
-                      {batch.batch_name}
-                    </option>
+                    <option value={batch.batch_id}>{batch.batch_name}</option>
                   ))}
                 </select>
               </div>
@@ -345,7 +345,9 @@ function Filter() {
                             </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Medical Certificate</div>
+                            <div className="font-semibold text-center">
+                              Medical Certificate
+                            </div>
                           </th>
                         </tr>
                       </thead>
@@ -389,7 +391,7 @@ function Filter() {
                                 <Link
                                   to={`${item.medicalCertificate}`}
                                   className="text-sm text-white py-1 px-1 bg-blue-500"
-                                // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
+                                  // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
                                 >
                                   <button
                                     style={{
@@ -397,7 +399,6 @@ function Filter() {
                                       height: "100%",
                                       padding: "1px",
                                     }}
-                                    
                                   >
                                     Medical Certificate
                                   </button>
@@ -405,7 +406,7 @@ function Filter() {
                                 <Link
                                   // to={`${item.entrence_card}`}
                                   className="text-sm text-white py-1 px-1 bg-yellow-500"
-                                // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
+                                  // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
                                 >
                                   <button
                                     style={{
@@ -415,36 +416,46 @@ function Filter() {
                                     }}
                                     onClick={async () => {
                                       try {
-                                        const response = await axios.get(`https://mcfapis.bnbdevelopers.in/sendMedicalCertificate?sid=${item.sid}`);
+                                        const response = await axios.get(
+                                          `https://mcfapis.bnbdevelopers.in/sendMedicalCertificate?sid=${item.sid}`
+                                        );
                                         // console.log(response.data);
                                         // Show a success message
-                                        alert('Entrance card sent successfully!');
+                                        toast("Medical Certificate sent");
                                       } catch (error) {
                                         console.error(error);
                                         // Show an error message
-                                        alert('Failed to send entrance card. Please try again.');
+                                        alert(
+                                          "Failed to send entrance card. Please try again."
+                                        );
                                       }
                                     }}
                                   >
                                     Send via Email
                                   </button>
                                 </Link>
-                                <button className={`text-sm text-white py-1 px-1 bg-green-500 `}
-                                onClick={async (e)=>{
-                                  setLoadingSms(true);
-                                  const res = await axios.get(`https://mcfapis.bnbdevelopers.in/sendMedicalCertificate_sms?sid=${item.sid}`);
-                                  toast('Medical Certificate sent...');
-                                  setLoadingSms(false);
-                                }}
-                                disabled={loadingSms}
+                                <button
+                                  className={`text-sm text-white py-1 px-1 bg-green-500 `}
+                                  onClick={async (e) => {
+                                    setLoadingSms(true);
+                                    const res = await axios.get(
+                                      `https://mcfapis.bnbdevelopers.in/sendMedicalCertificate_sms?sid=${item.sid}`
+                                    );
+                                    toast("Medical Certificate sent...");
+                                    setLoadingSms(false);
+                                  }}
+                                  disabled={loadingSms}
                                 >
                                   Send via SMS
                                 </button>
-                                <button className={`text-sm text-white py-1 px-1 bg-rose-500`}
-                                onClick={async (e)=>{
-                                  const res = await axios.get(`https://mcfapis.bnbdevelopers.in/sendMedicalCertificate_wp?sid=${item.sid}`);
-                                  toast('Medical Certificate sent...');
-                                }}
+                                <button
+                                  className={`text-sm text-white py-1 px-1 bg-rose-500`}
+                                  onClick={async (e) => {
+                                    const res = await axios.get(
+                                      `https://mcfapis.bnbdevelopers.in/sendMedicalCertificate_wp?sid=${item.sid}`
+                                    );
+                                    toast("Medical Certificate sent...");
+                                  }}
                                 >
                                   Send via Whatsapp
                                 </button>

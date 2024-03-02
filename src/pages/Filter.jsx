@@ -3,9 +3,10 @@ import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
-import BasicModal1 from '../components/Modal1';
+import BasicModal1 from "../components/Modal1";
 
 function Filter() {
+  const baseurl = "https://mcfapis.bnbdevelopers.in";
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [data, setData] = useState([]);
   const [nameFilter, setNameFilter] = useState("");
@@ -24,7 +25,6 @@ function Filter() {
   //   console.log(`Selected option: ${option}`);
   //   // You can add logic to perform actions based on the selected option
   // };
-
 
   // ...
   const [modalOpen, setModalOpen] = useState({});
@@ -63,14 +63,16 @@ function Filter() {
 
   useEffect(() => {
     console.log(body);
-  }, [body])
+  }, [body]);
 
   const [batches, setBatches] = useState([]);
 
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
     if (name === "camp_id") {
-      const res = await axios.get(`https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`);
+      const res = await axios.get(
+        `https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`
+      );
       const batches = res.data.batches;
       setBatches(batches);
     }
@@ -90,17 +92,18 @@ function Filter() {
 
   useEffect(() => {
     async function getAllCamps() {
-      const res = await axios.get("https://mcfapis.bnbdevelopers.in/getAllCamps");
+      const res = await axios.get(
+        "https://mcfapis.bnbdevelopers.in/getAllCamps"
+      );
       const camps = res.data.camps;
       // console.log('camps' + camps);
       setCamps(camps);
     }
     getAllCamps();
-  }, [])
-
+  }, []);
 
   function getCampId(campName) {
-    const camp = camps.find(camp => camp.camp_name === campName);
+    const camp = camps.find((camp) => camp.camp_name === campName);
     console.log(camp);
     return camp.camp_id;
   }
@@ -264,7 +267,7 @@ function Filter() {
                 </select>
               </div>
 
-              <div >
+              <div>
                 <label
                   htmlFor="batch"
                   className="block text-sm font-medium text-gray-600"
@@ -281,9 +284,7 @@ function Filter() {
                   {/* Options for Batch */}
                   <option value="">Select Batch Name</option>
                   {batches.map((batch) => (
-                    <option value={batch.batch_id}>
-                      {batch.batch_name}
-                    </option>
+                    <option value={batch.batch_id}>{batch.batch_name}</option>
                   ))}
                 </select>
               </div>
@@ -393,14 +394,16 @@ function Filter() {
                               <div className={`text-center`}>{item.phn}</div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center`}>{item.pick_up_city}</div>
+                              <div className={`text-center`}>
+                                {item.pick_up_city}
+                              </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center grid grid-cols-2 grid-rows-1 gap-1">
+                              <div className="text-center grid grid-cols-3 grid-rows-1 gap-1">
                                 <Link
                                   to={`/update-student-details?id=${item.sid}`}
                                   className="text-sm text-white py-1 px-1 bg-blue-500"
-                                // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
+                                  // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
                                 >
                                   <button
                                     style={{
@@ -413,23 +416,32 @@ function Filter() {
                                   </button>
                                 </Link>
                                 {/* //add entrance card, report card, escort card, receipt on filter students // */}
-                                <Link
-                                  className="text-sm text-white py-1 px-2 bg-yellow-500"
+
+                                <BasicModal1
+                                  entrance={item.entrence_card}
+                                  modalOpen={modalOpen[item.sid]}
+                                  handleClose={() => handleClose(item.sid)}
+                                  sid={activeSid}
+                                  admission={item.admission_form}
+                                  visiting={item.visiting_card}
+                                  medical={item.medicalCertificate}
+                                />
+
+                                <button
+                                  className="text-sm text-white py-1 px-1 bg-green-500"
+                                  style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    padding: "1px",
+                                  }}
+                                  onClick={async (e) => {
+                                    await axios.get(
+                                      `${baseurl}/sendAllDocuments?sid=${item.sid}`
+                                    );
+                                  }}
                                 >
-                                  <button
-                                    style={{
-                                      width: "100%",
-                                      height: "100%",
-                                      padding: "1px",
-                                    }}
-                                    onClick={() => handleShow(item.sid)}
-                                  >
-                                    More
-                                  </button>
-                                </Link>
-
-                                <BasicModal1 modalOpen={modalOpen[item.sid]} handleClose={() => handleClose(item.sid)} sid={activeSid} />
-
+                                  Send All
+                                </button>
 
                                 {/* {showDropdown && (
                                   <div className="absolute z-10 right-0 mt-2 w-40 bg-white rounded-md shadow-lg">
