@@ -373,7 +373,7 @@ const FirstDetails = () => {
                 className="px-5 py-4 border-b border-slate-100 dark:border-slate-700"
                 style={{ display: "flex", justifyContent: "space-between" }}
               >
-                <h2 className="font-semibold text-slate-800 dark:text-slate-100">
+                <h2 className="font-semibold text-base text-slate-800 dark:text-slate-100">
                   Enter Your Details
                 </h2>
               </header>
@@ -1299,8 +1299,7 @@ const FirstDetails = () => {
                       <option value="totalPayment">Total Payment</option>
                       <option value="1installment">1 installment </option>
                       <option value="2installment">2 installments </option>
-                      <option value="3installment">3 installments </option>
-                      <option value="4installment">4 installments </option>
+                      <option value="booking">Booking</option>
                     </select>
                   </div>
                   <div className="mb-4">
