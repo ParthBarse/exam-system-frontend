@@ -1,14 +1,12 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useEffect } from "react";
 import axios from "axios";
+import { Button } from "@mui/material";
 
-          
-
-const baseurl = 'https://mcfapis.bnbdevelopers.in/'
+const baseurl = "https://mcfapis.bnbdevelopers.in/";
 
 const style = {
   position: "absolute",
@@ -22,23 +20,31 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal1({ modalOpen, sid, fetchData }) {
+export default function BasicModal1({
+  modalOpen,
+  sid,
+  fetchData,
+  entrance,
+  visiting,
+  admission,
+  medical,
+}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleChangeStatus = async(status) => {
+  const handleChangeStatus = async (status) => {
     const res = await axios({
-        method : "put",
-        url : `${baseurl}/changeStatus`,
-        data : {
-            sid, 
-            "new_status" : status
-        }
-    })
-    fetchData()
-    handleClose()
-};
+      method: "put",
+      url: `${baseurl}/changeStatus`,
+      data: {
+        sid,
+        new_status: status,
+      },
+    });
+    fetchData();
+    handleClose();
+  };
 
   useEffect(() => {
     console.log(sid);
@@ -46,7 +52,13 @@ export default function BasicModal1({ modalOpen, sid, fetchData }) {
   }, [modalOpen]);
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
+      <Button
+        className="text-sm text-white px-2 bg-indigo-500"
+        style={{ padding: "1px", fontSize: "13px" }}
+        onClick={handleOpen}
+      >
+        More
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -62,26 +74,37 @@ export default function BasicModal1({ modalOpen, sid, fetchData }) {
           </Typography>
         </Box> */}
         <Box sx={style} className="flex gap-3">
-          <button
+          <a
+            target="_blank"
+            href={entrance}
             className="border border-solid p-2 px-4 bg-red-500 text-white min-w-[130px]"
-            onClick={() => {
-              history.push(`${sid.entrence_card}`);
-            }}
           >
-            Enterance Card
-          </button>
-          <button
+            Entrance Card
+          </a>
+          <a
+            target="_blank"
+            href={visiting}
             className="border border-solid p-2 px-4 bg-yellow-400 text-white min-w-[130px]"
             // onClick={() => handleChangeStatus("Refund")}
           >
-            Receipt
-          </button>
-          <button
+            Visiting Card
+          </a>
+          <a
+            target="_blank"
+            href={medical}
             className="border border-solid p-2 px-4 bg-blue-500 text-white min-w-[130px]"
             // onClick={() => handleChangeStatus("Extend")}
           >
-            Report
-          </button>
+            Medical Certificate
+          </a>
+          <a
+            target="_blank"
+            href={admission}
+            className="border border-solid p-2 px-4 bg-blue-500 text-white min-w-[130px]"
+            // onClick={() => handleChangeStatus("Extend")}
+          >
+            Admission Form
+          </a>
         </Box>
       </Modal>
     </div>

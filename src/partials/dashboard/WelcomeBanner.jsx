@@ -1,11 +1,14 @@
-import React from 'react';
-import logo1 from '../../forms/add_students_form/watermark-removebg-preview.png'
+import React from "react";
+import logo1 from "../../forms/add_students_form/watermark-removebg-preview.png";
 
 function WelcomeBanner() {
   return (
     <div className="relative bg-blue-100 dark:bg-indigo-500 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
       {/* Background illustration */}
-      <div className="absolute right-0 top-0 -mt-4 mr-16 pointer-events-none hidden xl:block" aria-hidden="true">
+      <div
+        className="absolute right-0 top-0 -mt-4 mr-16 pointer-events-none hidden xl:block"
+        aria-hidden="true"
+      >
         {/* <svg width="319" height="198" xmlnsXlink="http://www.w3.org/1999/xlink">
           <defs>
             <path id="welcome-a" d="M64 0l64 128-64-20-64 20z" />
@@ -47,11 +50,19 @@ function WelcomeBanner() {
       </div>
 
       {/* Content */}
-      <div className="flex" style={{justifyContent:"space-between"}}>
-        <img src={logo1} style={{height:100}} alt="LOGO" />
-
-        <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">JAI HIND MCF CAMP </h1>
-        <p className="dark:text-indigo-200 font-bold">Creating Tomorrow’s Responsible Citizen</p>
+      <div className="flex" style={{ justifyContent: "space-between" }}>
+        <img src={logo1} style={{ height: 100 }} alt="LOGO" />
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">
+            JAI HIND{" "}
+          </h1>
+          <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">
+            MCF CAMP{" "}
+          </h1>
+        </div>
+        <p className="dark:text-indigo-200 font-bold">
+          We Aim At Creating Responsible And Self-Driven Cadet
+        </p>
       </div>
     </div>
   );
