@@ -53,7 +53,7 @@ function AddCamp() {
         form.append(key, key === 'discount_date' ? formattedDiscountDate : formData[key]);
       }
 
-      const response = await axios.post('https://mcfapis.bnbdevelopers.in/addCamp', formData);
+      const response = await axios.post('https://mcfapis.bnbdevelopers.in/addCamp', form);
 
       // const responseData = await response.json();
       setLoading(false);
