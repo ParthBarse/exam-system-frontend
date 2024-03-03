@@ -44,7 +44,7 @@ const Payment = ({ nextStep, prevStep }) => {
                           name="paymentMethod"
                           value="upi"
                         />
-                        <label htmlFor="upi">  UPI</label>
+                        <label htmlFor="upi"> UPI</label>
                       </div>
                       <div>
                         <input
@@ -53,7 +53,7 @@ const Payment = ({ nextStep, prevStep }) => {
                           name="paymentMethod"
                           value="cheque"
                         />
-                        <label htmlFor="cheque">  Cheque</label>
+                        <label htmlFor="cheque"> Cheque</label>
                       </div>
                       <div>
                         <input
@@ -62,7 +62,7 @@ const Payment = ({ nextStep, prevStep }) => {
                           name="paymentMethod"
                           value="cash"
                         />
-                        <label htmlFor="cash">  Cash</label>
+                        <label htmlFor="cash"> Cash</label>
                       </div>
                       <div>
                         <input
@@ -71,7 +71,7 @@ const Payment = ({ nextStep, prevStep }) => {
                           name="paymentMethod"
                           value="emi"
                         />
-                        <label htmlFor="emi">  EMI</label>
+                        <label htmlFor="emi"> EMI</label>
                       </div>
                     </div>
                   </div>
@@ -86,7 +86,10 @@ const Payment = ({ nextStep, prevStep }) => {
                       placeholder="Enter the payment amount"
                     />
                   </div>
-                  <Link to={'https://rzp.io/i/seZOp9F'} className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600">
+                  <Link
+                    to={"https://rzp.io/i/seZOp9F"}
+                    className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600"
+                  >
                     Make Payment
                   </Link>
                 </div>

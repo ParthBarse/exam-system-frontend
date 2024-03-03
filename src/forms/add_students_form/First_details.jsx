@@ -124,7 +124,6 @@ const FirstDetails = () => {
     // parents_name: '',
     // parents_phn: '',
     // parents_email: '',
-    discount_code: "",
   });
 
   const [camp, setCamp] = useState({});
@@ -361,6 +360,13 @@ const FirstDetails = () => {
   const [couponStatus, setCouponStatus] = useState(true);
   const [discountCode, setDiscountCode] = useState("");
   const [discountAmount, setDiscountAmount] = useState(0);
+  const [discountCodes, setDiscountCodes] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${baseurl}/getAllDiscounts`)
+      .then((res) => setDiscountCodes(res.data.discounts));
+  }, []);
 
   return (
     <div>
@@ -1229,6 +1235,7 @@ const FirstDetails = () => {
                       name="cadetPhoto"
                       onChange={(e) => handleFileChange(e)}
                       className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      accept="image/*"
                     />
                   </div>
                   <div className="mb-4">
@@ -1244,6 +1251,7 @@ const FirstDetails = () => {
                       name="cadetSign"
                       onChange={(e) => handleFileChange(e)}
                       className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      accept="image/*"
                     />
                   </div>
                   <div className="mb-4">
@@ -1259,6 +1267,7 @@ const FirstDetails = () => {
                       name="parentGurdianPhoto"
                       onChange={(e) => handleFileChange(e)}
                       className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      accept="image/*"
                     />
                   </div>
                   <div className="mb-4">
@@ -1274,6 +1283,7 @@ const FirstDetails = () => {
                       name="parentGurdianSign"
                       onChange={(e) => handleFileChange(e)}
                       className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      accept="image/*"
                     />
                   </div>
 
@@ -1309,15 +1319,21 @@ const FirstDetails = () => {
                     >
                       Discount Code
                     </label>
-                    <input
-                      id="discount_code"
+                    <select
                       name="discount_code"
-                      value={discountCode}
-                      type="text"
-                      className="w-full px-3 py-2 border rounded shadow appearance-none"
-                      placeholder="Enter code"
+                      id="discount_code"
+                      defaultValue="discount code"
                       onChange={(e) => setDiscountCode(e.target.value)}
-                    />
+                    >
+                      <option value="" disabled selected>
+                        Select an option
+                      </option>
+                      {discountCodes.map((code) => (
+                        <option value={code.discount_code}>
+                          {code.discount_code}
+                        </option>
+                      ))}
+                    </select>
                     <Button
                       onClick={(e) => {
                         axios

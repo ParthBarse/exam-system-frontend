@@ -57,7 +57,7 @@ export default function ListPayments({ sid, send }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} className="text-black">
-          <div className="border-2 border-black rounded-sm h-10 mt-3 flex justify-between items-center px-2 font-bold text-sm space-x-8 ">
+          <div className="border-2 border-black rounded-sm h-10  grid-cols-5 mt-3 flex justify-between items-center px-2 font-bold text-sm space-x-8 ">
             <p>Amount</p>
             <p>Mode</p>
             <p>Option</p>
@@ -75,7 +75,7 @@ export default function ListPayments({ sid, send }) {
             <div
               className={`border border-black rounded-sm ${
                 send ? "h-24" : "h-10"
-              } mt-3 flex justify-between space-x-6 items-center px-2 text-sm `}
+              } mt-3 grid-cols-5 flex justify-between space-x-6 items-center px-2 text-sm `}
             >
               <p>₹ {payment.payment_amount}</p>
               <p>{payment.payment_mode}</p>
