@@ -19,41 +19,107 @@ export default function Payments() {
   const [camps, setCamps] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [SID, setSID] = useState(null);
+  const [nameFilter, setNameFilter] = useState("");
+  const [regId, setRegId] = useState("");
+
+  const [body, setBody] = useState({
+    sid: "",
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    email: "",
+    phn: "",
+    dob: "",
+    address: "",
+    fathers_occupation: "",
+    mothers_occupation: "",
+    how_you_got_to_know: "",
+    employee_who_reached_out_to_you: "",
+    district: "",
+    state: "",
+    pincode: "", // New camp field
+    camp_name: "",
+    batch_name: "",
+    company: "",
+    pick_up_city: "",
+    camp_id: "",
+    batch_id: "",
+  });
 
   useEffect(() => {
-    const fetchCamps = async () => {
-      try {
-        const response = await axios.get(
-          "https://mcfapis.bnbdevelopers.in/getAllCamps"
-        );
-        setCamps(response.data.camps);
-      } catch (error) {
-        console.error("Error fetching camps:", error);
-      }
-    };
+    console.log(body);
+  }, [body]);
 
-    fetchCamps();
-  }, []);
+  const handleInputChange = async (e) => {
+    const { name, value } = e.target;
+    if (name === "camp_id") {
+      const res = await axios.get(
+        `https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`
+      );
+      const batches = res.data.batches;
+      setBatches(batches);
+    }
 
-  const getCampName = (campId) => {
-    const camp = camps.find((camp) => camp.camp_id === campId);
-    return camp ? camp.camp_name : "Camp not assigned";
+    setBody({ ...body, [name]: value });
   };
 
   useEffect(() => {
-    fetchData(); // Fetch data when the component mounts
-  }, [isDeleted]);
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, []);
+
+  useEffect(() => {
+    async function getAllCamps() {
+      const res = await axios.get(
+        "https://mcfapis.bnbdevelopers.in/getAllCamps"
+      );
+      const camps = res.data.camps;
+      // console.log('camps' + camps);
+      setCamps(camps);
+    }
+    getAllCamps();
+  }, []);
+
+  function getCampId(campName) {
+    const camp = camps.find((camp) => camp.camp_name === campName);
+    console.log(camp);
+    return camp.camp_id;
+  }
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${baseurl}/getAllStudents`);
-      setData(response.data.students); // Update the state with the fetched data
-
-      setLoading(false); // Set loading to false
+      const response = await axios.post(
+        `https://mcfapis.bnbdevelopers.in/filterStudents`,
+        body
+      );
+      console.log(response.data.students);
+      setData(response.data.students);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+
+  useEffect(() => {
+    axios
+      .get("https://mcfapis.bnbdevelopers.in/getAllStudents")
+      .then((x) => setData(x.data.students));
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [body]);
+
+  useEffect(() => {
+    axios
+      .get(`https://mcf-backend.vercel.app/api/filterbyRegID/${regId}`)
+      .then((x) => setData(x.data));
+  }, [regId]);
+
+  const handleFilterSubmit = () => {
+    fetchData();
+  };
+
   const totalItems = data.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -87,6 +153,160 @@ export default function Payments() {
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         <main>
+          <div className="flex justify-center">
+            <div className="grid grid-cols-4 px-9 gap-4">
+              <div>
+                <label className="block text-gray-600">First Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="First name"
+                  value={body.first_name}
+                  name="first_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Middle Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Middle Name"
+                  value={body.middle_name}
+                  name="middle_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Last Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Last Name"
+                  value={body.last_name}
+                  name="last_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Reg Id</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Student Id"
+                  value={body.sid}
+                  name="sid"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">E-mail</label>
+                <input
+                  type="email"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="email"
+                  value={body.email}
+                  name="email"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Pick-up City</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Pick-up City"
+                  value={body.pick_up_city}
+                  name="pick_up_city"
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-600">Status</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Status"
+                  value={body.status}
+                  name="status"
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-600">Phone</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Phone"
+                  value={body.phn}
+                  name="phn"
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="camp_category"
+                  className="block text-lg font-medium text-gray-600"
+                >
+                  Camp Name
+                </label>
+                <select
+                  id="camp_name"
+                  name="camp_id"
+                  // value={body.camp_name}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Camp Category */}
+                  <option value="">Select Camp Name</option>
+                  {camps.map((camp) => (
+                    <option value={camp.camp_id}>{camp.camp_name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="batch"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Batch
+                </label>
+                <select
+                  id="batch"
+                  name="batch_id"
+                  // value={admissionFormData.batch}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Batch */}
+                  <option value="">Select Batch Name</option>
+                  {batches.map((batch) => (
+                    <option value={batch.batch_id}>{batch.batch_name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-gray-600">Company</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Company"
+                  value={body.company}
+                  name="company"
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div
+                style={{ display: "flex", flexDirection: "column-reverse" }}
+              ></div>
+            </div>
+          </div>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">

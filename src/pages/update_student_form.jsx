@@ -1,29 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import Sidebar from '../partials/Sidebar';
-import Header from '../partials/Header';
-import axios from 'axios';
-import DatePicker from 'react-flatpickr';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Loader2Icon } from 'lucide-react';
-
-
+import React, { useEffect, useState } from "react";
+import Sidebar from "../partials/Sidebar";
+import Header from "../partials/Header";
+import axios from "axios";
+import DatePicker from "react-flatpickr";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Loader2Icon } from "lucide-react";
 
 export default function AddStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
 
-
-
-
   useEffect(() => {
     if (!localStorage.getItem("token")) {
-      navigate("/")
+      navigate("/");
     }
-  }, [])
-
+  }, []);
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -38,7 +32,6 @@ export default function AddStudent() {
         <main>
           <div className="w-full max-w-l mx-auto p-4">
             <FirstDetails />
-
           </div>
         </main>
       </div>
@@ -46,64 +39,65 @@ export default function AddStudent() {
   );
 }
 
-const baseurl = 'https://mcfapis.bnbdevelopers.in'
+const baseurl = "https://mcfapis.bnbdevelopers.in";
 
 const FirstDetails = () => {
-
   const location = useLocation();
   const navigate = useNavigate();
 
   const punePickupLocations = [
-    'NIGADI BHAKTISHAKTI',
-    'AKURDI KHANDOBA MANDIR',
-    'CHINCHAWAD CHAPHEKAR CHOWK',
-    'KALEWADI PHATA',
-    'SANGVI PHATA',
-    'AUNDH SHIVAJI VIDYALAYA',
-    'KHADKI BAZAR',
-    'YERWADA DECCAN COLLEGE',
-    'KHARADI BYPASS',
-    'HADAPSAR – GADITAL AKASHWANI',
-    'SWARGET – PMPL BUS STOP',
-    'KATRAJ – PMPL BUS STOP',
-    'SPINE ROAD',
-    'BHOSARI DIGHI ROAD',
-    'NASIK PHATA',
-    'KOKANE CHOWK',
-    'BANER SADANAND HOTEL',
-    'CHANDANI CHOWK – AUTO STOP',
-    'WARJE- MAI MANGESHKAR HOSPITAL',
-    'SINHGAD NAVALE BRIDGE'
+    "NIGADI BHAKTISHAKTI",
+    "AKURDI KHANDOBA MANDIR",
+    "CHINCHAWAD CHAPHEKAR CHOWK",
+    "KALEWADI PHATA",
+    "SANGVI PHATA",
+    "AUNDH SHIVAJI VIDYALAYA",
+    "KHADKI BAZAR",
+    "YERWADA DECCAN COLLEGE",
+    "KHARADI BYPASS",
+    "HADAPSAR – GADITAL AKASHWANI",
+    "SWARGET – PMPL BUS STOP",
+    "KATRAJ – PMPL BUS STOP",
+    "SPINE ROAD",
+    "BHOSARI DIGHI ROAD",
+    "NASIK PHATA",
+    "KOKANE CHOWK",
+    "BANER SADANAND HOTEL",
+    "CHANDANI CHOWK – AUTO STOP",
+    "WARJE- MAI MANGESHKAR HOSPITAL",
+    "SINHGAD NAVALE BRIDGE",
   ];
 
   const mumbaiPickupLocations = [
-    'DADAR (ASIAD BUS STOP)',
-    'VASHI (VASHI PLAZA, BELOW VASHI BRIDGE, SHIVNERI, BUS STOP)',
-    'THANE(NEAR SHIVAJI HOSPITAL KALWA NAKA)',
-    'AIROLI',
-    'RABALE',
-    'GHANSOLI',
-    'KOPARKHAIRANE',
-    'TURBHE',
-    'JUINAGAR',
-    'NERUR',
-    'BELAPUR',
-    'KAMATI',
-    'KHARGHAR',
-    'PANVEL (MCDONALD’S PANVEL BUS STAND)'
+    "DADAR (ASIAD BUS STOP)",
+    "VASHI (VASHI PLAZA, BELOW VASHI BRIDGE, SHIVNERI, BUS STOP)",
+    "THANE(NEAR SHIVAJI HOSPITAL KALWA NAKA)",
+    "AIROLI",
+    "RABALE",
+    "GHANSOLI",
+    "KOPARKHAIRANE",
+    "TURBHE",
+    "JUINAGAR",
+    "NERUR",
+    "BELAPUR",
+    "KAMATI",
+    "KHARGHAR",
+    "PANVEL (MCDONALD’S PANVEL BUS STAND)",
   ];
 
   const [state, setState] = React.useState({
     open: false,
-    vertical: 'top',
-    horizontal: 'center',
+    vertical: "top",
+    horizontal: "center",
   });
 
-  const [errorState, setErrorState] = useState({ open: false, vertical: 'top', horizontal: 'center' });
-
+  const [errorState, setErrorState] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
 
   const { vertical, horizontal, open } = state;
-
 
   const handleClose = () => {
     setState({ ...state, open: false });
@@ -113,27 +107,24 @@ const FirstDetails = () => {
     setErrorState({ ...errorState, open: false });
   };
 
-
   const [formData, setFormData] = useState({});
-
-
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
-    const sid = queryParams.get('id');
-    axios.get(`${baseurl}/getStudent?sid=${sid}`).then(x => setFormData(x.data.student));
-  }, [location.search])
-
-
+    const sid = queryParams.get("id");
+    axios
+      .get(`${baseurl}/getStudent?sid=${sid}`)
+      .then((x) => setFormData(x.data.student));
+  }, [location.search]);
 
   useEffect(() => {
-    if (typeof formData['dob'] === 'string') {
-      let parts = formData['dob'].split('-'); // split the date string on '-'
+    if (typeof formData["dob"] === "string") {
+      let parts = formData["dob"].split("-"); // split the date string on '-'
       let date = new Date(parts[2], parts[1] - 1, parts[0]); // create a new Date object
-      console.log(date)
-      setFormData(prevData => ({ ...prevData, dob: date }));
+      console.log(date);
+      setFormData((prevData) => ({ ...prevData, dob: date }));
     }
-  }, [formData])
+  }, [formData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -147,12 +138,10 @@ const FirstDetails = () => {
     setLoading(true);
     e.preventDefault();
     try {
-
-
       const reqData = new FormData();
 
       for (let key in formData) {
-        if (key === 'dob') {
+        if (key === "dob") {
           let date = new Date(formData[key]);
           let day = ("0" + date.getDate()).slice(-2); // get the day as a string in the format DD
           let month = ("0" + (date.getMonth() + 1)).slice(-2); // get the month as a string in the format MM
@@ -160,22 +149,19 @@ const FirstDetails = () => {
 
           let formattedDate = `${day}-${month}-${year}`; // combine them all together in the format DD-MM-YYYY
           reqData.append(key, formattedDate);
-        }
-        else if (key == 'camp_id' || key == 'batch_id') {
+        } else if (key == "camp_id" || key == "batch_id") {
           continue;
-        }
-        else if (key != 'company') {
-          reqData.append(key, formData[key])
+        } else if (key != "company") {
+          reqData.append(key, formData[key]);
         }
       }
 
       // formData.camp_id = getCampId(selectedCamp);
       // formData.batch_id = getBatchId(selectedBatch)
-      reqData.append('camp_id', getCampId(selectedCamp))
-      reqData.append('batch_id', getBatchId(selectedBatch))
+      reqData.append("camp_id", getCampId(selectedCamp));
+      reqData.append("batch_id", getBatchId(selectedBatch));
 
-
-      reqData.append('company', company);
+      reqData.append("company", company);
       // Make a POST request using axios
 
       const response = await axios.put(`${baseurl}/updateStudent`, reqData);
@@ -183,27 +169,18 @@ const FirstDetails = () => {
       // alert('Student Updated Successfully');
       console.log(response.data); // Log the response from the server
 
-      setState({ vertical: 'bottom', horizontal: 'right', open: true });
-      navigate('/RegStudent')
+      setState({ vertical: "bottom", horizontal: "right", open: true });
+      navigate("/RegStudent");
       // }
 
-
       // // After successfully adding a student, you might want to reset the form
-
-
-
-
     } catch (error) {
       setLoading(false);
-      setErrorState({ vertical: 'bottom', horizontal: 'right', open: true });
-      console.error('Error adding student:', error);
-
+      setErrorState({ vertical: "bottom", horizontal: "right", open: true });
+      console.error("Error adding student:", error);
     }
   };
   const [camps, setCamps] = useState([]);
-
-
-
 
   useEffect(() => {
     const fetchCamps = async () => {
@@ -211,57 +188,58 @@ const FirstDetails = () => {
         const response = await axios.get(`${baseurl}/getAllCamps`);
         setCamps(response.data.camps);
       } catch (error) {
-        console.error('Error fetching data', error);
+        console.error("Error fetching data", error);
       }
     };
     fetchCamps();
-  }, [])
+  }, []);
 
   const [batches, setBatches] = useState([]);
-  const [selectedCamp, setSelectedCamp] = useState('')
-  const [selectedBatch, setSelectedBatch] = useState('')
-  const [batch, setBatch] = useState({})
+  const [selectedCamp, setSelectedCamp] = useState("");
+  const [selectedBatch, setSelectedBatch] = useState("");
+  const [batch, setBatch] = useState({});
 
   useEffect(() => {
     const fetchBatches = async () => {
       try {
-        const response = await axios.get(`${baseurl}/getBatches?camp_id=${getCampId(selectedCamp)}`);
+        const response = await axios.get(
+          `${baseurl}/getBatches?camp_id=${getCampId(selectedCamp)}`
+        );
         setBatches(response.data.batches);
       } catch (error) {
-        console.log("Error fetching batches :", error)
+        console.log("Error fetching batches :", error);
       }
-    }
-    fetchBatches()
-  }, [selectedCamp])
+    };
+    fetchBatches();
+  }, [selectedCamp]);
 
   // //////////////////////////////////////////////
 
-
   ////////////////////////////////////////////
-
 
   useEffect(() => {
     if (formData.camp_id) {
       const currentCamp = getCampName(formData.camp_id);
       setSelectedCamp(currentCamp);
     }
-
-  }, [formData.camp_id])
+  }, [formData.camp_id]);
 
   useEffect(() => {
     if (formData.batch_id) {
       const currentBatch = getBatchName(formData.batch_id);
       setSelectedBatch(currentBatch);
     }
-  }, [formData.batch_id, batches])
+  }, [formData.batch_id, batches]);
 
   useEffect(() => {
     const fetchBatch = async () => {
-      const response = await axios.get(`${baseurl}/getBatch?batch_id=${getBatchId(selectedBatch)}`)
-      setBatch(response.data.batch)
-    }
-    fetchBatch()
-  }, [selectedBatch])
+      const response = await axios.get(
+        `${baseurl}/getBatch?batch_id=${getBatchId(selectedBatch)}`
+      );
+      setBatch(response.data.batch);
+    };
+    fetchBatch();
+  }, [selectedBatch]);
 
   // Function to calculate age
   function calculate_age(dob) {
@@ -292,33 +270,31 @@ const FirstDetails = () => {
   let age = calculate_age(formData.dob);
   let company = assign_company(age, formData.gender);
 
-
-
   const convertDate = (dateString) => {
-    const [day, month, year] = dateString.split('-');
+    const [day, month, year] = dateString.split("-");
     const formattedDate = `${year}-${month}-${day}`;
     return formattedDate;
   };
 
   const getCampId = (campName) => {
-    const camp = camps.find(camp => camp.camp_name === campName);
-    return camp ? camp.camp_id : 'Camp not found';
+    const camp = camps.find((camp) => camp.camp_name === campName);
+    return camp ? camp.camp_id : "Camp not found";
   };
 
   const getBatchId = (batchName) => {
-    const batch = batches.find(batch => batch.batch_name === batchName);
-    return batch ? batch.batch_id : 'not found'
-  }
+    const batch = batches.find((batch) => batch.batch_name === batchName);
+    return batch ? batch.batch_id : "not found";
+  };
 
   const getBatchName = (batchId) => {
-    const batch = batches.find(batch => batch.batch_id === batchId);
-    return batch ? batch.batch_name : 'not found';
-  }
+    const batch = batches.find((batch) => batch.batch_id === batchId);
+    return batch ? batch.batch_name : "not found";
+  };
 
   const getCampName = (campId) => {
-    const camp = camps.find(camp => camp.camp_id === campId);
-    return camp ? camp.camp_name : 'not found';
-  }
+    const camp = camps.find((camp) => camp.camp_id === campId);
+    return camp ? camp.camp_name : "not found";
+  };
 
   return (
     <div>
@@ -339,48 +315,132 @@ const FirstDetails = () => {
                 <div className="grid grid-cols-3 gap-4">
                   {/* Name fields */}
                   <div className="mb-4">
-                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-600">First Name</label>
-                    <input id="firstName" name='first_name' value={formData.first_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="First Name" onChange={handleChange} />
+                    <label
+                      htmlFor="firstName"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      First Name
+                    </label>
+                    <input
+                      id="firstName"
+                      name="first_name"
+                      value={formData.first_name}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="First Name"
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="middlename" className="block text-sm font-medium text-gray-600">Middle Name</label>
-                    <input id="middlename" name='middle_name' value={formData.middle_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Middle Name" onChange={handleChange} />
+                    <label
+                      htmlFor="middlename"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Middle Name
+                    </label>
+                    <input
+                      id="middlename"
+                      name="middle_name"
+                      value={formData.middle_name}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="Middle Name"
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-600">Last Name</label>
-                    <input id="lastName" name='last_name' value={formData.last_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Last Name" onChange={handleChange} />
+                    <label
+                      htmlFor="lastName"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Last Name
+                    </label>
+                    <input
+                      id="lastName"
+                      name="last_name"
+                      value={formData.last_name}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="Last Name"
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email</label>
-                    <input id="emial" name='email' value={formData.email} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Email" onChange={handleChange} />
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Email
+                    </label>
+                    <input
+                      id="emial"
+                      name="email"
+                      value={formData.email}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="Email"
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
                 {/* Parents/Guardians and Address */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="mb-4">
-                    <label htmlFor="Phone" className="block text-sm font-medium text-gray-600">Phone</label>
-                    <input id="Phone" name='phn' value={formData.phn} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Phone" onChange={handleChange} />
+                    <label
+                      htmlFor="Phone"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Phone
+                    </label>
+                    <input
+                      id="Phone"
+                      name="phn"
+                      value={formData.phn}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="Phone"
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="address" className="block text-sm font-medium text-gray-600">Address</label>
-                    <input id="address" name='address' value={formData.address} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Address" onChange={handleChange} />
+                    <label
+                      htmlFor="address"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Address
+                    </label>
+                    <input
+                      id="address"
+                      name="address"
+                      value={formData.address}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="Address"
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="dob" className="block text-sm font-medium text-gray-600">Date of Birth</label>
+                  <label
+                    htmlFor="dob"
+                    className="block text-sm font-medium text-gray-600"
+                  >
+                    Date of Birth
+                  </label>
                   <DatePicker
                     label="Controlled picker"
                     value={formData.dob}
-                    placeholder='dob'
-                    name='dob'
+                    placeholder="dob"
+                    name="dob"
                     onChange={(date) => setFormData({ ...formData, dob: date })}
                   />
-
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-
                   <div className="mb-4">
-                    <label htmlFor="camp_category" className="block text-sm font-medium text-gray-600">
+                    <label
+                      htmlFor="camp_category"
+                      className="block text-sm font-medium text-gray-600"
+                    >
                       Gender
                     </label>
                     <select
@@ -397,18 +457,57 @@ const FirstDetails = () => {
                     </select>
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="school_name" className="block text-sm font-medium text-gray-600">School</label>
-                    <input id="school_name" name='school_name' value={formData.school_name} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="School Name" onChange={handleChange} />
+                    <label
+                      htmlFor="school_name"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      School
+                    </label>
+                    <input
+                      id="school_name"
+                      name="school_name"
+                      value={formData.school_name}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="School Name"
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="mb-4">
-                    <label htmlFor="standard" className="block text-sm font-medium text-gray-600">Standard</label>
-                    <input id="standard" name='standard' value={formData.standard} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Standard" onChange={handleChange} />
+                    <label
+                      htmlFor="standard"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Standard
+                    </label>
+                    <input
+                      id="standard"
+                      name="standard"
+                      value={formData.standard}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="Standard"
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="wp_no" className="block text-sm font-medium text-gray-600">Whatsapp Number</label>
-                    <input id="wp_no" name='wp_no' value={formData.wp_no} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Whatsapp Number" onChange={handleChange} />
+                    <label
+                      htmlFor="wp_no"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Whatsapp Number
+                    </label>
+                    <input
+                      id="wp_no"
+                      name="wp_no"
+                      value={formData.wp_no}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="Whatsapp Number"
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
 
@@ -430,61 +529,159 @@ const FirstDetails = () => {
                 {/* Father's and Mother's Occupation */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="mb-4">
-                    <label htmlFor="fatherOccupation" className="block text-sm font-medium text-gray-600">Father's Occupation</label>
-                    <input id="fatherOccupation" name='fathers_occupation' value={formData.fathers_occupation} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Father's Occupation" onChange={handleChange} />
+                    <label
+                      htmlFor="fatherOccupation"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Father's Occupation
+                    </label>
+                    <input
+                      id="fatherOccupation"
+                      name="fathers_occupation"
+                      value={formData.fathers_occupation}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="Father's Occupation"
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="motherOccupation" className="block text-sm font-medium text-gray-600">Mother's Occupation</label>
-                    <input id="motherOccupation" name='mothers_occupation' value={formData.mothers_occupation} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Mother's Occupation" onChange={handleChange} />
+                    <label
+                      htmlFor="motherOccupation"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Mother's Occupation
+                    </label>
+                    <input
+                      id="motherOccupation"
+                      name="mothers_occupation"
+                      value={formData.mothers_occupation}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="Mother's Occupation"
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
                 {/* How You Got to Know and MCF Employee */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="mb-4">
-                    <label htmlFor="howYouKnow" className="block text-sm font-medium text-gray-600">How You Got to Know about MCF Camp</label>
-                    <input id="howYouKnow" name='how_you_got_to_know' value={formData.how_you_got_to_know} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="How You Got to Know" onChange={handleChange} />
+                    <label
+                      htmlFor="howYouKnow"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      How You Got to Know about MCF Camp
+                    </label>
+                    <input
+                      id="howYouKnow"
+                      name="how_you_got_to_know"
+                      value={formData.how_you_got_to_know}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="How You Got to Know"
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="mcfEmployee" className="block text-sm font-medium text-gray-600">Name of the MCF Employee Who Reached Out to You</label>
-                    <input id="mcfEmployee" name='employee_who_reached_out_to_you' value={formData.employee_who_reached_out_to_you} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="MCF Employee's Name" onChange={handleChange} />
+                    <label
+                      htmlFor="mcfEmployee"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Name of the MCF Employee Who Reached Out to You
+                    </label>
+                    <input
+                      id="mcfEmployee"
+                      name="employee_who_reached_out_to_you"
+                      value={formData.employee_who_reached_out_to_you}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="MCF Employee's Name"
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
 
                 {/* District, State, and Pincode */}
                 <div className="grid grid-cols-4 gap-4">
-
                   <div className="mb-4">
-                    <label htmlFor="district" className="block text-sm font-medium text-gray-600">District</label>
-                    <input id="district" name='district' value={formData.district} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="District" onChange={handleChange} />
+                    <label
+                      htmlFor="district"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      District
+                    </label>
+                    <input
+                      id="district"
+                      name="district"
+                      value={formData.district}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="District"
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="state" className="block text-sm font-medium text-gray-600">State</label>
-                    <input id="state" name='state' value={formData.state} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="State" onChange={handleChange} />
+                    <label
+                      htmlFor="state"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      State
+                    </label>
+                    <input
+                      id="state"
+                      name="state"
+                      value={formData.state}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="State"
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="pincode" className="block text-sm font-medium text-gray-600">Pincode</label>
-                    <input id="pincode" name='pincode' value={formData.pincode} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Pincode" onChange={handleChange} />
+                    <label
+                      htmlFor="pincode"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Pincode
+                    </label>
+                    <input
+                      id="pincode"
+                      name="pincode"
+                      value={formData.pincode}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="Pincode"
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
                 <hr className="my-4 h-1 bg-gray-200" />
                 <div className="mb-4">
-                  <label htmlFor="camp_category" className="block text-lg font-medium text-gray-600">
+                  <label
+                    htmlFor="camp_category"
+                    className="block text-lg font-medium text-gray-600"
+                  >
                     Camp Name
                   </label>
                   <select
                     id="camp_name"
                     name="camp_name"
                     value={selectedCamp}
-                    onChange={e => setSelectedCamp(e.target.value)}
+                    onChange={(e) => setSelectedCamp(e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Camp Category */}
                     <option value="">Select Camp Name</option>
-                    {camps.map((camp) => (<option value={camp.camp_name}>{camp.camp_name}</option>))}
+                    {camps.map((camp) => (
+                      <option value={camp.camp_name}>{camp.camp_name}</option>
+                    ))}
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="camp_category" className="block text-sm font-medium text-gray-600">
+                  <label
+                    htmlFor="camp_category"
+                    className="block text-sm font-medium text-gray-600"
+                  >
                     Camp Category
                   </label>
                   <select
@@ -502,43 +699,109 @@ const FirstDetails = () => {
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="batch_name" className="block text-sm font-medium text-gray-600">
+                  <label
+                    htmlFor="batch_name"
+                    className="block text-sm font-medium text-gray-600"
+                  >
                     Batch
                   </label>
                   <select
                     id="batch_name"
                     name="batch_name"
                     value={selectedBatch}
-                    onChange={e => setSelectedBatch(e.target.value)}
+                    onChange={(e) => setSelectedBatch(e.target.value)}
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                   >
                     {/* Options for Batch */}
                     <option value="">Select Batch Name</option>
-                    {batches.map((batch) => (<option value={batch.batch_name}>{batch.batch_name}</option>))}
-
+                    {batches.map((batch) => (
+                      <option value={batch.batch_name}>
+                        {batch.batch_name}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className="grid grid-cols-4 gap-4">
-
                   <div className="mb-4">
-                    <label htmlFor="startDate" className="block text-sm font-medium text-gray-600">Start Date</label>
-                    <input id="startDate" name='startDate' value={batch.start_date ? convertDate(batch.start_date) : ''} type="date" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Start Date" onChange={handleChange} readOnly />
+                    <label
+                      htmlFor="startDate"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Start Date
+                    </label>
+                    <input
+                      id="startDate"
+                      name="startDate"
+                      value={
+                        batch.start_date ? convertDate(batch.start_date) : ""
+                      }
+                      type="date"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="Start Date"
+                      onChange={handleChange}
+                      readOnly
+                    />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="endDate" className="block text-sm font-medium text-gray-600">End Date</label>
-                    <input id="endDate" name='endDate' value={batch.end_date ? convertDate(batch.end_date) : ''} type="date" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="End Date" onChange={handleChange} readOnly />
+                    <label
+                      htmlFor="endDate"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      End Date
+                    </label>
+                    <input
+                      id="endDate"
+                      name="endDate"
+                      value={batch.end_date ? convertDate(batch.end_date) : ""}
+                      type="date"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="End Date"
+                      onChange={handleChange}
+                      readOnly
+                    />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="company" className="block text-sm font-medium text-gray-600">Company</label>
-                    <input id="company" name='company' value={formData.company} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Company" onChange={handleChange} readOnly />
+                    <label
+                      htmlFor="company"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Company
+                    </label>
+                    <input
+                      id="company"
+                      name="company"
+                      value={formData.company}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="Company"
+                      onChange={handleChange}
+                      readOnly
+                    />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="duration" className="block text-sm font-medium text-gray-600">Duration</label>
-                    <input id="duration" name='duration' value={batch.duration} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Duration" onChange={handleChange} readOnly />
+                    <label
+                      htmlFor="duration"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Duration
+                    </label>
+                    <input
+                      id="duration"
+                      name="duration"
+                      value={batch.duration}
+                      type="text"
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                      placeholder="Duration"
+                      onChange={handleChange}
+                      readOnly
+                    />
                   </div>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="food_option" className="block text-sm font-medium text-gray-600">
+                  <label
+                    htmlFor="food_option"
+                    className="block text-sm font-medium text-gray-600"
+                  >
                     Food Option
                   </label>
                   <select
@@ -609,25 +872,60 @@ const FirstDetails = () => {
                   >
                     {/* Options for Dress Code */}
                     <option value="">Select Pick Up Point </option>
-                    {formData.pick_up_city === "MUMBAI" ? (
-                      mumbaiPickupLocations.map(location => (<option value={location}>{location}</option>))
-                    ) : ''}
-                    {formData.pick_up_city === "PUNE" ? (
-                      punePickupLocations.map(location => (<option value={location}>{location}</option>))
-                    ) : ''}
+                    {formData.pick_up_city === "MUMBAI"
+                      ? mumbaiPickupLocations.map((location) => (
+                          <option value={location}>{location}</option>
+                        ))
+                      : ""}
+                    {formData.pick_up_city === "PUNE"
+                      ? punePickupLocations.map((location) => (
+                          <option value={location}>{location}</option>
+                        ))
+                      : ""}
                   </select>
                 </div>
                 <hr className="my-4 h-1 bg-gray-200" />
                 <div className="mb-4">
-                  <label htmlFor="height" className="block text-sm font-medium text-gray-600">Height</label>
-                  <input id="height" name='height' value={formData.height} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Height in cm" onChange={handleChange} />
+                  <label
+                    htmlFor="height"
+                    className="block text-sm font-medium text-gray-600"
+                  >
+                    Height
+                  </label>
+                  <input
+                    id="height"
+                    name="height"
+                    value={formData.height}
+                    type="text"
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                    placeholder="Height in cm"
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="weight" className="block text-sm font-medium text-gray-600">Weight</label>
-                  <input id="weight" name='weight' value={formData.weight} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Weight in Kg" onChange={handleChange} />
+                  <label
+                    htmlFor="weight"
+                    className="block text-sm font-medium text-gray-600"
+                  >
+                    Weight
+                  </label>
+                  <input
+                    id="weight"
+                    name="weight"
+                    value={formData.weight}
+                    type="text"
+                    className="w-full px-3 py-2 border rounded shadow appearance-none"
+                    placeholder="Weight in Kg"
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="blood_group" className="block text-sm font-medium text-gray-600">Blood Group</label>
+                  <label
+                    htmlFor="blood_group"
+                    className="block text-sm font-medium text-gray-600"
+                  >
+                    Blood Group
+                  </label>
                   {/* <input id="blood_group" name='blood_group' value={formData.blood_group} type="text" className="w-full px-3 py-2 border rounded shadow appearance-none" placeholder="Blood Group" onChange={handleChange} />  */}
                   <select
                     id="blood_group"
@@ -646,16 +944,16 @@ const FirstDetails = () => {
                     <option value="B-">B- </option>
                     <option value="AB-">AB-</option>
                     <option value="O-">O-</option>
-
                   </select>
                 </div>
                 <div>
                   <h2 className="text-xl font-bold">Health</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                     <div>
-                      <label htmlFor="physical_problem">Define Physical Problem</label>
+                      <label htmlFor="physical_problem">
+                        Define Physical Problem
+                      </label>
                       <input
-
                         type="text"
                         id="physical_problem"
                         name="physical_problem"
@@ -665,8 +963,6 @@ const FirstDetails = () => {
                       />
                     </div>
                     <div>
-
-
                       <label htmlFor="allergy">Define Allergy</label>
                       <input
                         type="text"
@@ -678,8 +974,9 @@ const FirstDetails = () => {
                       />
                     </div>
                     <div>
-
-                      <label htmlFor="other_problem">Define Other Problem</label>
+                      <label htmlFor="other_problem">
+                        Define Other Problem
+                      </label>
                       <input
                         type="text"
                         id="other_problem"
@@ -690,8 +987,9 @@ const FirstDetails = () => {
                       />
                     </div>
                     <div>
-
-                      <label htmlFor="medication_physical">Medication For Physical Problem</label>
+                      <label htmlFor="medication_physical">
+                        Medication For Physical Problem
+                      </label>
                       <input
                         type="text"
                         id="medication_physical"
@@ -702,9 +1000,9 @@ const FirstDetails = () => {
                       />
                     </div>
                     <div>
-
-
-                      <label htmlFor="medication_allergy">Medication For Allergy</label>
+                      <label htmlFor="medication_allergy">
+                        Medication For Allergy
+                      </label>
                       <input
                         type="text"
                         id="medication_allergy"
@@ -715,9 +1013,9 @@ const FirstDetails = () => {
                       />
                     </div>
                     <div>
-
-
-                      <label htmlFor="medication_other">Medication For Other Problem</label>
+                      <label htmlFor="medication_other">
+                        Medication For Other Problem
+                      </label>
                       <input
                         type="text"
                         id="medication_other"
@@ -726,9 +1024,7 @@ const FirstDetails = () => {
                         onChange={handleChange}
                         className="w-full px-3 py-2 border rounded shadow appearance-none"
                       />
-
                     </div>
-
                   </div>
                 </div>
 
@@ -746,7 +1042,6 @@ const FirstDetails = () => {
                 </div> */}
                 <br />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-
                   <div className="mb-4 flex items-center">
                     <label
                       htmlFor="cadetPhoto"
@@ -754,13 +1049,14 @@ const FirstDetails = () => {
                     >
                       Cadet Photo
                     </label>
-                    <button
+                    <a
                       style={{ marginLeft: 70 }}
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
-                      onClick={() => window.open(formData.cadetPhoto, "_blank")}
+                      href={formData.cadetPhoto}
+                      target="_blank"
                     >
                       View
-                    </button>
+                    </a>
                   </div>
                   <div className="mb-4 flex items-center">
                     <label
@@ -769,9 +1065,14 @@ const FirstDetails = () => {
                     >
                       Cadet Sign
                     </label>
-                    <button style={{ marginLeft: 70 }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.cadetSign, "_blank")}>
+                    <a
+                      style={{ marginLeft: 70 }}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
+                      href={formData.cadetSign}
+                      target="_blank"
+                    >
                       View
-                    </button>
+                    </a>
                   </div>
                   <div className="mb-4 flex items-center">
                     <label
@@ -780,9 +1081,14 @@ const FirstDetails = () => {
                     >
                       Parent/Gurdian Photo
                     </label>
-                    <button style={{ marginLeft: 10 }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.parentGurdianPhoto, "_blank")}>
+                    <a
+                      style={{ marginLeft: 10 }}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
+                      href={formData.parentGurdianPhoto}
+                      target="_blank"
+                    >
                       View
-                    </button>
+                    </a>
                   </div>
                   <div className="mb-4 flex items-center">
                     <label
@@ -791,23 +1097,35 @@ const FirstDetails = () => {
                     >
                       Parent-Gurdian Sign
                     </label>
-                    <button style={{ marginLeft: 8 }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded" onClick={() => window.open(formData.parentGurdianSign, "_blank")}>
+                    <a
+                      style={{ marginLeft: 8 }}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
+                      href={formData.parentGurdianSign}
+                      target="_blank"
+                    >
                       View
-                    </button>
+                    </a>
                   </div>
                 </div>
-
-
-
-
               </form>
             </div>
           </div>
         </div>
       </div>
-      <div className='flex justify-center '>
-        <button onClick={handleUpdate} className="btn-primary" style={{ padding: "5px 10px", background: "#007BFF", color: "white", border: "none", borderRadius: "5px", marginRight: "10px" }}>
-          {loading ? <Loader2Icon className='animate-spin' /> : 'Update'}
+      <div className="flex justify-center ">
+        <button
+          onClick={handleUpdate}
+          className="btn-primary"
+          style={{
+            padding: "5px 10px",
+            background: "#007BFF",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            marginRight: "10px",
+          }}
+        >
+          {loading ? <Loader2Icon className="animate-spin" /> : "Update"}
         </button>
       </div>
       <Snackbar
@@ -817,7 +1135,7 @@ const FirstDetails = () => {
         key={vertical + horizontal}
         autoHideDuration={3000}
       >
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
           Student Updated Successfully!!
         </Alert>
       </Snackbar>
@@ -829,11 +1147,14 @@ const FirstDetails = () => {
         key={vertical + horizontal}
         autoHideDuration={3000}
       >
-        <Alert onClose={handleErrorClose} severity="error" sx={{ width: '100%' }}>
+        <Alert
+          onClose={handleErrorClose}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
           Error Updating Student!!
         </Alert>
       </Snackbar>
     </div>
   );
 };
-
