@@ -61,7 +61,7 @@ function AddBatch() {
           camp_id: campId,
         });
         window.location.href =
-          `https://mfc-tau.vercel.app/batch-details?id=${campId}`;
+          `https://admin.mcfcamp.in/batch-details?id=${campId}`;
       } else {
         console.error("Failed to add batch. Status:", response.status);
       }
