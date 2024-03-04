@@ -16,7 +16,7 @@ function AddCamp() {
     fee_discount: '0',
     // discount_date: '',
     final_fee: '',
-    camp_status: '',
+    camp_status: 'Active',
   });
 
   useEffect(() => {
@@ -33,12 +33,14 @@ function AddCamp() {
     }));
   };
 
-  const handleCheckboxChange = () => {
-    setFormData((prevData) => ({
-      ...prevData,
-      camp_status: prevData.camp_status === 'Active' ? 'Inactive' : 'Active',
-    }));
+  
+  const handleCheckboxChange = (event) => {
+    setFormData({
+      ...formData,
+      camp_status: event.target.checked ? 'Active' : 'Inactive'
+    });
   };
+  
   const [loading, setLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
