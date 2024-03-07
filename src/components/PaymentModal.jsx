@@ -64,13 +64,12 @@ export default function PaymentModal({ sid }) {
 
   return (
     <div className="flex items-center justify-center">
-      <Button
-        className="text-sm text-white px-2 bg-indigo-500"
-        style={{ padding: "1px", fontSize: "13px", color: "white" }}
+      <button
+        className="text-sm text-white px-2 bg-indigo-500 w-full h-full"
         onClick={handleOpen}
       >
         Add payment
-      </Button>
+      </button>
       <Modal
         open={open}
         onClose={handleClose}
