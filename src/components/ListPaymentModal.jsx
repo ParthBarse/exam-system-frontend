@@ -42,14 +42,18 @@ export default function ListPayments({ sid, send }) {
   }, [deleted]);
 
   return (
-    <div>
-      <Button
-        className="text-sm text-white px-2 bg-white"
-        style={{ padding: "1px", fontSize: "13px", color: "white" }}
+    <div className="w-full">
+      <button
+        className="text-sm text-white px-3 py-1 font-semibold bg-indigo-500"
+        style={{
+          fontSize: "13px",
+          width: "100%",
+          height: "auto",
+        }}
         onClick={handleOpen}
       >
         View Payments
-      </Button>
+      </button>
       <Modal
         open={open}
         onClose={handleClose}

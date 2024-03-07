@@ -281,19 +281,11 @@ function RegStudent() {
                                     height: "auto",
                                   }}
                                 >
-                                  <PaymentModal />
+                                  <PaymentModal sid={item.sid} />
                                 </button>
-                                <button
-                                  className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{
-                                    padding: "1px",
-                                    fontSize: "13px",
-                                    width: "auto",
-                                    height: "auto",
-                                  }}
-                                >
-                                  <ListPayments send={true} />
-                                </button>
+
+                                <ListPayments send={true} />
+
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
                                   style={{
