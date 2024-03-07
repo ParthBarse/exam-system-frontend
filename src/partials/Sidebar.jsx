@@ -154,8 +154,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <a
-                        href="/dash"
+                      <NavLink
+                        end
+                        to="/dash"
                         className={`block text-slate-200 truncate transition duration-150 ${
                           pathname === "/" || pathname.includes("dashboard")
                             ? "hover:text-slate-200"
@@ -201,7 +202,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </span>
                           </div>
                         </div>
-                      </a>
+                      </NavLink>
                     </React.Fragment>
                   );
                 }}
@@ -479,14 +480,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   return (
                     <React.Fragment>
                       <Link
-
                         to="/discount"
                         className={`block text-slate-200 truncate transition duration-150 ${
                           pathname.includes("discount")
                             ? "hover:text-slate-200"
                             : "hover:text-white"
                         }`}
-                        
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
@@ -693,14 +692,13 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             ? "hover:text-slate-200"
                             : "hover:text-white"
                         }`}
-                        
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
                             <img
                               width="32"
                               height="32"
-                              src={'/money.png'}
+                              src={"/money.png"}
                               alt="payment"
                             />
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">

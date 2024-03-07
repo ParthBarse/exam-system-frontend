@@ -4,6 +4,9 @@ import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
 import BasicModal from "../components/Modal";
+import ListPayments from "../components/ListPaymentModal";
+import PaymentModal from "../components/PaymentModal";
+import DiscountModal from "../components/DiscountModal";
 
 const baseurl = "https://mcfapis.bnbdevelopers.in";
 
@@ -45,7 +48,8 @@ function RegStudent() {
   const fetchData = async () => {
     try {
       const response = await axios.get(`${baseurl}/getAllStudents`);
-      setData(response.data.students); // Update the state with the fetched data
+      const r = response.data.students.filter((x) => x.status == "In Progress");
+      setData(r); // Update the state with the fetched data
 
       setLoading(false); // Set loading to false
     } catch (error) {
@@ -168,6 +172,16 @@ function RegStudent() {
                           </th>
                           <th className="p-2">
                             <div className="font-semibold text-center">
+                              Paid/Payable
+                            </div>
+                          </th>
+                          <th className="p-2">
+                            <div className="font-semibold text-center">
+                              Discount Amount
+                            </div>
+                          </th>
+                          <th className="p-2">
+                            <div className="font-semibold text-center">
                               Status
                             </div>
                           </th>
@@ -215,18 +229,19 @@ function RegStudent() {
                               </div>
                             </td>
                             <td className="p-2">
-                              <div
-                                className={`text-center ${
-                                  item.status === "inactive"
-                                    ? "text-red-500"
-                                    : "text-emerald-500"
-                                }`}
-                              >
+                              {item.total_amount_paid}/
+                              {item.total_amount_payable}
+                            </td>
+                            <td className="p-2 text-center">
+                              {item.discount_amount}
+                            </td>
+                            <td className="p-2">
+                              <div className={`text-center text-yellow-500`}>
                                 {item.status}
                               </div>
                             </td>
                             <td className="p-4">
-                              <div className="text-center grid grid-cols-2 grid-rows-2 gap-1">
+                              <div className="text-center grid grid-cols-2 grid-rows-3 gap-1">
                                 <Link
                                   to={`/update-student-details?id=${item.sid}`}
                                   className="text-sm text-white px-2 bg-blue-500"
@@ -247,7 +262,7 @@ function RegStudent() {
                                     setModalOpen((prev) => !prev);
                                     setSID(item.sid);
                                   }}
-                                  className="text-sm text-white px-2 bg-yellow-500"
+                                  className="text-sm text-white px-2 bg-red-500"
                                   style={{
                                     padding: "1px",
                                     fontSize: "13px",
@@ -266,12 +281,7 @@ function RegStudent() {
                                     height: "auto",
                                   }}
                                 >
-                                  <Link
-                                    to={`${item.entrence_card}`}
-                                    // style={{ textDecoration: "none", color: "inherit", width: "100%", height: "100%" }}
-                                  >
-                                    Entrance Card
-                                  </Link>
+                                  <PaymentModal />
                                 </button>
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"
@@ -282,19 +292,26 @@ function RegStudent() {
                                     height: "auto",
                                   }}
                                 >
-                                  <a
-                                    target="_blank"
-                                    href={item.admission_form}
-                                    style={{
-                                      textDecoration: "none",
-                                      color: "inherit",
-                                      width: "100%",
-                                      height: "100%",
-                                    }}
-                                  >
-                                    Admission Form
-                                  </a>
+                                  <ListPayments send={true} />
                                 </button>
+                                <button
+                                  className="text-sm text-white px-2 bg-indigo-500"
+                                  style={{
+                                    padding: "1px",
+                                    fontSize: "13px",
+                                    width: "auto",
+                                    height: "auto",
+                                  }}
+                                >
+                                  <DiscountModal
+                                    sid={item.sid}
+                                    payable={item.total_amount_payable}
+                                    batch_id={item.batch_id}
+                                    discount_amount={item.discount_amount}
+                                    camp_id={item.camp_id}
+                                  />
+                                </button>
+
                                 {/* <button
                                   className="text-sm text-white px-2 bg-indigo-500"
                                   style={{ padding: "1px", fontSize: "13px", width: "auto", height: "auto" }}

@@ -44,8 +44,8 @@ export default function ListPayments({ sid, send }) {
   return (
     <div>
       <Button
-        className="text-sm text-white px-2 bg-indigo-500"
-        style={{ padding: "1px", fontSize: "13px" }}
+        className="text-sm text-white px-2 bg-white"
+        style={{ padding: "1px", fontSize: "13px", color: "white" }}
         onClick={handleOpen}
       >
         View Payments

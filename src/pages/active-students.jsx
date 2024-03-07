@@ -228,7 +228,7 @@ function RegStudent() {
                                 </div>
                               </td>
                               <td className="p-4">
-                                <div className="text-center grid grid-cols-2 grid-rows-2 gap-2 h-full">
+                                <div className="text-center grid grid-cols-2 grid-rows-1 gap-2 h-full">
                                   <Link
                                     to={`/update-student-details?id=${item.sid}`}
                                     className="text-sm text-white px-2 bg-yellow-500"
@@ -257,6 +257,21 @@ function RegStudent() {
                                       Entrance Card
                                     </button>
                                   </Link>
+                                  <a
+                                    target="_blank"
+                                    href={`${item.admission_form}`}
+                                    className="text-sm text-white px-2 bg-indigo-500"
+                                  >
+                                    <button
+                                      className="text-sm text-white px-2 bg-indigo-500"
+                                      style={{
+                                        padding: "1px",
+                                        fontSize: "13px",
+                                      }}
+                                    >
+                                      Admission Form
+                                    </button>
+                                  </a>
                                   {/* <button
                                   className="text-sm text-white px-2 bg-indigo-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
