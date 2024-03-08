@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
+import { toast } from "sonner";
 
 const style = {
   position: "absolute",
@@ -45,7 +46,12 @@ export default function DiscountModal({
     formData.append("discount_amount", discountAmount);
     formData.append("batch_id", batch_id);
     setLoading(true);
-    await axios.put(`${baseurl}/updateStudent`, formData);
+    try {
+      await axios.put(`${baseurl}/updateStudent`, formData);
+      toast("Discount set successfully", { color: "green" });
+    } catch (err) {
+      toast.error("Error setting discount");
+    }
     setLoading(false);
     handleClose();
     setDiscountAmount(0);

@@ -12,7 +12,7 @@ function RegStudent() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10; // Number of items to display per page
   const [data, setData] = useState([]); // Store fetched data
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   const [camps, setCamps] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -46,8 +46,6 @@ function RegStudent() {
     try {
       const response = await axios.get(`${baseurl}/getAllStudents`);
       setData(response.data.students); // Update the state with the fetched data
-
-      setLoading(false); // Set loading to false
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -133,10 +131,18 @@ function RegStudent() {
   }, [body]);
 
   const bulkDownload = async (e) => {
-    const res = await axios.post(`${baseurl}/bulkDownloadAdmissionCard`, {
-      body: data,
-      filter: body,
-    });
+    setLoading(true);
+    try {
+      const res = await axios.post(`${baseurl}/bulkDownloadAdmissionCard`, {
+        body: data,
+        filter: body,
+      });
+      setLoading(false);
+      window.open(res.data.msg);
+    } catch (error) {
+      toast.error("Error downloading");
+      setLoading(false);
+    }
   };
 
   const sendAll = async (e) => {
@@ -268,8 +274,9 @@ function RegStudent() {
                             height: "auto",
                           }}
                           onClick={bulkDownload}
+                          disabled={loading}
                         >
-                          Bulk Download
+                          {loading ? "Downloading..." : "Bulk Download"}
                         </button>
                         <button
                           className="text-sm text-white px-3 py-1 font-semibold bg-indigo-500"

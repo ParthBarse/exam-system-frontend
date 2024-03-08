@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
+import { toast } from "sonner";
 
 const style = {
   position: "absolute",
@@ -57,7 +58,15 @@ export default function PaymentModal({ sid }) {
 
   const addPayment = async (e) => {
     setLoading(true);
-    const response = await axios.post(`${baseurl}/createPayment`, paymentData);
+    try {
+      const response = await axios.post(
+        `${baseurl}/createPayment`,
+        paymentData
+      );
+      toast("Payment created");
+    } catch (error) {
+      toast.error("Error creating payment");
+    }
     handleClose();
     setLoading(false);
   };
