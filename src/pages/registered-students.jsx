@@ -284,7 +284,7 @@ function RegStudent() {
                                   <PaymentModal sid={item.sid} />
                                 </button>
 
-                                <ListPayments send={true} />
+                                <ListPayments send={true} sid={item.sid} />
 
                                 <button
                                   className="text-sm text-white px-2 bg-indigo-500"

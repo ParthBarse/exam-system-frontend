@@ -91,6 +91,61 @@ function RegStudent() {
     return batch ? batch.batch_name : "Batch not assigned";
   };
 
+  const [body, setBody] = useState({
+    sid: "",
+
+    status: "Active",
+
+    camp_name: "",
+    batch_name: "",
+
+    camp_id: "",
+    batch_id: "",
+  });
+
+  const handleInputChange = async (e) => {
+    const { name, value } = e.target;
+    if (name === "camp_id") {
+      const res = await axios.get(
+        `https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`
+      );
+      const batches = res.data.batches;
+      setBatches(batches);
+    }
+
+    setBody({ ...body, [name]: value });
+  };
+
+  const fetchSome = async () => {
+    try {
+      const response = await axios.post(
+        `https://mcfapis.bnbdevelopers.in/filterStudents`,
+        body
+      );
+      console.log(response.data.students);
+      setData(response.data.students);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchSome();
+  }, [body]);
+
+  const bulkDownload = async (e) => {
+    const res = await axios.post(`${baseurl}/bulkDownloadAdmissionCard`, {
+      body: data,
+      filter: body,
+    });
+  };
+
+  const sendAll = async (e) => {
+    const res = await axios.post(`${baseurl}/sendAllStudentsDocs`, {
+      body: data,
+      filter: body,
+    });
+  };
+
   return (
     <div className="flex h-screen overflow-hidden box-content">
       <BasicModal modalOpen={modalOpen} sid={SID} fetchData={fetchData} />
@@ -103,6 +158,96 @@ function RegStudent() {
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         <main>
+          <div className="text-center my-8">
+            <h2 className="text-2xl font-bold">Filter Cadets by</h2>
+          </div>
+          <div className="flex justify-center">
+            <div className="grid grid-cols-4 px-9 gap-4">
+              <div>
+                <label
+                  htmlFor="camp_category"
+                  className="block text-lg font-medium text-gray-600"
+                >
+                  Camp Name
+                </label>
+                <select
+                  id="camp_name"
+                  name="camp_id"
+                  // value={body.camp_name}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Camp Category */}
+                  <option value="">Select Camp Name</option>
+                  {camps.map((camp) => (
+                    <option value={camp.camp_id}>{camp.camp_name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="batch"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Batch
+                </label>
+                <select
+                  id="batch"
+                  name="batch_id"
+                  // value={admissionFormData.batch}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Batch */}
+                  <option value="">Select Batch Name</option>
+                  {batches.map((batch) => (
+                    <option value={batch.batch_id}>{batch.batch_name}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label
+                  htmlFor="batch"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Camp Category
+                </label>
+                <select
+                  id="camp_category"
+                  name="camp_category"
+                  // value={admissionFormData.batch}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Batch */}
+                  <option value="">Select Category Name</option>
+                  <option value="SUMMER">Summer</option>
+                  <option value="DIWALI">Diwali</option>
+                  <option value="CHS">CHS</option>
+                </select>
+              </div>
+              <div>
+                <label
+                  htmlFor="batch"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Camp Year
+                </label>
+                <select
+                  id="camp_year"
+                  name="camp_year"
+                  // value={admissionFormData.batch}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Batch */}
+                  <option value="">Select Camp Year</option>
+                  <option value="2024">2024</option>
+                </select>
+              </div>
+            </div>
+          </div>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
@@ -110,9 +255,35 @@ function RegStudent() {
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-                      Active Cadets List
-                    </h2>
+                    <div className="flex justify-between w-full">
+                      <h2 className="font-semibold text-slate-800 dark:text-slate-100">
+                        Active Cadets List
+                      </h2>
+                      <div className="space-x-2">
+                        <button
+                          className="text-sm text-white px-3 py-1 font-semibold bg-indigo-500"
+                          style={{
+                            fontSize: "13px",
+
+                            height: "auto",
+                          }}
+                          onClick={bulkDownload}
+                        >
+                          Bulk Download
+                        </button>
+                        <button
+                          className="text-sm text-white px-3 py-1 font-semibold bg-indigo-500"
+                          style={{
+                            fontSize: "13px",
+
+                            height: "auto",
+                          }}
+                          onClick={sendAll}
+                        >
+                          Send All
+                        </button>
+                      </div>
+                    </div>
                     <div style={{ display: "flex", gap: "10px" }}>
                       {/* <Dropdown>
                         <Dropdown.Toggle variant="success" id="dropdown-basic" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded mr-2">

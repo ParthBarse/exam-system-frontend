@@ -52,13 +52,13 @@ export default function BasicModal1({
   }, [modalOpen]);
   return (
     <div>
-      <Button
-        className="text-sm text-white px-2 bg-indigo-500"
+      <button
+        className="text-sm text-white px-2 bg-indigo-500 w-full h-full"
         style={{ padding: "1px", fontSize: "13px" }}
         onClick={handleOpen}
       >
         More
-      </Button>
+      </button>
       <Modal
         open={open}
         onClose={handleClose}
