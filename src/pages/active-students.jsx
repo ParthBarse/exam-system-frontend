@@ -130,6 +130,18 @@ function RegStudent() {
     fetchSome();
   }, [body]);
 
+  function download(url, filename) {
+    fetch(url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+      })
+      .catch(console.error);
+  }
+
   const bulkDownload = async (e) => {
     setLoading(true);
     try {
@@ -137,6 +149,7 @@ function RegStudent() {
         body: data,
         filter: body,
       });
+      download(res.data.msg, "hehe.zip");
       setLoading(false);
       // window.open(res.data.msg);
     } catch (error) {
