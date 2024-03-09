@@ -138,7 +138,7 @@ function RegStudent() {
         filter: body,
       });
       setLoading(false);
-      window.open(res.data.msg);
+      // window.open(res.data.msg);
     } catch (error) {
       toast.error("Error downloading");
       setLoading(false);
