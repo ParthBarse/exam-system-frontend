@@ -1288,7 +1288,7 @@ const FirstDetails = () => {
                   </div>
 
                   <hr className="my-4 h-1 bg-gray-200" />
-                  <div className="mb-4">
+                  {/* <div className="mb-4">
                     <label
                       htmlFor="payment_option"
                       className="block text-sm font-medium text-gray-600"
@@ -1304,7 +1304,7 @@ const FirstDetails = () => {
                       }
                       className="w-full px-3 py-2 border rounded shadow appearance-none"
                     >
-                      {/* Options for Dress Code */}
+                      
                       <option value="">Select Payment Options </option>
                       <option value="totalPayment">Total Payment</option>
                       <option value="1installment">1 installment </option>
@@ -1362,9 +1362,8 @@ const FirstDetails = () => {
                     >
                       check
                     </Button>
-                  </div>
-                  {/* <p>{`Final Price : ${campFee}`}</p> */}
-                  <div className="flex flex-col mb-2 text-md">
+                  </div> */}
+                  {/* <div className="flex flex-col mb-2 text-md">
                     <label htmlFor="final_price" className="font-bold ">
                       Final Price
                     </label>
@@ -1376,9 +1375,7 @@ const FirstDetails = () => {
                       value={campFee}
                       disabled
                     />
-                  </div>
-
-                  <hr className="my-4 h-1 bg-gray-200" />
+                  </div> */}
 
                   <div>
                     <h2 className="text-xl font-bold">Health</h2>
