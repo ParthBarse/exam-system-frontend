@@ -149,7 +149,7 @@ function RegStudent() {
         body: data,
         filter: body,
       });
-      download(res.data.msg, "hehe.zip");
+      download(res.data.msg, res.data.filename);
       setLoading(false);
       // window.open(res.data.msg);
     } catch (error) {
