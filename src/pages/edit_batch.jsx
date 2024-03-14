@@ -3,7 +3,7 @@ import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { baseurl } from "../utils/domain";
 function EditBatch() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -25,20 +25,20 @@ function EditBatch() {
     camp_id: "",
     students_registered: "",
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
-      navigate("/")
+      navigate("/");
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     // Fetch initial data for the form based on the batch ID
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://mcfapis.bnbdevelopers.in/getBatch?batch_id=${batchId}`
+          `https://${baseurl}/getBatch?batch_id=${batchId}`
         );
         if (response.ok) {
           const batchDetails = await response.json();
@@ -94,7 +94,7 @@ function EditBatch() {
 
     try {
       const response = await axios.post(
-        "https://mcfapis.bnbdevelopers.in/updateBatch",
+        `https://${baseurl}/updateBatch`,
         formData
       );
       if (response.status === 200) {
@@ -114,7 +114,6 @@ function EditBatch() {
           batch_id: batchId,
           camp_id: "",
           students_registered: "",
-
         });
 
         // Redirect to the specific URL with the camp_id
@@ -127,7 +126,6 @@ function EditBatch() {
       console.error(error.response.data);
     }
   };
-
 
   const formattedStartDate = convertDate(batchData.start_date);
   const formattedEndDate = convertDate(batchData.end_date);
@@ -179,7 +177,6 @@ function EditBatch() {
                       <input
                         type="date"
                         required
-
                         placeholder="yyyy-mm-dd"
                         id="start_date"
                         name="start_date"
@@ -193,7 +190,6 @@ function EditBatch() {
                         End Date
                       </label>
                       <input
-
                         placeholder="yyyy-mm-dd"
                         type="date"
                         id="endDate"
@@ -237,8 +233,6 @@ function EditBatch() {
                   </div>
 
                   <div className="flex flex-row">
-
-
                     {/* <div className="flex flex-col p-4 w-1/2">
                   <label
                       htmlFor="batch_intake"
@@ -271,7 +265,6 @@ function EditBatch() {
                         className="w-full p-2 border rounded-lg"
                       />
                     </div>
-
                   </div>
 
                   <button

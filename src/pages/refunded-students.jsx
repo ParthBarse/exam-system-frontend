@@ -5,6 +5,7 @@ import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "../components/Select";
 import BasicSelect from "../components/Select";
+import { baseurl } from "../utils/domain";
 
 function RefStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -13,21 +14,21 @@ function RefStudent() {
   const [rawCancelledStudents, setRawCancelledStudents] = useState([]);
   const [cancelledStudents, setCancelledStudents] = useState([]);
   const [camps, setCamps] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(!localStorage.getItem("token")){
-      navigate("/")
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     const fetchCamps = async () => {
       try {
-        const response = await axios.get('https://mcfapis.bnbdevelopers.in/getAllCamps');
+        const response = await axios.get(`https://${baseurl}/getAllCamps`);
         setCamps(response.data.camps);
       } catch (error) {
-        console.error('Error fetching camps:', error);
+        console.error("Error fetching camps:", error);
       }
     };
 
@@ -35,14 +36,14 @@ function RefStudent() {
   }, []);
 
   const getCampName = (campId) => {
-    const camp = camps.find(camp => camp.camp_id === campId);
-    return camp ? camp.camp_name : 'Camp not assigned';
+    const camp = camps.find((camp) => camp.camp_id === campId);
+    return camp ? camp.camp_name : "Camp not assigned";
   };
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://mcfapis.bnbdevelopers.in/getInactiveStudents"
+        `https://${baseurl}/getInactiveStudents`
       );
       setCancelledStudents(response.data.students);
       setRawCancelledStudents(response.data.students);
@@ -53,16 +54,18 @@ function RefStudent() {
 
   const [isClicked, setIsClicked] = useState(false);
 
-  const handleClick = async (sid)=>{
-      console.log('clicked')
-      const res = await axios.get(`https://mcfapis.bnbdevelopers.in/activateStudent?sid=${sid}`)
-      setIsClicked(true)
+  const handleClick = async (sid) => {
+    console.log("clicked");
+    const res = await axios.get(
+      `https://${baseurl}/activateStudent?sid=${sid}`
+    );
+    setIsClicked(true);
 
-      alert("status updated successfully")
-  }
+    alert("status updated successfully");
+  };
 
   useEffect(() => {
-    fetchData().then(x=>setIsClicked(false));
+    fetchData().then((x) => setIsClicked(false));
   }, [isClicked]);
 
   const totalItems = cancelledStudents.length;
@@ -76,19 +79,21 @@ function RefStudent() {
     setCurrentPage(pageNumber);
   };
 
-const filterInActiveUsers = (reason) => {
+  const filterInActiveUsers = (reason) => {
     const filteredData = rawCancelledStudents.filter((ele) => {
-        return ele.status === reason;
+      return ele.status === reason;
     });
 
-    const extendedStudents = filteredData.filter(student => student.status === 'Extend');
+    const extendedStudents = filteredData.filter(
+      (student) => student.status === "Extend"
+    );
 
     extendedStudents.map((student, index) => {
-        // ... existing code ...
+      // ... existing code ...
     });
 
     setCancelledStudents(filteredData);
-};
+  };
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -151,82 +156,96 @@ const filterInActiveUsers = (reason) => {
                         </tr>
                       </thead>
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
-                      {itemsToDisplay.filter(item => item.status === "Refund").map((item, index) => (
-                          <tr key={item.sid}>
-                            <td>
-                              <div
-                                className="text-left"
-                                style={{ fontWeight: "bold" }}
-                              >
-                                {index + 1}
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">
-                                  {item.sid}
+                        {itemsToDisplay
+                          .filter((item) => item.status === "Refund")
+                          .map((item, index) => (
+                            <tr key={item.sid}>
+                              <td>
+                                <div
+                                  className="text-left"
+                                  style={{ fontWeight: "bold" }}
+                                >
+                                  {index + 1}
                                 </div>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">
-                                  {item.first_name} {item.last_name}
+                              </td>
+                              <td className="p-2">
+                                <div className="flex items-center">
+                                  <div className="text-slate-800 dark:text-slate-100">
+                                    {item.sid}
+                                  </div>
                                 </div>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="text-center">{getCampName(item.camp_id)}</div>
-                            </td>
-                            <td className="p-2">
-                              <div className="text-center">Batch-1</div>
-                            </td>
-                            <td className="p-2">
-                              <div
-                                className={`text-center ${
-                                  item.status === "Inactive"
-                                    ? "text-red-500"
-                                    : "text-emerald-500"
-                                }`}
-                              >
-                                {item.status}
-                              </div>
-                            </td>
-                            <td className="p-4">
-                              <div className="text-center grid grid-cols-2 grid-rows-2 gap-2 h-full">
-                                <Link
-                                   to={`/update-student-details?id=${item.sid}`}
-                                  className="text-sm text-white px-2 bg-yellow-500"
-                                  style={{ padding: "1px", fontSize: "13px" }}
+                              </td>
+                              <td className="p-2">
+                                <div className="flex items-center">
+                                  <div className="text-slate-800 dark:text-slate-100">
+                                    {item.first_name} {item.last_name}
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="p-2">
+                                <div className="text-center">
+                                  {getCampName(item.camp_id)}
+                                </div>
+                              </td>
+                              <td className="p-2">
+                                <div className="text-center">Batch-1</div>
+                              </td>
+                              <td className="p-2">
+                                <div
+                                  className={`text-center ${
+                                    item.status === "Inactive"
+                                      ? "text-red-500"
+                                      : "text-emerald-500"
+                                  }`}
                                 >
-                                  Veiw Form
-                                </Link>
-                                <button onClick={e=>{
-                                  handleClick(item.sid)
-                                }} className="text-sm text-white px-2 bg-emerald-500"
-                                  style={{ padding: "1px", fontSize: "13px" }}
-                                >
-                                  Activate
-                                </button>
-                                <Link to={`${item.entrence_card}`} className="text-sm text-white px-2 bg-indigo-500" >
-                                <button
-                                  className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{ padding: "1px", fontSize: "13px" }}
-                                >
-                                  Entrance Card
-                                </button>
-                                </Link>
-                                <button
-                                  className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{ padding: "1px", fontSize: "13px" }}
-                                  onClick={() => alert(`Reason : ${item.reason}`)}
-                                >
-                                  Reason
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
+                                  {item.status}
+                                </div>
+                              </td>
+                              <td className="p-4">
+                                <div className="text-center grid grid-cols-2 grid-rows-2 gap-2 h-full">
+                                  <Link
+                                    to={`/update-student-details?id=${item.sid}`}
+                                    className="text-sm text-white px-2 bg-yellow-500"
+                                    style={{ padding: "1px", fontSize: "13px" }}
+                                  >
+                                    Veiw Form
+                                  </Link>
+                                  <button
+                                    onClick={(e) => {
+                                      handleClick(item.sid);
+                                    }}
+                                    className="text-sm text-white px-2 bg-emerald-500"
+                                    style={{ padding: "1px", fontSize: "13px" }}
+                                  >
+                                    Activate
+                                  </button>
+                                  <Link
+                                    to={`${item.entrence_card}`}
+                                    className="text-sm text-white px-2 bg-indigo-500"
+                                  >
+                                    <button
+                                      className="text-sm text-white px-2 bg-indigo-500"
+                                      style={{
+                                        padding: "1px",
+                                        fontSize: "13px",
+                                      }}
+                                    >
+                                      Entrance Card
+                                    </button>
+                                  </Link>
+                                  <button
+                                    className="text-sm text-white px-2 bg-indigo-500"
+                                    style={{ padding: "1px", fontSize: "13px" }}
+                                    onClick={() =>
+                                      alert(`Reason : ${item.reason}`)
+                                    }
+                                  >
+                                    Reason
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>

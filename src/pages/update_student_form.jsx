@@ -7,6 +7,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Loader2Icon } from "lucide-react";
+import { baseurl } from "../utils/domain";
 
 export default function AddStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -38,8 +39,6 @@ export default function AddStudent() {
     </div>
   );
 }
-
-const baseurl = "https://mcfapis.bnbdevelopers.in";
 
 const FirstDetails = () => {
   const location = useLocation();

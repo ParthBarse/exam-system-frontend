@@ -3,16 +3,17 @@ import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
+import { baseurl } from "../utils/domain";
 
 function Pagination({ currentPage, totalPages, onPageChange }) {
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(!localStorage.getItem("token")){
-      navigate("/")
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
     }
-  }, [])
+  }, []);
 
   return (
     <ul className="pagination">
@@ -35,16 +36,13 @@ function ReportCard() {
   const [data, setData] = useState([]); // Store fetched data
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     fetchData(); // Fetch data when the component mounts
   }, []);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "https://mcfapis.bnbdevelopers.in/getAllStudents"
-      );
+      const response = await axios.get(`https://${baseurl}/getAllStudents`);
       setData(response.data.students); // Update the state with the fetched data
       setLoading(false); // Set loading to false
     } catch (error) {
@@ -63,17 +61,15 @@ function ReportCard() {
     setCurrentPage(pageNumber);
   };
 
-
-
   const [camps, setCamps] = useState([]);
 
   useEffect(() => {
     const fetchCamps = async () => {
       try {
-        const response = await axios.get('https://mcfapis.bnbdevelopers.in/getAllCamps');
+        const response = await axios.get(`https://${baseurl}/getAllCamps`);
         setCamps(response.data.camps);
       } catch (error) {
-        console.error('Error fetching camps:', error);
+        console.error("Error fetching camps:", error);
       }
     };
 
@@ -81,8 +77,8 @@ function ReportCard() {
   }, []);
 
   const getCampName = (campId) => {
-    const camp = camps.find(camp => camp.camp_id === campId);
-    return camp ? camp.camp_name : 'Camp not assigned';
+    const camp = camps.find((camp) => camp.camp_id === campId);
+    return camp ? camp.camp_name : "Camp not assigned";
   };
 
   const [batches, setBatches] = useState([]);
@@ -90,10 +86,10 @@ function ReportCard() {
   useEffect(() => {
     const fetchBatches = async () => {
       try {
-        const response = await axios.get(`https://mcfapis.bnbdevelopers.in/getAllBatches`);
+        const response = await axios.get(`https://${baseurl}/getAllBatches`);
         setBatches(response.data.camps);
       } catch (error) {
-        console.error('Error fetching batches:', error);
+        console.error("Error fetching batches:", error);
       }
     };
 
@@ -101,8 +97,8 @@ function ReportCard() {
   }, []);
 
   const getBatchName = (batchId) => {
-    const batch = batches.find(batch => batch.batch_id === batchId);
-    return batch ? batch.batch_name : 'Batch not assigned';
+    const batch = batches.find((batch) => batch.batch_id === batchId);
+    return batch ? batch.batch_name : "Batch not assigned";
   };
 
   return (
@@ -202,7 +198,9 @@ function ReportCard() {
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center">{getBatchName(item.batch_id)}</div>
+                              <div className="text-center">
+                                {getBatchName(item.batch_id)}
+                              </div>
                             </td>
                             <td className="p-2">
                               <div
@@ -210,7 +208,7 @@ function ReportCard() {
                                   item.status === "Inactive"
                                     ? "text-red-500"
                                     : "text-emerald-500"
-                                  }`}
+                                }`}
                               >
                                 {item.status}
                               </div>
@@ -224,7 +222,7 @@ function ReportCard() {
                                   <Link
                                     to={`/view-report?id=${item.sid}`}
                                     className="block w-full h-full"
-                                    >
+                                  >
                                     Download
                                   </Link>
                                 </button>
@@ -245,7 +243,7 @@ function ReportCard() {
                 justifyContent: "center",
                 marginTop: "20px",
               }}
-              >
+            >
               <button
                 style={{
                   padding: "5px 10px",
@@ -278,13 +276,13 @@ function ReportCard() {
                     handlePageChange(currentPage + 1);
                   }
                 }}
-                >
+              >
                 &gt;
               </button>
             </div>
           </div>
         </main>
-      </div> 
+      </div>
     </div>
   );
 }

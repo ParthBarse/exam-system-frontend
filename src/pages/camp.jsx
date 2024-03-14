@@ -3,23 +3,24 @@ import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
+import { baseurl } from "../utils/domain";
 
 function Camp() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const entriesPerPage = 15;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(!localStorage.getItem("token")){
-      navigate("/")
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     // Fetch data from the API endpoint
     axios
-      .get("https://mcfapis.bnbdevelopers.in/getAllCamps")
+      .get(`https://${baseurl}/getAllCamps`)
       .then((response) => {
         // Update the state with the fetched data
         setData(response.data.camps); // Assuming response.data is an array of camp objects
@@ -32,7 +33,7 @@ function Camp() {
   const handleDelete = async (camp_id) => {
     try {
       const response = await axios.delete(
-        `https://mcfapis.bnbdevelopers.in/deleteCamp?camp_id=${camp_id}`
+        `https://${baseurl}/deleteCamp?camp_id=${camp_id}`
       );
 
       if (response.status === 200) {

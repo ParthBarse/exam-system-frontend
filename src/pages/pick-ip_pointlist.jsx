@@ -3,16 +3,16 @@ import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
-import BasicModal1 from '../components/Modal1';
+import BasicModal1 from "../components/Modal1";
+import { baseurl } from "../utils/domain";
 
 function Filter() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [data, setData] = useState([]);
   const [nameFilter, setNameFilter] = useState("");
   const [regId, setRegId] = useState("");
-  const [campName, setCampName] = useState('');
-  const [batchName, setBatchName] = useState('');
-
+  const [campName, setCampName] = useState("");
+  const [batchName, setBatchName] = useState("");
 
   console.log(nameFilter);
 
@@ -28,7 +28,6 @@ function Filter() {
   //   // You can add logic to perform actions based on the selected option
   // };
 
-
   // ...
   const [modalOpen, setModalOpen] = useState({});
   const [activeSid, setActiveSid] = useState(null);
@@ -41,45 +40,44 @@ function Filter() {
   };
 
   const punePickupLocations = [
-    'Nigadi Bhaktishakti',
-    'Akurdi Khandoba Mandir',
-    'Chinchawad Chaphekar Chowk',
-    'Kalewadi Phata',
-    'Sangvi Phata',
-    'Aundh Shivaji Vidyalaya',
-    'Khadki Bazar',
-    'Yerwada Deccan College',
-    'Kharadi Bypass',
-    'Hadapsar – Gadital Akashwani',
-    'Swarget – PMPL Bus Stop',
-    'Katraj – PMPL Bus stop',
-    'Spine Road',
-    'Bhosari Dighi Road',
-    'Nasik Phata',
-    'Kokane Chowk',
-    'Baner Sadanand Hotel',
-    'Chandani Chowk – Auto Stop',
-    'Warje- Mai Mangeshkar Hospital',
-    'Sinhgad Navale Bridge'
+    "Nigadi Bhaktishakti",
+    "Akurdi Khandoba Mandir",
+    "Chinchawad Chaphekar Chowk",
+    "Kalewadi Phata",
+    "Sangvi Phata",
+    "Aundh Shivaji Vidyalaya",
+    "Khadki Bazar",
+    "Yerwada Deccan College",
+    "Kharadi Bypass",
+    "Hadapsar – Gadital Akashwani",
+    "Swarget – PMPL Bus Stop",
+    "Katraj – PMPL Bus stop",
+    "Spine Road",
+    "Bhosari Dighi Road",
+    "Nasik Phata",
+    "Kokane Chowk",
+    "Baner Sadanand Hotel",
+    "Chandani Chowk – Auto Stop",
+    "Warje- Mai Mangeshkar Hospital",
+    "Sinhgad Navale Bridge",
   ];
 
   const mumbaiPickupLocations = [
-    'Dadar (Asiad bus stop)',
-    'Vashi (Vashi Plaza, Below Vashi Bridge, Shivneri, Bus stop)',
-    'Thane(Near Shivaji Hospital Kalwa Naka)',
-    'Airoli',
-    'Rabale',
-    'Ghansoli',
-    'Koparkhairane',
-    'Turbhe',
-    'Juinagar',
-    'Nerur',
-    'Belapur',
-    'Kamati',
-    'Kharghar',
-    'Panvel (McDonald’s Panvel Bus Stand)'
+    "Dadar (Asiad bus stop)",
+    "Vashi (Vashi Plaza, Below Vashi Bridge, Shivneri, Bus stop)",
+    "Thane(Near Shivaji Hospital Kalwa Naka)",
+    "Airoli",
+    "Rabale",
+    "Ghansoli",
+    "Koparkhairane",
+    "Turbhe",
+    "Juinagar",
+    "Nerur",
+    "Belapur",
+    "Kamati",
+    "Kharghar",
+    "Panvel (McDonald’s Panvel Bus Stand)",
   ];
-
 
   const [body, setBody] = useState({
     sid: "",
@@ -106,12 +104,14 @@ function Filter() {
 
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
-    if (name === 'pick_up_city') {
-      setBody({ ...body, [name]: value, pick_up_point: '' });
+    if (name === "pick_up_city") {
+      setBody({ ...body, [name]: value, pick_up_point: "" });
       return;
     }
     if (name === "camp_id") {
-      const res = await axios.get(`https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`);
+      const res = await axios.get(
+        `https://${baseurl}/getBatches?camp_id=${value}`
+      );
       const batches = res.data.batches;
       setBatches(batches);
     }
@@ -128,19 +128,17 @@ function Filter() {
   // import axios from 'axios';
   const [batches, setBatches] = useState([]);
 
-
-
   const [camps, setCamps] = useState([]);
 
   useEffect(() => {
     async function getAllCamps() {
-      const res = await axios.get("https://mcfapis.bnbdevelopers.in/getAllCamps");
+      const res = await axios.get(`https://${baseurl}/getAllCamps`);
       const camps = res.data.camps;
       // console.log('camps' + camps);
       setCamps(camps);
     }
     getAllCamps();
-  }, [])
+  }, []);
 
   const [campbyId, setCampbyId] = useState({});
 
@@ -149,26 +147,26 @@ function Filter() {
       if (camp.camp_id === camp_id) {
         return camp.camp_name;
       }
-    })
-    return cam ? cam.camp_name : '';
+    });
+    return cam ? cam.camp_name : "";
   }
   const [allBatches, setAllBatches] = useState([]);
   useEffect(() => {
     async function getAllBatches() {
-      const res = await axios.get("https://mcfapis.bnbdevelopers.in/getAllBatches");
+      const res = await axios.get(`https://${baseurl}/getAllBatches`);
       const batches = res.data.camps;
       setAllBatches(batches);
     }
     getAllBatches();
-  })
+  });
 
   function getBatchName(batch_id) {
     const bat = allBatches.find((batch) => {
       if (batch.batch_id === batch_id) {
         return batch.batch_name;
       }
-    })
-    return bat ? bat.batch_name : '';
+    });
+    return bat ? bat.batch_name : "";
   }
 
   // // Usage
@@ -176,27 +174,21 @@ function Filter() {
   // const camp_name = await getCampName(camp_id);
 
   const fetchData = async () => {
-
     try {
       const response = await axios.post(
-        `https://mcfapis.bnbdevelopers.in/filterStudents`,
+        `https://${baseurl}/filterStudents`,
         body
       );
       console.log(response.data.students);
       setData(response.data.students);
-
-
-
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-
-
   useEffect(() => {
     axios
-      .get("https://mcfapis.bnbdevelopers.in/getAllStudents")
+      .get(`https://${baseurl}/getAllStudents`)
       .then((x) => setData(x.data.students));
   }, []);
 
@@ -206,7 +198,7 @@ function Filter() {
 
   useEffect(() => {
     axios
-      .get(`https://mcf-backend.vercel.app/api/filterbyRegID/${regId}`)
+      .get(`https://${baseurl}/api/filterbyRegID/${regId}`)
       .then((x) => setData(x.data));
   }, [regId]);
 
@@ -230,8 +222,6 @@ function Filter() {
   const handleFilterSubmit = () => {
     fetchData();
   };
-
-
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -338,12 +328,16 @@ function Filter() {
                 >
                   {/* Options for Dress Code */}
                   <option value="">Select Pick Up Point </option>
-                  {body.pick_up_city === "mumbai" ? (
-                    mumbaiPickupLocations.map(location => (<option value={location}>{location}</option>))
-                  ) : ''}
-                  {body.pick_up_city === "pune" ? (
-                    punePickupLocations.map(location => (<option value={location}>{location}</option>))
-                  ) : ''}
+                  {body.pick_up_city === "mumbai"
+                    ? mumbaiPickupLocations.map((location) => (
+                        <option value={location}>{location}</option>
+                      ))
+                    : ""}
+                  {body.pick_up_city === "pune"
+                    ? punePickupLocations.map((location) => (
+                        <option value={location}>{location}</option>
+                      ))
+                    : ""}
                 </select>
               </div>
 
@@ -362,7 +356,7 @@ function Filter() {
               <div>
                 <label
                   htmlFor="camp_category"
-                // className="block text-lg font-medium text-gray-600"
+                  // className="block text-lg font-medium text-gray-600"
                 >
                   Camp Name
                 </label>
@@ -381,7 +375,7 @@ function Filter() {
                 </select>
               </div>
 
-              <div >
+              <div>
                 <label
                   htmlFor="batch"
                   className="block text-sm font-medium text-gray-600"
@@ -398,9 +392,7 @@ function Filter() {
                   {/* Options for Batch */}
                   <option value="">Select Batch Name</option>
                   {batches.map((batch) => (
-                    <option value={batch.batch_id}>
-                      {batch.batch_name}
-                    </option>
+                    <option value={batch.batch_id}>{batch.batch_name}</option>
                   ))}
                 </select>
               </div>
@@ -482,7 +474,6 @@ function Filter() {
                               Pick-up Point
                             </div>
                           </th>
-
                         </tr>
                       </thead>
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
@@ -506,29 +497,41 @@ function Filter() {
                             <td className="p-2">
                               <div className="flex items-center">
                                 <div className="text-slate-800 dark:text-slate-100">
-                                  {item.first_name}  {item.last_name}
+                                  {item.first_name} {item.last_name}
                                 </div>
                               </div>
                             </td>
 
-                            <td className="p-2" onClick={() => handleClick(item.camp_id)}>
-                              <div className="text-center">{`${getCampName(item.camp_id)}`}</div>
+                            <td
+                              className="p-2"
+                              onClick={() => handleClick(item.camp_id)}
+                            >
+                              <div className="text-center">{`${getCampName(
+                                item.camp_id
+                              )}`}</div>
                               {/* <div className="text-center">{item.camp_id}</div> */}
-
                             </td>
-                            <td className="p-2" onClick={() => handleClick1(item.batch_id)}>
-                              <div className="text-center">{`${getBatchName(item.batch_id)}`}</div>
+                            <td
+                              className="p-2"
+                              onClick={() => handleClick1(item.batch_id)}
+                            >
+                              <div className="text-center">{`${getBatchName(
+                                item.batch_id
+                              )}`}</div>
                               {/* <div className="text-center">{item.camp_id}</div> */}
-
                             </td>
                             <td className="p-2">
                               <div className={`text-center`}>{item.phn}</div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center`}>{item.pick_up_city}</div>
+                              <div className={`text-center`}>
+                                {item.pick_up_city}
+                              </div>
                             </td>
                             <td className="p-2">
-                              <div className={`text-center`}>{item.pick_up_point}</div>
+                              <div className={`text-center`}>
+                                {item.pick_up_point}
+                              </div>
                               {/* <div className="text-center grid grid-cols-2 grid-rows-1 gap-1"> */}
                               {/* <Link
                                   to={`/update-student-details?id=${item.sid}`}
@@ -562,7 +565,6 @@ function Filter() {
 </Link>
 
 <BasicModal1 modalOpen={modalOpen[item.sid]} handleClose={() => handleClose(item.sid)} sid={activeSid} /> */}
-
 
                               {/* {showDropdown && (
                                   <div className="absolute z-10 right-0 mt-2 w-40 bg-white rounded-md shadow-lg">

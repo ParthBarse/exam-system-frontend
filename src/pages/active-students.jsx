@@ -4,8 +4,7 @@ import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
 import BasicModal from "../components/Modal";
-
-const baseurl = "https://mcfapis.bnbdevelopers.in";
+import { baseurl } from "../utils/domain";
 
 function RegStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -21,9 +20,7 @@ function RegStudent() {
   useEffect(() => {
     const fetchCamps = async () => {
       try {
-        const response = await axios.get(
-          "https://mcfapis.bnbdevelopers.in/getAllCamps"
-        );
+        const response = await axios.get(`https://${baseurl}/getAllCamps`);
         setCamps(response.data.camps);
       } catch (error) {
         console.error("Error fetching camps:", error);
@@ -105,7 +102,7 @@ function RegStudent() {
     const { name, value } = e.target;
     if (name === "camp_id") {
       const res = await axios.get(
-        `https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`
+        `https://${baseurl}/getBatches?camp_id=${value}`
       );
       const batches = res.data.batches;
       setBatches(batches);
@@ -117,7 +114,7 @@ function RegStudent() {
   const fetchSome = async () => {
     try {
       const response = await axios.post(
-        `https://mcfapis.bnbdevelopers.in/filterStudents`,
+        `https://${baseurl}/filterStudents`,
         body
       );
       console.log(response.data.students);

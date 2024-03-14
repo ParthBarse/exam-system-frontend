@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import logo from "./logo.jpg"; // adjust the path as necessary
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-
+import { baseurl } from "../utils/domain";
 const LoginForm = ({ onLogin, onSwitchToRegister }) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -51,7 +51,7 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
     setLoading(true);
     try {
       axios
-        .post("https://mcfapis.bnbdevelopers.in/loginAdmin", formData)
+        .post(`https://${baseurl}/loginAdmin`, formData)
         .then((response) => {
           console.log("Successful login:", response);
           localStorage.setItem("token", response.data.token);
@@ -226,7 +226,7 @@ const RegisterForm = ({ onRegister, onSwitchToLogin }) => {
     e.preventDefault();
     // Basic form validation
     axios
-      .post("https://mcfapis.bnbdevelopers.in/addAdmin", formData)
+      .post(`https://${baseurl}/addAdmin`, formData)
       .then((response) => {
         console.log("successful registration:", response);
         localStorage.setItem(
@@ -399,7 +399,7 @@ const AuthPage = () => {
   const handleLogin = async (formData) => {
     try {
       const response = await axios.post(
-        "https://mcfapis.bnbdevelopers.in/loginAdmin",
+        `https://${baseurl}/loginAdmin`,
         formData
       );
       console.log("Login successful:", response.data);

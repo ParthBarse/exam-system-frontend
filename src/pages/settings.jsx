@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { baseurl } from "../utils/domain";
 
-function Settings (){
+function Settings() {
   const [formData, setFormData] = useState({
-    MerchantKey: '', // Matched state key with input name
-    SALT: '', // Matched state key with input name
-    ENV: '', // Matched state key with input name
+    MerchantKey: "", // Matched state key with input name
+    SALT: "", // Matched state key with input name
+    ENV: "", // Matched state key with input name
   });
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function Settings (){
   const handleSubmit = (e) => {
     e.preventDefault();
     // You can perform form validation or submit data to an API here.
-    
+
     // For this example, let's simulate a successful submission.
     setSubmitted(true);
   };
@@ -83,6 +84,6 @@ function Settings (){
       </form>
     </div>
   );
-};
+}
 
 export default Settings;

@@ -7,8 +7,7 @@ import BasicModal from "../components/Modal";
 import ListPayments from "../components/ListPaymentModal";
 import PaymentModal from "../components/PaymentModal";
 import DiscountModal from "../components/DiscountModal";
-
-const baseurl = "https://mcfapis.bnbdevelopers.in";
+import { baseurl } from "../utils/domain";
 
 function RegStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -24,9 +23,7 @@ function RegStudent() {
   useEffect(() => {
     const fetchCamps = async () => {
       try {
-        const response = await axios.get(
-          "https://mcfapis.bnbdevelopers.in/getAllCamps"
-        );
+        const response = await axios.get(`https://${baseurl}/getAllCamps`);
         setCamps(response.data.camps);
       } catch (error) {
         console.error("Error fetching camps:", error);

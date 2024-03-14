@@ -6,8 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import BasicModal from "../components/Modal";
 import PaymentModal from "../components/PaymentModal";
 import ListPayments from "../components/ListPaymentModal";
-
-const baseurl = "https://mcfapis.bnbdevelopers.in";
+import { baseurl } from "../utils/domain";
 
 export default function Payments() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -54,7 +53,7 @@ export default function Payments() {
     const { name, value } = e.target;
     if (name === "camp_id") {
       const res = await axios.get(
-        `https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`
+        `https://${baseurl}/getBatches?camp_id=${value}`
       );
       const batches = res.data.batches;
       setBatches(batches);
@@ -71,9 +70,7 @@ export default function Payments() {
 
   useEffect(() => {
     async function getAllCamps() {
-      const res = await axios.get(
-        "https://mcfapis.bnbdevelopers.in/getAllCamps"
-      );
+      const res = await axios.get(`https://${baseurl}/getAllCamps`);
       const camps = res.data.camps;
       // console.log('camps' + camps);
       setCamps(camps);
@@ -90,7 +87,7 @@ export default function Payments() {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        `https://mcfapis.bnbdevelopers.in/filterStudents`,
+        `https://${baseurl}/filterStudents`,
         body
       );
       console.log(response.data.students);
@@ -102,7 +99,7 @@ export default function Payments() {
 
   useEffect(() => {
     axios
-      .get("https://mcfapis.bnbdevelopers.in/getAllStudents")
+      .get(`https://${baseurl}/getAllStudents`)
       .then((x) => setData(x.data.students));
   }, []);
 

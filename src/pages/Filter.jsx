@@ -4,9 +4,9 @@ import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
 import BasicModal1 from "../components/Modal1";
+import { baseurl } from "../utils/domain";
 
 function Filter() {
-  const baseurl = "https://mcfapis.bnbdevelopers.in";
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [data, setData] = useState([]);
   const [nameFilter, setNameFilter] = useState("");
@@ -71,7 +71,7 @@ function Filter() {
     const { name, value } = e.target;
     if (name === "camp_id") {
       const res = await axios.get(
-        `https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`
+        `https://${baseurl}/getBatches?camp_id=${value}`
       );
       const batches = res.data.batches;
       setBatches(batches);
@@ -92,9 +92,7 @@ function Filter() {
 
   useEffect(() => {
     async function getAllCamps() {
-      const res = await axios.get(
-        "https://mcfapis.bnbdevelopers.in/getAllCamps"
-      );
+      const res = await axios.get(`https://${baseurl}/getAllCamps`);
       const camps = res.data.camps;
       // console.log('camps' + camps);
       setCamps(camps);
@@ -111,7 +109,7 @@ function Filter() {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        `https://mcfapis.bnbdevelopers.in/filterStudents`,
+        `https://${baseurl}/filterStudents`,
         body
       );
       console.log(response.data.students);
@@ -123,7 +121,7 @@ function Filter() {
 
   useEffect(() => {
     axios
-      .get("https://mcfapis.bnbdevelopers.in/getAllStudents")
+      .get(`https://${baseurl}/getAllStudents`)
       .then((x) => setData(x.data.students));
   }, []);
 

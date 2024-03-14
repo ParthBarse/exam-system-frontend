@@ -3,7 +3,8 @@ import axios from "axios";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
-import BasicModal1 from '../components/Modal1';
+import BasicModal1 from "../components/Modal1";
+import { baseurl } from "../utils/domain";
 
 function Filter() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -24,7 +25,6 @@ function Filter() {
   //   console.log(`Selected option: ${option}`);
   //   // You can add logic to perform actions based on the selected option
   // };
-
 
   // ...
   const [modalOpen, setModalOpen] = useState({});
@@ -65,7 +65,9 @@ function Filter() {
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
     if (name === "camp_id") {
-      const res = await axios.get(`https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`);
+      const res = await axios.get(
+        `https://${baseurl}/getBatches?camp_id=${value}`
+      );
       const batches = res.data.batches;
       setBatches(batches);
     }
@@ -76,13 +78,13 @@ function Filter() {
 
   useEffect(() => {
     async function getAllCamps() {
-      const res = await axios.get("https://mcfapis.bnbdevelopers.in/getAllCamps");
+      const res = await axios.get(`https://${baseurl}/getAllCamps`);
       const camps = res.data.camps;
       // console.log('camps' + camps);
       setCamps(camps);
     }
     getAllCamps();
-  }, [])
+  }, []);
 
   const navigate = useNavigate();
 
@@ -95,7 +97,7 @@ function Filter() {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        `https://mcfapis.bnbdevelopers.in/filterStudents`,
+        `https://${baseurl}/filterStudents`,
         body
       );
       console.log(response.data.students);
@@ -107,7 +109,7 @@ function Filter() {
 
   useEffect(() => {
     axios
-      .get("https://mcfapis.bnbdevelopers.in/getAllStudents")
+      .get(`https://${baseurl}/getAllStudents`)
       .then((x) => setData(x.data.students));
   }, []);
 
@@ -120,8 +122,6 @@ function Filter() {
       .get(`https://mcf-backend.vercel.app/api/filterbyRegID/${regId}`)
       .then((x) => setData(x.data));
   }, [regId]);
-
-
 
   const handleFilterSubmit = () => {
     fetchData();
@@ -253,7 +253,7 @@ function Filter() {
                 </select>
               </div>
 
-              <div >
+              <div>
                 <label
                   htmlFor="batch"
                   className="block text-sm font-medium text-gray-600"
@@ -270,9 +270,7 @@ function Filter() {
                   {/* Options for Batch */}
                   <option value="">Select Batch Name</option>
                   {batches.map((batch) => (
-                    <option value={batch.batch_id}>
-                      {batch.batch_name}
-                    </option>
+                    <option value={batch.batch_id}>{batch.batch_name}</option>
                   ))}
                 </select>
               </div>
@@ -345,7 +343,9 @@ function Filter() {
                             </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Report Cards</div>
+                            <div className="font-semibold text-center">
+                              Report Cards
+                            </div>
                           </th>
                         </tr>
                       </thead>
@@ -389,7 +389,7 @@ function Filter() {
                                 <Link
                                   to={`${item.report_card}`}
                                   className="text-sm text-white py-1 px-1 bg-blue-500"
-                                // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
+                                  // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
                                 >
                                   <button
                                     style={{

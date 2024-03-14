@@ -5,7 +5,7 @@ import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
 import BasicModal1 from "../components/Modal1";
 import { toast } from "sonner";
-
+import { baseurl } from "../utils/domain";
 function Filter() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [data, setData] = useState([]);
@@ -69,7 +69,7 @@ function Filter() {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        `https://mcfapis.bnbdevelopers.in/filterStudents`,
+        `https://${baseurl}/filterStudents`,
         body
       );
       console.log(response.data.students);
@@ -81,7 +81,7 @@ function Filter() {
 
   useEffect(() => {
     axios
-      .get("https://mcfapis.bnbdevelopers.in/getAllStudents")
+      .get(`https://${baseurl}/getAllStudents`)
       .then((x) => setData(x.data.students));
   }, []);
 
@@ -91,7 +91,7 @@ function Filter() {
 
   useEffect(() => {
     axios
-      .get(`https://mcf-backend.vercel.app/api/filterbyRegID/${regId}`)
+      .get(`https://${baseurl}/filterbyRegID/${regId}`)
       .then((x) => setData(x.data));
   }, [regId]);
 
@@ -105,7 +105,7 @@ function Filter() {
     const { name, value } = e.target;
     if (name === "camp_id") {
       const res = await axios.get(
-        `https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${value}`
+        `https://${baseurl}/getBatches?camp_id=${value}`
       );
       const batches = res.data.batches;
       setBatches(batches);
@@ -117,9 +117,7 @@ function Filter() {
 
   useEffect(() => {
     async function getAllCamps() {
-      const res = await axios.get(
-        "https://mcfapis.bnbdevelopers.in/getAllCamps"
-      );
+      const res = await axios.get(`https://${baseurl}/getAllCamps`);
       const camps = res.data.camps;
       // console.log('camps' + camps);
       setCamps(camps);
@@ -418,7 +416,7 @@ function Filter() {
                                     onClick={async () => {
                                       try {
                                         const response = await axios.get(
-                                          `https://mcfapis.bnbdevelopers.in/sendEntranceCard?sid=${item.sid}`
+                                          `https://${baseurl}/sendEntranceCard?sid=${item.sid}`
                                         );
                                         console.log(response.data);
                                         // Show a success message
@@ -443,7 +441,7 @@ function Filter() {
                                   onClick={async (e) => {
                                     setSmsLoading(true);
                                     const res = await axios.get(
-                                      `https://mcfapis.bnbdevelopers.in/sendEntranceCard_sms?sid=${item.sid}`
+                                      `https://${baseurl}/sendEntranceCard_sms?sid=${item.sid}`
                                     );
                                     toast("Entrance Card sent...");
                                     setSmsLoading(false);
@@ -455,7 +453,7 @@ function Filter() {
                                   className={`text-sm text-white py-1 px-1 bg-rose-500`}
                                   onClick={async (e) => {
                                     const res = await axios.get(
-                                      `https://mcfapis.bnbdevelopers.in/sendEntranceCard_wp?sid=${item.sid}`
+                                      `https://${baseurl}/sendEntranceCard_wp?sid=${item.sid}`
                                     );
                                     toast("Entrance Card sent...");
                                   }}

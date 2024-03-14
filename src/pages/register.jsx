@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import authbg from "./authbg.png";
-
+import { baseurl } from "../utils/domain";
 
 const RegisterAdmin = () => {
   const [formData, setFormData] = useState({
@@ -32,7 +32,7 @@ const RegisterAdmin = () => {
 
     try {
       const response = await axios.post(
-        "https://mcfapis.bnbdevelopers.in/registerAdmin",
+        `https://${baseurl}/registerAdmin`,
         formData
       );
       console.log("Successful admin registration:", response);
