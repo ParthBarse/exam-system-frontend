@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 import { toast } from "sonner";
+import { baseurl } from "../utils/domain";
 
 const style = {
   position: "absolute",
@@ -19,7 +20,6 @@ const style = {
 };
 
 export default function PaymentModal({ sid }) {
-  const baseurl = "https://mcfapis.bnbdevelopers.in";
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);

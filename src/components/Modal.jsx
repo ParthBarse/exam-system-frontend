@@ -5,8 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useEffect } from "react";
 import axios from "axios";
-
-const baseurl = 'https://mcfapis.bnbdevelopers.in/'
+import { baseurl } from "../utils/domain";
 
 const style = {
   position: "absolute",
@@ -17,7 +16,7 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p:3 ,
+  p: 3,
   margin: "auto",
 };
 
@@ -25,22 +24,22 @@ export default function BasicModal({ modalOpen, sid, fetchData }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [reason, setReason] = React.useState('');
+  const [reason, setReason] = React.useState("");
 
-  const handleChangeStatus = async(status) => {
+  const handleChangeStatus = async (status) => {
     const res = await axios({
-        method : "put",
-        url : `${baseurl}/changeStatus`,
-        data : {
-            sid, 
-            "new_status" : status,
-            "reason" : reason
-        }
-    })
-    fetchData()
-    handleClose()
-    setReason('')
-};
+      method: "put",
+      url: `${baseurl}/changeStatus`,
+      data: {
+        sid,
+        new_status: status,
+        reason: reason,
+      },
+    });
+    fetchData();
+    handleClose();
+    setReason("");
+  };
 
   useEffect(() => {
     console.log(sid);
@@ -64,30 +63,35 @@ export default function BasicModal({ modalOpen, sid, fetchData }) {
           </Typography>
         </Box> */}
         <Box sx={style} className="flex flex-col gap-3">
-
-        <input
+          <input
             type="text"
             value={reason}
-            onChange={e => setReason(e.target.value)}
+            onChange={(e) => setReason(e.target.value)}
             placeholder="Enter a reason"
           />
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
             <button
-              style={{ padding: '10px', fontSize: '20px', height: '50%' }}
+              style={{ padding: "10px", fontSize: "20px", height: "50%" }}
               className="border border-solid p-2 px-4 bg-red-500 text-white min-w-[130px]"
               onClick={() => handleChangeStatus("Cancle")}
             >
               Cancel
             </button>
             <button
-              style={{ padding: '10px', fontSize: '20px',height: '50%' }}
+              style={{ padding: "10px", fontSize: "20px", height: "50%" }}
               className="border border-solid p-2 px-4 bg-yellow-400 text-white min-w-[130px]"
               onClick={() => handleChangeStatus("Refund")}
             >
               Refunded
             </button>
             <button
-              style={{ padding: '10px', fontSize: '20px',height: '50%' }}
+              style={{ padding: "10px", fontSize: "20px", height: "50%" }}
               className="border border-solid p-2 px-4 bg-blue-500 text-white min-w-[130px]"
               onClick={() => handleChangeStatus("Extend")}
             >

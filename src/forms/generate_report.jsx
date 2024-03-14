@@ -3,34 +3,43 @@ import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { baseurl } from "../utils/domain";
 
-const baseurl = 'https://mcfapis.bnbdevelopers.in'
-
-const StudentGradingForm = ({ formData, handleChange, handleSubmit, handleChangeOnAddingRegID }) => {
-  const [SID, setSID] = useState(null)
-  const getStudent = async() => {
+const StudentGradingForm = ({
+  formData,
+  handleChange,
+  handleSubmit,
+  handleChangeOnAddingRegID,
+}) => {
+  const [SID, setSID] = useState(null);
+  const getStudent = async () => {
     console.log(SID);
     const res = await axios({
-      method : "get",
-      url : `${baseurl}/getStudent?sid=${SID}`
-    })
+      method: "get",
+      url: `${baseurl}/getStudent?sid=${SID}`,
+    });
     console.log(res);
-    const { first_name, middle_name, last_name, company } = res.data.student
-    const { batch_name } = res.data.batch_details
-    const { camp_name } = res.data.camp_details
+    const { first_name, middle_name, last_name, company } = res.data.student;
+    const { batch_name } = res.data.batch_details;
+    const { camp_name } = res.data.camp_details;
     // console.log(res.data.camp_details.camp_name);
-    handleChangeOnAddingRegID(first_name+middle_name+last_name, camp_name, company, batch_name )
-  }
-const handleChangeRegID = async(e) => {
-  setSID(e.target.value)
-  handleChange(e)
-}
+    handleChangeOnAddingRegID(
+      first_name + middle_name + last_name,
+      camp_name,
+      company,
+      batch_name
+    );
+  };
+  const handleChangeRegID = async (e) => {
+    setSID(e.target.value);
+    handleChange(e);
+  };
 
-useEffect(()=>{
-  if (SID !== null) {
-    getStudent()
-  }
-}, [SID])
+  useEffect(() => {
+    if (SID !== null) {
+      getStudent();
+    }
+  }, [SID]);
 
   return (
     <form className="space-y-2" onSubmit={handleSubmit}>
@@ -52,7 +61,7 @@ useEffect(()=>{
             type="text"
             name="sid"
             value={formData.sid}
-            onChange={(e)=>handleChangeRegID(e)}
+            onChange={(e) => handleChangeRegID(e)}
             required
             className="w-full p-2 border rounded-lg"
           />
@@ -138,56 +147,58 @@ useEffect(()=>{
       <hr></hr>
       <h3 className="text-center font-bold text-xl pb-6">Grading Parameters</h3>
       <div className="grid grid-cols-2 gap-4">
-  {Object.keys(formData).map(
-    (key) =>
-      key !== "name" &&
-      key !== "sid" &&
-      key !== "rank" &&
-      key !== "date" &&
-      key !== "report_camp_name" &&
-      key !== "in_charge" &&
-      key !== "cqy" && (
-        <div key={key} className="flex flex-col">
-          <span className="text-gray-700">{key.charAt(0).toUpperCase() + key.slice(1)}:</span>
-          <div className="grid grid-cols-6 gap-2 mb-2">
-            {["1", "2", "3", "4", "5"].map((rating) => (
-              <label key={rating} className="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  name={`${key}_${rating}`}
-                  checked={formData[key] === rating.toString()}
-                  onChange={() =>
-                    handleChange({
-                      target: { name: key, value: rating.toString() },
-                    })
-                  }
-                  className="form-checkbox text-blue-500"
-                />
-                <span className="ml-2 text-gray-700">
-                  {(() => {
-                    switch (rating) {
-                      case "1":
-                        return "Bad";
-                      case "2":
-                        return "Average";
-                      case "3":
-                        return "OK";
-                      case "4":
-                        return "Good";
-                      case "5":
-                        return "Excellent";
-                      default:
-                        return "";
-                    }
-                  })()}
+        {Object.keys(formData).map(
+          (key) =>
+            key !== "name" &&
+            key !== "sid" &&
+            key !== "rank" &&
+            key !== "date" &&
+            key !== "report_camp_name" &&
+            key !== "in_charge" &&
+            key !== "cqy" && (
+              <div key={key} className="flex flex-col">
+                <span className="text-gray-700">
+                  {key.charAt(0).toUpperCase() + key.slice(1)}:
                 </span>
-              </label>
-            ))}
-          </div>
-        </div>
-      )
-  )}
-</div>
+                <div className="grid grid-cols-6 gap-2 mb-2">
+                  {["1", "2", "3", "4", "5"].map((rating) => (
+                    <label key={rating} className="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        name={`${key}_${rating}`}
+                        checked={formData[key] === rating.toString()}
+                        onChange={() =>
+                          handleChange({
+                            target: { name: key, value: rating.toString() },
+                          })
+                        }
+                        className="form-checkbox text-blue-500"
+                      />
+                      <span className="ml-2 text-gray-700">
+                        {(() => {
+                          switch (rating) {
+                            case "1":
+                              return "Bad";
+                            case "2":
+                              return "Average";
+                            case "3":
+                              return "OK";
+                            case "4":
+                              return "Good";
+                            case "5":
+                              return "Excellent";
+                            default:
+                              return "";
+                          }
+                        })()}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )
+        )}
+      </div>
 
       <button
         type="submit"
@@ -225,14 +236,20 @@ const GenerateReport = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleChangeOnAddingRegID = (name, camp_name, company, batch_name) => {
-    setFormData({ ...formData, name, report_camp_name: camp_name, company, batch_name});
+    setFormData({
+      ...formData,
+      name,
+      report_camp_name: camp_name,
+      company,
+      batch_name,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `https://mcfapis.bnbdevelopers.in/generateReport?sid=${formData.sid}`,
+        `https://${baseurl}/generateReport?sid=${formData.sid}`,
         {
           ...formData,
           sid: formData.sid, // Ensure sid is included in the request body

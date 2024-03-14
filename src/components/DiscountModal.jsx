@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 import { toast } from "sonner";
+import { baseurl } from "../utils/domain";
 
 const style = {
   position: "absolute",
@@ -25,7 +26,6 @@ export default function DiscountModal({
   discount_amount,
   camp_id,
 }) {
-  const baseurl = "https://mcfapis.bnbdevelopers.in";
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);

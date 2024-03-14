@@ -1,30 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import Sidebar from '../partials/Sidebar';
-import Header from '../partials/Header';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
+import React, { useEffect, useState } from "react";
+import Sidebar from "../partials/Sidebar";
+import Header from "../partials/Header";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { baseurl } from "../utils/domain";
 function AddCamp() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [formData, setFormData] = useState({
-    camp_name: '',
+    camp_name: "",
     // chess_prefix: '',
-    camp_place: '',
-    camp_fee: '',
-    camp_description: '',
-    fee_discount: '0',
+    camp_place: "",
+    camp_fee: "",
+    camp_description: "",
+    fee_discount: "0",
     // discount_date: '',
-    final_fee: '',
-    camp_status: 'Active',
+    final_fee: "",
+    camp_status: "Active",
   });
 
   useEffect(() => {
     setFormData((prevData) => ({
       ...prevData,
-      final_fee: (parseInt(formData.camp_fee) - parseInt(formData.fee_discount)) ? `${(parseInt(formData.camp_fee) - parseInt(formData.fee_discount))}` : '0',
+      final_fee:
+        parseInt(formData.camp_fee) - parseInt(formData.fee_discount)
+          ? `${parseInt(formData.camp_fee) - parseInt(formData.fee_discount)}`
+          : "0",
     }));
-  }, [formData.camp_fee, formData.fee_discount])
+  }, [formData.camp_fee, formData.fee_discount]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -33,14 +36,13 @@ function AddCamp() {
     }));
   };
 
-  
   const handleCheckboxChange = (event) => {
     setFormData({
       ...formData,
-      camp_status: event.target.checked ? 'Active' : 'Inactive'
+      camp_status: event.target.checked ? "Active" : "Inactive",
     });
   };
-  
+
   const [loading, setLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,18 +54,21 @@ function AddCamp() {
     try {
       const form = new FormData();
       for (const key in formData) {
-        form.append(key, key === 'discount_date' ? formattedDiscountDate : formData[key]);
+        form.append(
+          key,
+          key === "discount_date" ? formattedDiscountDate : formData[key]
+        );
       }
 
-      const response = await axios.post('https://mcfapis.bnbdevelopers.in/addCamp', form);
+      const response = await axios.post(`https://${baseurl}/addCamp`, form);
 
       // const responseData = await response.json();
       setLoading(false);
 
       // if (response.ok) {
-      console.log('Camp added successfully!');
-      alert('Camp added successfully!');
-      navigate('/camp');
+      console.log("Camp added successfully!");
+      alert("Camp added successfully!");
+      navigate("/camp");
 
       // } else {
       // console.error('Failed to add camp:', responseData.error);
@@ -71,13 +76,13 @@ function AddCamp() {
       // }
     } catch (error) {
       setLoading(false);
-      console.error('Error:', error);
-      alert('An error occurred. Check console for details.');
+      console.error("Error:", error);
+      alert("An error occurred. Check console for details.");
     }
   };
 
   const convertDate = (dateString) => {
-    const [day, month, year] = dateString.split('-');
+    const [day, month, year] = dateString.split("-");
     const formattedDate = `${year}-${month}-${day}`;
     return formattedDate;
   };
@@ -97,10 +102,16 @@ function AddCamp() {
             <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
               <header
                 className="px-5 py-4 border-b border-slate-100 dark:border-slate-700"
-                style={{ display: 'flex', justifyContent: 'space-between' }}
+                style={{ display: "flex", justifyContent: "space-between" }}
               >
-                <h2 className="font-semibold text-slate-800 dark:text-slate-100">Add Camp</h2>
-                <Link end to="/camp" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">
+                <h2 className="font-semibold text-slate-800 dark:text-slate-100">
+                  Add Camp
+                </h2>
+                <Link
+                  end
+                  to="/camp"
+                  className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
+                >
                   Back to camp list
                 </Link>
               </header>
@@ -146,7 +157,9 @@ function AddCamp() {
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
                   />
 
-                  <label className="text-lg font-semibold">Camp Description</label>
+                  <label className="text-lg font-semibold">
+                    Camp Description
+                  </label>
                   <input
                     type="text"
                     name="camp_description"
@@ -190,7 +203,7 @@ function AddCamp() {
                     <input
                       type="checkbox"
                       name="camp_status"
-                      checked={formData.camp_status === 'Active'}
+                      checked={formData.camp_status === "Active"}
                       onChange={handleCheckboxChange}
                       className="text-blue-500 focus:ring focus:ring-blue-400"
                     />
@@ -201,7 +214,7 @@ function AddCamp() {
                     type="submit"
                     className="w-32 p-3 mt-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400"
                   >
-                    {loading ? 'Adding...' : 'Add'}
+                    {loading ? "Adding..." : "Add"}
                   </button>
                 </form>
               </div>

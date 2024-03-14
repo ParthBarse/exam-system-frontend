@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import pic from "./favicon.png";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { baseurl } from "../../utils/domain";
 
 function ViewReportCard() {
   const [data, setData] = useState({});
@@ -13,11 +14,10 @@ function ViewReportCard() {
     const uid = queryParams.get("id");
     setId(uid);
     axios
-      .get(`https://mcfapis.bnbdevelopers.in/getStudent?sid=${id}`)
+      .get(`https://${baseurl}/getStudent?sid=${id}`)
       .then((x) => setData(x.data.student));
   }, [location.search, id]);
 
-  
   const getLabelForRating = (rating) => {
     switch (rating) {
       case "1":
@@ -34,7 +34,6 @@ function ViewReportCard() {
         return "";
     }
   };
-
 
   return (
     <div className="flex flex-col">
@@ -105,57 +104,59 @@ function ViewReportCard() {
           </div>
 
           <div className="table-container">
-        <table className="table ">
-          <tr>
-            <td>Discipline</td>
-            <td>
-              <strong>{getLabelForRating(data.discipline)}</strong>
-            </td>
-          </tr>
-          <tr>
-            <td>Physical Fitness</td>
-            <td>
-              <strong>{getLabelForRating(data.physical_fitness)}</strong>
-            </td>
-          </tr>
-          <tr>
-            <td>Courage</td>
-            <td>
-              <strong>{getLabelForRating(data.courage)}</strong>
-            </td>
-          </tr>
-          <tr>
-            <td>Leadership</td>
-            <td>
-              <strong>{getLabelForRating(data.leadership)}</strong>
-            </td>
-          </tr>
-          <tr>
-            <td>Initiative</td>
-            <td>
-              <strong>{getLabelForRating(data.initiative)}</strong>
-            </td>
-          </tr>
-          <tr>
-            <td>Interpersonal Relation</td>
-            <td>
-              <strong>{getLabelForRating(data.interpersonal_relations)}</strong>
-            </td>
-          </tr>
-          <tr>
-            <td>Team Building</td>
-            <td>
-              <strong>{getLabelForRating(data.team_building)}</strong>
-            </td>
-          </tr>
-          <tr>
-            <td>Training</td>
-            <td>
-              <strong>{getLabelForRating(data.training)}</strong>
-            </td>
-          </tr>
-        </table>
-      </div>
+            <table className="table ">
+              <tr>
+                <td>Discipline</td>
+                <td>
+                  <strong>{getLabelForRating(data.discipline)}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Physical Fitness</td>
+                <td>
+                  <strong>{getLabelForRating(data.physical_fitness)}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Courage</td>
+                <td>
+                  <strong>{getLabelForRating(data.courage)}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Leadership</td>
+                <td>
+                  <strong>{getLabelForRating(data.leadership)}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Initiative</td>
+                <td>
+                  <strong>{getLabelForRating(data.initiative)}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Interpersonal Relation</td>
+                <td>
+                  <strong>
+                    {getLabelForRating(data.interpersonal_relations)}
+                  </strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Team Building</td>
+                <td>
+                  <strong>{getLabelForRating(data.team_building)}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Training</td>
+                <td>
+                  <strong>{getLabelForRating(data.training)}</strong>
+                </td>
+              </tr>
+            </table>
+          </div>
 
           <div class="signature">
             <div class="d-flex">
@@ -175,7 +176,6 @@ function ViewReportCard() {
               www.mcfcamp.com (http://mcfcamp.in)
             </p>
           </div>
-
         </div>
       </div>
     </div>

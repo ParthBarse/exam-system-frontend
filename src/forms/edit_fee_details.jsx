@@ -3,6 +3,7 @@ import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { baseurl } from "../utils/domain";
 
 function EditFeeDetails() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -29,7 +30,7 @@ function EditFeeDetails() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://mcfapis.bnbdevelopers.in/getCamp?camp_id=${campId}`
+          `https://${baseurl}/getCamp?camp_id=${campId}`
         );
         if (response.ok) {
           const campDetails = await response.json();
@@ -88,14 +89,11 @@ function EditFeeDetails() {
       // }
       formDataToSend.append("camp_id", formData.camp_id);
 
-      const response = await fetch(
-        `https://mcfapis.bnbdevelopers.in/updateCamp`,
-        {
-          method: "PUT",
+      const response = await fetch(`https://${baseurl}/updateCamp`, {
+        method: "PUT",
 
-          body: formDataToSend,
-        }
-      );
+        body: formDataToSend,
+      });
 
       if (response.ok) {
         console.log("Camp details updated successfully!");
@@ -111,7 +109,7 @@ function EditFeeDetails() {
   };
 
   const convertDate = (dateString) => {
-    const [day, month, year] = dateString.split('-');
+    const [day, month, year] = dateString.split("-");
     const formattedDate = `${year}-${month}-${day}`;
     return formattedDate;
   };
@@ -208,7 +206,6 @@ function EditFeeDetails() {
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
                   />
                   {/* console.log({formData.discount_date}) */}
-
 
                   {/* <label className="text-lg font-semibold">Discount Date</label>
                   <input

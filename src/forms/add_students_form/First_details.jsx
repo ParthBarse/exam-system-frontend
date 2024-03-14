@@ -8,10 +8,7 @@ import Snackbar from "@mui/material/Snackbar";
 import { Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Loader2Icon } from "lucide-react";
-// import Popper from "@mui/material";
-// import { PopperProps } from "@mui/material";
-
-const baseurl = "https://mcfapis.bnbdevelopers.in";
+import { baseurl } from "../../utils/domain";
 
 const FirstDetails = () => {
   const reqData = new FormData();
@@ -179,10 +176,7 @@ const FirstDetails = () => {
     const { name, files } = e.target;
     const f = new FormData();
     f.append("file", files[0]);
-    const res = await axios.post(
-      "https://mcfapis.bnbdevelopers.in/uploadFile",
-      f
-    );
+    const res = await axios.post(`https://${baseurl}/uploadFile`);
     setFiles((prev) => {
       return {
         ...prev,

@@ -5,8 +5,7 @@ import Modal from "@mui/material/Modal";
 import { useEffect } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
-
-const baseurl = "https://mcfapis.bnbdevelopers.in/";
+import { baseurl } from "../utils/domain";
 
 const style = {
   position: "absolute",

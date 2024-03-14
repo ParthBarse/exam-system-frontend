@@ -131,7 +131,7 @@ function Filter() {
 
   useEffect(() => {
     axios
-      .get(`https://mcf-backend.vercel.app/api/filterbyRegID/${regId}`)
+      .get(`https://${baseurl}/filterbyRegID/${regId}`)
       .then((x) => setData(x.data));
   }, [regId]);
 

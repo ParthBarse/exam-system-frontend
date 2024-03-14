@@ -5,7 +5,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import "./receipt.css";
 import sign from "./sign.png";
-import top from "./top.png"
+import top from "./top.png";
 import loo from "./loo.png";
 
 function Receipt() {
@@ -18,23 +18,19 @@ function Receipt() {
     const uid = queryParams.get("id");
     setId(uid);
     axios
-      .get(`https://mcf-backend.vercel.app/api/getStudent/${id}`)
+      .get(`https://${baseurl}/getStudent/${id}`)
       .then((x) => setData(x.data));
   }, [location.search, id]);
 
   return (
     <div className="hey">
-      <div class="box" >
-        <div class="heade" style={{background : 'bisque'}}>
+      <div class="box">
+        <div class="heade" style={{ background: "bisque" }}>
           <h1 className="text-4xl">FEE RECEIPT</h1>
         </div>
 
         <div class="heade">
-          <img
-            src={loo}
-            alt="logo"
-            class="logo"
-          />
+          <img src={loo} alt="logo" class="logo" />
           <img src={top} alt="logo" class="loga" />
         </div>
 
@@ -186,11 +182,11 @@ function Receipt() {
           </p>
         </div>
         <button
-     onClick={(e) => window.print()}
-     className="no-print bg-blue-500 hover:bg-blue-700 text-white py-1 px-8 rounded"
-   >
-     Print
-   </button>
+          onClick={(e) => window.print()}
+          className="no-print bg-blue-500 hover:bg-blue-700 text-white py-1 px-8 rounded"
+        >
+          Print
+        </button>
       </div>
     </div>
   );

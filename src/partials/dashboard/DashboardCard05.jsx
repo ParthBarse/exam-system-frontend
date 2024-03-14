@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Icon from '../../images/icon-02.svg';
-import EditMenu from '../../components/DropdownEditMenu';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import Icon from "../../images/icon-02.svg";
+import EditMenu from "../../components/DropdownEditMenu";
+import { baseurl } from "../../utils/domain";
 
 function DashboardCard05() {
   const [extendedStudentCount, setExtendedStudentCount] = useState(0);
 
   useEffect(() => {
     // Fetch data from the API
-    axios.get('https://mcfapis.bnbdevelopers.in/getStudentCounts')
-      .then(response => {
+    axios
+      .get(`https://${baseurl}/getStudentCounts`)
+      .then((response) => {
         setExtendedStudentCount(response.data.extended_students_count);
       })
-      .catch(error => {
-        console.error('Error fetching data:', error);
+      .catch((error) => {
+        console.error("Error fetching data:", error);
       });
   }, []);
 
@@ -27,16 +29,25 @@ function DashboardCard05() {
           {/* Menu button */}
           <EditMenu align="right" className="relative inline-flex">
             <li>
-              <Link className="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex py-1 px-3" to="/ExtStudent">
+              <Link
+                className="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex py-1 px-3"
+                to="/ExtStudent"
+              >
                 More Info
               </Link>
             </li>
           </EditMenu>
         </header>
-        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Extended Cadets</h2>
-        <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">till date</div>
+        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">
+          Extended Cadets
+        </h2>
+        <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">
+          till date
+        </div>
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">{extendedStudentCount}</div>
+          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">
+            {extendedStudentCount}
+          </div>
         </div>
       </div>
     </div>

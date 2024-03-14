@@ -3,7 +3,7 @@ import axios from "axios"; // Import Axios
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useLocation } from "react-router-dom";
-
+import { baseurl } from "../utils/domain";
 function AddBatch() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -40,12 +40,15 @@ function AddBatch() {
 
     // Iterate over the batchData object and append each key-value pair to the FormData object
     for (let key in batchData) {
-      formData.append(key, key.includes("date") ? convertDate(batchData[key]) : batchData[key]);
+      formData.append(
+        key,
+        key.includes("date") ? convertDate(batchData[key]) : batchData[key]
+      );
     }
 
     try {
       const response = await axios.post(
-        "https://mcfapis.bnbdevelopers.in/addBatch",
+        `https://${baseurl}/addBatch`,
         formData
       );
       if (response.status === 200) {
@@ -60,8 +63,7 @@ function AddBatch() {
           duration: "",
           camp_id: campId,
         });
-        window.location.href =
-          `https://admin.mcfcamp.in/batch-details?id=${campId}`;
+        window.location.href = `https://admin.mcfcamp.in/batch-details?id=${campId}`;
       } else {
         console.error("Failed to add batch. Status:", response.status);
       }
@@ -122,7 +124,10 @@ function AddBatch() {
                   </div>
                   <div className="flex flex-row mb-4">
                     <div className="flex flex-col p-4 w-1/2">
-                      <label htmlFor="startDate" className="block text-gray-700">
+                      <label
+                        htmlFor="startDate"
+                        className="block text-gray-700"
+                      >
                         Start Date
                       </label>
                       <input
@@ -150,17 +155,20 @@ function AddBatch() {
                   </div>
                   <div className="flex flex-row mb-4">
                     <div className="flex flex-col p-4 w-1/2">
-                    <label htmlFor="batchIntake" className="block text-gray-700">
-                      Batch Intake
-                    </label>
-                    <input
-                      type="text"
-                      id="batch_intake"
-                      name="batch_intake"
-                      value={batchData.batch_intake}
-                      onChange={handleChange}
-                      className="w-full p-2 border rounded-lg"
-                    />
+                      <label
+                        htmlFor="batchIntake"
+                        className="block text-gray-700"
+                      >
+                        Batch Intake
+                      </label>
+                      <input
+                        type="text"
+                        id="batch_intake"
+                        name="batch_intake"
+                        value={batchData.batch_intake}
+                        onChange={handleChange}
+                        className="w-full p-2 border rounded-lg"
+                      />
                     </div>
                     <div className="flex flex-col p-4 w-1/2">
                       <label htmlFor="Duration" className="block text-gray-700">

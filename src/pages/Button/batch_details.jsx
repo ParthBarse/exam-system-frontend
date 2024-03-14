@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom';
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link, useLocation } from "react-router-dom";
+import Sidebar from "../../partials/Sidebar";
+import Header from "../../partials/Header";
+import { baseurl } from "../../utils/domain";
 
 function Batchdetails() {
   const [data, setData] = useState({
@@ -22,17 +23,19 @@ function Batchdetails() {
   });
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const campId = queryParams.get('id');
+  const campId = queryParams.get("id");
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://mcfapis.bnbdevelopers.in/getBatches?camp_id=${campId}`);
+      const response = await fetch(
+        `https://${baseurl}/getBatches?camp_id=${campId}`
+      );
       if (response.ok) {
         const responseData = await response.json();
         setData(responseData);
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -40,11 +43,10 @@ function Batchdetails() {
     fetchData();
   }, [location.search, campId]);
 
-
   const handleDelete = async (batch_id) => {
     try {
       const response = await axios.delete(
-        `https://mcfapis.bnbdevelopers.in/deleteBatch?batch_id=${batch_id}`
+        `https://${baseurl}/deleteBatch?batch_id=${batch_id}`
       );
 
       if (response.status === 200) {
@@ -53,7 +55,9 @@ function Batchdetails() {
 
         // Update the state to remove the deleted item
         setData((prevData) =>
-          prevData.filter((item) => item.batch_id.toString() !== batch_id.toString())
+          prevData.filter(
+            (item) => item.batch_id.toString() !== batch_id.toString()
+          )
         );
 
         // Refresh the page
@@ -82,22 +86,33 @@ function Batchdetails() {
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
                 <header
                   className="px-5 py-4 border-b border-slate-100 dark:border-slate-700"
-                  style={{ display: 'flex', justifyContent: 'space-between' }}
+                  style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <h2 className="font-semibold text-slate-800 dark:text-slate-100">Camp Batch details</h2>
+                  <h2 className="font-semibold text-slate-800 dark:text-slate-100">
+                    Camp Batch details
+                  </h2>
                   <div>
-                    <Link to={`/add-batch?id=${campId}`} className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded mr-2">
+                    <Link
+                      to={`/add-batch?id=${campId}`}
+                      className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded mr-2"
+                    >
                       Add Batch
                     </Link>
-                    <Link to="/camp" className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">
+                    <Link
+                      to="/camp"
+                      className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
+                    >
                       Back to Camp List
                     </Link>
                   </div>
-                </header> 
+                </header>
                 <div className="p-4">
                   {/* Table */}
                   <div className="overflow-x-auto">
-                    <table className="dark:text-slate-300" style={{ width: '100%' }}>
+                    <table
+                      className="dark:text-slate-300"
+                      style={{ width: "100%" }}
+                    >
                       {/* Table header */}
                       <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
                         <tr>
@@ -108,25 +123,39 @@ function Batchdetails() {
                             <div className="font-semibold text-left">Batch</div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Batch Start</div>
+                            <div className="font-semibold text-center">
+                              Batch Start
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Batch End</div>
+                            <div className="font-semibold text-center">
+                              Batch End
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Company</div>
+                            <div className="font-semibold text-center">
+                              Company
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Duration</div>
+                            <div className="font-semibold text-center">
+                              Duration
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Intake</div>
+                            <div className="font-semibold text-center">
+                              Intake
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Registered students</div>
+                            <div className="font-semibold text-center">
+                              Registered students
+                            </div>
                           </th>
                           <th className="p-2">
-                            <div className="font-semibold text-center">Action</div>
+                            <div className="font-semibold text-center">
+                              Action
+                            </div>
                           </th>
                         </tr>
                       </thead>
@@ -135,34 +164,51 @@ function Batchdetails() {
                         {/* Rows */}
                         {Array.isArray(data.batches) &&
                           data.batches.map((item, index) => (
-                            <tr style={{ padding: '2px' }} key={index}>
+                            <tr style={{ padding: "2px" }} key={index}>
                               <td>
-                                <div className="text-left" style={{ fontWeight: 'bold' }}>
+                                <div
+                                  className="text-left"
+                                  style={{ fontWeight: "bold" }}
+                                >
                                   {index + 1}
                                 </div>
                               </td>
                               <td className="p-2">
                                 <div className="text-left">
-                                  <div className="text-slate-800 dark:text-slate-100">{item.batch_name}</div>
+                                  <div className="text-slate-800 dark:text-slate-100">
+                                    {item.batch_name}
+                                  </div>
                                 </div>
                               </td>
                               <td className="p-2">
-                                <div className="text-center">{item.start_date}</div>
+                                <div className="text-center">
+                                  {item.start_date}
+                                </div>
                               </td>
                               <td className="p-2">
-                                <div className="text-center">{item.end_date}</div>
+                                <div className="text-center">
+                                  {item.end_date}
+                                </div>
                               </td>
                               <td className="p-2">
-                                <div className="text-center">{item.company}</div>
+                                <div className="text-center">
+                                  {item.company}
+                                </div>
                               </td>
                               <td className="p-2">
-                                <div className="text-center">{item.duration}</div>
+                                <div className="text-center">
+                                  {item.duration}
+                                </div>
                               </td>
                               <td className="p-2">
-                                <div className="text-center">{item.batch_intake}</div>
+                                <div className="text-center">
+                                  {item.batch_intake}
+                                </div>
                               </td>
                               <td className="p-2">
-                                <div className="text-center">{item.students_registered}</div>
+                                <div className="text-center">
+                                  {item.students_registered}
+                                </div>
                               </td>
                               <td className="p-2">
                                 <div className="text-center">
@@ -170,10 +216,10 @@ function Batchdetails() {
                                     to={`/edit-batch?id=${item.batch_id}`}
                                     className="text-sm text-white px-2 bg-yellow-500 rounded"
                                     style={{
-                                      padding: '5px',
-                                      fontSize: '13px',
-                                      marginLeft: '1px',
-                                      marginRight: '2px',
+                                      padding: "5px",
+                                      fontSize: "13px",
+                                      marginLeft: "1px",
+                                      marginRight: "2px",
                                     }}
                                   >
                                     View & Edit
@@ -181,7 +227,10 @@ function Batchdetails() {
                                   <button
                                     onClick={() => handleDelete(item.batch_id)}
                                     className="text-sm text-white px-2 bg-red-500 rounded"
-                                    style={{ marginLeft: '10px', padding: '3px 10px 3px 10px' }}
+                                    style={{
+                                      marginLeft: "10px",
+                                      padding: "3px 10px 3px 10px",
+                                    }}
                                   >
                                     Delete
                                   </button>
