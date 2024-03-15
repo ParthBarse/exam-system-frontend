@@ -41,7 +41,7 @@ function RegStudent() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${baseurl}/getAllStudents`);
+      const response = await axios.get(`https://${baseurl}/getAllStudents`);
       setData(response.data.students); // Update the state with the fetched data
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -71,7 +71,7 @@ function RegStudent() {
   useEffect(() => {
     const fetchBatches = async () => {
       try {
-        const response = await axios.get(`${baseurl}/getAllBatches`);
+        const response = await axios.get(`https://${baseurl}/getAllBatches`);
         setBatches(response.data.camps);
       } catch (error) {
         console.error("Error fetching batches:", error);
@@ -142,10 +142,13 @@ function RegStudent() {
   const bulkDownload = async (e) => {
     setLoading(true);
     try {
-      const res = await axios.post(`${baseurl}/bulkDownloadAdmissionCard`, {
-        body: data,
-        filter: body,
-      });
+      const res = await axios.post(
+        `https://${baseurl}/bulkDownloadAdmissionCard`,
+        {
+          body: data,
+          filter: body,
+        }
+      );
       download(res.data.msg, res.data.filename);
       setLoading(false);
       // window.open(res.data.msg);
@@ -156,7 +159,7 @@ function RegStudent() {
   };
 
   const sendAll = async (e) => {
-    const res = await axios.post(`${baseurl}/sendAllStudentsDocs`, {
+    const res = await axios.post(`https://${baseurl}/sendAllStudentsDocs`, {
       body: data,
       filter: body,
     });

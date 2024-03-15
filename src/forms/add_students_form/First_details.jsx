@@ -1334,7 +1334,7 @@ const FirstDetails = () => {
                     <Button
                       onClick={(e) => {
                         axios
-                          .post(`${baseurl}/checkDiscountCode`, {
+                          .post(`https://${baseurl}/checkDiscountCode`, {
                             discount_code: discountCode,
                           })
                           .then((res) => {

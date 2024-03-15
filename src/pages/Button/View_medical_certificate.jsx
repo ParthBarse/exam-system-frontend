@@ -16,7 +16,7 @@ const View_medical_certificate = () => {
     const SID = params.id;
     const res = await axios({
       method: "get",
-      url: `${baseurl}/getStudent?sid=${SID}`,
+      url: `https://${baseurl}/getStudent?sid=${SID}`,
     });
     console.log();
     setStudent(res.data);

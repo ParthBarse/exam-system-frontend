@@ -112,7 +112,7 @@ const FirstDetails = () => {
     const queryParams = new URLSearchParams(location.search);
     const sid = queryParams.get("id");
     axios
-      .get(`${baseurl}/getStudent?sid=${sid}`)
+      .get(`https://${baseurl}/getStudent?sid=${sid}`)
       .then((x) => setFormData(x.data.student));
   }, [location.search]);
 
@@ -163,7 +163,10 @@ const FirstDetails = () => {
       reqData.append("company", company);
       // Make a POST request using axios
 
-      const response = await axios.put(`${baseurl}/updateStudent`, reqData);
+      const response = await axios.put(
+        `https://${baseurl}/updateStudent`,
+        reqData
+      );
       // if (response.data.status === 'success') {
       // alert('Student Updated Successfully');
       console.log(response.data); // Log the response from the server
@@ -184,7 +187,7 @@ const FirstDetails = () => {
   useEffect(() => {
     const fetchCamps = async () => {
       try {
-        const response = await axios.get(`${baseurl}/getAllCamps`);
+        const response = await axios.get(`https://${baseurl}/getAllCamps`);
         setCamps(response.data.camps);
       } catch (error) {
         console.error("Error fetching data", error);
@@ -202,7 +205,7 @@ const FirstDetails = () => {
     const fetchBatches = async () => {
       try {
         const response = await axios.get(
-          `${baseurl}/getBatches?camp_id=${getCampId(selectedCamp)}`
+          `https://${baseurl}/getBatches?camp_id=${getCampId(selectedCamp)}`
         );
         setBatches(response.data.batches);
       } catch (error) {
@@ -233,7 +236,7 @@ const FirstDetails = () => {
   useEffect(() => {
     const fetchBatch = async () => {
       const response = await axios.get(
-        `${baseurl}/getBatch?batch_id=${getBatchId(selectedBatch)}`
+        `https://${baseurl}/getBatch?batch_id=${getBatchId(selectedBatch)}`
       );
       setBatch(response.data.batch);
     };

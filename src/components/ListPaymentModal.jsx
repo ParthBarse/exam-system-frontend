@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import { baseurl, baseurls } from "../utils/domain";
 const style = {
   position: "absolute",
   top: "50%",
@@ -19,13 +19,14 @@ const style = {
 
 export default function ListPayments({ sid, send }) {
   async function fetchPayment() {
-    const res = await axios.get(`${baseurl}/getStudentPayment?sid=${sid}`);
+    const res = await axios.get(
+      `https://${baseurl}/getStudentPayment?sid=${sid}`
+    );
     if (res.data.success) {
       setPaymentData(res.data.payments);
       console.log(res.data.payments);
     }
   }
-  const baseurl = "https://mcfapis.bnbdevelopers.in";
 
   const [paymentData, setPaymentData] = useState([]);
   let [deleted, setDeleted] = useState(0);
@@ -93,7 +94,7 @@ export default function ListPayments({ sid, send }) {
                   className="text-sm text-red-500"
                   onClick={async (e) => {
                     const res = await axios.delete(
-                      `${baseurl}/deletePayment?payment_id=${payment.payment_id}&payment_amount=${payment.payment_amount}&sid=${payment.sid}`
+                      `https://${baseurl}/deletePayment?payment_id=${payment.payment_id}&payment_amount=${payment.payment_amount}&sid=${payment.sid}`
                     );
                     setDeleted(deleted + 1);
                   }}
@@ -106,7 +107,7 @@ export default function ListPayments({ sid, send }) {
                     className="text-sm bg-green-500 px-1"
                     onClick={async (e) => {
                       const res = await axios.get(
-                        `${baseurl}/sendReceipt_wp?payment_id=${payment.payment_id}&sid=${payment.sid}`
+                        `https://${baseurl}/sendReceipt_wp?payment_id=${payment.payment_id}&sid=${payment.sid}`
                       );
                     }}
                   >
@@ -116,7 +117,7 @@ export default function ListPayments({ sid, send }) {
                     className="text-sm bg-yellow-500"
                     onClick={async (e) => {
                       const res = await axios.get(
-                        `${baseurl}/sendReceipt_email?payment_id=${payment.payment_id}&sid=${payment.sid}`
+                        `https://${baseurl}/sendReceipt_email?payment_id=${payment.payment_id}&sid=${payment.sid}`
                       );
                     }}
                   >
@@ -126,7 +127,7 @@ export default function ListPayments({ sid, send }) {
                     className="text-sm bg-blue-500"
                     onClick={async (e) => {
                       const res = await axios.get(
-                        `${baseurl}/sendReceipt_sms?payment_id=${payment.payment_id}&sid=${payment.sid}`
+                        `https://${baseurl}/sendReceipt_sms?payment_id=${payment.payment_id}&sid=${payment.sid}`
                       );
                     }}
                   >

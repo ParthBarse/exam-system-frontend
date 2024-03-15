@@ -44,7 +44,7 @@ function RegStudent() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${baseurl}/getAllStudents`);
+      const response = await axios.get(`https://${baseurl}/getAllStudents`);
       const r = response.data.students.filter((x) => x.status == "In Progress");
       setData(r); // Update the state with the fetched data
 
@@ -77,7 +77,7 @@ function RegStudent() {
   useEffect(() => {
     const fetchBatches = async () => {
       try {
-        const response = await axios.get(`${baseurl}/getAllBatches`);
+        const response = await axios.get(`https://${baseurl}/getAllBatches`);
         setBatches(response.data.camps);
       } catch (error) {
         console.error("Error fetching batches:", error);

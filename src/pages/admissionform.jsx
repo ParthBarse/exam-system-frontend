@@ -91,7 +91,10 @@ const AdmissionForm = () => {
         reqData.append(key, formData[key]);
       }
 
-      const response = await axios.post(`${baseurl}/registerStudent`, reqData);
+      const response = await axios.post(
+        `https://${baseurl}/registerStudent`,
+        reqData
+      );
 
       console.log(response.data);
 

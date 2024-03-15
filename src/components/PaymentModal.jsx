@@ -60,7 +60,7 @@ export default function PaymentModal({ sid }) {
     setLoading(true);
     try {
       const response = await axios.post(
-        `${baseurl}/createPayment`,
+        `https://${baseurl}/createPayment`,
         paymentData
       );
       toast("Payment created");

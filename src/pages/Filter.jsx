@@ -434,7 +434,7 @@ function Filter() {
                                   }}
                                   onClick={async (e) => {
                                     await axios.get(
-                                      `${baseurl}/sendAllDocuments?sid=${item.sid}`
+                                      `https://${baseurl}/sendAllDocuments?sid=${item.sid}`
                                     );
                                   }}
                                 >

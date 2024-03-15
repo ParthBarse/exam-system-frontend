@@ -35,7 +35,7 @@ export default function BasicModal1({
   const handleChangeStatus = async (status) => {
     const res = await axios({
       method: "put",
-      url: `${baseurl}/changeStatus`,
+      url: `https://${baseurl}/changeStatus`,
       data: {
         sid,
         new_status: status,

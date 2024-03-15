@@ -16,7 +16,7 @@ const StudentGradingForm = ({
     console.log(SID);
     const res = await axios({
       method: "get",
-      url: `${baseurl}/getStudent?sid=${SID}`,
+      url: `https://${baseurl}/getStudent?sid=${SID}`,
     });
     console.log(res);
     const { first_name, middle_name, last_name, company } = res.data.student;
