@@ -133,6 +133,11 @@ const FirstDetails = () => {
       [name]: value,
     }));
   };
+  const getCampPrice = (campId) => {
+    const camp = camps.find((camp) => camp.camp_id === campId);
+    return camp ? camp.camp_fee : "no found";
+  };
+
   const [loading, setLoading] = useState(false);
   const handleUpdate = async (e) => {
     setLoading(true);
@@ -207,6 +212,11 @@ const FirstDetails = () => {
   const [selectedCamp, setSelectedCamp] = useState("");
   const [selectedBatch, setSelectedBatch] = useState("");
   const [batch, setBatch] = useState({});
+  useEffect(() => {
+    const cid = getCampId(selectedCamp);
+    const cp = getCampPrice(cid);
+    setFormData({ ...formData, total_amount_payable: cp });
+  }, [selectedCamp]);
 
   useEffect(() => {
     const fetchBatches = async () => {
@@ -302,6 +312,10 @@ const FirstDetails = () => {
     const camp = camps.find((camp) => camp.camp_id === campId);
     return camp ? camp.camp_name : "not found";
   };
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
   return (
     <div>
