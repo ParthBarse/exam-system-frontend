@@ -176,7 +176,7 @@ const FirstDetails = () => {
     const { name, files } = e.target;
     const f = new FormData();
     f.append("file", files[0]);
-    const res = await axios.post(`https://${baseurl}/uploadFile`);
+    const res = await axios.post(`https://${baseurl}/uploadFile`, f);
     setFiles((prev) => {
       return {
         ...prev,
