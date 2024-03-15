@@ -8,6 +8,7 @@ import Alert from "@mui/material/Alert";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Loader2Icon } from "lucide-react";
 import { baseurl } from "../utils/domain";
+import { date } from "yup";
 
 export default function AddStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -160,7 +161,13 @@ const FirstDetails = () => {
       reqData.append("camp_id", getCampId(selectedCamp));
       reqData.append("batch_id", getBatchId(selectedBatch));
 
+      let age = calculate_age(formData.dob);
+      let company = assign_company(age, formData.gender);
+
       reqData.append("company", company);
+      // console.log(age)
+      // console.log(formData.gender)
+      // console.log(company)
       // Make a POST request using axios
 
       const response = await axios.put(
@@ -253,24 +260,22 @@ const FirstDetails = () => {
 
   // Function to assign company
   function assign_company(age, gender) {
-    if (age >= 7 && age <= 11 && gender === "male") {
+    if (age >= 7 && age <= 11 && gender === "MALE") {
       return "ALPHA";
-    } else if (age >= 12 && age <= 16 && gender === "male") {
+    } else if (age >= 12 && age <= 16 && gender === "MALE") {
       return "BRAVO";
-    } else if (age >= 17 && age <= 21 && gender === "male") {
+    } else if (age >= 17 && age <= 21 && gender === "MALE") {
       return "DELTA";
-    } else if (age >= 7 && age <= 11 && gender === "female") {
+    } else if (age >= 7 && age <= 11 && gender === "FEMALE") {
       return "CHARLEY";
-    } else if (age >= 12 && age <= 16 && gender === "female") {
+    } else if (age >= 12 && age <= 16 && gender === "FEMALE") {
       return "ECO";
-    } else if (age >= 17 && age <= 21 && gender === "female") {
+    } else if (age >= 17 && age <= 21 && gender === "FEMALE") {
       return "FOXFORD";
     }
   }
 
   // Inside handleChange function or wherever the form data is being handled
-  let age = calculate_age(formData.dob);
-  let company = assign_company(age, formData.gender);
 
   const convertDate = (dateString) => {
     const [day, month, year] = dateString.split("-");
