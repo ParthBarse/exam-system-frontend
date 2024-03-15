@@ -79,7 +79,7 @@ export default function BasicModal({ modalOpen, sid, fetchData }) {
             <button
               style={{ padding: "10px", fontSize: "20px", height: "50%" }}
               className="border border-solid p-2 px-4 bg-red-500 text-white min-w-[130px]"
-              onClick={() => handleChangeStatus("Cancle")}
+              onClick={() => handleChangeStatus("Cancel")}
             >
               Cancel
             </button>
