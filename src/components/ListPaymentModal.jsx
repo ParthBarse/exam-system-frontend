@@ -5,6 +5,7 @@ import Modal from "@mui/material/Modal";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseurl } from "../utils/domain";
+import { toast } from "sonner";
 const style = {
   position: "absolute",
   top: "50%",
@@ -109,6 +110,7 @@ export default function ListPayments({ sid, send }) {
                       const res = await axios.get(
                         `https://${baseurl}/sendReceipt_wp?payment_id=${payment.payment_id}&sid=${payment.sid}`
                       );
+                      toast("Sent successfully...");
                     }}
                   >
                     Whatsapp
@@ -119,6 +121,7 @@ export default function ListPayments({ sid, send }) {
                       const res = await axios.get(
                         `https://${baseurl}/sendReceipt_email?payment_id=${payment.payment_id}&sid=${payment.sid}`
                       );
+                      toast("Sent successfully...");
                     }}
                   >
                     Email
@@ -129,6 +132,7 @@ export default function ListPayments({ sid, send }) {
                       const res = await axios.get(
                         `https://${baseurl}/sendReceipt_sms?payment_id=${payment.payment_id}&sid=${payment.sid}`
                       );
+                      toast("Sent successfully...");
                     }}
                   >
                     SMS

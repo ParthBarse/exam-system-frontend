@@ -5,6 +5,7 @@ import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
 import BasicModal from "../components/Modal";
 import { baseurl } from "../utils/domain";
+import { toast } from "sonner";
 
 function RegStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -16,6 +17,7 @@ function RegStudent() {
   const [camps, setCamps] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [SID, setSID] = useState(null);
+  const [sendLoading, setSendLoading] = useState(false);
 
   useEffect(() => {
     const fetchCamps = async () => {
@@ -159,10 +161,13 @@ function RegStudent() {
   };
 
   const sendAll = async (e) => {
+    setSendLoading(true);
     const res = await axios.post(`https://${baseurl}/sendAllStudentsDocs`, {
       body: data,
       filter: body,
     });
+    setSendLoading(false);
+    toast("Sent successfully!!");
   };
 
   return (
@@ -300,7 +305,7 @@ function RegStudent() {
                           }}
                           onClick={sendAll}
                         >
-                          Send All
+                          {sendLoading ? "Sending..." : "Send All"}
                         </button>
                       </div>
                     </div>
