@@ -208,7 +208,7 @@ function RefStudent() {
                                     className="text-sm text-white px-2 bg-yellow-500"
                                     style={{ padding: "1px", fontSize: "13px" }}
                                   >
-                                    Veiw Form
+                                    View Form
                                   </Link>
                                   <button
                                     onClick={(e) => {

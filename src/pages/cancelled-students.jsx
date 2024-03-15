@@ -148,7 +148,7 @@ function CanStudent() {
                       </thead>
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
                         {itemsToDisplay
-                          .filter((item) => item.status === "Cancle")
+                          .filter((item) => item.status === "Cancel")
                           .map((item, index) => (
                             <tr key={item.sid}>
                               <td>
@@ -199,7 +199,7 @@ function CanStudent() {
                                     className="text-sm text-white px-2 bg-yellow-500"
                                     style={{ padding: "1px", fontSize: "13px" }}
                                   >
-                                    Veiw Form
+                                    View Form
                                   </Link>
                                   <button
                                     onClick={(e) => {
@@ -210,7 +210,7 @@ function CanStudent() {
                                   >
                                     Activate
                                   </button>
-                                  <Link
+                                  {/* <Link
                                     to={`${item.entrence_card}`}
                                     className="text-sm text-white px-2 bg-indigo-500"
                                   >
@@ -223,7 +223,7 @@ function CanStudent() {
                                     >
                                       Entrance Card
                                     </button>
-                                  </Link>
+                                  </Link> */}
                                   <button
                                     className="text-sm text-white px-2 bg-indigo-500"
                                     style={{ padding: "1px", fontSize: "13px" }}

@@ -391,7 +391,7 @@ export default function Payments() {
                                   className="text-sm text-white px-2 bg-yellow-500"
                                   style={{ padding: "1px", fontSize: "13px" }}
                                 >
-                                  Veiw Form
+                                  Vuew Form
                                 </Link> */}
                                 <PaymentModal sid={item.sid} />
 
