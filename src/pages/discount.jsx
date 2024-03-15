@@ -25,7 +25,7 @@ export default function Discount() {
     }
   }, []);
   async function fetchData() {
-    const res = await axios.get(`${baseurl}/getAllDiscounts`);
+    const res = await axios.get(`https://${baseurl}/getAllDiscounts`);
     setDiscountData(res.data.discounts);
   }
   useEffect(() => {
@@ -195,7 +195,7 @@ export default function Discount() {
                                     onClick={(e) => {
                                       axios
                                         .delete(
-                                          `${baseurl}/deleteDiscount?discount_id=${item.discount_id}`
+                                          `https://${baseurl}/deleteDiscount?discount_id=${item.discount_id}`
                                         )
                                         .then((e) => fetchData())
                                         .then((e) => {

@@ -158,7 +158,7 @@ function Filter() {
       setAllBatches(batches);
     }
     getAllBatches();
-  });
+  }, []);
 
   function getBatchName(batch_id) {
     const bat = allBatches.find((batch) => {

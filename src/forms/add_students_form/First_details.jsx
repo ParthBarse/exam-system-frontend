@@ -65,7 +65,7 @@ const FirstDetails = () => {
   useEffect(() => {
     const fetchCamps = async () => {
       try {
-        const response = await axios.get(`${baseurl}/getAllCamps`);
+        const response = await axios.get(`https://${baseurl}/getAllCamps`);
         setCamps(response.data.camps);
       } catch (error) {
         console.error("Error fetching data", error);
@@ -207,7 +207,7 @@ const FirstDetails = () => {
     const fetchBatches = async () => {
       try {
         const response = await axios.get(
-          `${baseurl}/getBatches?camp_id=${campId}`
+          `https://${baseurl}/getBatches?camp_id=${campId}`
         );
         setBatches(response.data.batches);
       } catch (error) {
@@ -238,7 +238,7 @@ const FirstDetails = () => {
     const fetchBatch = async () => {
       try {
         const response = await axios.get(
-          `${baseurl}/getBatch?batch_id=${batchId}`
+          `https://${baseurl}/getBatch?batch_id=${batchId}`
         );
         setBatch(response.data.batch);
       } catch (error) {
@@ -299,7 +299,10 @@ const FirstDetails = () => {
       reqData.append("total_amount_payable", campFee);
       reqData.append("company", company);
 
-      const response = await axios.post(`${baseurl}/registerStudent`, reqData);
+      const response = await axios.post(
+        `https://${baseurl}/registerStudent`,
+        reqData
+      );
 
       console.log(response.data); // Log the response from the server
       setLoading(false);
@@ -358,7 +361,7 @@ const FirstDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`${baseurl}/getAllDiscounts`)
+      .get(`https://${baseurl}/getAllDiscounts`)
       .then((res) => setDiscountCodes(res.data.discounts));
   }, []);
 

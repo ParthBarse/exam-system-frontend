@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Icon from "../../images/icon-01.svg";
 import EditMenu from "../../components/DropdownEditMenu";
+import { baseurl } from "../../utils/domain";
 
 function DashboardCard06() {
   const [extendedStudentCount, setExtendedStudentCount] = useState(0);
