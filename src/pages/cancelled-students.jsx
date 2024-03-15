@@ -34,9 +34,29 @@ function CanStudent() {
     fetchCamps();
   }, []);
 
+  const [batches, setBatches] = useState([]);
+
   const getCampName = (campId) => {
     const camp = camps.find((camp) => camp.camp_id === campId);
     return camp ? camp.camp_name : "Camp not assigned";
+  };
+
+  useEffect(() => {
+    const fetchBatches = async () => {
+      try {
+        const response = await axios.get(`https://${baseurl}/getAllBatches`);
+        setBatches(response.data.camps);
+      } catch (error) {
+        console.error("Error fetching batches:", error);
+      }
+    };
+
+    fetchBatches();
+  }, []);
+
+  const getBatchName = (batchId) => {
+    const batch = batches.find((batch) => batch.batch_id === batchId);
+    return batch ? batch.batch_name : "Batch not assigned";
   };
 
   const fetchData = async () => {
@@ -179,7 +199,7 @@ function CanStudent() {
                                 </div>
                               </td>
                               <td className="p-2">
-                                <div className="text-center">Batch-1</div>
+                                <div className="text-center">{getBatchName(item.batch_id)}</div>
                               </td>
                               <td className="p-2">
                                 <div
