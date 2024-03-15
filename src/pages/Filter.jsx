@@ -397,7 +397,7 @@ function Filter() {
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="text-center grid grid-cols-3 grid-rows-1 gap-1">
+                              <div className="text-center grid grid-cols-2 grid-rows-2 gap-1">
                                 <Link
                                   to={`/update-student-details?id=${item.sid}`}
                                   className="text-sm text-white py-1 px-1 bg-blue-500"
@@ -439,6 +439,22 @@ function Filter() {
                                   }}
                                 >
                                   Send All
+                                </button>
+
+                                <button
+                                  className="text-sm text-white py-1 px-1 bg-orange-500"
+                                  style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    padding: "1px",
+                                  }}
+                                  onClick={async (e) => {
+                                    await axios.get(
+                                      `https://${baseurl}/syncStudent?sid=${item.sid}`
+                                    );
+                                  }}
+                                >
+                                  Sync
                                 </button>
 
                                 {/* {showDropdown && (

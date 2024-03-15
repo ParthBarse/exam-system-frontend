@@ -238,11 +238,11 @@ function RegStudent() {
                               </div>
                             </td>
                             <td className="p-4">
-                              <div className="text-center grid grid-cols-2 grid-rows-3 gap-1">
+                              <div className="text-center grid grid-cols-3 grid-rows-2 gap-1">
                                 <Link
                                   to={`/update-student-details?id=${item.sid}`}
                                   className="text-sm text-white px-2 bg-blue-500"
-                                  // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}
+                                  // style={{ padding: "1px", fontSize: "13px", width: "100pxf", height: "30px" }}
                                 >
                                   <button
                                     style={{
