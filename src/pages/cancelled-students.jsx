@@ -210,20 +210,7 @@ function CanStudent() {
                                   >
                                     Activate
                                   </button>
-                                  {/* <Link
-                                    to={`${item.entrence_card}`}
-                                    className="text-sm text-white px-2 bg-indigo-500"
-                                  >
-                                    <button
-                                      className="text-sm text-white px-2 bg-indigo-500"
-                                      style={{
-                                        padding: "1px",
-                                        fontSize: "13px",
-                                      }}
-                                    >
-                                      Entrance Card
-                                    </button>
-                                  </Link> */}
+                                  {/* <Li */}
                                   <button
                                     className="text-sm text-white px-2 bg-indigo-500"
                                     style={{ padding: "1px", fontSize: "13px" }}
