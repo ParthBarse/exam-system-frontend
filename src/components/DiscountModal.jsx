@@ -6,6 +6,7 @@ import Modal from "@mui/material/Modal";
 import axios from "axios";
 import { toast } from "sonner";
 import { baseurl } from "../utils/domain";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -26,6 +27,7 @@ export default function DiscountModal({
   discount_amount,
   camp_id,
 }) {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -51,6 +53,7 @@ export default function DiscountModal({
     try {
       await axios.put(`https://${baseurl}/updateStudent`, formData);
       toast("Discount set successfully", { color: "green" });
+      navigate(0);
     } catch (err) {
       toast.error("Error setting discount");
     }

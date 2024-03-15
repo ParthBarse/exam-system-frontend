@@ -6,6 +6,7 @@ import Modal from "@mui/material/Modal";
 import axios from "axios";
 import { toast } from "sonner";
 import { baseurl } from "../utils/domain";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -20,6 +21,7 @@ const style = {
 };
 
 export default function PaymentModal({ sid }) {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -64,6 +66,7 @@ export default function PaymentModal({ sid }) {
         paymentData
       );
       toast("Payment created");
+      navigate(0);
     } catch (error) {
       toast.error("Error creating payment");
     }
