@@ -185,12 +185,12 @@ function RegStudent() {
           <div className="text-center my-8">
             <h2 className="text-2xl font-bold">Filter Cadets by</h2>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center items-center">
             <div className="grid grid-cols-4 px-9 gap-4">
               <div>
                 <label
                   htmlFor="camp_category"
-                  className="block text-lg font-medium text-gray-600"
+                  className="block text-sm font-medium text-gray-600"
                 >
                   Camp Name
                 </label>
