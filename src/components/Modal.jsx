@@ -77,21 +77,21 @@ export default function BasicModal({ modalOpen, sid, fetchData }) {
             }}
           >
             <button
-              style={{ padding: "10px", fontSize: "20px", height: "50%" }}
+              style={{ fontSize: "15px", height: "50%" }}
               className="border border-solid p-2 px-4 bg-red-500 text-white min-w-[130px]"
               onClick={() => handleChangeStatus("Cancel")}
             >
               Cancel
             </button>
             <button
-              style={{ padding: "10px", fontSize: "20px", height: "50%" }}
+              style={{ fontSize: "15px", height: "50%" }}
               className="border border-solid p-2 px-4 bg-yellow-400 text-white min-w-[130px]"
               onClick={() => handleChangeStatus("Refund")}
             >
               Refunded
             </button>
             <button
-              style={{ padding: "10px", fontSize: "20px", height: "50%" }}
+              style={{ fontSize: "15px", height: "50%" }}
               className="border border-solid p-2 px-4 bg-blue-500 text-white min-w-[130px]"
               onClick={() => handleChangeStatus("Extend")}
             >

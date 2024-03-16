@@ -468,6 +468,21 @@ function RegStudent() {
                                       Admission Form
                                     </button>
                                   </a>
+                                  <button
+                                    onClick={(e) => {
+                                      setModalOpen((prev) => !prev);
+                                      setSID(item.sid);
+                                    }}
+                                    className="text-sm text-white px-2 bg-red-500"
+                                    style={{
+                                      padding: "1px",
+                                      fontSize: "13px",
+                                      width: "auto",
+                                      height: "auto",
+                                    }}
+                                  >
+                                    Cancel
+                                  </button>
                                   {/* <button
                                   className="text-sm text-white px-2 bg-indigo-500"
                                   style={{ padding: "1px", fontSize: "13px" }}

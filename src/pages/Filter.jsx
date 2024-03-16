@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import LoadingOverlay from "react-loading-overlay";
 import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
 import BasicModal1 from "../components/Modal1";
 import { baseurl } from "../utils/domain";
+import { toast } from "sonner";
 
 function Filter() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -139,6 +141,9 @@ function Filter() {
     fetchData();
   };
 
+  const [isActive, setIsActive] = useState(false);
+  const [isActiveSync, setIsActiveSync] = useState(false);
+
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
@@ -146,318 +151,352 @@ function Filter() {
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-        <main>
-          <div className="text-center my-8">
-            <h2 className="text-2xl font-bold">Filter Cadets by</h2>
-          </div>
-          <div className="flex justify-center">
-            <div className="grid grid-cols-4 px-9 gap-4">
-              <div>
-                <label className="block text-gray-600">First Name</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="First name"
-                  value={body.first_name}
-                  name="first_name"
-                  onChange={handleInputChange}
-                />
+        <LoadingOverlay active={isActive} spinner text={"Sending..."}>
+          <LoadingOverlay active={isActiveSync} spinner text={"Syncing..."}>
+            <main>
+              <div className="text-center my-8">
+                <h2 className="text-2xl font-bold">Filter Cadets by</h2>
               </div>
-              <div>
-                <label className="block text-gray-600">Middle Name</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Middle Name"
-                  value={body.middle_name}
-                  name="middle_name"
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label className="block text-gray-600">Last Name</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Last Name"
-                  value={body.last_name}
-                  name="last_name"
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label className="block text-gray-600">Reg Id</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Student Id"
-                  value={body.sid}
-                  name="sid"
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label className="block text-gray-600">E-mail</label>
-                <input
-                  type="email"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="email"
-                  value={body.email}
-                  name="email"
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label className="block text-gray-600">Pick-up City</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Pick-up City"
-                  value={body.pick_up_city}
-                  name="pick_up_city"
-                  onChange={handleInputChange}
-                />
-              </div>
+              <div className="flex justify-center">
+                <div className="grid grid-cols-4 px-9 gap-4">
+                  <div>
+                    <label className="block text-gray-600">First Name</label>
+                    <input
+                      type="text"
+                      className="w-full p-2 border rounded-md"
+                      placeholder="First name"
+                      value={body.first_name}
+                      name="first_name"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-600">Middle Name</label>
+                    <input
+                      type="text"
+                      className="w-full p-2 border rounded-md"
+                      placeholder="Middle Name"
+                      value={body.middle_name}
+                      name="middle_name"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-600">Last Name</label>
+                    <input
+                      type="text"
+                      className="w-full p-2 border rounded-md"
+                      placeholder="Last Name"
+                      value={body.last_name}
+                      name="last_name"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-600">Reg Id</label>
+                    <input
+                      type="text"
+                      className="w-full p-2 border rounded-md"
+                      placeholder="Student Id"
+                      value={body.sid}
+                      name="sid"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-600">E-mail</label>
+                    <input
+                      type="email"
+                      className="w-full p-2 border rounded-md"
+                      placeholder="email"
+                      value={body.email}
+                      name="email"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-600">Pick-up City</label>
+                    <input
+                      type="text"
+                      className="w-full p-2 border rounded-md"
+                      placeholder="Pick-up City"
+                      value={body.pick_up_city}
+                      name="pick_up_city"
+                      onChange={handleInputChange}
+                    />
+                  </div>
 
-              <div>
-                <label className="block text-gray-600">Status</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Status"
-                  value={body.status}
-                  name="status"
-                  onChange={handleInputChange}
-                />
-              </div>
+                  <div>
+                    <label className="block text-gray-600">Status</label>
+                    <input
+                      type="text"
+                      className="w-full p-2 border rounded-md"
+                      placeholder="Status"
+                      value={body.status}
+                      name="status"
+                      onChange={handleInputChange}
+                    />
+                  </div>
 
-              <div>
-                <label className="block text-gray-600">Phone</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Phone"
-                  value={body.phn}
-                  name="phn"
-                  onChange={handleInputChange}
-                />
-              </div>
+                  <div>
+                    <label className="block text-gray-600">Phone</label>
+                    <input
+                      type="text"
+                      className="w-full p-2 border rounded-md"
+                      placeholder="Phone"
+                      value={body.phn}
+                      name="phn"
+                      onChange={handleInputChange}
+                    />
+                  </div>
 
-              <div>
-                <label
-                  htmlFor="camp_category"
-                  className="block text-lg font-medium text-gray-600"
-                >
-                  Camp Name
-                </label>
-                <select
-                  id="camp_name"
-                  name="camp_id"
-                  // value={body.camp_name}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border rounded shadow appearance-none"
-                >
-                  {/* Options for Camp Category */}
-                  <option value="">Select Camp Name</option>
-                  {camps.map((camp) => (
-                    <option value={camp.camp_id}>{camp.camp_name}</option>
-                  ))}
-                </select>
-              </div>
+                  <div>
+                    <label
+                      htmlFor="camp_category"
+                      className="block text-lg font-medium text-gray-600"
+                    >
+                      Camp Name
+                    </label>
+                    <select
+                      id="camp_name"
+                      name="camp_id"
+                      // value={body.camp_name}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                    >
+                      {/* Options for Camp Category */}
+                      <option value="">Select Camp Name</option>
+                      {camps.map((camp) => (
+                        <option value={camp.camp_id}>{camp.camp_name}</option>
+                      ))}
+                    </select>
+                  </div>
 
-              <div>
-                <label
-                  htmlFor="batch"
-                  className="block text-sm font-medium text-gray-600"
-                >
-                  Batch
-                </label>
-                <select
-                  id="batch"
-                  name="batch_id"
-                  // value={admissionFormData.batch}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border rounded shadow appearance-none"
-                >
-                  {/* Options for Batch */}
-                  <option value="">Select Batch Name</option>
-                  {batches.map((batch) => (
-                    <option value={batch.batch_id}>{batch.batch_name}</option>
-                  ))}
-                </select>
-              </div>
+                  <div>
+                    <label
+                      htmlFor="batch"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Batch
+                    </label>
+                    <select
+                      id="batch"
+                      name="batch_id"
+                      // value={admissionFormData.batch}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                    >
+                      {/* Options for Batch */}
+                      <option value="">Select Batch Name</option>
+                      {batches.map((batch) => (
+                        <option value={batch.batch_id}>
+                          {batch.batch_name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
-              <div>
-                <label className="block text-gray-600">Company</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Company"
-                  value={body.company}
-                  name="company"
-                  onChange={handleInputChange}
-                />
-              </div>
+                  <div>
+                    <label className="block text-gray-600">Company</label>
+                    <input
+                      type="text"
+                      className="w-full p-2 border rounded-md"
+                      placeholder="Company"
+                      value={body.company}
+                      name="company"
+                      onChange={handleInputChange}
+                    />
+                  </div>
 
-              <div style={{ display: "flex", flexDirection: "column-reverse" }}>
-                <div className="text-center bg-blue-500 text-white py-2 px-2 rounded-md hover:bg-blue-600">
-                  <button type="button" onClick={handleFilterSubmit}>
-                    Filter
-                  </button>
+                  <div
+                    style={{ display: "flex", flexDirection: "column-reverse" }}
+                  >
+                    <div className="text-center bg-blue-500 text-white py-2 px-2 rounded-md hover:bg-blue-600">
+                      <button type="button" onClick={handleFilterSubmit}>
+                        Filter
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xxl mx-auto">
-            <div className="grid grid-cols-12 gap-6">
-              <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-                <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
-                  <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-                    Filtered Cadets
-                  </h2>
-                </header>
-                <div className="p-4">
-                  <div className="overflow-x-auto">
-                    <table
-                      className="dark:text-slate-300"
-                      style={{ width: "100%" }}
-                    >
-                      <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
-                        <tr>
-                          <th className="p-2">
-                            <div className="font-semibold text-left">Sr.</div>
-                          </th>
-                          <th className="p-2">
-                            <div className="font-semibold text-center">
-                              Reg. Id
-                            </div>
-                          </th>
-                          <th className="p-2">
-                            <div className="font-semibold text-center">
-                              Name
-                            </div>
-                          </th>
-
-                          <th className="p-2">
-                            <div className="font-semibold text-center">
-                              E-mail
-                            </div>
-                          </th>
-                          <th className="p-2">
-                            <div className="font-semibold text-center">
-                              Contact
-                            </div>
-                          </th>
-                          <th className="p-2">
-                            <div className="font-semibold text-center">
-                              Pick-up City
-                            </div>
-                          </th>
-                          <th className="p-2">
-                            <div className="font-semibold text-center">CQY</div>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
-                        {data.map((item, index) => (
-                          <tr key={index}>
-                            <td>
-                              <div
-                                className="text-left"
-                                style={{ fontWeight: "bold" }}
-                              >
-                                {index + 1}
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">
-                                  {item.sid}
+              <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xxl mx-auto">
+                <div className="grid grid-cols-12 gap-6">
+                  <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
+                    <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
+                      <h2 className="font-semibold text-slate-800 dark:text-slate-100">
+                        Filtered Cadets
+                      </h2>
+                    </header>
+                    <div className="p-4">
+                      <div className="overflow-x-auto">
+                        <table
+                          className="dark:text-slate-300"
+                          style={{ width: "100%" }}
+                        >
+                          <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
+                            <tr>
+                              <th className="p-2">
+                                <div className="font-semibold text-left">
+                                  Sr.
                                 </div>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="flex items-center">
-                                <div className="text-slate-800 dark:text-slate-100">
-                                  {item.first_name} {item.last_name}
+                              </th>
+                              <th className="p-2">
+                                <div className="font-semibold text-center">
+                                  Reg. Id
                                 </div>
-                              </div>
-                            </td>
+                              </th>
+                              <th className="p-2">
+                                <div className="font-semibold text-center">
+                                  Name
+                                </div>
+                              </th>
 
-                            <td className="p-2">
-                              <div className="text-center">{item.email}</div>
-                            </td>
-                            <td className="p-2">
-                              <div className={`text-center`}>{item.phn}</div>
-                            </td>
-                            <td className="p-2">
-                              <div className={`text-center`}>
-                                {item.pick_up_city}
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="text-center grid grid-cols-2 grid-rows-2 gap-1">
-                                <Link
-                                  to={`/update-student-details?id=${item.sid}`}
-                                  className="text-sm text-white py-1 px-1 bg-blue-500"
-                                  // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
-                                >
-                                  <button
-                                    style={{
-                                      width: "100%",
-                                      height: "100%",
-                                      padding: "1px",
-                                    }}
+                              <th className="p-2">
+                                <div className="font-semibold text-center">
+                                  E-mail
+                                </div>
+                              </th>
+                              <th className="p-2">
+                                <div className="font-semibold text-center">
+                                  Contact
+                                </div>
+                              </th>
+                              <th className="p-2">
+                                <div className="font-semibold text-center">
+                                  Pick-up City
+                                </div>
+                              </th>
+                              <th className="p-2">
+                                <div className="font-semibold text-center">
+                                  CQY
+                                </div>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
+                            {data.map((item, index) => (
+                              <tr key={index}>
+                                <td>
+                                  <div
+                                    className="text-left"
+                                    style={{ fontWeight: "bold" }}
                                   >
-                                    View & Edit
-                                  </button>
-                                </Link>
-                                {/* //add entrance card, report card, escort card, receipt on filter students // */}
+                                    {index + 1}
+                                  </div>
+                                </td>
+                                <td className="p-2">
+                                  <div className="flex items-center">
+                                    <div className="text-slate-800 dark:text-slate-100">
+                                      {item.sid}
+                                    </div>
+                                  </div>
+                                </td>
+                                <td className="p-2">
+                                  <div className="flex items-center">
+                                    <div className="text-slate-800 dark:text-slate-100">
+                                      {item.first_name} {item.last_name}
+                                    </div>
+                                  </div>
+                                </td>
 
-                                <BasicModal1
-                                  entrance={item.entrence_card}
-                                  modalOpen={modalOpen[item.sid]}
-                                  handleClose={() => handleClose(item.sid)}
-                                  sid={activeSid}
-                                  admission={item.admission_form}
-                                  visiting={item.visiting_card}
-                                  medical={item.medicalCertificate}
-                                />
+                                <td className="p-2">
+                                  <div className="text-center">
+                                    {item.email}
+                                  </div>
+                                </td>
+                                <td className="p-2">
+                                  <div className={`text-center`}>
+                                    {item.phn}
+                                  </div>
+                                </td>
+                                <td className="p-2">
+                                  <div className={`text-center`}>
+                                    {item.pick_up_city}
+                                  </div>
+                                </td>
+                                <td className="p-2">
+                                  <div className="text-center grid grid-cols-2 grid-rows-2 gap-1">
+                                    <Link
+                                      to={`/update-student-details?id=${item.sid}`}
+                                      className="text-sm text-white py-1 px-1 bg-blue-500"
+                                      // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
+                                    >
+                                      <button
+                                        style={{
+                                          width: "100%",
+                                          height: "100%",
+                                          padding: "1px",
+                                        }}
+                                      >
+                                        View & Edit
+                                      </button>
+                                    </Link>
+                                    {/* //add entrance card, report card, escort card, receipt on filter students // */}
 
-                                <button
-                                  className="text-sm text-white py-1 px-1 bg-green-500"
-                                  style={{
-                                    width: "100%",
-                                    height: "100%",
-                                    padding: "1px",
-                                  }}
-                                  onClick={async (e) => {
-                                    await axios.get(
-                                      `https://${baseurl}/sendAllDocuments?sid=${item.sid}`
-                                    );
-                                  }}
-                                >
-                                  Send All
-                                </button>
+                                    <BasicModal1
+                                      entrance={item.entrence_card}
+                                      modalOpen={modalOpen[item.sid]}
+                                      handleClose={() => handleClose(item.sid)}
+                                      sid={activeSid}
+                                      admission={item.admission_form}
+                                      visiting={item.visiting_card}
+                                      medical={item.medicalCertificate}
+                                    />
 
-                                <button
-                                  className="text-sm text-white py-1 px-1 bg-orange-500"
-                                  style={{
-                                    width: "100%",
-                                    height: "100%",
-                                    padding: "1px",
-                                  }}
-                                  onClick={async (e) => {
-                                    await axios.get(
-                                      `https://${baseurl}/syncStudent?sid=${item.sid}`
-                                    );
-                                  }}
-                                >
-                                  Sync
-                                </button>
+                                    <button
+                                      className="text-sm text-white py-1 px-1 bg-green-500"
+                                      style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        padding: "1px",
+                                      }}
+                                      onClick={async (e) => {
+                                        setIsActive(true);
+                                        try {
+                                          await axios.get(
+                                            `https://${baseurl}/sendAllDocuments?sid=${item.sid}`
+                                          );
+                                          setIsActive(false);
+                                          toast("Sent...");
+                                        } catch (error) {
+                                          toast.error(
+                                            "Something went wrong..."
+                                          );
+                                          setIsActive(false);
+                                        }
+                                      }}
+                                    >
+                                      Send All
+                                    </button>
 
-                                {/* {showDropdown && (
+                                    <button
+                                      className="text-sm text-white py-1 px-1 bg-orange-500"
+                                      style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        padding: "1px",
+                                      }}
+                                      onClick={async (e) => {
+                                        setIsActiveSync(true);
+                                        try {
+                                          await axios.get(
+                                            `https://${baseurl}/syncStudent?sid=${item.sid}`
+                                          );
+                                          setIsActiveSync(false);
+                                          toast("Synced...");
+                                        } catch (error) {
+                                          toast.error(
+                                            "Something went wrong..."
+                                          );
+                                          setIsActiveSync(false);
+                                        }
+                                      }}
+                                    >
+                                      Sync
+                                    </button>
+
+                                    {/* {showDropdown && (
                                   <div className="absolute z-10 right-0 mt-2 w-40 bg-white rounded-md shadow-lg">
                                     <button
                                       onClick={() =>
@@ -493,18 +532,20 @@ function Filter() {
                                     </button>
                                   </div>
                                 )} */}
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </main>
+            </main>
+          </LoadingOverlay>
+        </LoadingOverlay>
       </div>
     </div>
   );
