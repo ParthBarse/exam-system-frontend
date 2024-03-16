@@ -171,18 +171,6 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
                 {loading ? "Logging in..." : "Login"}
               </button>
             </div>
-            <div className="text-center">
-              <p className="mt-2 text-sm text-gray-600">
-                Don't have an account?{" "}
-                <button
-                  type="button"
-                  onClick={onSwitchToRegister}
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Register here
-                </button>
-              </p>
-            </div>
           </form>
         </div>
       </div>

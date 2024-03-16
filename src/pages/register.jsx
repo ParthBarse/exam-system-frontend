@@ -38,7 +38,7 @@ const RegisterAdmin = () => {
       console.log("Successful admin registration:", response);
       localStorage.setItem("adminToken", response.data.token); // Store received admin token
       // Redirect or perform any other necessary actions after successful registration
-      window.location.href = "/adminDashboard";
+      window.location.href = "/dash";
     } catch (error) {
       console.error("Admin registration failed:", error);
       // Handle registration error, update state, or display an error message to the user
@@ -150,18 +150,6 @@ const RegisterAdmin = () => {
             >
               Register
             </button>
-          </div>
-          <div className="text-center">
-            <p className="mt-2 text-sm text-gray-600">
-              Already have an account?{" "}
-              <button
-                type="button"
-                onClick={onSwitchToLogin}
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Log in here
-              </button>
-            </p>
           </div>
         </form>
       </div>
