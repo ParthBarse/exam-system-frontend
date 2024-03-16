@@ -38,6 +38,7 @@ export default function DiscountModal({
     await axios.get(
       `https://${baseurl}/resetDiscount?sid=${sid}&camp_id=${camp_id}`
     );
+    navigate(0);
     handleClose();
   };
 
