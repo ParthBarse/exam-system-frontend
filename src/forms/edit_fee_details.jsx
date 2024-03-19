@@ -9,7 +9,7 @@ function EditFeeDetails() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [formData, setFormData] = useState({
     Name: "",
-    camp_fees: "",
+    camp_fee: "",
     // chess_prefix: "",
     camp_place: "",
     camp_description: "",
@@ -38,7 +38,7 @@ function EditFeeDetails() {
           // Ensure that the response structure matches your expectations
           setFormData({
             Name: campDetails.camp.camp_name,
-            camp_fees: campDetails.camp.camp_fee,
+            camp_fee: campDetails.camp.camp_fee,
             // chess_prefix: campDetails.camp.chess_prefix,
             camp_place: campDetails.camp.camp_place,
             camp_description: campDetails.camp.camp_description,
@@ -176,9 +176,9 @@ function EditFeeDetails() {
                   <label className="text-lg font-semibold">Camp Fee</label>
                   <input
                     type="number"
-                    name="camp_fees"
+                    name="camp_fee"
                     placeholder="Enter Fee"
-                    value={formData.camp_fees}
+                    value={formData.camp_fee}
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
