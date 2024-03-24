@@ -8,7 +8,7 @@ import { baseurl } from "../utils/domain";
 function EditFeeDetails() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [formData, setFormData] = useState({
-    Name: "",
+    camp_name: "",
     camp_fee: "",
     // chess_prefix: "",
     camp_place: "",
@@ -37,7 +37,7 @@ function EditFeeDetails() {
 
           // Ensure that the response structure matches your expectations
           setFormData({
-            Name: campDetails.camp.camp_name,
+            camp_name: campDetails.camp.camp_name,
             camp_fee: campDetails.camp.camp_fee,
             // chess_prefix: campDetails.camp.chess_prefix,
             camp_place: campDetails.camp.camp_place,
@@ -147,9 +147,9 @@ function EditFeeDetails() {
                   <label className="text-lg font-semibold">Camp Name</label>
                   <input
                     type="text"
-                    name="Name"
+                    name="camp_name"
                     placeholder="Enter Name"
-                    value={formData.Name}
+                    value={formData.camp_name}
                     onChange={handleChange}
                     required
                     className="w-full p-3 border rounded-lg text-gray-800 focus:ring focus:ring-blue-400"
