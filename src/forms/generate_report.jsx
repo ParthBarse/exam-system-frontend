@@ -187,8 +187,10 @@ export default function GenerateReport() {
           <form className="grid grid-cols-2  grid-rows-1 space-x-2">
             {Object.keys(fields).map((field) => (
               <div key={field}>
-                <label htmlFor={field}>
-                  {field.replace("_", " ").toUpperCase()}
+                <label htmlFor={field} className="flex flex-col items-start">
+                  <p className="text-md font-semibold">
+                    {field.replace("_", " ").toUpperCase()}
+                  </p>
                   <input
                     className="w-full px-3 py-2 border rounded shadow appearance-none"
                     type="text"
