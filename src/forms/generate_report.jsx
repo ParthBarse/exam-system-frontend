@@ -228,11 +228,13 @@ export default function GenerateReport() {
                           <td key={key}>
                             {
                               <input
-                                type={
-                                  key === "TIMES TO REPEAT" ? "number" : "text"
-                                }
+                                type="text"
                                 value={act[key]}
-                                placeholder="Enter name"
+                                placeholder={
+                                  key === "TRAINED BY INS"
+                                    ? "Trained By Instructor"
+                                    : ""
+                                }
                                 onChange={(e) => {
                                   const newActivities = { ...activities };
                                   newActivities[activity] = newActivities[
