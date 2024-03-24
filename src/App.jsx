@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
-import {
-  Routes,
-  Route,
-  useLocation
-} from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 
-import './css/style.css';
+import "./css/style.css";
 
-import './charts/ChartjsConfig';
+import "./charts/ChartjsConfig";
 
 // Import pages
 import Dashboard from './pages/Dashboard';
@@ -49,39 +45,44 @@ import VisitingCard from './pages/visiting_card_list';
 import Payments from './pages/payments';
 
 function App() {
-
   const location = useLocation();
 
   useEffect(() => {
-    document.querySelector('html').style.scrollBehavior = 'auto'
-    window.scroll({ top: 0 })
-    document.querySelector('html').style.scrollBehavior = ''
+    document.querySelector("html").style.scrollBehavior = "auto";
+    window.scroll({ top: 0 });
+    document.querySelector("html").style.scrollBehavior = "";
   }, [location.pathname]); // triggered on route change
-
-  
 
   return (
     <>
       <Routes>
         <Route exact path="/" element={<AuthPage />} />
-        <Route exact path="/dash" element={<Dashboard/>}/>
-        <Route exact path="/camp" element={<Table/>}/>
-        <Route exact path="/regStudent" element={<RegStudent/>}/>
-        <Route exact path='/CanStudent' element={<CanStudent/>}/>
-        <Route exact path="/settings" element={<Settings/>}/>
-        <Route exact path="/Reportcard" element={<ReportCard/>}/>
-        <Route exact path="/Filter" element={<Filter/>}/>
-        <Route exact path="/add-student" element={<AddStudent/>}/>
-        <Route exact path="/add-camp" element={<AddCamp/>}/>
-        <Route exact path="/fee-details" element={<FeeDetails/>}/>
-        <Route exact path="/fee-discounts" element={<FeeDiscount/>}/>
+        <Route exact path="/dash" element={<Dashboard />} />
+        <Route exact path="/camp" element={<Table />} />
+        <Route exact path="/regStudent" element={<RegStudent />} />
+        <Route exact path="/CanStudent" element={<CanStudent />} />
+        <Route exact path="/settings" element={<Settings />} />
+        <Route exact path="/Reportcard" element={<ReportCard />} />
+        <Route exact path="/Filter" element={<Filter />} />
+        <Route exact path="/add-student" element={<AddStudent />} />
+        <Route exact path="/add-camp" element={<AddCamp />} />
+        <Route exact path="/fee-details" element={<FeeDetails />} />
+        <Route exact path="/fee-discounts" element={<FeeDiscount />} />
         <Route exact path="/batch-details" element={<Batchdetails />} />
-        <Route exact path="/add-batch" element={<AddBatch/>} />
-        <Route exact path="/generate-report" element={<GenerateReport/>}/>
+        <Route exact path="/add-batch" element={<AddBatch />} />
+        <Route exact path="/generate-report" element={<GenerateReport />} />
         <Route exact path="/view-report" element={<VeiwReportCard />} />
-        <Route exact path="/view_medical_report/:id" element={<View_medical_certificate />} />
+        <Route
+          exact
+          path="/view_medical_report/:id"
+          element={<View_medical_certificate />}
+        />
         <Route exact path="/edit-fee-details" element={<EditFeeDetails />} />
-        <Route exact path="/update-student-details" element={<UpdateStudentDetails />} />
+        <Route
+          exact
+          path="/update-student-details"
+          element={<UpdateStudentDetails />}
+        />
         <Route exact path="/veiw-entrance" element={<AdmitCard />} />
         <Route exact path="/receipt" element={<Receipt />} />
         <Route exact path="/toast" element={<PositionedSnackbar />} />
@@ -102,7 +103,7 @@ function App() {
         <Route exact path='/payments' element={<Payments/>}/>
       </Routes>
     </>
-  );  
+  );
 }
 
 export default App;

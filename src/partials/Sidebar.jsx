@@ -727,6 +727,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   );
                 }}
               </SidebarLinkGroup>
+
               {/*  */}
               {/* Setting */}
               {/* <SidebarLinkGroup activecondition={pathname.includes('settings')}>
