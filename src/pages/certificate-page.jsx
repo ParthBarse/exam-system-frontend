@@ -163,7 +163,7 @@ function RegStudent() {
 
   const sendAll = async (e) => {
     setSendLoading(true);
-    const res = await axios.post(`https://${baseurl}/sendAllStudentsDocs`, {
+    const res = await axios.post(`https://${baseurl}/sendAllStudentsCert`, {
       body: data,
       filter: body,
     });
