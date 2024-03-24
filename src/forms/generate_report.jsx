@@ -226,12 +226,13 @@ export default function GenerateReport() {
                       <tr key={act.SKILL}>
                         {Object.keys(act).map((key) => (
                           <td key={key}>
-                            {key != "TRAINED BY INS" ? (
+                            {
                               <input
                                 type={
                                   key === "TIMES TO REPEAT" ? "number" : "text"
                                 }
                                 value={act[key]}
+                                placeholder="Enter name"
                                 onChange={(e) => {
                                   const newActivities = { ...activities };
                                   newActivities[activity] = newActivities[
@@ -243,82 +244,9 @@ export default function GenerateReport() {
                                   );
                                   setActivities(newActivities);
                                 }}
+                                disabled={key === "SR.NO." || key === "SKILL"}
                               />
-                            ) : (
-                              <select
-                                onChange={(e) => {
-                                  const newActivities = { ...activities };
-                                  newActivities[activity] = newActivities[
-                                    activity
-                                  ].map((a) =>
-                                    a.SKILL === act.SKILL
-                                      ? { ...a, [key]: e.target.value }
-                                      : a
-                                  );
-                                  setActivities(newActivities);
-                                }}
-                                value={act[key]}
-                              >
-                                <option value="">Select an option</option>
-                                <option value="ADM . POONAM MAM">
-                                  ADM . POONAM MAM
-                                </option>
-                                <option value="ADM. DIVYA MAM">
-                                  ADM. DAKSHATA MAM
-                                </option>
-                                <option value="ADM. ANJANA MAM">
-                                  ADM. ANJANA MAM
-                                </option>
-                                <option value="ADM. SHARAYU MAM">
-                                  ADM. SHARAYU MAM
-                                </option>
-                                <option value="ADM. BHAGYASHREE MAM">
-                                  ADM. BHAGYASHREE MAM
-                                </option>
-                                <option value="TL. TEJASWINI WAGHMODE">
-                                  TL. TEJASWINI WAGHMODE
-                                </option>
-                                <option value="TL. MAYUR BALASAHEB KUTE">
-                                  TL. MAYUR BALASAHEB KUTE
-                                </option>
-                                <option value="TL. PREEJA SASHIDHARAN NAIR">
-                                  TL. PREEJA SASHIDHARAN NAIR
-                                </option>
-                                <option value="TL. SACHIN SHIVAJIRAO CHALKE">
-                                  TL. SACHIN SHIVAJIRAO CHALKE
-                                </option>
-                                <option value="TL. SACHIN MANJUNATH KANNUR">
-                                  TL. SACHIN MANJUNATH KANNUR
-                                </option>
-                                <option value="TL. ROOPESH GURUNATH TORASKAR">
-                                  TL. ROOPESH GURUNATH TORASKAR
-                                </option>
-                                <option value="TL. NILESH DNYANESHWAR PATIL">
-                                  TL. NILESH DNYANESHWAR PATIL
-                                </option>
-                                <option value="TL. ISHRA ASLAM MULLA">
-                                  TL. ISHRA ASLAM MULLA
-                                </option>
-                                <option value="TL. JASMIN NURUL HASAN KADRI">
-                                  TL. JASMIN NURUL HASAN KADRI
-                                </option>
-                                <option value="TL. ANAND WAMAN MORE">
-                                  TL. ANAND WAMAN MORE
-                                </option>
-                                <option value="TL. ADINATH ASHOK JADHAV">
-                                  TL. ADINATH ASHOK JADHAV
-                                </option>
-                                <option value="TL. SHAMBHURAJE ANNA SALUNKHE">
-                                  TL. SHAMBHURAJE ANNA SALUNKHE
-                                </option>
-                                <option value="TL. PRANAV PANDUANG BHORE">
-                                  TL. PRANAV PANDUANG BHORE
-                                </option>
-                                <option value="OTHER MCF STAFF">
-                                  OTHER MCF STAFF
-                                </option>
-                              </select>
-                            )}
+                            }
                           </td>
                         ))}
                       </tr>
