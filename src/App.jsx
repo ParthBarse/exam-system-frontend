@@ -6,42 +6,43 @@ import "./css/style.css";
 import "./charts/ChartjsConfig";
 
 // Import pages
-import Dashboard from "./pages/Dashboard";
-import Table from "./pages/camp";
-import RegStudent from "./pages/registered-students";
-import CanStudent from "./pages/cancelled-students";
-import Settings from "./pages/settings";
-import ReportCard from "./pages/ReportCard";
-import Filter from "./pages/Filter";
-import AddStudent from "./forms/add_students_form/add_students";
-import AddCamp from "./forms/add_camp";
-import FeeDetails from "./pages/Button/fee_details";
-import FeeDiscount from "./pages/Button/fee_discount";
-import Batchdetails from "./pages/Button/batch_details";
-import AddBatch from "./forms/add_batch";
-import GenerateReport from "./forms/generate_report";
-import VeiwReportCard from "./pages/Button/veiw_reportcard";
-import EditFeeDetails from "./forms/edit_fee_details";
-import UpdateStudentDetails from "./pages/update_student_form";
-import AdmitCard from "./pages/Button/veiw_entrance_card";
-import AuthPage from "./pages/auth";
-import Receipt from "./pages/Button/veiw-receipt";
-import AdmissionForm from "./pages/admissionform";
-import PositionedSnackbar from "./components/Toast";
-import EditBatch from "./pages/edit_batch";
-import Discount from "./pages/discount";
-import View_medical_certificate from "./pages/Button/View_medical_certificate";
-import RegisterAdmin from "./pages/register";
-import ExtStudent from "./pages/extended-students";
-import RefStudent from "./pages/refunded-students";
-import Reciptlist from "./pages/receipt_list";
-import Medicallist from "./pages/medical_certificate";
-import Reportlist from "./pages/reportlist";
-import Enterancecard from "./pages/enterancecard_list";
-import Pickuplist from "./pages/pick-ip_pointlist";
-import Actstudent from "./pages/active-students";
-import VisitingCard from "./pages/visiting_card_list";
-import Payments from "./pages/payments";
+import Dashboard from './pages/Dashboard';
+import Table from './pages/camp';
+import RegStudent from './pages/registered-students';
+import CanStudent from './pages/cancelled-students';
+import Settings from './pages/settings';
+import ReportCard from './pages/ReportCard';
+import Filter from './pages/Filter';
+import AddStudent from './forms/add_students_form/add_students';
+import AddCamp from './forms/add_camp';
+import FeeDetails from './pages/Button/fee_details';
+import FeeDiscount from './pages/Button/fee_discount';
+import Batchdetails from './pages/Button/batch_details';
+import AddBatch from './forms/add_batch';
+import GenerateReport from './forms/generate_report';
+import VeiwReportCard from './pages/Button/veiw_reportcard';
+import EditFeeDetails from './forms/edit_fee_details';
+import UpdateStudentDetails from './pages/update_student_form';
+import AdmitCard from './pages/Button/veiw_entrance_card';
+import AuthPage from './pages/auth';
+import Receipt from './pages/Button/veiw-receipt';
+import AdmissionForm from './pages/admissionform';
+import PositionedSnackbar from './components/Toast';
+import EditBatch from './pages/edit_batch';
+import Discount from './pages/discount';
+import View_medical_certificate from './pages/Button/View_medical_certificate';
+import RegisterAdmin from './pages/register';
+import ExtStudent from './pages/extended-students';
+import RefStudent from './pages/refunded-students';
+import Reciptlist from './pages/receipt_list';
+import Medicallist from './pages/medical_certificate';
+import Reportlist from './pages/reportlist';
+import Enterancecard from './pages/enterancecard_list';
+import Pickuplist from './pages/pick-ip_pointlist';
+import Actstudent from './pages/active-students';
+import Certificatepage from './pages/certificate-page';
+import VisitingCard from './pages/visiting_card_list';
+import Payments from './pages/payments';
 
 function App() {
   const location = useLocation();
@@ -91,14 +92,15 @@ function App() {
         <Route exact path="/register" element={<RegisterAdmin />} />
         <Route exact path="/extStudent" element={<ExtStudent />} />
         <Route exact path="/refStudent" element={<RefStudent />} />
-        <Route exact path="/Receiptlist" element={<Reciptlist />} />
-        <Route exact path="/Medicallist" element={<Medicallist />} />
-        <Route exact path="/Reportlist" element={<Reportlist />} />
-        <Route exact path="/Enterancecard" element={<Enterancecard />} />
-        <Route exact path="/Pickuplist" element={<Pickuplist />} />
-        <Route exact path="/Actstudent" element={<Actstudent />} />
-        <Route exact path="/VisitingCard" element={<VisitingCard />} />
-        <Route exact path="/payments" element={<Payments />} />
+        <Route exact path="/Receiptlist" element={<Reciptlist />}/>
+        <Route exact path="/Medicallist" element={<Medicallist/>}/>
+        <Route exact path="/Reportlist" element={<Reportlist/>}/>
+        <Route exact path="/Enterancecard" element={<Enterancecard/>}/>
+        <Route exact path="/Pickuplist" element={<Pickuplist/>}/>
+        <Route exact path="/Actstudent" element={<Actstudent/>}/>
+        <Route exact path="/Certificatepage" element={<Certificatepage/>}/>
+        <Route exact path='/VisitingCard' element={<VisitingCard/>}/>
+        <Route exact path='/payments' element={<Payments/>}/>
       </Routes>
     </>
   );
