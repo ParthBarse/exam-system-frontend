@@ -92,6 +92,29 @@ function RegStudent() {
     return batch ? batch.batch_name : "Batch not assigned";
   };
 
+  const handleDelete = async (sid) => {
+    try {
+      const response = await axios.delete(
+        `https://${baseurl}/deleteStudent?sid=${sid}`
+      );
+
+      if (response.status === 200) {
+        console.log("Cadet deleted successfully!");
+        alert("Cadet deleted successfully!");
+
+        // Update the state to remove the deleted item
+        setData((prevData) =>
+          prevData.filter((item) => item.sid !== sid)
+        );
+      } else {
+        console.error("Failed to delete Cadet. Status:", response.status);
+      }
+    } catch (error) {
+      console.error("Error deleting Cadet:", error.message);
+      console.error(error.response?.data); // Log the response data if available
+    }
+  };
+
   return (
     <div className="flex h-screen overflow-hidden box-content">
       <BasicModal modalOpen={modalOpen} sid={SID} fetchData={fetchData} />
@@ -299,6 +322,23 @@ function RegStudent() {
                                     discount_amount={item.discount_amount}
                                     camp_id={item.camp_id}
                                   />
+                                </button>
+
+                                <button
+                                  className="text-sm text-white px-2 bg-red-500"
+                                  style={{
+                                    padding: "1px",
+                                    fontSize: "13px",
+                                    alignItems: "center",
+                                    textAlign: 'center'
+                                  }}
+                                  
+                                  onClick={(e) => {
+                                    e.preventDefault(); // Prevent the default link click action
+                                    handleDelete(item.sid);
+                                  }}
+                                >
+                                  Delete
                                 </button>
 
                                 {/* <button
