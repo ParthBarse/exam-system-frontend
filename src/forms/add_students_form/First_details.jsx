@@ -15,6 +15,7 @@ const FirstDetails = () => {
   const navigate = useNavigate();
 
   const punePickupLocations = [
+    "Self Pickup",
     "Nigadi Bhaktishakti",
     "Akurdi Khandoba Mandir",
     "Chinchawad Chaphekar Chowk",
@@ -38,6 +39,7 @@ const FirstDetails = () => {
   ];
 
   const mumbaiPickupLocations = [
+    "Self Pickup",
     "Dadar (Asiad bus stop)",
     "Vashi (Vashi Plaza, Below Vashi Bridge, Shivneri, Bus stop)",
     "Thane(Near Shivaji Hospital Kalwa Naka)",
@@ -1083,6 +1085,7 @@ const FirstDetails = () => {
                       <option value="">Select Pick Up City </option>
                       <option value="mumbai">Mumbai</option>
                       <option value="pune">Pune </option>
+                      <option value="self-pickup">Self Pickup </option>
                     </select>
                   </div>
 
