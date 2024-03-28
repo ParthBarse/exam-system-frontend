@@ -15,7 +15,7 @@ const FirstDetails = () => {
   const navigate = useNavigate();
 
   const punePickupLocations = [
-    "Self Pickup",
+    "Self Drop",
     "Nigadi Bhaktishakti",
     "Akurdi Khandoba Mandir",
     "Chinchawad Chaphekar Chowk",
@@ -39,11 +39,11 @@ const FirstDetails = () => {
   ];
 
   const selfPickupLocations =[
-    "Self Pickup"
+    "Self Drop"
   ]
 
   const mumbaiPickupLocations = [
-    "Self Pickup",
+    "Self Drop",
     "Dadar (Asiad bus stop)",
     "Vashi (Vashi Plaza, Below Vashi Bridge, Shivneri, Bus stop)",
     "Thane(Near Shivaji Hospital Kalwa Naka)",
@@ -1087,7 +1087,7 @@ const FirstDetails = () => {
                     >
                       {/* Options for Dress Code */}
                       <option value="">Select Pick Up City </option>
-                      <option value="self-pickup">Self Pickup </option>
+                      <option value="self-drop">Self Drop </option>
                       <option value="mumbai">Mumbai</option>
                       <option value="pune">Pune </option>
                     </select>
@@ -1121,7 +1121,7 @@ const FirstDetails = () => {
                             <option value={location}>{location}</option>
                           ))
                         : ""}
-                      {admissionFormData.pick_up_city === "self-pickup"
+                      {admissionFormData.pick_up_city === "self-drop"
                         ? selfPickupLocations.map((location) => (
                             <option value={location}>{location}</option>
                           ))
