@@ -44,14 +44,34 @@ export default function GenerateReport() {
       },
       {
         "SR.NO.": 5,
-        SKILL: "HORSE RIDING",
+        SKILL: "Horse Riding",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+    ],
+    physical_activities: [
+      {
+        "SR.NO.": 6,
+        SKILL: "Trekking",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 7,
+        SKILL: "Aerobics/Yoga",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 8,
+        SKILL: "P.T. and Mass P.T. Exercise",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
       },
     ],
     water_activities: [
       {
-        "SR.NO.": 6,
+        "SR.NO.": 9,
         SKILL: "Rain Dance",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
@@ -59,13 +79,13 @@ export default function GenerateReport() {
     ],
     adventure_activities: [
       {
-        "SR.NO.": 7,
+        "SR.NO.": 10,
         SKILL: "ROCK CLIMBING",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
       },
       {
-        "SR.NO.": 8,
+        "SR.NO.": 11,
         SKILL: "Zip Line",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
@@ -73,58 +93,45 @@ export default function GenerateReport() {
     ],
     mcf_rope_course: [
       {
-        "SR.NO.": 9,
+        "SR.NO.": 12,
         SKILL: "Burma Bridge",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
       },
       {
-        "SR.NO.": 10,
+        "SR.NO.": 13,
         SKILL: "Tawa Walk",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
       },
       {
-        "SR.NO.": 11,
+        "SR.NO.": 14,
         SKILL: "Single Rope Walk",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
       },
       {
-        "SR.NO.": 12,
+        "SR.NO.": 15,
         SKILL: "Zig Zag Ladder Walk",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 16,
+        SKILL: "One Feet Walk",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
       },
     ],
     cultural_activities: [
       {
-        "SR.NO.": 13,
-        SKILL: "Camp Fire/Dance/Song",
+        "SR.NO.": 17,
+        SKILL: "Camp Fire/Solo Dance/Solo Song",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
       },
     ],
-    physical_activities: [
-      {
-        "SR.NO.": 14,
-        SKILL: "Trekking",
-        "TIMES TO REPEAT": 0,
-        "TRAINED BY INS": "",
-      },
-      {
-        "SR.NO.": 15,
-        SKILL: "Aerobics/Yoga",
-        "TIMES TO REPEAT": 0,
-        "TRAINED BY INS": "",
-      },
-      {
-        "SR.NO.": 16,
-        SKILL: "P.T. Exercise",
-        "TIMES TO REPEAT": 0,
-        "TRAINED BY INS": "",
-      },
-    ],
+   
   });
 
   const [fields, setFields] = useState({

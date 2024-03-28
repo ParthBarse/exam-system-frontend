@@ -44,87 +44,252 @@ export default function GenerateReport15() {
       },
       {
         "SR.NO.": 5,
-        SKILL: "HORSE RIDING",
+        SKILL: "Horse Riding",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
       },
-    ],
-    water_activities: [
       {
         "SR.NO.": 6,
-        SKILL: "Rain Dance",
+        SKILL: "Pistol Shooting",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
       },
-    ],
-    adventure_activities: [
-      {
-        "SR.NO.": 7,
-        SKILL: "ROCK CLIMBING",
-        "TIMES TO REPEAT": 0,
-        "TRAINED BY INS": "",
-      },
-      {
-        "SR.NO.": 8,
-        SKILL: "Zip Line",
-        "TIMES TO REPEAT": 0,
-        "TRAINED BY INS": "",
-      },
-    ],
-    mcf_rope_course: [
-      {
-        "SR.NO.": 9,
-        SKILL: "Burma Bridge",
-        "TIMES TO REPEAT": 0,
-        "TRAINED BY INS": "",
-      },
-      {
-        "SR.NO.": 10,
-        SKILL: "Tawa Walk",
-        "TIMES TO REPEAT": 0,
-        "TRAINED BY INS": "",
-      },
-      {
-        "SR.NO.": 11,
-        SKILL: "Single Rope Walk",
-        "TIMES TO REPEAT": 0,
-        "TRAINED BY INS": "",
-      },
-      {
-        "SR.NO.": 12,
-        SKILL: "Zig Zag Ladder Walk",
-        "TIMES TO REPEAT": 0,
-        "TRAINED BY INS": "",
-      },
-    ],
-    cultural_activities: [
-      {
-        "SR.NO.": 13,
-        SKILL: "Camp Fire/Dance/Song",
-        "TIMES TO REPEAT": 0,
-        "TRAINED BY INS": "",
-      },
+   
     ],
     physical_activities: [
       {
-        "SR.NO.": 14,
+        "SR.NO.": 7,
         SKILL: "Trekking",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
       },
       {
-        "SR.NO.": 15,
+        "SR.NO.": 8,
         SKILL: "Aerobics/Yoga",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
       },
       {
+        "SR.NO.": 9,
+        SKILL: "P.T. and Mass P.T.Execise",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 10,
+        SKILL: "March Past/Drill",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 11,
+        SKILL: "Commando Activities",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+     
+    ],
+    water_activities: [
+      {
+        "SR.NO.": 12,
+        SKILL: "Rain Dance",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 13,
+        SKILL: "Swimming",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+   
+    ],
+    adventure_activities: [
+      {
+        "SR.NO.": 15,
+        SKILL: "Rock Climbing",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
         "SR.NO.": 16,
-        SKILL: "P.T. Exercise",
+        SKILL: "Zip Line",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 17,
+        SKILL: "Rappelling",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+    
+      
+    ],
+ 
+    mcf_rope_course_activities: [
+     
+      {
+        "SR.NO.": 18,
+        SKILL: "Rope Bridge",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 19,
+        SKILL: "Ladder Walking",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 20,
+        SKILL: "Single Rope Walk",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      }, {
+        "SR.NO.": 21,
+        SKILL: "Zig Zag Ladder Walk",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      }, {
+        "SR.NO.": 22,
+        SKILL: "One Feet Walk",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 23,
+        SKILL: "Straight Line Walk",
         "TIMES TO REPEAT": 0,
         "TRAINED BY INS": "",
       },
     ],
+    cultural_activities: [
+     
+      {
+        "SR.NO.": 24,
+        SKILL: "Camp Fire",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 25,
+        SKILL: "Karaoke",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+     
+    ],
+    Obstacle_course_activities: [
+     
+      {
+        "SR.NO.": 26,
+        SKILL: "Straight Balance",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 27,
+        SKILL: "Clear Jump",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 28,
+        SKILL: "Double Walt ",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 29,
+        SKILL: "Zig Zag",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 30,
+        SKILL: "Double Jump",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 31,
+        SKILL: "Wall Climbing",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 32,
+        SKILL: "Tire Jump",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 33,
+        SKILL: "Tarzan Swing",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+     
+    ],
+    disaster_management_activities: [
+     
+      {
+        "SR.NO.": 34,
+        SKILL: "First Aid",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 35,
+        SKILL: "Bandage",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 36,
+        SKILL: "Knots",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+     
+    ],
+    military_obstacle_activities: [
+      {
+        "SR.NO.": 37,
+        SKILL: "Commando Net",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 38,
+        SKILL: "Spider Net",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 39,
+        SKILL: "Verticle Net",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+    ],
+   Team_building_activities : [
+      {
+        "SR.NO.": 40,
+        SKILL: "Group Activities",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+      {
+        "SR.NO.": 41,
+        SKILL: "Sports Activities",
+        "TIMES TO REPEAT": 0,
+        "TRAINED BY INS": "",
+      },
+    ],
+  
+   
   });
 
   const [fields, setFields] = useState({
