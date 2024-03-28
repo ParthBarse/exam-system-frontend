@@ -38,6 +38,10 @@ const FirstDetails = () => {
     "Sinhgad Navale Bridge",
   ];
 
+  const selfPickupLocations =[
+    "Self Pickup"
+  ]
+
   const mumbaiPickupLocations = [
     "Self Pickup",
     "Dadar (Asiad bus stop)",
@@ -1083,9 +1087,9 @@ const FirstDetails = () => {
                     >
                       {/* Options for Dress Code */}
                       <option value="">Select Pick Up City </option>
+                      <option value="self-pickup">Self Pickup </option>
                       <option value="mumbai">Mumbai</option>
                       <option value="pune">Pune </option>
-                      <option value="self-pickup">Self Pickup </option>
                     </select>
                   </div>
 
@@ -1114,6 +1118,11 @@ const FirstDetails = () => {
                         : ""}
                       {admissionFormData.pick_up_city === "pune"
                         ? punePickupLocations.map((location) => (
+                            <option value={location}>{location}</option>
+                          ))
+                        : ""}
+                      {admissionFormData.pick_up_city === "self-pickup"
+                        ? selfPickupLocations.map((location) => (
                             <option value={location}>{location}</option>
                           ))
                         : ""}
