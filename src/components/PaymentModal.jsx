@@ -38,6 +38,8 @@ export default function PaymentModal({ sid }) {
   });
 
   const paymentModes = [
+    "Cash",
+    "Cheque",
     "IMPS",
     "RTGS",
     "NEFT",
