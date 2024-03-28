@@ -44,8 +44,8 @@ function RegStudent() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`https://${baseurl}/getAllStudents`);
-      const r = response.data.students.filter((x) => x.status == "In Progress");
+      const response = await axios.get(`https://${baseurl}/getAllFeedbacks`);
+      const r = response.data.feedbacks
       setData(r); // Update the state with the fetched data
 
       setLoading(false); // Set loading to false
@@ -92,29 +92,6 @@ function RegStudent() {
     return batch ? batch.batch_name : "Batch not assigned";
   };
 
-  const handleDelete = async (sid) => {
-    try {
-      const response = await axios.delete(
-        `https://${baseurl}/deleteStudent?sid=${sid}`
-      );
-
-      if (response.status === 200) {
-        console.log("Cadet deleted successfully!");
-        alert("Cadet deleted successfully!");
-
-        // Update the state to remove the deleted item
-        setData((prevData) =>
-          prevData.filter((item) => item.sid !== sid)
-        );
-      } else {
-        console.error("Failed to delete Cadet. Status:", response.status);
-      }
-    } catch (error) {
-      console.error("Error deleting Cadet:", error.message);
-      console.error(error.response?.data); // Log the response data if available
-    }
-  };
-
   return (
     <div className="flex h-screen overflow-hidden box-content">
       <BasicModal modalOpen={modalOpen} sid={SID} fetchData={fetchData} />
@@ -135,7 +112,7 @@ function RegStudent() {
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
                     <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-                      Registered Cadets List
+                      All Feedbacks
                     </h2>
                     <div style={{ display: "flex", gap: "10px" }}>
                       {/* <Dropdown>
@@ -147,13 +124,6 @@ function RegStudent() {
                           <li><Dropdown.Item href="/admission-form" className="px-3 py-2 hover:bg-gray-300">Already Registered</Dropdown.Item></li>
                         </Dropdown.Menu>
                       </Dropdown> */}
-                      <Link
-                        end
-                        to="/add-student"
-                        className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
-                      >
-                        Add Student
-                      </Link>
                     </div>
                   </div>
                 </header>
@@ -192,21 +162,6 @@ function RegStudent() {
                           </th>
                           <th className="p-2">
                             <div className="font-semibold text-center">
-                              Paid/Payable
-                            </div>
-                          </th>
-                          <th className="p-2">
-                            <div className="font-semibold text-center">
-                              Discount Amount
-                            </div>
-                          </th>
-                          <th className="p-2">
-                            <div className="font-semibold text-center">
-                              Status
-                            </div>
-                          </th>
-                          <th className="p-2">
-                            <div className="font-semibold text-center">
                               Action
                             </div>
                           </th>
@@ -240,119 +195,28 @@ function RegStudent() {
                             </td>
                             <td className="p-2">
                               <div className="text-center">
-                                {getCampName(item.camp_id)}
+                                {item.camp_name}
                               </div>
                             </td>
                             <td className="p-2">
                               <div className="text-center">
-                                {getBatchName(item.batch_id)}
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              {item.total_amount_paid}/
-                              {item.total_amount_payable}
-                            </td>
-                            <td className="p-2 text-center">
-                              {item.discount_amount}
-                            </td>
-                            <td className="p-2">
-                              <div className={`text-center text-yellow-500`}>
-                                {item.status}
+                                {item.batch_name}
                               </div>
                             </td>
                             <td className="p-4">
-                              <div className="text-center grid grid-cols-3 grid-rows-2 gap-1">
-                                <Link
-                                  to={`/update-student-details?id=${item.sid}`}
-                                  className="text-sm text-white px-2 bg-blue-500"
-                                  // style={{ padding: "1px", fontSize: "13px", width: "100pxf", height: "30px" }}
-                                >
-                                  <button
-                                    style={{
-                                      width: "100%",
-                                      height: "100%",
-                                      padding: "3px",
-                                    }}
-                                  >
-                                    View & Edit
-                                  </button>
-                                </Link>
-                                <button
-                                  onClick={(e) => {
-                                    setModalOpen((prev) => !prev);
-                                    setSID(item.sid);
-                                  }}
-                                  className="text-sm text-white px-2 bg-red-500"
-                                  style={{
-                                    padding: "1px",
-                                    fontSize: "13px",
-                                    width: "auto",
-                                    height: "auto",
-                                  }}
-                                >
-                                  Cancel
-                                </button>
-                                <button
-                                  className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{
-                                    padding: "1px",
-                                    fontSize: "13px",
-                                    width: "auto",
-                                    height: "auto",
-                                  }}
-                                >
-                                  <PaymentModal sid={item.sid} />
-                                </button>
-
-                                <ListPayments send={true} sid={item.sid} />
-
-                                <button
-                                  className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{
-                                    padding: "1px",
-                                    fontSize: "13px",
-                                    width: "auto",
-                                    height: "auto",
-                                  }}
-                                >
-                                  <DiscountModal
-                                    sid={item.sid}
-                                    payable={item.total_amount_payable}
-                                    batch_id={item.batch_id}
-                                    discount_amount={item.discount_amount}
-                                    camp_id={item.camp_id}
-                                  />
-                                </button>
-
-                                <button
-                                  className="text-sm text-white px-2 bg-red-500"
-                                  style={{
-                                    padding: "1px",
-                                    fontSize: "13px",
-                                    alignItems: "center",
-                                    textAlign: 'center'
-                                  }}
-                                  
-                                  onClick={(e) => {
-                                    e.preventDefault(); // Prevent the default link click action
-                                    handleDelete(item.sid);
-                                  }}
-                                >
-                                  Delete
-                                </button>
-
-                                {/* <button
-                                  className="text-sm text-white px-2 bg-indigo-500"
-                                  style={{ padding: "1px", fontSize: "13px", width: "auto", height: "auto" }}
-                                >
-                                  <Link
-                                    to={`/view_medical_report/${item.sid}`}
-                                    style={{ textDecoration: "none", color: "inherit", width: "100%", height: "100%" }}
-                                  >
-                                    Medical Certificate
-                                  </Link>
-                                </button> */}
-                              </div>
+                            <div className="text-center grid grid-cols-1 grid-rows-1 gap-2 mt-2 h-full">
+                                    <a
+                                      target="_blank"
+                                      href={`${item.feedback_form}`}
+                                      className="text-sm text-white px-2 bg-indigo-500"
+                                    >
+                                      <button
+                                        className="text-sm text-white px-2 bg-indigo-500"
+                                      >
+                                        View & Download
+                                      </button>
+                                    </a>
+                                </div>
                             </td>
                           </tr>
                         ))}
