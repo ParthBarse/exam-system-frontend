@@ -44,6 +44,8 @@ import Certificatepage from "./pages/certificate-page";
 import Feedbackpage from "./pages/feedback-page";
 import VisitingCard from "./pages/visiting_card_list";
 import Payments from "./pages/payments";
+import GenerateReport15 from "./forms/generate_report15";
+import GenerateReport30 from "./forms/generate_report30";
 
 function App() {
   const location = useLocation();
@@ -72,9 +74,9 @@ function App() {
         <Route exact path="/batch-details" element={<Batchdetails />} />
         <Route exact path="/add-batch" element={<AddBatch />} />
         <Route exact path="/generate-report" element={<GenerateReport />} />
-        <Route exact path="/generate-report15" element={<GenerateReport />} />
+        <Route exact path="/generate-report15" element={<GenerateReport15 />} />
 
-        <Route exact path="/generate-report30" element={<GenerateReport />} />
+        <Route exact path="/generate-report30" element={<GenerateReport30 />} />
 
         <Route exact path="/view-report" element={<VeiwReportCard />} />
         <Route
