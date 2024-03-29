@@ -59,7 +59,7 @@ function RegStudent() {
   // Calculate the range of items to display on the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const itemsToDisplay = data.slice(startIndex, endIndex);
+  const itemsToDisplay = data
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -361,50 +361,6 @@ function RegStudent() {
                   </div>
                 </div>
               </div>
-            </div>
-            {/* Previous and Next Buttons */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "20px",
-              }}
-            >
-              <button
-                style={{
-                  padding: "5px 10px",
-                  background: "#007BFF",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  marginRight: "10px",
-                  cursor: currentPage > 1 ? "pointer" : "not-allowed",
-                }}
-                onClick={() => {
-                  if (currentPage > 1) {
-                    handlePageChange(currentPage - 1);
-                  }
-                }}
-              >
-                &lt;
-              </button>
-              <button
-                style={{
-                  padding: "5px 10px",
-                  background: "#007BFF",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: currentPage < totalPages ? "pointer" : "not-allowed",
-                }}
-                onClick={() => {
-                  if (currentPage < totalPages) {
-                    handlePageChange(currentPage + 1);
-                  }
-                }}
-              >
-                &gt;
-              </button>
             </div>
           </div>
         </main>
