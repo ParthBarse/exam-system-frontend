@@ -910,7 +910,7 @@ const FirstDetails = () => {
                           <option value={location}>{location}</option>
                         ))
                       : ""}
-                    {admissionFormData.pick_up_city === "self-drop"
+                    {FormData.pick_up_city === "self-drop"
                         ? selfPickupLocations.map((location) => (
                             <option value={location}>{location}</option>
                           ))
