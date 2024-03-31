@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import BasicModal from "../components/Modal";
 import { baseurl } from "../utils/domain";
 import { toast } from "sonner";
+import * as XLSX from "xlsx";
 
 function RegStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -18,6 +19,7 @@ function RegStudent() {
   const [modalOpen, setModalOpen] = useState(false);
   const [SID, setSID] = useState(null);
   const [sendLoading, setSendLoading] = useState(false);
+  const [excelLoading, setExcelLoading] = useState(false);
 
   useEffect(() => {
     const fetchCamps = async () => {
@@ -36,6 +38,10 @@ function RegStudent() {
     const camp = camps.find((camp) => camp.camp_id === campId);
     return camp ? camp.camp_name : "Camp not assigned";
   };
+
+  const [excelData, setExcelData] = useState([]);
+
+  useEffect(() => {}, [data]);
 
   useEffect(() => {
     fetchData(); // Fetch data when the component mounts

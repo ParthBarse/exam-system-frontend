@@ -5,10 +5,11 @@ import Header from "../partials/Header";
 import { Link, useNavigate } from "react-router-dom";
 import BasicModal1 from "../components/Modal1";
 import { baseurl } from "../utils/domain";
-
+import * as XLSX from "xlsx";
 function Filter() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [data, setData] = useState([]);
+  const [excelData, setExcelData] = useState([]);
   const [nameFilter, setNameFilter] = useState("");
   const [regId, setRegId] = useState("");
   const [campName, setCampName] = useState("");
@@ -38,6 +39,29 @@ function Filter() {
   const handleClose = (sid) => {
     setModalOpen((prev) => ({ ...prev, [sid]: false }));
   };
+
+  const downloadExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(excelData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+    //let buffer = XLSX.write(workbook, { bookType: "xlsx", type: "buffer" });
+    //XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
+    XLSX.writeFile(workbook, "DataSheet.xlsx");
+  };
+
+  useEffect(() => {
+    const curr = data.map((entry) => {
+      return {
+        first_name: entry.first_name,
+        last_name: entry.last_name,
+        pick_up_point: entry.pick_up_point,
+        pick_up_city: entry.pick_up_city,
+        camp_name: getCampName(entry.camp_id),
+        batch_name: getBatchName(entry.batch_id),
+      };
+    });
+    setExcelData(curr);
+  }, [data]);
 
   const punePickupLocations = [
     "Nigadi Bhaktishakti",
@@ -167,6 +191,15 @@ function Filter() {
       }
     });
     return bat ? bat.batch_name : "";
+  }
+
+  function getBatchDuration(batch_id) {
+    const bat = allBatches.find((batch) => {
+      if (batch.batch_id === batch_id) {
+        return batch.duration;
+      }
+    });
+    return bat ? bat.duration : "";
   }
 
   // // Usage
@@ -396,6 +429,25 @@ function Filter() {
                   ))}
                 </select>
               </div>
+              <div>
+                <label
+                  htmlFor="batch"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Camp Year
+                </label>
+                <select
+                  id="camp_year"
+                  name="camp_year"
+                  // value={admissionFormData.batch}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Batch */}
+                  <option value="">Select Camp Year</option>
+                  <option value="2024">2024</option>
+                </select>
+              </div>
 
               {/* <div>
                 <label className="block text-gray-600">Company</label>
@@ -409,20 +461,26 @@ function Filter() {
                 />
               </div> */}
 
-              <div style={{ display: "flex", flexDirection: "column-reverse" }}>
+              {/* <div style={{ display: "flex", flexDirection: "column-reverse" }}>
                 <div className="text-center bg-blue-500 text-white py-2 px-2 rounded-md hover:bg-blue-600">
                   <button type="button" onClick={handleFilterSubmit}>
                     Filter
                   </button>
                 </div>
-              </div>
+              </div> */}
+              <button
+                className="text-sm text-white px-3 py-1 font-semibold bg-indigo-500 h-9 mt-5 rounded-md "
+                onClick={downloadExcel}
+              >
+                Excel download
+              </button>
             </div>
           </div>
 
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xxl mx-auto">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-                <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
+                <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between">
                   <h2 className="font-semibold text-slate-800 dark:text-slate-100">
                     Filtered Cadets
                   </h2>

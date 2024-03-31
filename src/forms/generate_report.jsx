@@ -16,6 +16,52 @@ export default function GenerateReport() {
   const [student, setStudent] = useState({});
   const [loading, setLoading] = useState(false);
 
+  const [lastData, setLastData] = useState({
+    time_management: "",
+    accommodation: "",
+    facilities: "",
+    ins_training: "",
+    atmosphere: "",
+    activity: "",
+    uniform: "",
+    certification: "",
+    suggestion: "",
+    best_achievement: "",
+    achievement: "",
+    personality_dimensions: "",
+  });
+
+  const [lastTable, setLastTable] = useState({
+    "LEADERSHIP POTENTIAL": {
+      SCORE: "",
+      INTERPRETATION: "",
+    },
+    "COMMUNICATION SKILLS": {
+      SCORE: "",
+      INTERPRETATION: "",
+    },
+    "TEAMWORK AND COOPERATION": {
+      SCORE: "",
+      INTERPRETATION: "",
+    },
+    "ADAPTABILITY AND FLEXIBILITY": {
+      SCORE: "",
+      INTERPRETATION: "",
+    },
+    "PROBLEM-SOLVING ABILITY": {
+      SCORE: "",
+      INTERPRETATION: "",
+    },
+  });
+
+  const handleLastFromChange = (e) => {
+    const { name, value } = e.target;
+    setLastData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   const [activities, setActivities] = useState({
     skill_activities: [
       {
@@ -131,7 +177,12 @@ export default function GenerateReport() {
         "TRAINED BY INS": "",
       },
     ],
-   
+  });
+
+  const [formData, setFormData] = useState({
+    remarks: "",
+    "checked by name": "",
+    rank: "",
   });
 
   const [fields, setFields] = useState({
@@ -169,6 +220,9 @@ export default function GenerateReport() {
     const body = {
       details: fields,
       activities: activities,
+      individual_remarks_form: lastData,
+      individual_remarks_table: lastTable,
+      final_remarks: formData,
     };
     try {
       await axios.post(`https://${baseurl}/generateReport?sid=${sid}`, body);
@@ -265,6 +319,86 @@ export default function GenerateReport() {
               </div>
             ))}
           </form>
+          <form className="text-base font-semibold grid grid-cols-3 grid-rows-3 gap-2 p-4">
+            {Object.keys(lastData).map((field) => {
+              return (
+                <div key={field} className="flex flex-col">
+                  <label>{field.replace("_", " ").toUpperCase()}</label>
+                  <input
+                    type="text"
+                    name={field}
+                    onChange={handleLastFromChange}
+                    value={lastData[field]}
+                    placeholder={`Enter ${field.replace("_", " ")}`}
+                    className="text-sm font-normal"
+                  />
+                </div>
+              );
+            })}
+          </form>
+
+          <form>
+            {Object.keys(lastTable).map((field, i) => (
+              <div key={field} className="m-4">
+                <table>
+                  <h1 className="font-semibold text-md">
+                    {field.toUpperCase()}
+                  </h1>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          value={lastTable[field].SCORE}
+                          placeholder="Enter Score"
+                          onChange={(e) => {
+                            const newTable = { ...lastTable };
+                            newTable[field] = {
+                              ...newTable[field],
+                              SCORE: e.target.value,
+                            };
+                            setLastTable(newTable);
+                          }}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          className="text-sm font-normal ml-3"
+                          type="text"
+                          placeholder="Enter Interpretation"
+                          value={lastTable[field].INTERPRETATION}
+                          onChange={(e) => {
+                            const newTable = { ...lastTable };
+                            newTable[field] = {
+                              ...newTable[field],
+                              INTERPRETATION: e.target.value,
+                            };
+                            setLastTable(newTable);
+                          }}
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            ))}
+          </form>
+
+          <div className="flex space-x-3 p-4">
+            {/* Map over formData keys to render input fields */}
+            {Object.keys(formData).map((key) => (
+              <input
+                key={key}
+                type="text"
+                name={key}
+                value={formData[key]}
+                onChange={(e) => {
+                  setFormData({ ...formData, [key]: e.target.value });
+                }}
+                placeholder={key.charAt(0).toUpperCase() + key.slice(1)} // Capitalize the first letter of each key for placeholder
+              />
+            ))}
+          </div>
 
           <button
             className="bg-blue-500 m-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

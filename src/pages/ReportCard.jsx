@@ -87,6 +87,14 @@ function Reports() {
     const batch = batches.find((batch) => batch.batch_id === batchId);
     return batch ? batch.batch_name : "Batch not assigned";
   };
+  function getBatchDuration(batch_id) {
+    const bat = batches.find((batch) => {
+      if (batch.batch_id === batch_id) {
+        return batch.duration;
+      }
+    });
+    return bat ? bat.duration : "";
+  }
 
   const [body, setBody] = useState({
     sid: "",
@@ -427,7 +435,17 @@ function Reports() {
                                 <div className="flex justify-center items-center">
                                   <Link
                                     className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 "
-                                    to={`/generate-report?sid=${item.sid}`}
+                                    to={`/generate-report${
+                                      getBatchDuration(item.batch_id) == "7"
+                                        ? ""
+                                        : getBatchDuration(item.batch_id) ==
+                                          "15"
+                                        ? "15"
+                                        : getBatchDuration(item.batch_id) ==
+                                          "30"
+                                        ? "30"
+                                        : ""
+                                    }?sid=${item.sid}`}
                                   >
                                     Generate Report
                                   </Link>
