@@ -20,6 +20,7 @@ export default function GenerateReport15() {
     remarks: "",
     "checked by name": "",
     rank: "",
+    "overall assessment": "",
   });
 
   const [lastTable, setLastTable] = useState({
