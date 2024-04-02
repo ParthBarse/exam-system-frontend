@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import BasicModal from "../components/Modal";
 import { baseurl } from "../utils/domain";
 import { toast } from "sonner";
+import GenerateModal from "../components/generatemodal";
 
 function RegStudent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -152,7 +153,7 @@ function RegStudent() {
         }
       );
       // download(res.data.msg, res.data.filename);
-      toast("Process Started ...")
+      toast("Process Started ...");
       setLoading(false);
       // window.open(res.data.msg);
     } catch (error) {
@@ -310,8 +311,7 @@ function RegStudent() {
                         </button>
                       </div>
                     </div>
-                    <div style={{ display: "flex", gap: "10px" }}>
-                    </div>
+                    <div style={{ display: "flex", gap: "10px" }}></div>
                   </div>
                 </header>
                 <div className="p-4">
@@ -410,43 +410,9 @@ function RegStudent() {
                               </td>
                               <td className="p-4">
                                 <div className="text-center grid grid-cols-2 grid-rows-1 gap-2 h-full">
-                                  <Link
-                                    // to={`${item.entrence_card}`}
-                                    className="text-sm text-white py-1 px-1 bg-green-500"
-                                    // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
-                                  >
-                                    <button
-                                      style={{
-                                        width: "100%",
-                                        height: "100%",
-                                        padding: "1px",
-                                      }}
-                                      onClick={async () => {
-                                        try {
-                                          const response = await axios.get(
-                                            `https://${baseurl}/generateCampCertificate?sid=${item.sid}`
-                                          );
-                                          console.log(response.data);
-                                          // Show a success message
-                                          toast(
-                                            "Generated Succesfully"
-                                          );
-                                        } catch (error) {
-                                          console.error(error);
-                                          // Show an error message
-                                          alert(
-                                            "Try Again..."
-                                          );
-                                        }
-                                      }}
-                                    >
-                                      Generate
-                                    </button>
-                                  </Link>
+                                  <GenerateModal sid={item.sid} />
 
-                                  <Link
-                                    className="text-sm text-white py-1 px-1 bg-yellow-500"
-                                  >
+                                  <Link className="text-sm text-white py-1 px-1 bg-yellow-500">
                                     <button
                                       style={{
                                         width: "100%",
@@ -477,17 +443,15 @@ function RegStudent() {
                                   </Link>
                                 </div>
                                 <div className="text-center grid grid-cols-1 grid-rows-1 gap-2 mt-2 h-full">
-                                    <a
-                                      target="_blank"
-                                      href={`${item.completion_cert}`}
-                                      className="text-sm text-white px-2 bg-indigo-500"
-                                    >
-                                      <button
-                                        className="text-sm text-white px-2 bg-indigo-500"
-                                      >
-                                        View & Download
-                                      </button>
-                                    </a>
+                                  <a
+                                    target="_blank"
+                                    href={`${item.completion_cert}`}
+                                    className="text-sm text-white px-2 bg-indigo-500"
+                                  >
+                                    <button className="text-sm text-white px-2 bg-indigo-500">
+                                      View & Download
+                                    </button>
+                                  </a>
                                 </div>
                               </td>
                             </tr>

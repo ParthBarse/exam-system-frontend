@@ -69,9 +69,7 @@ const FirstDetails = () => {
     "SINHGAD NAVALE BRIDGE",
   ];
 
-  const selfPickupLocations =[
-    "Self Drop"
-  ]
+  const selfPickupLocations = ["Self Drop"];
 
   const mumbaiPickupLocations = [
     "Self Drop",
@@ -879,7 +877,7 @@ const FirstDetails = () => {
                   >
                     {/* Options for Dress Code */}
                     <option value="">Select Pick Up City </option>
-                    <option value="self-drop">Self Drop </option>
+                    <option value="SELF-DROP">Self Drop </option>
                     <option value="MUMBAI">Mumbai</option>
                     <option value="PUNE">Pune </option>
                   </select>
@@ -900,21 +898,18 @@ const FirstDetails = () => {
                   >
                     {/* Options for Dress Code */}
                     <option value="">Select Pick Up Point </option>
-                    {formData.pick_up_city === "MUMBAI"
-                      ? mumbaiPickupLocations.map((location) => (
-                          <option value={location}>{location}</option>
-                        ))
-                      : ""}
+                    {formData.pick_up_city === "MUMBAI" ? (
+                      mumbaiPickupLocations.map((location) => (
+                        <option value={location}>{location}</option>
+                      ))
+                    ) : (
+                      <option value={"SELF-DROP"}>Self Drop</option>
+                    )}
                     {formData.pick_up_city === "PUNE"
                       ? punePickupLocations.map((location) => (
                           <option value={location}>{location}</option>
                         ))
                       : ""}
-                    {formData.pick_up_city === "self-drop"
-                        ? selfPickupLocations.map((location) => (
-                            <option value={location}>{location}</option>
-                          ))
-                        : ""}
                   </select>
                 </div>
                 <hr className="my-4 h-1 bg-gray-200" />

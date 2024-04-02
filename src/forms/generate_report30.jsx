@@ -619,7 +619,7 @@ export default function GenerateReport30() {
           <form className="grid grid-cols-3 gap-2 text-md font-semibold p-4">
             {Object.keys(dates).map((date) => (
               <div key={date} className="flex flex-col">
-                <label>{date.toUpperCase()}</label>
+                <label>{date.toUpperCase().replace("_", " ")}</label>
                 <input
                   type="date"
                   name={date}
@@ -635,16 +635,22 @@ export default function GenerateReport30() {
           <div className="grid grid-cols-3 gap-3 space-x-3 p-4">
             {/* Map over formData keys to render input fields */}
             {Object.keys(formData).map((key) => (
-              <input
-                key={key}
-                type="text"
-                name={key}
-                value={formData[key]}
-                onChange={(e) => {
-                  setFormData({ ...formData, [key]: e.target.value });
-                }}
-                placeholder={key.charAt(0).toUpperCase() + key.slice(1)} // Capitalize the first letter of each key for placeholder
-              />
+              <div className="w-full">
+                <label className="text-md font-semibold">
+                  {key.toUpperCase()}
+                </label>
+                <input
+                  className="w-full"
+                  key={key}
+                  type="text"
+                  name={key}
+                  value={formData[key]}
+                  onChange={(e) => {
+                    setFormData({ ...formData, [key]: e.target.value });
+                  }}
+                  placeholder={key.charAt(0).toUpperCase() + key.slice(1)} // Capitalize the first letter of each key for placeholder
+                />
+              </div>
             ))}
           </div>
 
