@@ -17,6 +17,7 @@ export default function GenerateReport() {
   const [loading, setLoading] = useState(false);
 
   const [lastData, setLastData] = useState({
+    future_career: "",
     time_management: "",
     accommodation: "",
     facilities: "",
@@ -28,7 +29,6 @@ export default function GenerateReport() {
     suggestion: "",
     best_achievement: "",
     achievement: "",
-    personality_dimensions: "",
   });
 
   // const [lastTable, setLastTable] = useState({
@@ -180,6 +180,8 @@ export default function GenerateReport() {
   });
 
   const [formData, setFormData] = useState({
+    "Parents presence": "",
+    "best activity": "",
     remarks: "",
     // "checked by name": "",
     // rank: "",
@@ -217,6 +219,8 @@ export default function GenerateReport() {
           address: data.student.address,
           camp_name: data.camp_details.camp_name,
           pickup_point: data.student.pick_up_point,
+          cqy_name: data.camp_details.cqy_name,
+          incharge_name: data.camp_details.incharge_name,
         });
       } catch (error) {
         alert("error fetching data");
@@ -363,7 +367,7 @@ export default function GenerateReport() {
             ))}
           </form>
 
-          <div className="flex space-x-3 p-4">
+          <div className="grid grid-cols-3 space-x-3 p-4">
             {/* Map over formData keys to render input fields */}
             {Object.keys(formData).map((key) => (
               <input
