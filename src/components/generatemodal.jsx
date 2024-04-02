@@ -70,7 +70,7 @@ export default function GenerateModal({ sid }) {
                   setLoading(true);
                   try {
                     const response = await axios.get(
-                      `https://${baseurl}/generateCampCertificate?sid=${sid}`
+                      `https://${baseurl}/generateCampCertificate?sid=${sid}&cqy=${fields.cqy}`
                     );
                     setOpen(false);
                     // Show a success message
