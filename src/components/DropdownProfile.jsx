@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Transition from '../utils/Transition';
+import { baseurl } from "../utils/domain";
+
 
 import UserAvatar from '../images/user-avatar-32.png';
 
@@ -23,6 +25,21 @@ function DropdownProfile({
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
   });
+
+  const handleClick = async () => {
+    try {
+      const response = await fetch(`https://${baseurl}/sync_v2`);
+      if (response.ok) {
+        console.log('API call successful');
+        alert("SSM Activated Successfully. (Please wait 2 mins to see results)");
+      } else {
+        alert("Failed to Activate SSM.");
+        console.error('Failed to fetch data');
+      }
+    } catch (error) {
+      alert("Failed to Activate SSM.");
+      console.error('Error:', error);
+    }};
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -92,7 +109,15 @@ function DropdownProfile({
             </li>
             <li>
               <Link
-                className="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3"
+                className="font-medium text-sm text-green-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3"
+                onClick={handleClick}
+              >
+                SSM
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="font-medium text-sm text-red-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3"
                 to="/"
                 onClick={() => {
                   setDropdownOpen(!dropdownOpen)
