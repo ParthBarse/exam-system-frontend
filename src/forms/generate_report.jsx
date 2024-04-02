@@ -31,28 +31,28 @@ export default function GenerateReport() {
     personality_dimensions: "",
   });
 
-  const [lastTable, setLastTable] = useState({
-    "LEADERSHIP POTENTIAL": {
-      SCORE: "",
-      INTERPRETATION: "",
-    },
-    "COMMUNICATION SKILLS": {
-      SCORE: "",
-      INTERPRETATION: "",
-    },
-    "TEAMWORK AND COOPERATION": {
-      SCORE: "",
-      INTERPRETATION: "",
-    },
-    "ADAPTABILITY AND FLEXIBILITY": {
-      SCORE: "",
-      INTERPRETATION: "",
-    },
-    "PROBLEM-SOLVING ABILITY": {
-      SCORE: "",
-      INTERPRETATION: "",
-    },
-  });
+  // const [lastTable, setLastTable] = useState({
+  //   "LEADERSHIP POTENTIAL": {
+  //     SCORE: "",
+  //     INTERPRETATION: "",
+  //   },
+  //   "COMMUNICATION SKILLS": {
+  //     SCORE: "",
+  //     INTERPRETATION: "",
+  //   },
+  //   "TEAMWORK AND COOPERATION": {
+  //     SCORE: "",
+  //     INTERPRETATION: "",
+  //   },
+  //   "ADAPTABILITY AND FLEXIBILITY": {
+  //     SCORE: "",
+  //     INTERPRETATION: "",
+  //   },
+  //   "PROBLEM-SOLVING ABILITY": {
+  //     SCORE: "",
+  //     INTERPRETATION: "",
+  //   },
+  // });
 
   const handleLastFromChange = (e) => {
     const { name, value } = e.target;
@@ -181,8 +181,9 @@ export default function GenerateReport() {
 
   const [formData, setFormData] = useState({
     remarks: "",
-    "checked by name": "",
-    rank: "",
+    // "checked by name": "",
+    // rank: "",
+    // "overall assessment": "",
   });
 
   const [fields, setFields] = useState({
@@ -192,6 +193,15 @@ export default function GenerateReport() {
     address: "",
     camp_name: "",
     pickup_point: "",
+    cqy_name: "",
+    incharge_name: "",
+  });
+
+  const [dates, setDates] = useState({
+    checkinDate: "",
+    pickupDate: "",
+    checkoutDate: "",
+    dropDate: "",
   });
 
   useEffect(() => {
@@ -221,7 +231,7 @@ export default function GenerateReport() {
       details: fields,
       activities: activities,
       individual_remarks_form: lastData,
-      individual_remarks_table: lastTable,
+      dates: dates,
       final_remarks: formData,
     };
     try {
@@ -337,49 +347,18 @@ export default function GenerateReport() {
             })}
           </form>
 
-          <form>
-            {Object.keys(lastTable).map((field, i) => (
-              <div key={field} className="m-4">
-                <table>
-                  <h1 className="font-semibold text-md">
-                    {field.toUpperCase()}
-                  </h1>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <input
-                          type="text"
-                          value={lastTable[field].SCORE}
-                          placeholder="Enter Score"
-                          onChange={(e) => {
-                            const newTable = { ...lastTable };
-                            newTable[field] = {
-                              ...newTable[field],
-                              SCORE: e.target.value,
-                            };
-                            setLastTable(newTable);
-                          }}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          className="text-sm font-normal ml-3"
-                          type="text"
-                          placeholder="Enter Interpretation"
-                          value={lastTable[field].INTERPRETATION}
-                          onChange={(e) => {
-                            const newTable = { ...lastTable };
-                            newTable[field] = {
-                              ...newTable[field],
-                              INTERPRETATION: e.target.value,
-                            };
-                            setLastTable(newTable);
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+          <form className="grid grid-cols-3 gap-2 text-md font-semibold p-4">
+            {Object.keys(dates).map((date) => (
+              <div key={date} className="flex flex-col">
+                <label>{date.toUpperCase()}</label>
+                <input
+                  type="date"
+                  name={date}
+                  onChange={(e) => {
+                    setDates({ ...dates, [date]: e.target.value });
+                  }}
+                  className="text-sm font-normal"
+                />
               </div>
             ))}
           </form>

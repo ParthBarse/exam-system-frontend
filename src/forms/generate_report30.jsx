@@ -407,6 +407,15 @@ export default function GenerateReport30() {
     address: "",
     camp_name: "",
     pickup_point: "",
+    cqy_name: "",
+    incharge_name: "",
+  });
+
+  const [dates, setDates] = useState({
+    checkinDate: "",
+    pickupDate: "",
+    checkoutDate: "",
+    dropDate: "",
   });
 
   useEffect(() => {
@@ -435,6 +444,7 @@ export default function GenerateReport30() {
     const body = {
       details: fields,
       activities: activities,
+      dates: dates,
       individual_remarks_form: lastData,
       individual_remarks_table: lastTable,
       final_remarks: formData,
@@ -596,6 +606,22 @@ export default function GenerateReport30() {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+            ))}
+          </form>
+
+          <form className="grid grid-cols-3 gap-2 text-md font-semibold p-4">
+            {Object.keys(dates).map((date) => (
+              <div key={date} className="flex flex-col">
+                <label>{date.toUpperCase()}</label>
+                <input
+                  type="date"
+                  name={date}
+                  onChange={(e) => {
+                    setDates({ ...dates, [date]: e.target.value });
+                  }}
+                  className="text-sm font-normal"
+                />
               </div>
             ))}
           </form>
