@@ -35,6 +35,7 @@ export default function PaymentModal({ sid }) {
     payment_mode: "",
     transaction_id: "",
     payment_date: "",
+    reciept: "",
   });
 
   const paymentModes = [
@@ -94,6 +95,18 @@ export default function PaymentModal({ sid }) {
           sx={style}
           className="rounded-md text-sm font-medium text-gray-600"
         >
+          <div className="mt-2" htmlFor="reciept">
+            <label htmlFor="reciept">Enter reciept number</label>
+            <input
+              type="text"
+              name="reciept"
+              value={paymentData.reciept}
+              id="reciept"
+              placeholder="Enter reciept number"
+              className="w-full px-3 py-2 border rounded shadow appearance-none "
+              onChange={handleChange}
+            />
+          </div>
           <div className="mb-4 space-y-2">
             <label
               htmlFor="payment_option"
