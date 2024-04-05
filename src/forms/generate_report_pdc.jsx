@@ -374,7 +374,8 @@ export default function GenerateReportPDC() {
     checkout_Date: "",
     drop_Date: "",
     last_closing_ceremony: "",
-    last_closing_date: "",
+    last_closing_time: "",
+    date_of_assessment: "",
   });
 
   const [recommendations, setRecommendations] = useState({

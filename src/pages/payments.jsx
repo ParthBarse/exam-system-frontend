@@ -7,6 +7,8 @@ import BasicModal from "../components/Modal";
 import PaymentModal from "../components/PaymentModal";
 import ListPayments from "../components/ListPaymentModal";
 import { baseurl } from "../utils/domain";
+import GenerateLinkModal from "../components/generateLinkModal";
+import ListPaymentsLinks from "../components/ListpaymentLinks";
 
 export default function Payments() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -396,6 +398,10 @@ export default function Payments() {
                                 <PaymentModal sid={item.sid} />
 
                                 <ListPayments sid={item.sid} send={false} />
+
+                                <GenerateLinkModal sid={item.sid} />
+
+                                <ListPaymentsLinks sid={item.sid} />
 
                                 {/* <button
                                   className="text-sm text-white px-2 bg-indigo-500"

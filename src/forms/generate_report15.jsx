@@ -353,7 +353,7 @@ export default function GenerateReport15() {
     checkout_Date: "",
     drop_Date: "",
     last_closing_ceremony: "",
-    last_closing_date: "",
+    last_closing_time: "",
   });
 
   const [recommendations, setRecommendations] = useState({
