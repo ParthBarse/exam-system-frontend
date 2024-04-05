@@ -382,7 +382,7 @@ function RegStudent() {
                       </thead>
                       {/* Table body */}
                       <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
-                        {itemsToDisplay
+                        {data
                           .filter((item) => item.status === "Active")
                           .map((item, index) => (
                             <tr key={item.sid}>
