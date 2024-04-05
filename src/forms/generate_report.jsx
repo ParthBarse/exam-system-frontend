@@ -205,6 +205,7 @@ export default function GenerateReport() {
     checkout_Date: "",
     drop_Date: "",
     last_closing_ceremony: "",
+    last_closing_time: "",
   });
 
   useEffect(() => {
@@ -357,7 +358,7 @@ export default function GenerateReport() {
               <div key={date} className="flex flex-col">
                 <label>{date.toUpperCase().replace("_", " ")}</label>
                 <input
-                  type="date"
+                  type={date === "last_closing_time" ? "time" : "date"}
                   name={date}
                   onChange={(e) => {
                     setDates({ ...dates, [date]: e.target.value });

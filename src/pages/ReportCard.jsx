@@ -436,7 +436,9 @@ function Reports() {
                                   <Link
                                     className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 "
                                     to={`/generate-report${
-                                      getBatchDuration(item.batch_id) == "7"
+                                      item.sid.slice(0, 3) === "PDC"
+                                        ? "pdc"
+                                        : getBatchDuration(item.batch_id) == "7"
                                         ? ""
                                         : getBatchDuration(item.batch_id) ==
                                           "15"

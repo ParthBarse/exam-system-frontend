@@ -7,7 +7,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
-export default function GenerateReport15() {
+export default function GenerateReportPDC() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [step, setStep] = useState(1);
@@ -23,6 +23,27 @@ export default function GenerateReport15() {
     "checked by name": "",
     rank: "",
     "overall assessment": "",
+  });
+
+  const [training, setTraining] = useState({
+    "INTRODUCTION OF INSTRUCTORS, CADETS AND AGENDA SETTING": "",
+    "CONCEPT OF PERSONALITY AND ITS DEVELOPMENT": "",
+    "INITIAL SELFASSESSMENT AND TEST": "",
+    "MORALS, VALUES & ETHICS": "",
+    "SELF-AWARNESS & EMOTIONAL AWARENESS": "",
+    "LOGIC & REASONING": "",
+    "COMMUNICATION SKILLS": "",
+    "LEADERSHIP SKILLS": "",
+    "STAMINA & ENDURANCE": "",
+    "TIME MANAGEMENT": "",
+    "PLANNING & ORGANISING EXERCISE": "",
+    "INTROSPECTION, TOOLS OF DEVELOPING PERSONALITY": "",
+    "ADVENTURE ACTIVITY & PERSONALITY DEVELOPMENT": "",
+    "Self Evaluation Exercise, individual Counselling": "",
+    "Individual Counselling session continue": "",
+    "Personality and its relation to becoming officer or Good Citizen": "",
+    "Concept of personality assessment, introduction to officer like qualities":
+      "",
   });
 
   const [lastTable, setLastTable] = useState({
@@ -396,6 +417,7 @@ export default function GenerateReport15() {
       individual_remarks_form: lastData,
       individual_remarks_table: lastTable,
       recommendations: recommendations,
+      training: training,
       final_remarks: formData,
     };
     try {
@@ -440,6 +462,8 @@ export default function GenerateReport15() {
               </div>
             ))}
           </form>
+          <div className="border-t-2 border-gray-300 my-4"></div>
+
           <form>
             {Object.keys(activities).map((activity, i) => (
               <div key={activity} className="m-4">
@@ -493,7 +517,7 @@ export default function GenerateReport15() {
               </div>
             ))}
           </form>
-
+          <div className="border-t-2 border-gray-300 my-4"></div>
           <form className="text-base font-semibold grid grid-cols-3 grid-rows-3 gap-2 p-4">
             {Object.keys(lastData).map((field) => {
               return (
@@ -511,6 +535,31 @@ export default function GenerateReport15() {
               );
             })}
           </form>
+
+          <div className="border-t-2 border-gray-300 my-4"></div>
+          <form className="text-base font-semibold grid grid-cols-3 grid-rows-3 gap-2 p-4">
+            {Object.keys(training).map((field) => {
+              return (
+                <div key={field} className="flex flex-col">
+                  <label>{field.replace("_", " ").toUpperCase()}</label>
+                  <input
+                    type="text"
+                    name={field}
+                    onChange={(e) => {
+                      setTraining({
+                        ...training,
+                        [field]: e.target.value,
+                      });
+                    }}
+                    value={training[field]}
+                    placeholder={`Enter details`}
+                    className="text-sm font-normal"
+                  />
+                </div>
+              );
+            })}
+          </form>
+          <div className="border-t-2 border-gray-300 my-4"></div>
 
           <form>
             {Object.keys(lastTable).map((field, i) => (
@@ -558,6 +607,7 @@ export default function GenerateReport15() {
               </div>
             ))}
           </form>
+          <div className="border-t-2 border-gray-300 my-4"></div>
 
           <form className="grid grid-cols-3 gap-2 text-md font-semibold p-4">
             {Object.keys(dates).map((date) => (
@@ -574,6 +624,7 @@ export default function GenerateReport15() {
               </div>
             ))}
           </form>
+          <div className="border-t-2 border-gray-300 my-4"></div>
 
           <form className="grid grid-cols-3 gap-2 text-md font-semibold p-4">
             {Object.keys(recommendations).map((field) => (
@@ -594,6 +645,7 @@ export default function GenerateReport15() {
               </div>
             ))}
           </form>
+          <div className="border-t-2 border-gray-300 my-4"></div>
 
           <div className="grid grid-cols-3 gap-3 space-x-3 p-4">
             {/* Map over formData keys to render input fields */}
@@ -616,7 +668,6 @@ export default function GenerateReport15() {
               </div>
             ))}
           </div>
-
           <button
             className="bg-blue-500 m-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={handleSubmit}

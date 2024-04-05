@@ -46,6 +46,7 @@ import VisitingCard from "./pages/visiting_card_list";
 import Payments from "./pages/payments";
 import GenerateReport15 from "./forms/generate_report15";
 import GenerateReport30 from "./forms/generate_report30";
+import GenerateReportPDC from "./forms/generate_report_pdc";
 
 function App() {
   const location = useLocation();
@@ -77,6 +78,11 @@ function App() {
         <Route exact path="/generate-report15" element={<GenerateReport15 />} />
 
         <Route exact path="/generate-report30" element={<GenerateReport30 />} />
+        <Route
+          exact
+          path="/generate-reportpdc"
+          element={<GenerateReportPDC />}
+        />
 
         <Route exact path="/view-report" element={<VeiwReportCard />} />
         <Route

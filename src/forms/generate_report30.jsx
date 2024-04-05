@@ -57,6 +57,7 @@ export default function GenerateReport30() {
   };
 
   const [lastData, setLastData] = useState({
+    future_career: "",
     time_management: "",
     accommodation: "",
     facilities: "",
@@ -420,6 +421,15 @@ export default function GenerateReport30() {
     checkout_Date: "",
     drop_Date: "",
     last_closing_ceremony: "",
+    last_closing_time: "",
+  });
+
+  const [recommendations, setRecommendations] = useState({
+    "leadership development": "",
+    "communication enhancement": "",
+    "teamwork enhancement": "",
+    "adaptibility training": "",
+    "problem solving": "",
   });
 
   useEffect(() => {
@@ -453,6 +463,7 @@ export default function GenerateReport30() {
       dates: dates,
       individual_remarks_form: lastData,
       individual_remarks_table: lastTable,
+      recommendations: recommendations,
       final_remarks: formData,
     };
     try {
@@ -621,10 +632,30 @@ export default function GenerateReport30() {
               <div key={date} className="flex flex-col">
                 <label>{date.toUpperCase().replace("_", " ")}</label>
                 <input
-                  type="date"
+                  type={date === "last_closing_time" ? "time" : "date"}
                   name={date}
                   onChange={(e) => {
                     setDates({ ...dates, [date]: e.target.value });
+                  }}
+                  className="text-sm font-normal"
+                />
+              </div>
+            ))}
+          </form>
+
+          <form className="grid grid-cols-3 gap-2 text-md font-semibold p-4">
+            {Object.keys(recommendations).map((field) => (
+              <div key={field} className="flex flex-col">
+                <label>{field.toUpperCase()}</label>
+                <input
+                  type="text"
+                  placeholder={`Enter ${field}`}
+                  name={field}
+                  onChange={(e) => {
+                    setRecommendations({
+                      ...recommendations,
+                      [field]: e.target.value,
+                    });
                   }}
                   className="text-sm font-normal"
                 />
