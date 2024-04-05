@@ -215,6 +215,7 @@ function EditBatch() {
                         value={batchData.batch_intake}
                         onChange={handleChange}
                         className="w-full p-2 border rounded-lg"
+                        disabled
                       />
                     </div>
                     <div className="flex flex-col p-4 w-1/2">

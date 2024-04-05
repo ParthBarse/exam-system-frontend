@@ -213,7 +213,7 @@ const FirstDetails = () => {
     const fetchBatches = async () => {
       try {
         const response = await axios.get(
-          `https://${baseurl}/getBatches?camp_id=${campId}`
+          `https://${baseurl}/getActiveBatches?camp_id=${campId}`
         );
         setBatches(response.data.batches);
       } catch (error) {
