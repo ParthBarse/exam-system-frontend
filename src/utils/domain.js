@@ -1,1 +1,1 @@
-export const baseurl = "mcfapis.bnbdevelopers.in";
+export const baseurl = "apis.mcfcamp.in";
