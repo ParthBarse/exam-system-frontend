@@ -193,12 +193,103 @@ function Reports() {
           <div className="text-center my-8">
             <h2 className="text-2xl font-bold">Filter Cadets by</h2>
           </div>
-          <div className="flex justify-center items-center">
-            <div className="grid grid-cols-4 px-9 gap-4">
+          <div className="flex justify-center">
+            <div className="grid grid-cols-4 px-9 grid-rows-2 gap-4">
+              <div>
+                <label className="block text-gray-600">First Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="First name"
+                  value={body.first_name}
+                  name="first_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Middle Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Middle Name"
+                  value={body.middle_name}
+                  name="middle_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Last Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Last Name"
+                  value={body.last_name}
+                  name="last_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Reg Id</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Student Id"
+                  value={body.sid}
+                  name="sid"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">E-mail</label>
+                <input
+                  type="email"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="email"
+                  value={body.email}
+                  name="email"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">City</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="City"
+                  value={body.city}
+                  name="city"
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-600">Status</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Status"
+                  value={body.status}
+                  name="status"
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-600">Phone</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Phone"
+                  value={body.phn}
+                  name="phn"
+                  onChange={handleInputChange}
+                />
+              </div>
+
               <div>
                 <label
                   htmlFor="camp_category"
-                  className="block text-sm font-medium text-gray-600"
+                  className="block text-lg font-medium text-gray-600"
                 >
                   Camp Name
                 </label>
@@ -238,45 +329,17 @@ function Reports() {
                   ))}
                 </select>
               </div>
+
               <div>
-                <label
-                  htmlFor="batch"
-                  className="block text-sm font-medium text-gray-600"
-                >
-                  Camp Category
-                </label>
-                <select
-                  id="camp_category"
-                  name="camp_category"
-                  // value={admissionFormData.batch}
+                <label className="block text-gray-600">Company</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Company"
+                  value={body.company}
+                  name="company"
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border rounded shadow appearance-none"
-                >
-                  {/* Options for Batch */}
-                  <option value="">Select Category Name</option>
-                  <option value="SUMMER">Summer</option>
-                  <option value="DIWALI">Diwali</option>
-                  <option value="CHS">CHS</option>
-                </select>
-              </div>
-              <div>
-                <label
-                  htmlFor="batch"
-                  className="block text-sm font-medium text-gray-600"
-                >
-                  Camp Year
-                </label>
-                <select
-                  id="camp_year"
-                  name="camp_year"
-                  // value={admissionFormData.batch}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border rounded shadow appearance-none"
-                >
-                  {/* Options for Batch */}
-                  <option value="">Select Camp Year</option>
-                  <option value="2024">2024</option>
-                </select>
+                />
               </div>
             </div>
           </div>
@@ -289,9 +352,9 @@ function Reports() {
                   >
                     <div className="flex justify-between w-full">
                       <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-                        Active Cadets List
+                        Report Card List
                       </h2>
-                      <div className="space-x-2">
+                      {/* <div className="space-x-2">
                         <button
                           className="text-sm text-white px-3 py-1 font-semibold bg-indigo-500"
                           style={{
@@ -315,7 +378,7 @@ function Reports() {
                         >
                           {sendLoading ? "Sending..." : "Send All"}
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                     <div style={{ display: "flex", gap: "10px" }}>
                       {/* <Dropdown>
@@ -432,9 +495,9 @@ function Reports() {
                                 </div>
                               </td>
                               <td className="p-4">
-                                <div className="flex justify-center items-center">
+                                <div className="text-center grid grid-cols-2 grid-rows-1 gap-2 h-full">
                                   <Link
-                                    className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 "
+                                    className="bg-green-500 hover:bg-blue-700 text-white py-1 px-2 "
                                     to={`/generate-report${
                                       item.sid.slice(0, 3) === "PDC"
                                         ? "pdc"
@@ -449,8 +512,52 @@ function Reports() {
                                         : ""
                                     }?sid=${item.sid}`}
                                   >
-                                    Generate Report
+                                    Generate
                                   </Link>
+                                  <Link
+                                  // to={`${item.entrence_card}`}
+                                  className="text-sm text-white py-1 px-1 bg-yellow-500"
+                                  // style={{ padding: "1px", fontSize: "13px", width: "100px", height: "30px" }}//
+                                >
+                                  <button
+                                    style={{
+                                      width: "100%",
+                                      height: "100%",
+                                      padding: "1px",
+                                    }}
+                                    onClick={async () => {
+                                      try {
+                                        const response = await axios.get(
+                                          `https://${baseurl}/sendReportCard?sid=${item.sid}`
+                                        );
+                                        console.log(response.data);
+                                        // Show a success message
+                                        toast(
+                                          "Report Card sent successfully!"
+                                        );
+                                      } catch (error) {
+                                        console.error(error);
+                                        // Show an error message
+                                        alert(
+                                          "Failed to send Report Card. Please try again."
+                                        );
+                                      }
+                                    }}
+                                  >
+                                    Send
+                                  </button>
+                                </Link>
+                                </div>
+                                <div className="text-center grid grid-cols-1 grid-rows-1 gap-2 mt-2 h-full">
+                                  <a
+                                    target="_blank"
+                                    href={`${item.report_card}`}
+                                    className="text-sm text-white px-2 bg-indigo-500"
+                                  >
+                                    <button className="text-sm text-white px-2 bg-indigo-500">
+                                      View & Download
+                                    </button>
+                                  </a>
                                 </div>
                               </td>
                             </tr>

@@ -44,10 +44,10 @@ export default function ListPayments({ sid, send }) {
   }, [deleted]);
 
   return (
-    <div className="w-full">
+    <div className="flex items-center justify-center">
       <button
-        className="text-sm text-white px-2 bg-indigo-500"
-        style={{ padding: "1px", fontSize: "13px" }}
+        className="text-sm text-white px-2 py-1 bg-orange-500 w-full h-full"
+        // style={{ padding: "2px", fontSize: "13px" }}
         onClick={handleOpen}
       >
         View Payments
@@ -90,10 +90,12 @@ export default function ListPayments({ sid, send }) {
                 <button
                   className="text-sm text-red-500"
                   onClick={async (e) => {
+                    if(confirm("Do you Really want to Delete This Payment ?")){
                     const res = await axios.delete(
                       `https://${baseurl}/deletePayment?payment_id=${payment.payment_id}&payment_amount=${payment.payment_amount}&sid=${payment.sid}`
                     );
                     setDeleted(deleted + 1);
+                    }
                   }}
                 >
                   Delete

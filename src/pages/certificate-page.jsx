@@ -56,7 +56,7 @@ function RegStudent() {
   // Calculate the range of items to display on the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const itemsToDisplay = data.slice(startIndex, endIndex);
+  const itemsToDisplay = data;
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -187,12 +187,103 @@ function RegStudent() {
           <div className="text-center my-8">
             <h2 className="text-2xl font-bold">Filter Cadets by</h2>
           </div>
-          <div className="flex justify-center items-center">
-            <div className="grid grid-cols-4 px-9 gap-4">
+          <div className="flex justify-center">
+            <div className="grid grid-cols-4 px-9 grid-rows-2 gap-4">
+              <div>
+                <label className="block text-gray-600">First Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="First name"
+                  value={body.first_name}
+                  name="first_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Middle Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Middle Name"
+                  value={body.middle_name}
+                  name="middle_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Last Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Last Name"
+                  value={body.last_name}
+                  name="last_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Reg Id</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Student Id"
+                  value={body.sid}
+                  name="sid"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">E-mail</label>
+                <input
+                  type="email"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="email"
+                  value={body.email}
+                  name="email"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">City</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="City"
+                  value={body.city}
+                  name="city"
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-600">Status</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Status"
+                  value={body.status}
+                  name="status"
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-600">Phone</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Phone"
+                  value={body.phn}
+                  name="phn"
+                  onChange={handleInputChange}
+                />
+              </div>
+
               <div>
                 <label
                   htmlFor="camp_category"
-                  className="block text-sm font-medium text-gray-600"
+                  className="block text-lg font-medium text-gray-600"
                 >
                   Camp Name
                 </label>
@@ -232,48 +323,21 @@ function RegStudent() {
                   ))}
                 </select>
               </div>
+
               <div>
-                <label
-                  htmlFor="batch"
-                  className="block text-sm font-medium text-gray-600"
-                >
-                  Camp Category
-                </label>
-                <select
-                  id="camp_category"
-                  name="camp_category"
-                  // value={admissionFormData.batch}
+                <label className="block text-gray-600">Company</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Company"
+                  value={body.company}
+                  name="company"
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border rounded shadow appearance-none"
-                >
-                  {/* Options for Batch */}
-                  <option value="">Select Category Name</option>
-                  <option value="SUMMER">Summer</option>
-                  <option value="DIWALI">Diwali</option>
-                  <option value="CHS">CHS</option>
-                </select>
-              </div>
-              <div>
-                <label
-                  htmlFor="batch"
-                  className="block text-sm font-medium text-gray-600"
-                >
-                  Camp Year
-                </label>
-                <select
-                  id="camp_year"
-                  name="camp_year"
-                  // value={admissionFormData.batch}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border rounded shadow appearance-none"
-                >
-                  {/* Options for Batch */}
-                  <option value="">Select Camp Year</option>
-                  <option value="2024">2024</option>
-                </select>
+                />
               </div>
             </div>
           </div>
+
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
