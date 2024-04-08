@@ -38,9 +38,7 @@ const FirstDetails = () => {
     "Sinhgad Navale Bridge",
   ];
 
-  const selfPickupLocations =[
-    "Self Drop"
-  ]
+  const selfPickupLocations = ["Self Drop"];
 
   const mumbaiPickupLocations = [
     "Self Drop",
@@ -1475,6 +1473,32 @@ const FirstDetails = () => {
                   </div>
 
                   <hr className="my-4 h-1 bg-gray-200" />
+
+                  <div className="mb-4">
+                    <label
+                      htmlFor="payment_option"
+                      className="block text-sm font-medium text-gray-600"
+                    >
+                      Payment Options
+                    </label>
+                    <select
+                      id="payment_option"
+                      name="payment_option"
+                      value={admissionFormData.payment_option}
+                      onChange={(e) =>
+                        handleAdmissionChange("payment_option", e.target.value)
+                      }
+                      className="w-full px-3 py-2 border rounded shadow appearance-none"
+                    >
+                      <option value="">Select Payment Options </option>
+                      <option value="totalPayment">Total Payment</option>
+                      {/* <option value="1installment">1 installment </option> */}
+                      <option value="2installment">2 installments </option>
+                      {/* <option value="booking">Booking</option> */}
+                      <option value="3installment">3 installments </option>
+                      {/* <option value="4installment">4 installments </option> */}
+                    </select>
+                  </div>
                   <div className="p-4">
                     <div className="overflow-x-auto text-xs">
                       {/* Terms and services*/}
