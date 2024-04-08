@@ -33,6 +33,47 @@ function RegStudent() {
     fetchCamps();
   }, []);
 
+  const [body, setBody] = useState({
+    sid: "",
+
+    status: "In Progress",
+
+    camp_name: "",
+    batch_name: "",
+
+    camp_id: "",
+    batch_id: "",
+  });
+
+  const handleInputChange = async (e) => {
+    const { name, value } = e.target;
+    if (name === "camp_id") {
+      const res = await axios.get(
+        `https://${baseurl}/getBatches?camp_id=${value}`
+      );
+      const batches = res.data.batches;
+      setBatches(batches);
+    }
+
+    setBody({ ...body, [name]: value });
+  };
+
+  const fetchSome = async () => {
+    try {
+      const response = await axios.post(
+        `https://${baseurl}/filterStudents`,
+        body
+      );
+      console.log(response.data.students);
+      setData(response.data.students);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchSome();
+  }, [body]);
+
   const getCampName = (campId) => {
     const camp = camps.find((camp) => camp.camp_id === campId);
     return camp ? camp.camp_name : "Camp not assigned";
@@ -94,6 +135,7 @@ function RegStudent() {
 
   const handleDelete = async (sid) => {
     try {
+      if(confirm("Do you Really want to Delete This Cadet ?")){
       const response = await axios.delete(
         `https://${baseurl}/deleteStudent?sid=${sid}`
       );
@@ -109,6 +151,7 @@ function RegStudent() {
       } else {
         console.error("Failed to delete Cadet. Status:", response.status);
       }
+    }
     } catch (error) {
       console.error("Error deleting Cadet:", error.message);
       console.error(error.response?.data); // Log the response data if available
@@ -116,6 +159,7 @@ function RegStudent() {
   };
 
   return (
+    
     <div className="flex h-screen overflow-hidden box-content">
       <BasicModal modalOpen={modalOpen} sid={SID} fetchData={fetchData} />
       {/* Sidebar */}
@@ -127,6 +171,159 @@ function RegStudent() {
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         <main>
+        <div className="text-center my-8">
+            <h2 className="text-2xl font-bold">Filter Cadets by</h2>
+          </div>
+          <div className="flex justify-center">
+            <div className="grid grid-cols-4 px-9 grid-rows-2 gap-4">
+              <div>
+                <label className="block text-gray-600">First Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="First name"
+                  value={body.first_name}
+                  name="first_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Middle Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Middle Name"
+                  value={body.middle_name}
+                  name="middle_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Last Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Last Name"
+                  value={body.last_name}
+                  name="last_name"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Reg Id</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Student Id"
+                  value={body.sid}
+                  name="sid"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">E-mail</label>
+                <input
+                  type="email"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="email"
+                  value={body.email}
+                  name="email"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">City</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="City"
+                  value={body.city}
+                  name="city"
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-600">Status</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Status"
+                  value={body.status}
+                  name="status"
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-600">Phone</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Phone"
+                  value={body.phn}
+                  name="phn"
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="camp_category"
+                  className="block text-lg font-medium text-gray-600"
+                >
+                  Camp Name
+                </label>
+                <select
+                  id="camp_name"
+                  name="camp_id"
+                  // value={body.camp_name}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Camp Category */}
+                  <option value="">Select Camp Name</option>
+                  {camps.map((camp) => (
+                    <option value={camp.camp_id}>{camp.camp_name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="batch"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Batch
+                </label>
+                <select
+                  id="batch"
+                  name="batch_id"
+                  // value={admissionFormData.batch}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border rounded shadow appearance-none"
+                >
+                  {/* Options for Batch */}
+                  <option value="">Select Batch Name</option>
+                  {batches.map((batch) => (
+                    <option value={batch.batch_id}>{batch.batch_name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-gray-600">Company</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md"
+                  placeholder="Company"
+                  value={body.company}
+                  name="company"
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+          </div>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-screen-xl mx-auto">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">

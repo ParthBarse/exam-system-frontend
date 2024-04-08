@@ -45,6 +45,7 @@ function Batchdetails() {
 
   const handleDelete = async (batch_id) => {
     try {
+      if(confirm("Do you Really want to Delete This Batch ?")){
       const response = await axios.delete(
         `https://${baseurl}/deleteBatch?batch_id=${batch_id}`
       );
@@ -64,7 +65,7 @@ function Batchdetails() {
         window.location.reload();
       } else {
         console.error("Failed to delete batch. Status:", response.status);
-      }
+      }}
     } catch (error) {
       console.error("Error deleting batch:", error.message);
       console.error(error.response?.data); // Log the response data if available

@@ -193,8 +193,8 @@ export default function Discount() {
                                   <button
                                     className="btn-primary bg-red-500 hover:bg-red-600 text-white px-1 "
                                     onClick={(e) => {
-                                      axios
-                                        .delete(
+                                      if(confirm("Do you Really want to Delete This Discount Code ?")){
+                                      axios.delete(
                                           `https://${baseurl}/deleteDiscount?discount_id=${item.discount_id}`
                                         )
                                         .then((e) => fetchData())
@@ -204,7 +204,7 @@ export default function Discount() {
                                           );
                                         })
                                         .catch((e) => console.log(e));
-                                    }}
+                                    }}}
                                   >
                                     Delete
                                   </button>

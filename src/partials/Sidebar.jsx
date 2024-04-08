@@ -439,22 +439,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/ReportCard"
-                              className={({ isActive }) =>
-                                "block transition duration-150 truncate " +
-                                (isActive
-                                  ? "text-indigo-500"
-                                  : "text-slate-400 hover:text-slate-200")
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Report Cards
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
                               to="/Filter"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " +
@@ -475,36 +459,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 }}
               </SidebarLinkGroup>
               {/* Discount */}
-              <SidebarLinkGroup activecondition={pathname.includes("discount")}>
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <Link
-                        to="/discount"
-                        className={`block text-slate-200 truncate transition duration-150 ${
-                          pathname.includes("discount")
-                            ? "hover:text-slate-200"
-                            : "hover:text-white"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center">
-                            <img
-                              width="32"
-                              height="32"
-                              src="https://img.icons8.com/cotton/64/discount--v1.png"
-                              alt="discount--v1"
-                            />
-                            <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Discount
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
-                    </React.Fragment>
-                  );
-                }}
-              </SidebarLinkGroup>
+
               <SidebarLinkGroup
                 activecondition={pathname.includes("community")}
               >
@@ -678,6 +633,22 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
+                              to="/ReportCard"
+                              className={({ isActive }) =>
+                                "block transition duration-150 truncate " +
+                                (isActive
+                                  ? "text-indigo-500"
+                                  : "text-slate-400 hover:text-slate-200")
+                              }
+                            >
+                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                Report Card
+                              </span>
+                            </NavLink>
+                          </li>
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
                               to="/Feedbackpage"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " +
@@ -693,6 +664,36 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           </li>
                         </ul>
                       </div>
+                    </React.Fragment>
+                  );
+                }}
+              </SidebarLinkGroup>
+              <SidebarLinkGroup activecondition={pathname.includes("discount")}>
+                {(handleClick, open) => {
+                  return (
+                    <React.Fragment>
+                      <Link
+                        to="/discount"
+                        className={`block text-slate-200 truncate transition duration-150 ${
+                          pathname.includes("discount")
+                            ? "hover:text-slate-200"
+                            : "hover:text-white"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <img
+                              width="32"
+                              height="32"
+                              src="https://img.icons8.com/cotton/64/discount--v1.png"
+                              alt="discount--v1"
+                            />
+                            <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                              Discount
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
                     </React.Fragment>
                   );
                 }}

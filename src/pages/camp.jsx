@@ -32,20 +32,21 @@ function Camp() {
 
   const handleDelete = async (camp_id) => {
     try {
-      const response = await axios.delete(
-        `https://${baseurl}/deleteCamp?camp_id=${camp_id}`
-      );
-
-      if (response.status === 200) {
-        console.log("Batch deleted successfully!");
-        alert("Batch deleted successfully!");
-
-        // Update the state to remove the deleted item
-        setData((prevData) =>
-          prevData.filter((item) => item.camp_id !== camp_id)
+      if(confirm("Do you Really want to Delete This Camp ?")){
+        const response = await axios.delete(
+          `https://${baseurl}/deleteCamp?camp_id=${camp_id}`
         );
-      } else {
-        console.error("Failed to delete batch. Status:", response.status);
+        if (response.status === 200) {
+          console.log("Camp deleted successfully!");
+          alert("Camp deleted successfully!");
+  
+          // Update the state to remove the deleted item
+          setData((prevData) =>
+            prevData.filter((item) => item.camp_id !== camp_id)
+          );
+        } else {
+            console.error("Failed to delete batch. Status:", response.status);
+        }
       }
     } catch (error) {
       console.error("Error deleting batch:", error.message);
@@ -158,49 +159,22 @@ function Camp() {
                             <td className="p-2">
                               <div className="text-right">{item.final_fee}</div>
                             </td>
-                            <td className="p-3">
-                              <div className="text-center">
-                                <Link
-                                  to={`/edit-fee-details?id=${item.camp_id}`}
-                                  className="text-sm text-white px-2 bg-yellow-500"
-                                  style={{
-                                    padding: "3px",
-                                    fontSize: "13px",
-                                    marginLeft: "1px",
-                                    marginRight: "2px",
-                                  }}
-                                >
-                                  View & Edit
+                            <td className="p-4">
+                              <div className="text-center grid grid-cols-2 grid-rows-1 gap-2 h-full">
+                                <Link to={`/edit-fee-details?id=${item.camp_id}`} className="text-sm text-white py-1 px-1 bg-yellow-500" style={{ width: "100%", height: "100%", padding: "1px" }}>
+                                  <button style={{ width: "100%", height: "100%", padding: "1px" }}>View & Edit</button>
                                 </Link>
-                                <Link
-                                  to={`/batch-details?id=${item.camp_id}`}
-                                  className="text-sm text-white px-2 bg-indigo-500 "
-                                  style={{
-                                    padding: "3px",
-                                    fontSize: "13px",
-                                    marginLeft: "2px",
-                                    marginRight: "1px",
-                                  }}
-                                >
-                                  Batch Details
-                                </Link>
-                                <Link
-                                  className="text-sm text-white px-2 bg-red-500 rounded"
-                                  style={{
-                                    padding: "3px",
-                                    fontSize: "13px",
-                                    marginLeft: "2px",
-                                    marginRight: "1px",
-                                  }}
-                                  onClick={(e) => {
-                                    e.preventDefault(); // Prevent the default link click action
-                                    handleDelete(item.camp_id);
-                                  }}
-                                >
-                                  Delete
+                                <Link to={`/batch-details?id=${item.camp_id}`} className="text-sm text-white py-1 px-1 bg-indigo-500" style={{ width: "100%", height: "100%", padding: "1px" }}>
+                                  <button style={{ width: "100%", height: "100%", padding: "1px" }}>Batch Details</button>
                                 </Link>
                               </div>
+                              <div className="text-center grid grid-cols-1 grid-rows-1 gap-2 mt-2 h-full">
+                                <a className="text-sm text-white px-2 bg-red-500 rounded" style={{ padding: "1px", width: "100%", height: "100%" }} onClick={(e) => { e.preventDefault(); handleDelete(item.camp_id); }}>
+                                  <button style={{ width: "100%", height: "100%", padding: "1px" }}>Delete</button>
+                                </a>
+                              </div>
                             </td>
+
                           </tr>
                         ))}
                       </tbody>
