@@ -122,6 +122,7 @@ function DropdownProfile({
                 onClick={() => {
                   setDropdownOpen(!dropdownOpen)
                   localStorage.removeItem("token")
+                  localStorage.removeItem("admin_name")
                 }}
               >
                 Sign Out

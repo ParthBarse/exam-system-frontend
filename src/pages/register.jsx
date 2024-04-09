@@ -32,7 +32,7 @@ const RegisterAdmin = () => {
 
     try {
       const response = await axios.post(
-        `https://${baseurl}/registerAdmin`,
+        `https://${baseurl}/addAdmin`,
         formData
       );
       console.log("Successful admin registration:", response);

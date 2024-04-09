@@ -55,6 +55,7 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
         .then((response) => {
           console.log("Successful login:", response);
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem("admin_name", response.data.admin_name);
 
           // Redirect to /dash or perform any other actions
           navigate("/dash");
