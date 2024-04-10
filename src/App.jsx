@@ -131,6 +131,8 @@ function App() {
             <Route exact path="/Actstudent" element={<Actstudent />} />
             <Route exact path="/discount" element={<Discount />} />
             <Route exact path="/Filter" element={<Filter />} />
+            <Route exact path="/Enterancecard" element={<Enterancecard />} />
+            <Route exact path="/Receiptlist" element={<Reciptlist />} />
             <Route
             exact
             path="/update-student-details"
@@ -196,10 +198,29 @@ function App() {
           </>
         )}
 
+        {role === "admission" && (
+          <>
+            <Route exact path="/dash" element={<Dashboard />} />
+            <Route exact path="/regStudent" element={<RegStudent />} />
+            <Route exact path="/Actstudent" element={<Actstudent />} />
+            <Route exact path="/add-student" element={<AddStudent />} />
+            <Route
+            exact
+            path="/update-student-details"
+            element={<UpdateStudentDetails />}
+          />
+          <Route exact path="/CanStudent" element={<CanStudent />} />
+          <Route exact path="/refStudent" element={<RefStudent />} />
+          <Route exact path="/extStudent" element={<ExtStudent />} />
+            {/* Catch all other routes for accountant */}
+            <Route path="*" element={<AccessDeniedPage/>} />
+          </>
+        )}
+
 
 
         {/* Redirect to accessDenied route if the role is not allowed */}
-        {role !== "admin" && role !== "accountant" && role !== "certificate" && role !== "documentation" && role !== "report" && role !== "camp" && role !== "transport" && (
+        {role !== "admin" && role !== "accountant" && role !== "certificate" && role !== "documentation" && role !== "report" && role !== "camp" && role !== "transport" && role !== "admission" && (
           <>
             <Route path="*" element={<AccessDeniedPage/>} />
             <Route path="/accessDenied" element={<AccessDeniedPage />} />
