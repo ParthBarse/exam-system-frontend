@@ -48,6 +48,7 @@ import GenerateReport15 from "./forms/generate_report15";
 import GenerateReport30 from "./forms/generate_report30";
 import GenerateReportPDC from "./forms/generate_report_pdc";
 import AccessDeniedPage from "./pages/accessDenied"
+import SuperAdminPage from "./pages/superAdmin"
 
 function App() {
   const location = useLocation();
@@ -64,6 +65,67 @@ function App() {
     <>
       <Routes>
         <Route exact path="/" element={<AuthPage />} />
+        {role === "super" && (
+          <>
+          <Route exact path="/dash" element={<Dashboard />} />
+          <Route exact path="/camp" element={<Table />} />
+          <Route exact path="/regStudent" element={<RegStudent />} />
+          <Route exact path="/CanStudent" element={<CanStudent />} />
+          <Route exact path="/settings" element={<Settings />} />
+          <Route exact path="/Reportcard" element={<ReportCard />} />
+          <Route exact path="/Filter" element={<Filter />} />
+          <Route exact path="/add-student" element={<AddStudent />} />
+          <Route exact path="/add-camp" element={<AddCamp />} />
+          <Route exact path="/fee-details" element={<FeeDetails />} />
+          <Route exact path="/fee-discounts" element={<FeeDiscount />} />
+          <Route exact path="/batch-details" element={<Batchdetails />} />
+          <Route exact path="/add-batch" element={<AddBatch />} />
+          <Route exact path="/generate-report" element={<GenerateReport />} />
+          <Route exact path="/generate-report15" element={<GenerateReport15 />} />
+
+          <Route exact path="/generate-report30" element={<GenerateReport30 />} />
+          <Route
+            exact
+            path="/generate-reportpdc"
+            element={<GenerateReportPDC />}
+          />
+
+          <Route exact path="/view-report" element={<VeiwReportCard />} />
+          <Route
+            exact
+            path="/view_medical_report/:id"
+            element={<View_medical_certificate />}
+          />
+          <Route exact path="/edit-fee-details" element={<EditFeeDetails />} />
+          <Route
+            exact
+            path="/update-student-details"
+            element={<UpdateStudentDetails />}
+          />
+          <Route exact path="/veiw-entrance" element={<AdmitCard />} />
+          <Route exact path="/receipt" element={<Receipt />} />
+          <Route exact path="/toast" element={<PositionedSnackbar />} />
+          <Route exact path="/admission-form" element={<AdmissionForm />} />
+          <Route exact path="/edit-batch" element={<EditBatch />} />
+          <Route exact path="/discount" element={<Discount />} />
+          <Route exact path="/register" element={<RegisterAdmin />} />
+          <Route exact path="/extStudent" element={<ExtStudent />} />
+          <Route exact path="/refStudent" element={<RefStudent />} />
+          <Route exact path="/Receiptlist" element={<Reciptlist />} />
+          <Route exact path="/Medicallist" element={<Medicallist />} />
+          <Route exact path="/Reportlist" element={<Reportlist />} />
+          <Route exact path="/Enterancecard" element={<Enterancecard />} />
+          <Route exact path="/Pickuplist" element={<Pickuplist />} />
+          <Route exact path="/Actstudent" element={<Actstudent />} />
+          <Route exact path="/Certificatepage" element={<Certificatepage />} />
+          <Route exact path="/Feedbackpage" element={<Feedbackpage />} />
+          <Route exact path="/VisitingCard" element={<VisitingCard />} />
+          <Route exact path="/payments" element={<Payments />} />
+          <Route exact path="/superAdmin" element={<SuperAdminPage />} />
+          <Route path="*" element={<AccessDeniedPage/>} />
+          </>
+        )}
+
         {role === "admin" && (
           <>
           <Route exact path="/dash" element={<Dashboard />} />
