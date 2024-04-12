@@ -50,6 +50,7 @@ function DropdownProfile({
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
+  const role = localStorage.getItem("admin_name");
 
   return (
     <div className="relative inline-flex">
@@ -86,7 +87,7 @@ function DropdownProfile({
         >
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200 dark:border-slate-700">
             <div className="font-medium text-slate-800 dark:text-slate-100">MFC</div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 italic">Administrator</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 italic">{role.toUpperCase()}</div>
           </div>
           <ul>
             {/* <li>

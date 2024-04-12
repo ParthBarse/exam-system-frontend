@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { baseurl } from "../src/utils/domain";
 
 import "./css/style.css";
 
@@ -49,6 +50,7 @@ import GenerateReport30 from "./forms/generate_report30";
 import GenerateReportPDC from "./forms/generate_report_pdc";
 import AccessDeniedPage from "./pages/accessDenied"
 import SuperAdminPage from "./pages/superAdmin"
+import MentainMode from "./pages/underMaintain"
 
 function App() {
   const location = useLocation();
@@ -57,15 +59,49 @@ function App() {
     document.querySelector("html").style.scrollBehavior = "auto";
     window.scroll({ top: 0 });
     document.querySelector("html").style.scrollBehavior = "";
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://${baseurl}/getMaintenanceStatus`);
+        const data = await response.json();
+        setMaintainFlag(data.status);
+        localStorage.setItem("maintainFlag", data.status)
+      } catch (error) {
+        console.error('Error fetching maintenance status:', error);
+      }
+    };
+
+    fetchData(); // Initial call
   }, [location.pathname]); // triggered on route change
 
   const role = localStorage.getItem("admin_name");
+  const mntflg = localStorage.getItem("maintainFlag");
+
+  const [maintainFlag, setMaintainFlag] = useState(null);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(`https://${baseurl}/getMaintenanceStatus`);
+  //       const data = await response.json();
+  //       setMaintainFlag(data.status);
+  //       localStorage.setItem("maintainFlag", data.status)
+  //     } catch (error) {
+  //       console.error('Error fetching maintenance status:', error);
+  //     }
+  //   };
+
+  //   fetchData(); // Initial call
+
+  //   const interval = setInterval(fetchData, 30000); // Fetch data every 30 seconds
+
+  //   return () => clearInterval(interval); // Clean up interval on unmount
+  // }, []);
 
   return (
     <>
       <Routes>
         <Route exact path="/" element={<AuthPage />} />
-        {role === "super" && (
+        {role === "super" && mntflg === "off" && (
           <>
           <Route exact path="/dash" element={<Dashboard />} />
           <Route exact path="/camp" element={<Table />} />
@@ -126,7 +162,7 @@ function App() {
           </>
         )}
 
-        {role === "admin" && (
+        {role === "admin" && mntflg === "off" && (
           <>
           <Route exact path="/dash" element={<Dashboard />} />
           <Route exact path="/camp" element={<Table />} />
@@ -185,7 +221,7 @@ function App() {
           <Route path="*" element={<AccessDeniedPage/>} />
           </>
         )}
-        {role === "accountant" && (
+        {role === "accountant" && mntflg === "off" && (
           <>
             <Route exact path="/dash" element={<Dashboard />} />
             <Route exact path="/payments" element={<Payments />} />
@@ -205,7 +241,7 @@ function App() {
           </>
         )}
 
-        {role === "transport" && (
+        {role === "transport" && mntflg === "off" && (
           <>
             <Route exact path="/dash" element={<Dashboard />} />
             <Route exact path="/Pickuplist" element={<Pickuplist />} />
@@ -215,7 +251,7 @@ function App() {
           </>
         )}
 
-        {role === "report" && (
+        {role === "report" && mntflg === "off" && (
           <>
             <Route exact path="/dash" element={<Dashboard />} />
             <Route exact path="/Reportcard" element={<ReportCard />} />
@@ -224,7 +260,7 @@ function App() {
           </>
         )}
 
-        {role === "certificate" && (
+        {role === "certificate" && mntflg === "off" && (
           <>
             <Route exact path="/dash" element={<Dashboard />} />
             <Route exact path="/Certificatepage" element={<Certificatepage />} />
@@ -233,7 +269,7 @@ function App() {
           </>
         )}
 
-        {role === "camp" && (
+        {role === "camp" && mntflg === "off" && (
           <>
             <Route exact path="/dash" element={<Dashboard />} />
             <Route exact path="/add-camp" element={<AddCamp />} />
@@ -247,7 +283,7 @@ function App() {
           </>
         )}
 
-        {role === "documentation" && (
+        {role === "documentation" && mntflg === "off" && (
           <>
             <Route exact path="/dash" element={<Dashboard />} />
             <Route exact path="/Feedbackpage" element={<Feedbackpage />} />
@@ -260,7 +296,7 @@ function App() {
           </>
         )}
 
-        {role === "admission" && (
+        {role === "admission" && mntflg === "off" && (
           <>
             <Route exact path="/dash" element={<Dashboard />} />
             <Route exact path="/regStudent" element={<RegStudent />} />
@@ -277,6 +313,14 @@ function App() {
             {/* Catch all other routes for accountant */}
             <Route path="*" element={<AccessDeniedPage/>} />
           </>
+        )}
+
+        {mntflg === "on" && (
+          <>
+          <Route exact path="/superAdmin" element={<SuperAdminPage />} />
+          <Route path="*" element={<MentainMode/>} />
+          <Route path="/accessDenied" element={<AccessDeniedPage />} />
+        </>
         )}
 
 
