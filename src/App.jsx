@@ -52,6 +52,16 @@ import AccessDeniedPage from "./pages/accessDenied"
 import SuperAdminPage from "./pages/superAdmin"
 import MentainMode from "./pages/underMaintain"
 
+
+// Exam Section
+
+import Exams from "./pages/exams";
+import AddExams from "./forms/add_exam";
+import Questions from "./pages/questions";
+import AddQuestion from "./forms/add_question";
+import AddQuestion2 from "./forms/add_question-2";
+import ViewQuestion from "./pages/view_quesion";
+
 function App() {
   const location = useLocation();
 
@@ -101,6 +111,13 @@ function App() {
     <>
       <Routes>
         <Route exact path="/" element={<AuthPage />} />
+        <Route exact path="/exams" element={<Exams />} />
+        <Route exact path="/add-exam" element={<AddExams />} />
+        <Route exact path="/questions" element={<Questions />} />
+        <Route exact path="/add-question" element={<AddQuestion />} />
+        <Route exact path="/add-question-2" element={<AddQuestion2 />} />
+        <Route exact path="/view-question" element={<ViewQuestion />} />
+
         {role === "super" && mntflg === "off" && (
           <>
           <Route exact path="/dash" element={<Dashboard />} />

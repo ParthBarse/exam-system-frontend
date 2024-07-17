@@ -10,6 +10,32 @@
 
 @import 'tailwindcss/utilities';
 
+.question-page {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.question-container {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.question-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 400px;
+  margin-top: 10px;
+}
+
+.correct-option {
+  font-weight: bold;
+  color: green;
+}
+
+
 @media print
 {    
     .no-print, .no-print *
