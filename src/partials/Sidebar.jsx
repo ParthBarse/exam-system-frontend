@@ -14,7 +14,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
   );
-  const adminSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-11.41l-1.42-1.42-4.59 4.59-2.59-2.59-1.41 1.41 4 4 .59.59.59-.59 6-6-1.41-1.41z"/></svg>';
+  const adminSvg =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-11.41l-1.42-1.42-4.59 4.59-2.59-2.59-1.41 1.41 4 4 .59.59.59-.59 6-6-1.41-1.41z"/></svg>';
   const svgDataUrl = `data:image/svg+xml;base64,${btoa(adminSvg)}`;
 
   // close on click outside
@@ -212,8 +213,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 }}
               </SidebarLinkGroup>
 
-                            {/* Camp */}
-                            <SidebarLinkGroup
+              {/* Camp */}
+              <SidebarLinkGroup
                 activecondition={pathname.includes("ecommerce")}
               >
                 {(handleClick, open) => {
@@ -293,44 +294,77 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           </li> */}
                         </ul>
                       </div>
+                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                        <ul className={`pl-9 mt-1 ${open && "hidden"}`}>
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="/exam-certificate"
+                              className={({ isActive }) =>
+                                "block transition duration-150 truncate " +
+                                (isActive
+                                  ? "text-indigo-500"
+                                  : "text-slate-400 hover:text-slate-200")
+                              }
+                            >
+                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                Exam Certificates
+                              </span>
+                            </NavLink>
+                          </li>
+                          {/* <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="/CanStudent"
+                              className={({ isActive }) =>
+                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
+                              }
+                            >
+                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                Camp Filter
+                              </span>
+                            </NavLink>
+                          </li> */}
+                        </ul>
+                      </div>
                     </React.Fragment>
                   );
                 }}
               </SidebarLinkGroup>
 
               {role === "super" && (
-              <SidebarLinkGroup activecondition={pathname.includes("superAdmin")}>
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <Link
-                        to="/superAdmin"
-                        className={`block text-slate-200 truncate transition duration-150 ${
-                          pathname.includes("superAdmin")
-                            ? "hover:text-slate-200"
-                            : "hover:text-white"
-                        }`}
-                      >
-                        
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center">
-                            <img
-                              width="32"
-                              height="32"
-                              src={svgDataUrl}
-                              alt="payment"
-                            />
-                            <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Super Admin
-                            </span>
+                <SidebarLinkGroup
+                  activecondition={pathname.includes("superAdmin")}
+                >
+                  {(handleClick, open) => {
+                    return (
+                      <React.Fragment>
+                        <Link
+                          to="/superAdmin"
+                          className={`block text-slate-200 truncate transition duration-150 ${
+                            pathname.includes("superAdmin")
+                              ? "hover:text-slate-200"
+                              : "hover:text-white"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                              <img
+                                width="32"
+                                height="32"
+                                src={svgDataUrl}
+                                alt="payment"
+                              />
+                              <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                Super Admin
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      </Link>
-                    </React.Fragment>
-                    
-                  );
-                }}
-              </SidebarLinkGroup>
+                        </Link>
+                      </React.Fragment>
+                    );
+                  }}
+                </SidebarLinkGroup>
               )}
 
               {/*  */}
