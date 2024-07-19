@@ -61,7 +61,8 @@ import Questions from "./pages/questions";
 import AddQuestion from "./forms/add_question";
 import AddQuestion2 from "./forms/add_question-2";
 import ViewQuestion from "./pages/view_quesion";
-import RegStudentExam from "./forms/add_student_exam";
+import AddStudentExam from "./forms/add_student_exam";
+import RegStudentsExam from "./pages/registered-students-exam";
 
 function App() {
   const location = useLocation();
@@ -118,7 +119,8 @@ function App() {
         <Route exact path="/add-question" element={<AddQuestion />} />
         <Route exact path="/add-question-2" element={<AddQuestion2 />} />
         <Route exact path="/view-question" element={<ViewQuestion />} />
-        <Route exact path="/reg-student-exam" element={<RegStudentExam />} />
+        <Route exact path="/add-student-exam" element={<AddStudentExam />} />
+        <Route exact path="/reg-students-exam" element={<RegStudentsExam />} />
 
         {role === "super" && mntflg === "off" && (
           <>
